@@ -12,6 +12,10 @@ https://www.figma.com/file/T8vBmhF7YBO3dE9rZpi5Kn/OSAKAK-UI-%EB%94%94%EC%9E%90%E
 
 ### 놀이터 페이지
 
+![figma_cocktailpage.png](img/figma_cocktailpage.png)
+
+
+
 ### 마이 페이지
 
 ---
