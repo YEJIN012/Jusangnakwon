@@ -8,7 +8,7 @@ https://www.figma.com/file/T8vBmhF7YBO3dE9rZpi5Kn/OSAKAK-UI-%EB%94%94%EC%9E%90%E
 
 ### 피드 페이지
 
-![figma_feedpage.png](.\img\figma_feedpage.png)
+![figma_feedpage.png](img/figma_feedpage.png)
 
 ### 놀이터 페이지
 
