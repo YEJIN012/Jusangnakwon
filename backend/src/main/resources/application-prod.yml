@@ -1,0 +1,16 @@
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  data:
+    mongodb:
+      username: ${mongo.username}
+      password: ${mongo.password}
+      host: ${mongo.host}
+      port: ${mongo.port}
+      database: ${mongo.database}
+      # mongodb atlas ?? ? uri? ??
+      # uri: mongodb+srv://${atlas.username}:${atlas.password}@${atlas.project}.vxpncyr.mongodb.net/${atlas.name}?retryWrites=true&w=majority
+server:
+  port: 8089

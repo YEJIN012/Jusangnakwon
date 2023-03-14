@@ -1,0 +1,15 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  data:
+    mongodb:
+      username: ${mongo.username}
+      password: ${mongo.password}
+      host: ${mongo.host}
+      port: ${mongo.port}
+      database: ${mongo.database}
+      # mongodb atlas 사용 시 uri만 사용
+      # uri: mongodb+srv://${atlas.username}:${atlas.password}@${atlas.project}.vxpncyr.mongodb.net/${atlas.name}?retryWrites=true&w=majority
+server:
+  port: 8081
