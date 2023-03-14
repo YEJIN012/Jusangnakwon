@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import store from "./store";
-import TestPage from "./pages/TestPage";
+import TestPage from "@/TestPage";
 
 function App() {
   return (
