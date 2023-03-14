@@ -25,6 +25,10 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation "org.springframework.boot:spring-boot-starter-aop"
+    // https://mvnrepository.com/artifact/com.google.auto.value/auto-value
+    implementation group: 'com.google.auto.value', name: 'auto-value', version: '1.10.1'
+
 }
 
 tasks.named('test') {
