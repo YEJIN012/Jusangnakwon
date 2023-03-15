@@ -1,8 +1,10 @@
-
 spring:
   config:
     activate:
       on-profile: prod
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   data:
     mongodb:
       username: ${mongo.username}

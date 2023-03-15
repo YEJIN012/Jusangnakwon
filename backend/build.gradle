@@ -28,6 +28,10 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-aop"
     // https://mvnrepository.com/artifact/com.google.auto.value/auto-value
     implementation group: 'com.google.auto.value', name: 'auto-value', version: '1.10.1'
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+    // https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 
 }
 
