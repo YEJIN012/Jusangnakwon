@@ -1,14 +1,13 @@
 import { useSelector } from "react-redux";
-import { ExampleState, Task } from "../slices/todoSlice";
+import { RootState } from "@/store/reducers";
 
 function TestPage() {
-  const taskList = useSelector((state: { todo: ExampleState }) => state.todo.taskList);
-  // const todolist = useSelector((state) => state.todo.taskList)
+  const taskList = useSelector(( state: RootState ) => state.todo.taskList);
 
   return (
     <div>
       <ul>
-        {taskList.map((task: Task) => (
+        {taskList.map((task) => (
           <li key={task.id}>
             <h3>{task.title}</h3>
             <p>{task.content}</p>

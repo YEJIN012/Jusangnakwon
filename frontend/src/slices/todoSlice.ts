@@ -1,15 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface Task {
-  id: number;
-  title: string;
-  content: string;
-}
-
-export interface ExampleState {
-  taskList: Task[];
-}
-
 const initialState = {
   taskList: [
     {
@@ -49,4 +39,5 @@ const todoSlice = createSlice({
 });
 
 export const exampleActions = todoSlice.actions;
+
 export default todoSlice.reducer;
