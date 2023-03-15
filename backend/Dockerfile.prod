@@ -1,0 +1,21 @@
+FROM adoptopenjdk:11-hotspot AS builder
+# env 
+ENV USE_PROFILE prod
+ENV USERNAME username
+ENV PASSWORD pwd
+ENV HOST localhost
+ENV PORT port
+ENV DATABASE osakak
+# env finish
+COPY server/gradlew .
+COPY server/gradle gradle
+COPY server/build.gradle .
+COPY server/settings.gradle .
+COPY server/src src
+RUN chmod +x ./gradlew
+RUN ./gradlew clean bootJar
+
+FROM adoptopenjdk:11-hotspot
+COPY --from=builder build/libs/*.jar app.jar
+
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=${USE_PROFILE}", "-Dmongo.username=${USERNAME}", "-Dmongo.password=${PASSWORD}", "-Dmongo.host=${HOST}", "-Dmongo.port=${PORT}", "-Dmongo.database=${DATABASE}", "/app.jar"]
