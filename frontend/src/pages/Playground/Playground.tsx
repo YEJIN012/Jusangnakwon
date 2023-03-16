@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
 
-const Home = () => {
+const Playground = () => {
   return (
     <div>
-      <h1>Home</h1>
+      <h1>Playground</h1>
       <Outlet></Outlet>
     </div>
   );
 };
 
-export default Home;
+export default Playground;
