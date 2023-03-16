@@ -5,13 +5,14 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import HomeIcon from "@mui/icons-material/Restore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import "./bottombar.css";
+import styles from "@/components/BottomBar/BottomBar.module.css"
+
 
 function BottomBar() {
   const [value, setValue] = React.useState(0);
 
   return (
-    <Box className="bottom-bar-container">
+    <Box className={`${styles[`bottom-bar-container`]}`}>
       <BottomNavigation
         showLabels
         value={value}
