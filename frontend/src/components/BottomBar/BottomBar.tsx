@@ -20,12 +20,20 @@ function BottomBar() {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-        style={{ backgroundColor: "black" }}
+        sx={{
+          backgroundColor: "black",
+          "& .Mui-selected > svg": {
+            backgroundColor: "#363636",
+            borderRadius:"10px",
+            paddingX: "20px",
+            paddingY: "2px",
+          }
+        }}
       >
-        <BottomNavigationAction component={Link} to="/" icon={<HomeIcon />} style={{ color: "white" }} />
-        <BottomNavigationAction component={Link} to="/feed" icon={<LanguageIcon />} style={{ color: "white" }} />
-        <BottomNavigationAction component={Link} to="/playground" icon={<LocalBarIcon />} style={{ color: "white" }} />
-        <BottomNavigationAction component={Link} to="/mypage" icon={<AccountCircleIcon />} style={{ color: "white" }} />
+        <BottomNavigationAction component={Link} to="/" icon={<HomeIcon />} style={{ color: "white" }} disableRipple/>
+        <BottomNavigationAction component={Link} to="/feed" icon={<LanguageIcon />} style={{ color: "white" }} disableRipple/>
+        <BottomNavigationAction component={Link} to="/playground" icon={<LocalBarIcon />} style={{ color: "white" }} disableRipple/>
+        <BottomNavigationAction component={Link} to="/mypage" icon={<AccountCircleIcon />} style={{ color: "white" }} disableRipple/>
       </BottomNavigation>
     </Box>
   );
