@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import HomeIcon from "@mui/icons-material/Restore";
+import HomeIcon from "@mui/icons-material/Home";
 import LanguageIcon from "@mui/icons-material/Language";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -15,17 +15,17 @@ function BottomBar() {
   return (
     <Box className={`${styles[`bottom-bar-container`]}`}>
       <BottomNavigation
-        sx={{ backgroundColor: "#06031A" }}
         showLabels
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
+        style={{ backgroundColor: "black" }}
       >
-        <BottomNavigationAction component={Link} to="/" icon={<HomeIcon sx={{ color: "white" }}/>} />
-        <BottomNavigationAction component={Link} to="/feed" icon={<LanguageIcon sx={{ color: "white" }}/>} />
-        <BottomNavigationAction component={Link} to="/playground" icon={<LocalBarIcon sx={{ color: "white" }}/>} />
-        <BottomNavigationAction component={Link} to="/mypage" icon={<AccountCircleIcon sx={{ color: "white" }}/>} />
+        <BottomNavigationAction component={Link} to="/" icon={<HomeIcon />} style={{ color: "white" }} />
+        <BottomNavigationAction component={Link} to="/feed" icon={<LanguageIcon />} style={{ color: "white" }} />
+        <BottomNavigationAction component={Link} to="/playground" icon={<LocalBarIcon />} style={{ color: "white" }} />
+        <BottomNavigationAction component={Link} to="/mypage" icon={<AccountCircleIcon />} style={{ color: "white" }} />
       </BottomNavigation>
     </Box>
   );
