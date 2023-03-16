@@ -1,17 +1,18 @@
 import { Provider } from "react-redux";
+import { Outlet } from "react-router-dom";
 import store from "./store";
-import TestPage from "@/pages/TestPage";
-import BottomBar from "@/pages/Common/BottomBar/BottomBar";
+// import TestPage from "@/pages/TestPage";
+import BottomBar from "@/components/BottomBar/BottomBar";
 
 function App() {
   return (
-    <Provider store={store}>
-      <div className="App">
-        <h1>Hi</h1>
-        <TestPage />
-      </div>
-      <BottomBar/>
-    </Provider>
+    <div className="App">
+      <Provider store={store}>
+        <Outlet></Outlet>
+        {/* <TestPage /> */}
+        <BottomBar />
+      </Provider>
+    </div>
   );
 }
 
