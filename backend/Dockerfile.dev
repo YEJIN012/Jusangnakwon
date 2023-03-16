@@ -1,0 +1,20 @@
+FROM adoptopenjdk:11-hotspot AS builder
+# env 
+ENV USE_PROFILE dev
+ENV USERNAME username
+ENV PASSWORD pwd
+ENV PROJECT project
+ENV NAME name
+# env finish
+COPY server/gradlew .
+COPY server/gradle gradle
+COPY server/build.gradle .
+COPY server/settings.gradle .
+COPY server/src src
+RUN chmod +x ./gradlew
+RUN ./gradlew clean bootJar
+
+FROM adoptopenjdk:11-hotspot
+COPY --from=builder build/libs/*.jar app.jar
+
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=${USE_PROFILE}", "-Datlas.username=${USERNAME}", "-Datlas.password=${PASSWORD}", "-Datlas.project=${PROJECT}", "-Datlas.name=${NAME}", "/app.jar"]
