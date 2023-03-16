@@ -7,11 +7,11 @@ ENV HOST localhost
 ENV PORT port
 ENV DATABASE osakak
 # env finish
-COPY server/gradlew .
-COPY server/gradle gradle
-COPY server/build.gradle .
-COPY server/settings.gradle .
-COPY server/src src
+COPY backend/gradlew .
+COPY backend/gradle gradle
+COPY backend/build.gradle .
+COPY backend/settings.gradle .
+COPY backend/src src
 RUN chmod +x ./gradlew
 RUN ./gradlew clean bootJar
 
