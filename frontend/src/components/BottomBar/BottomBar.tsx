@@ -1,5 +1,5 @@
 import * as React from "react";
-import styles from "@/components/BottomBar/BottomBar.module.css";
+import styles from "./BottomBar.module.css";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
