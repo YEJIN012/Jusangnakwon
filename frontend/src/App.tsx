@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
-        <Header/>
+        <Header />
         <Outlet></Outlet>
         {/* <TestPage /> */}
         <BottomBar />

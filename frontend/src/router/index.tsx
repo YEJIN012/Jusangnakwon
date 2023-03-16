@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "@/App";
 import Home from "@/pages/Home/Home";
 import Feed from "@/pages/Feed/Feed";
+import FeedMain from "@/pages/Feed/FeedMain";
 import Playground from "@/pages/Playground/Playground";
 import MyPage from "@/pages/MyPage/MyPage";
 
@@ -17,6 +18,12 @@ const router = createBrowserRouter([
       {
         path: "feed",
         element: <Feed></Feed>,
+        children: [
+          {
+            index: true,
+            element: <FeedMain></FeedMain>,
+          },
+        ],
       },
       {
         path: "playground",
