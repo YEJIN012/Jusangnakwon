@@ -1,6 +1,7 @@
 import { Provider } from "react-redux";
 import store from "./store";
 import TestPage from "@/pages/TestPage";
+import BottomBar from "@/pages/Common/BottomBar/BottomBar";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <h1>Hi</h1>
         <TestPage />
       </div>
+      <BottomBar/>
     </Provider>
   );
 }
