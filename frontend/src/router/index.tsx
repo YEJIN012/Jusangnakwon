@@ -3,6 +3,7 @@ import App from "@/App";
 import Home from "@/pages/Home/Home";
 import Feed from "@/pages/Feed/Feed";
 import FeedMain from "@/pages/Feed/FeedMain";
+import FeedDetail from "@/pages/Feed/FeedDetail";
 import Playground from "@/pages/Playground/Playground";
 import MyPage from "@/pages/MyPage/MyPage";
 
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <FeedMain></FeedMain>,
+          },
+          {
+            path: ":feedId",
+            element: <FeedDetail></FeedDetail>,
           },
         ],
       },

@@ -2,8 +2,8 @@ import { Provider } from "react-redux";
 import { Outlet } from "react-router-dom";
 import store from "./store";
 // import TestPage from "@/pages/TestPage";
-import BottomBar from "@/components/BottomBar/BottomBar";
-import Header from "@/components/Header/Header";
+import BottomBar from "@/components/Commons/BottomBar/BottomBar";
+import Header from "@/components/Commons/Header/Header";
 
 function App() {
   return (

@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const FeedMain = () => {
+const FeedDetail = () => {
+  const { feedId } = useParams();
   const feedList = [
     {
       id: 1,
@@ -21,21 +22,22 @@ const FeedMain = () => {
       content: "부야호",
     },
   ];
+
   return (
-    <div>
-      <ul>
-        {feedList.map((feed) => (
-          <li key={feed.id}>
+    <>
+      <h1>feed 상세페이지</h1>
+      {feedList
+        .filter((feed) => feed.id === Number(feedId))
+        .map((feed) => (
+          <div key={feed.id}>
+            <p>글 아이디: {feed.id}</p>
+            <img src={feed.img}></img>
             <p>작성자: {feed.writer}</p>
-            <Link to={`/feed/${feed.id}`}>
-              <img src={feed.img}></img>
-            </Link>
             <p>내용: {feed.content}</p>
-          </li>
+          </div>
         ))}
-      </ul>
-    </div>
+    </>
   );
 };
 
-export default FeedMain;
+export default FeedDetail;
