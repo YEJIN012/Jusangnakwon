@@ -15,16 +15,17 @@ function BottomBar() {
   return (
     <Box className={`${styles[`bottom-bar-container`]}`}>
       <BottomNavigation
+        sx={{ backgroundColor: "#06031A" }}
         showLabels
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction component={Link} to="/" icon={<HomeIcon />} />
-        <BottomNavigationAction component={Link} to="/feed" icon={<LanguageIcon />} />
-        <BottomNavigationAction component={Link} to="/playground" icon={<LocalBarIcon />} />
-        <BottomNavigationAction component={Link} to="/mypage" icon={<AccountCircleIcon />} />
+        <BottomNavigationAction component={Link} to="/" icon={<HomeIcon sx={{ color: "white" }}/>} />
+        <BottomNavigationAction component={Link} to="/feed" icon={<LanguageIcon sx={{ color: "white" }}/>} />
+        <BottomNavigationAction component={Link} to="/playground" icon={<LocalBarIcon sx={{ color: "white" }}/>} />
+        <BottomNavigationAction component={Link} to="/mypage" icon={<AccountCircleIcon sx={{ color: "white" }}/>} />
       </BottomNavigation>
     </Box>
   );
