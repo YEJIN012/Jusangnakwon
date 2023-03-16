@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import HomeIcon from "@mui/icons-material/Home";
+import HomeIcon from "@mui/icons-material/Restore";
 import LanguageIcon from "@mui/icons-material/Language";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
