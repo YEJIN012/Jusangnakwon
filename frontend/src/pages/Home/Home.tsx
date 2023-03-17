@@ -1,3 +1,4 @@
+import MainTab2 from "@/components/MainTab/MainTab22";
 import MainTab from "@/components/MainTab/MainTab";
 
 const Home = () => {
