@@ -1,7 +1,7 @@
 import * as React from "react";
 import styles from "./BottomBar.module.css";
 import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import HomeIcon from "@mui/icons-material/Home";
@@ -24,16 +24,34 @@ function BottomBar() {
           backgroundColor: "black",
           "& .Mui-selected > svg": {
             backgroundColor: "#363636",
-            borderRadius:"10px",
+            borderRadius: "10px",
             paddingX: "20px",
             paddingY: "2px",
-          }
+          },
         }}
       >
-        <BottomNavigationAction component={Link} to="/" icon={<HomeIcon />} style={{ color: "white" }} disableRipple/>
-        <BottomNavigationAction component={Link} to="/feed" icon={<LanguageIcon />} style={{ color: "white" }} disableRipple/>
-        <BottomNavigationAction component={Link} to="/playground" icon={<LocalBarIcon />} style={{ color: "white" }} disableRipple/>
-        <BottomNavigationAction component={Link} to="/mypage" icon={<AccountCircleIcon />} style={{ color: "white" }} disableRipple/>
+        <BottomNavigationAction component={Link} to="/" icon={<HomeIcon />} style={{ color: "white" }} disableRipple />
+        <BottomNavigationAction
+          component={Link}
+          to="/feed"
+          icon={<LanguageIcon />}
+          style={{ color: "white" }}
+          disableRipple
+        />
+        <BottomNavigationAction
+          component={Link}
+          to="/playground"
+          icon={<LocalBarIcon />}
+          style={{ color: "white" }}
+          disableRipple
+        />
+        <BottomNavigationAction
+          component={Link}
+          to="/mypage"
+          icon={<AccountCircleIcon />}
+          style={{ color: "white" }}
+          disableRipple
+        />
       </BottomNavigation>
     </Box>
   );
