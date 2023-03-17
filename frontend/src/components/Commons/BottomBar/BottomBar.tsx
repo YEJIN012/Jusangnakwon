@@ -10,7 +10,8 @@ import LocalBarIcon from "@mui/icons-material/LocalBar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function BottomBar() {
-  const [value, setValue] = React.useState(0);
+  const pathname = window.location.pathname;
+  const [value, setValue] = React.useState(pathname);
 
   return (
     <Box className={`${styles[`bottom-bar-container`]}`}>
@@ -30,24 +31,34 @@ function BottomBar() {
           },
         }}
       >
-        <BottomNavigationAction component={Link} to="/" icon={<HomeIcon />} style={{ color: "white" }} disableRipple />
         <BottomNavigationAction
           component={Link}
-          to="/feed"
+          to={"/"}
+          value={"/"}
+          icon={<HomeIcon />}
+          style={{ color: "white" }}
+          disableRipple
+        />
+        <BottomNavigationAction
+          component={Link}
+          to={"/feed"}
+          value={"/feed"}
           icon={<LanguageIcon />}
           style={{ color: "white" }}
           disableRipple
         />
         <BottomNavigationAction
           component={Link}
-          to="/playground"
+          to={"/playground"}
+          value={"/playground"}
           icon={<LocalBarIcon />}
           style={{ color: "white" }}
           disableRipple
         />
         <BottomNavigationAction
           component={Link}
-          to="/mypage"
+          to={"/mypage"}
+          value={"/mypage"}
           icon={<AccountCircleIcon />}
           style={{ color: "white" }}
           disableRipple

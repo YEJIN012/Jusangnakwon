@@ -5,6 +5,10 @@ import Feed from "@/pages/Feed/Feed";
 import FeedMain from "@/pages/Feed/FeedMain";
 import FeedDetail from "@/pages/Feed/FeedDetail";
 import Playground from "@/pages/Playground/Playground";
+import PlaygroundMain from "@/pages/Playground/PlaygroundMain"
+import ABTI from "@/pages/Playground/ABTI/ABTI";
+import Guide from "@/pages/Playground/Guide/Guide";
+import Hometender from "@/pages/Playground/Hometender/Hometender";
 import MyPage from "@/pages/MyPage/MyPage";
 
 const router = createBrowserRouter([
@@ -33,6 +37,24 @@ const router = createBrowserRouter([
       {
         path: "playground",
         element: <Playground></Playground>,
+        children: [
+          {
+            index: true,
+            element: <PlaygroundMain></PlaygroundMain>,
+          },
+          {
+            path: "abti",
+            element: <ABTI></ABTI>
+          },
+          {
+            path: "hometender",
+            element: <Hometender></Hometender>
+          },
+          {
+            path: "guide",
+            element: <Guide></Guide>
+          }
+        ]
       },
       {
         path: "mypage",
