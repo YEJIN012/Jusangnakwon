@@ -1,4 +1,25 @@
+.feed-main-container {
+  margin-top: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feed-classify-btn-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  align-items: center;
+}
+
 .feed-classify-btn {
-  padding: 2% 5%;
-  background-color: rgb(97, 96, 96, 0.8);
+  padding: 1% 7%;
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.feed-classify-btn:focus {
+  background-color: pink;
 }
