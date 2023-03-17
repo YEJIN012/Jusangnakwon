@@ -5,4 +5,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  background-color:  #06031a;
+  top: 0;
 }
