@@ -5,6 +5,7 @@ WORKDIR /app
 # Copy the package.json and package-lock.json files to the working directory
 COPY frontend/package*.json ./
 # Install the dependencies
+RUN npm install -g vite
 RUN npm install
 # Copy the rest of the source code to the working directory
 COPY frontend/. .
