@@ -200,69 +200,69 @@ export default function MainTab() {
           </div>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-        <div style={{ backgroundColor: value === 2 ? "#421F3C" : "black" }}>
-          <div className={`${styles[`all-drink-list-btn`]}`}>
-            <a href="#none" className={`${styles[`all-drink-list`]}`}>
-              {" "}
-              전체 와인 보기 ▶{" "}
-            </a>
-          </div>
-          <div className={`${styles[`drink-list-wrap`]}`}>
-            <ul className={`${styles[`tab-drink-list`]}`}>
-              {dummyList.map((wine) => (
-                <li key={wine.id}>
-                  <div className={styles["img-container"]}>
-                    <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
-                    <p>{wine.name}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div style={{ backgroundColor: value === 2 ? "#421F3C" : "black" }}>
+            <div className={`${styles[`all-drink-list-btn`]}`}>
+              <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                {" "}
+                전체 와인 보기 ▶{" "}
+              </a>
+            </div>
+            <div className={`${styles[`drink-list-wrap`]}`}>
+              <ul className={`${styles[`tab-drink-list`]}`}>
+                {dummyList.map((wine) => (
+                  <li key={wine.id}>
+                    <div className={styles["img-container"]}>
+                      <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
+                      <p>{wine.name}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
-        <div style={{ backgroundColor: value === 3 ? "#4E3415" : "black" }}>
-          <div className={`${styles[`all-drink-list-btn`]}`}>
-            <a href="#none" className={`${styles[`all-drink-list`]}`}>
-              {" "}
-              전체 전통주 보기 ▶{" "}
-            </a>
-          </div>
-          <div className={`${styles[`drink-list-wrap`]}`}>
-            <ul className={`${styles[`tab-drink-list`]}`}>
-              {dummyList.map((wine) => (
-                <li key={wine.id}>
-                  <div className={styles["img-container"]}>
-                    <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
-                    <p>{wine.name}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div style={{ backgroundColor: value === 3 ? "#4E3415" : "black" }}>
+            <div className={`${styles[`all-drink-list-btn`]}`}>
+              <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                {" "}
+                전체 전통주 보기 ▶{" "}
+              </a>
+            </div>
+            <div className={`${styles[`drink-list-wrap`]}`}>
+              <ul className={`${styles[`tab-drink-list`]}`}>
+                {dummyList.map((wine) => (
+                  <li key={wine.id}>
+                    <div className={styles["img-container"]}>
+                      <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
+                      <p>{wine.name}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </TabPanel>
         <TabPanel value={value} index={4} dir={theme.direction}>
-        <div style={{ backgroundColor: value === 4 ? "#9D615F" : "black" }}>
-          <div className={`${styles[`all-drink-list-btn`]}`}>
-            <a href="#none" className={`${styles[`all-drink-list`]}`}>
-              {" "}
-              전체 맥주 보기 ▶{" "}
-            </a>
-          </div>
-          <div className={`${styles[`drink-list-wrap`]}`}>
-            <ul className={`${styles[`tab-drink-list`]}`}>
-              {dummyList.map((wine) => (
-                <li key={wine.id}>
-                  <div className={styles["img-container"]}>
-                    <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
-                    <p>{wine.name}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div style={{ backgroundColor: value === 4 ? "#9D615F" : "black" }}>
+            <div className={`${styles[`all-drink-list-btn`]}`}>
+              <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                {" "}
+                전체 맥주 보기 ▶{" "}
+              </a>
+            </div>
+            <div className={`${styles[`drink-list-wrap`]}`}>
+              <ul className={`${styles[`tab-drink-list`]}`}>
+                {dummyList.map((wine) => (
+                  <li key={wine.id}>
+                    <div className={styles["img-container"]}>
+                      <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
+                      <p>{wine.name}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </TabPanel>
       </SwipeableViews>
