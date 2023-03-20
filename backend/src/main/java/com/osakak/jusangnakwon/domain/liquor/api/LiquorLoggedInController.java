@@ -1,7 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
-import com.osakak.jusangnakwon.domain.liquor.mapper.HometenderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

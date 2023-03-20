@@ -1,6 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.entity;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,7 +13,9 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder(builderMethodName = "CocktailBuilder")
+@Schema(description = "칵테일 테이블")
 public class Cocktail {
+    @Schema(description = "칵테일 이름")
     private String name;
     private String img;
     private int alcohol;
