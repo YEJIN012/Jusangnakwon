@@ -21,7 +21,7 @@ const FeedDetail = () => {
       userImg: "https://picsum.photos/30/30/?random",
       classification: "질문글",
       img: "https://picsum.photos/300/300/?random",
-      content: "와인 추천해주세요!!!",
+      content: "와인 추천해주세요!!",
     },
     {
       id: 3,

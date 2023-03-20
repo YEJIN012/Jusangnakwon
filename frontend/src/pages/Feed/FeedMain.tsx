@@ -1,8 +1,18 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./FeedMain.module.css";
-import { Link } from "react-router-dom";
+import { Grid } from "@mui/material";
+import FeedComponent from "@/components/Feed/FeedComponent";
 
-const FeedMain = () => {
+interface Feed {
+  id: number;
+  userName: string;
+  userImg: string;
+  classification: string;
+  img: string;
+  content: string;
+}
+
+const FeedMain = ({ feed }: { feed: Feed }) => {
   const [dummyFeedList, setDummyFeedList] = useState([
     {
       id: 1,
@@ -31,26 +41,49 @@ const FeedMain = () => {
   ]);
 
   const [focusedPostList, setFocusedPostList] = useState("전체글");
+  const allButtonRef = useRef<HTMLButtonElement>(null);
 
   const sortPostList = (event: React.MouseEvent<HTMLButtonElement>) => {
     const clickedButtonValue = event.currentTarget.value;
     setFocusedPostList(clickedButtonValue);
   };
 
+  useEffect(() => {
+    if (allButtonRef.current) {
+      allButtonRef.current.focus();
+    } else {
+    }
+  }, []);
+
   return (
     <div className={`${styles[`feed-main-container`]}`}>
       <div className={`${styles[`feed-classify-btn-container`]}`}>
-        <button className={`${styles[`feed-classify-btn`]}`} value={"전체글"} onClick={sortPostList}>
+        <button className={styles["feed-classify-btn"]} value={"전체글"} onClick={sortPostList} ref={allButtonRef}>
           전체글
         </button>
-        <button className={`${styles[`feed-classify-btn`]}`} value={"게시글"} onClick={sortPostList}>
+        <button className={styles["feed-classify-btn"]} value={"게시글"} onClick={sortPostList}>
           게시글
         </button>
-        <button className={`${styles[`feed-classify-btn`]}`} value={"질문글"} onClick={sortPostList}>
+        <button className={styles["feed-classify-btn"]} value={"질문글"} onClick={sortPostList}>
           질문글
         </button>
       </div>
-      <ul>
+
+      {/* <div style={{ display: "flex", width: "100vw", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            width: "45%",
+            marginTop: "15px",
+            flexDirection: "column",
+          }}
+        >
+          <FeedComponent />
+          <FeedComponent />
+        </div>
+      </div> */}
+
+      {/* <ul>
         {focusedPostList === "전체글"
           ? dummyFeedList.map((feed) => (
               <li key={feed.id}>
@@ -72,7 +105,22 @@ const FeedMain = () => {
                   <p>내용: {feed.content}</p>
                 </li>
               ))}
-      </ul>
+      </ul> */}
+      {focusedPostList === "전체글" ? (
+        <Grid container spacing={1} padding={1}>
+          {dummyFeedList.map((feed) => (
+            <FeedComponent key={feed.id} feed={feed}></FeedComponent>
+          ))}
+        </Grid>
+      ) : (
+        <Grid container spacing={1} padding={1}>
+          {dummyFeedList
+            .filter((feed) => feed.classification === focusedPostList)
+            .map((feed) => (
+              <FeedComponent key={feed.id} feed={feed}></FeedComponent>
+            ))}
+        </Grid>
+      )}
     </div>
   );
 };
