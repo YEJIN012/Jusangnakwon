@@ -5,6 +5,7 @@ import com.osakak.jusangnakwon.domain.liquor.mapper.HometenderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,18 @@ public class LiquorController {
      */
     @GetMapping("rd/hometender")
     public ResponseEntity<ResponseDto> randHometender() {
+        ResponseDto responseDto = new ResponseDto();
+        return ResponseEntity.ok(responseDto);
+    }
+
+    /**
+     * 술 이름으로 검색
+     *
+     * @param keyword: 술 이름
+     * @return 술 이름 조회 결과
+     */
+    @GetMapping("search/{keyword}")
+    public ResponseEntity<ResponseDto> searchLiquor(@PathVariable String keyword) {
         ResponseDto responseDto = new ResponseDto();
         return ResponseEntity.ok(responseDto);
     }
