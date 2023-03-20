@@ -15,7 +15,7 @@ public class LiquorLoggedInController {
      * 주종별 추천 - 와인
      * user state: logged in
      *
-     * @return 추천 5개(개수는 임시)
+     * @return 추천 4개(개수는 임시)
      */
     @GetMapping("l1")
     public ResponseEntity<ResponseDto> recommendWine() {
@@ -27,7 +27,7 @@ public class LiquorLoggedInController {
      * 주종별 추천 - 위스키
      * user state: logged in
      *
-     * @return 추천 5개(개수는 임시)
+     * @return 추천 4개(개수는 임시)
      */
     @GetMapping("l2")
     public ResponseEntity<ResponseDto> recommendWhisky() {
@@ -39,7 +39,7 @@ public class LiquorLoggedInController {
      * 주종별 추천 - 맥주
      * user state: logged in
      *
-     * @return 추천 5개(개수는 임시)
+     * @return 추천 4개(개수는 임시)
      */
     @GetMapping("l3")
     public ResponseEntity<ResponseDto> recommendBeer() {
@@ -51,7 +51,7 @@ public class LiquorLoggedInController {
      * 주종별 추천 - 맥주
      * user state: logged in
      *
-     * @return 추천 5개(개수는 임시)
+     * @return 추천 4개(개수는 임시)
      */
     @GetMapping("l4")
     public ResponseEntity<ResponseDto> recommendTradition() {
@@ -63,7 +63,7 @@ public class LiquorLoggedInController {
      * 주종별 추천 - 칵테일
      * user state: logged in
      *
-     * @return 추천 5개(개수는 임시)
+     * @return 추천 4개(개수는 임시)
      */
     @GetMapping("l5")
     public ResponseEntity<ResponseDto> recommendCocktail() {
