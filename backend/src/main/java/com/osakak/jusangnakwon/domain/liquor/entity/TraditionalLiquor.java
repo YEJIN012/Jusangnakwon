@@ -6,34 +6,25 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@ApiModel(value = "whisky")
-@Document(collection = "whisky")
+@ApiModel(value = "tradition")
+@Document(collection = "tradition")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder(builderMethodName = "WhiskyBuilder")
-public class Whisky {
+@Builder(builderMethodName = "TraditionalBuilder")
+public class TraditionalLiquor {
     private String name;
     private int price;
-    private String img;
-    private String link;
     private int alcohol;
-    // 평점
-    private int meta_critic;
+    private int size;
+    private String materials;
+    private String brewery;
+    // desc: 술 설명
+    private String desc;
+    private int sweetness;
+    private int acidity;
+    private int freshness;
     private int body;
-    private int sweet;
-    private int sherry;
-    private int malt;
-    private int aperitif;
-    private int smoky;
-    private int pungent;
-    private int fruity;
-    private int honey;
-    private int floral;
-    private int spicy;
-    private int medicinal;
-    private int nutty;
-    private int winey;
     private List<String> similar_liquor;
     private int scrap_cnt;
     // ScrapUser 를 객체로 사용
@@ -42,4 +33,5 @@ public class Whisky {
     private Object ratings;
     private int rating_avg;
     private List<String> feed_id;
+
 }
