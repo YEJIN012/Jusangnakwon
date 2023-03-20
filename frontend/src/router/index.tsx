@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "@/App";
 import Home from "@/pages/Home/Home";
+import AlldrinkList from "@/pages/Home/AllDrinkList";
 import Feed from "@/pages/Feed/Feed";
 import FeedMain from "@/pages/Feed/FeedMain";
 import FeedDetail from "@/pages/Feed/FeedDetail";
 import Playground from "@/pages/Playground/Playground";
-import PlaygroundMain from "@/pages/Playground/PlaygroundMain"
+import PlaygroundMain from "@/pages/Playground/PlaygroundMain";
 import ABTI from "@/pages/Playground/ABTI/ABTI";
 import Guide from "@/pages/Playground/Guide/Guide";
 import Hometender from "@/pages/Playground/Hometender/Hometender";
@@ -44,21 +45,25 @@ const router = createBrowserRouter([
           },
           {
             path: "abti",
-            element: <ABTI></ABTI>
+            element: <ABTI></ABTI>,
           },
           {
             path: "hometender",
-            element: <Hometender></Hometender>
+            element: <Hometender></Hometender>,
           },
           {
             path: "guide",
-            element: <Guide></Guide>
-          }
-        ]
+            element: <Guide></Guide>,
+          },
+        ],
       },
       {
         path: "mypage",
         element: <MyPage></MyPage>,
+      },
+      {
+        path: "alldrinklist",
+        element: <AlldrinkList></AlldrinkList>,
       },
     ],
   },

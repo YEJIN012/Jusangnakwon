@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -7,6 +8,8 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import styles from "@/components/Home/MainTab/MainTab.module.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -45,6 +48,11 @@ function a11yProps(index: number) {
 export default function MainTab() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const [cocktailItemsToShow, setCocktailItemsToShow] = useState(4);
+  const [whiskeyItemsToShow, setwhiskeyItemsToShow] = useState(4);
+  const [wineItemsToShow, setwineItemsToShow] = useState(4);
+  const [koreanItemsToShow, setkoreanItemsToShow] = useState(4);
+  const [beerItemsToShow, setbeerItemsToShow] = useState(4);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -78,194 +86,360 @@ export default function MainTab() {
     {
       id: 5,
       img: "https://picsum.photos/300/300/?random",
-      name: "달콤한와인",
+      name: "새콤한와인",
     },
     {
       id: 6,
       img: "https://picsum.photos/300/300/?random",
-      name: "달콤한와인",
+      name: "시큼한와인",
     },
     {
       id: 7,
       img: "https://picsum.photos/300/300/?random",
-      name: "달콤한와인",
+      name: "매콤한와인",
     },
     {
       id: 8,
       img: "https://picsum.photos/300/300/?random",
-      name: "달콤한와인",
+      name: "씁쓸한와인",
     },
     {
       id: 9,
       img: "https://picsum.photos/300/300/?random",
-      name: "달콤한와인",
+      name: "텁텁한와인",
     },
     {
       id: 10,
       img: "https://picsum.photos/300/300/?random",
-      name: "달콤한와인",
+      name: "짭짤한와인",
     },
     {
       id: 11,
       img: "https://picsum.photos/300/300/?random",
-      name: "달콤한와인",
+      name: "밋밋한와인",
     },
     {
       id: 12,
       img: "https://picsum.photos/300/300/?random",
-      name: "달콤한와인",
+      name: "느끼한와인",
     },
   ];
 
+  const themes = createTheme({
+    components: {
+      MuiTab: {
+        styleOverrides: {
+          root: {
+            minWidth: "unset",
+          },
+        },
+      },
+    },
+  });
+
   return (
-    <Box sx={{ bgcolor: "#06031A", width: "100%", height: "500px", color: "white" }}>
-      <AppBar position="static">
-        <Tabs
-          // sx={{bgcolor: '#06031A', color: 'white' }}
-          sx={{
-            bgcolor: "#06031A",
-            "& .Mui-selected": {
-              color: "white",
-              bgcolor: "purple",
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-            },
-            "& .MuiTab-root": {
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              border: "1px solid gray",
-            },
-          }}
-          value={value}
-          onChange={handleChange}
-          indicatorColor="secondary"
-          textColor="inherit"
-          variant="fullWidth"
-          aria-label="full width tabs example"
+    <ThemeProvider theme={themes}>
+      <Box sx={{ bgcolor: "#06031A", width: "100%", color: "white" }}>
+        <AppBar position="static">
+          <Tabs
+            // sx={{bgcolor: '#06031A', color: 'white' }}
+            sx={{
+              bgcolor: "#06031A",
+              "& .Mui-selected": {
+                color: "white",
+                // bgcolor: "purple",
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
+                // paddingLeft: "20px",
+                // paddingRight: "20px",
+              },
+              "& .MuiTab-root": {
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
+                // border: "1px solid gray",
+                borderBottom: "none",
+                // paddingLeft: "10px",
+                // paddingRight: "10px",
+                // paddingTop: "2px",
+                // paddingBottom: "2px",
+              },
+              "& .MuiTabs-indicator": {
+                display: "none",
+              },
+            }}
+            value={value}
+            onChange={handleChange}
+            // indicatorColor="transparent"
+            textColor="inherit"
+            variant="fullWidth"
+            aria-label="full width tabs example"
+          >
+            <Tab
+              label="칵테일"
+              {...a11yProps(0)}
+              sx={{
+                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                fontSize: { xs: 12, md: 16 },
+                "&:hover": { bgcolor: "#7B334E" },
+              }}
+              disableRipple
+            />
+            <Tab
+              label="위스키"
+              {...a11yProps(1)}
+              sx={{
+                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                fontSize: { xs: 12, md: 16 },
+                "&:hover": { bgcolor: "#997D7B" },
+              }}
+              disableRipple
+            />
+            <Tab
+              label="와인"
+              {...a11yProps(2)}
+              sx={{
+                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                fontSize: { xs: 12, md: 16 },
+                "&:hover": { bgcolor: "#421F3C " },
+              }}
+              disableRipple
+            />
+            <Tab
+              label="전통주"
+              {...a11yProps(3)}
+              sx={{
+                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                fontSize: { xs: 12, md: 16 },
+                "&:hover": { bgcolor: "#4E3415" },
+              }}
+              disableRipple
+            />
+            <Tab
+              label="맥주"
+              {...a11yProps(4)}
+              sx={{
+                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                fontSize: { xs: 12, md: 16 },
+                "&:hover": { bgcolor: "#9D615F" },
+              }}
+              disableRipple
+            />
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+          index={value}
+          onChangeIndex={handleChangeIndex}
         >
-          <Tab label="칵테일" sx={{ fontSize: { xs: 12, md: 16 } }} {...a11yProps(0)} disableRipple />
-          <Tab label="위스키" sx={{ fontSize: { xs: 12, md: 16 } }} {...a11yProps(1)} disableRipple />
-          <Tab label="와인" sx={{ fontSize: { xs: 12, md: 16 } }} {...a11yProps(2)} disableRipple />
-          <Tab label="전통주" sx={{ fontSize: { xs: 12, md: 16 } }} {...a11yProps(3)} disableRipple />
-          <Tab label="맥주" sx={{ fontSize: { xs: 12, md: 16 } }} {...a11yProps(4)} disableRipple />
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <div style={{ backgroundColor: value === 0 ? "#A0425F" : "black" }}>
-            <div className={`${styles[`all-drink-list-btn`]}`}>
-              <a href="#none" className={`${styles[`all-drink-list`]}`}>
-                {" "}
-                전체 칵테일 보기 ▶{" "}
-              </a>
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            <div
+              style={{
+                background:
+                  value === 0 ? "linear-gradient(212.38deg, #A0425F 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                paddingTop: "5%",
+                paddingRight: "3%",
+                paddingLeft: "3%",
+              }}
+            >
+              <div className={`${styles[`all-drink-list-btn`]}`}>
+                <Link to={`/alldrinklist`}>
+                  <a className={`${styles[`all-drink-list`]}`}> 전체 칵테일 보기 ▶ </a>
+                </Link>
+              </div>
+              <div className={`${styles[`drink-list-wrap`]}`}>
+                <ul className={`${styles[`tab-drink-list`]}`}>
+                  {dummyList.slice(0, cocktailItemsToShow).map(({ id, img, name }) => (
+                    <li key={id}>
+                      <div className={styles["img-container"]}>
+                        <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        <p>{name}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  onClick={() => {
+                    if (value === 0) {
+                      setCocktailItemsToShow(cocktailItemsToShow + 2);
+                    }
+                  }}
+                  className={`${styles["more-drink-btn"]}`}
+                >
+                  더보기
+                </a>
+              </div>
             </div>
-            <div className={`${styles[`drink-list-wrap`]}`}>
-              <ul className={`${styles[`tab-drink-list`]}`}>
-                {dummyList.map((wine) => (
-                  <li key={wine.id}>
-                    <div className={styles["img-container"]}>
-                      <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
-                      <p>{wine.name}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            <div
+              style={{
+                background: value === 1 ? "linear-gradient(180deg, #997D7B 0%, rgba(153, 125, 123, 0) 100%)" : "black",
+                paddingTop: "5%",
+                paddingRight: "3%",
+                paddingLeft: "3%",
+                // paddingBottom: "30px",
+              }}
+            >
+              <div className={`${styles[`all-drink-list-btn`]}`}>
+                <Link to={`/alldrinklist`}>
+                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                    {" "}
+                    전체 위스키 보기 ▶{" "}
+                  </a>
+                </Link>
+              </div>
+              <div className={`${styles[`drink-list-wrap`]}`}>
+                <ul className={`${styles[`tab-drink-list`]}`}>
+                  {dummyList.slice(0, whiskeyItemsToShow).map(({ id, img, name }) => (
+                    <li key={id}>
+                      <div className={styles["img-container"]}>
+                        <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        <p>{name}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  onClick={() => {
+                    if (value === 1) {
+                      setwhiskeyItemsToShow(whiskeyItemsToShow + 2);
+                    }
+                  }}
+                  className={`${styles["more-drink-btn"]}`}
+                >
+                  더보기
+                </a>
+              </div>
             </div>
-          </div>
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <div style={{ backgroundColor: value === 1 ? "#997D7B" : "black" }}>
-            <div className={`${styles[`all-drink-list-btn`]}`}>
-              <a href="#none" className={`${styles[`all-drink-list`]}`}>
-                {" "}
-                전체 위스키 보기 ▶{" "}
-              </a>
+          </TabPanel>
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            <div
+              style={{
+                background: value === 2 ? "linear-gradient(180deg,  #421F3C 0%, rgba(153, 125, 123, 0) 100%)" : "black",
+                paddingTop: "5%",
+                paddingRight: "3%",
+                paddingLeft: "3%",
+                // paddingBottom: "30px",
+              }}
+            >
+              <div className={`${styles[`all-drink-list-btn`]}`}>
+                <Link to={`/alldrinklist`}>
+                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                    {" "}
+                    전체 와인 보기 ▶{" "}
+                  </a>
+                </Link>
+              </div>
+              <div className={`${styles[`drink-list-wrap`]}`}>
+                <ul className={`${styles[`tab-drink-list`]}`}>
+                  {dummyList.slice(0, wineItemsToShow).map(({ id, img, name }) => (
+                    <li key={id}>
+                      <div className={styles["img-container"]}>
+                        <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        <p>{name}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  onClick={() => {
+                    if (value === 2) {
+                      setwineItemsToShow(wineItemsToShow + 2);
+                    }
+                  }}
+                  className={`${styles["more-drink-btn"]}`}
+                >
+                  더보기
+                </a>
+              </div>
             </div>
-            <div className={`${styles[`drink-list-wrap`]}`}>
-              <ul className={`${styles[`tab-drink-list`]}`}>
-                {dummyList.map((wine) => (
-                  <li key={wine.id}>
-                    <div className={styles["img-container"]}>
-                      <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
-                      <p>{wine.name}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+          </TabPanel>
+          <TabPanel value={value} index={3} dir={theme.direction}>
+            <div
+              style={{
+                background: value === 3 ? "linear-gradient(180deg, #4E3415 0%, rgba(78, 52, 21, 0) 100%)" : "black",
+                paddingTop: "5%",
+                paddingRight: "3%",
+                paddingLeft: "3%",
+                // paddingBottom: "30px",
+              }}
+            >
+              <div className={`${styles[`all-drink-list-btn`]}`}>
+                <Link to={`/alldrinklist`}>
+                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                    {" "}
+                    전체 전통주 보기 ▶{" "}
+                  </a>
+                </Link>
+              </div>
+              <div className={`${styles[`drink-list-wrap`]}`}>
+                <ul className={`${styles[`tab-drink-list`]}`}>
+                  {dummyList.slice(0, koreanItemsToShow).map(({ id, img, name }) => (
+                    <li key={id}>
+                      <div className={styles["img-container"]}>
+                        <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        <p>{name}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  onClick={() => {
+                    if (value === 3) {
+                      setkoreanItemsToShow(koreanItemsToShow + 2);
+                    }
+                  }}
+                  className={`${styles["more-drink-btn"]}`}
+                >
+                  더보기
+                </a>
+              </div>
             </div>
-          </div>
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <div style={{ backgroundColor: value === 2 ? "#421F3C" : "black" }}>
-            <div className={`${styles[`all-drink-list-btn`]}`}>
-              <a href="#none" className={`${styles[`all-drink-list`]}`}>
-                {" "}
-                전체 와인 보기 ▶{" "}
-              </a>
+          </TabPanel>
+          <TabPanel value={value} index={4} dir={theme.direction}>
+            <div
+              style={{
+                background: value === 4 ? "linear-gradient(180deg, #9D615F 0%, rgba(157, 97, 95, 0) 100%)" : "black",
+                paddingTop: "5%",
+                paddingRight: "3%",
+                paddingLeft: "3%",
+                // paddingBottom: "30px",
+              }}
+            >
+              <div className={`${styles[`all-drink-list-btn`]}`}>
+                <Link to={`/alldrinklist`}>
+                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                    {" "}
+                    전체 맥주 보기 ▶{" "}
+                  </a>
+                </Link>
+              </div>
+              <div className={`${styles[`drink-list-wrap`]}`}>
+                <ul className={`${styles[`tab-drink-list`]}`}>
+                  {dummyList.slice(0, beerItemsToShow).map(({ id, img, name }) => (
+                    <li key={id}>
+                      <div className={styles["img-container"]}>
+                        <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        <p>{name}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  onClick={() => {
+                    if (value === 4) {
+                      setbeerItemsToShow(beerItemsToShow + 2);
+                    }
+                  }}
+                  className={`${styles["more-drink-btn"]}`}
+                >
+                  더보기
+                </a>
+              </div>
             </div>
-            <div className={`${styles[`drink-list-wrap`]}`}>
-              <ul className={`${styles[`tab-drink-list`]}`}>
-                {dummyList.map((wine) => (
-                  <li key={wine.id}>
-                    <div className={styles["img-container"]}>
-                      <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
-                      <p>{wine.name}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </TabPanel>
-        <TabPanel value={value} index={3} dir={theme.direction}>
-          <div style={{ backgroundColor: value === 3 ? "#4E3415" : "black" }}>
-            <div className={`${styles[`all-drink-list-btn`]}`}>
-              <a href="#none" className={`${styles[`all-drink-list`]}`}>
-                {" "}
-                전체 전통주 보기 ▶{" "}
-              </a>
-            </div>
-            <div className={`${styles[`drink-list-wrap`]}`}>
-              <ul className={`${styles[`tab-drink-list`]}`}>
-                {dummyList.map((wine) => (
-                  <li key={wine.id}>
-                    <div className={styles["img-container"]}>
-                      <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
-                      <p>{wine.name}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </TabPanel>
-        <TabPanel value={value} index={4} dir={theme.direction}>
-          <div style={{ backgroundColor: value === 4 ? "#9D615F" : "black" }}>
-            <div className={`${styles[`all-drink-list-btn`]}`}>
-              <a href="#none" className={`${styles[`all-drink-list`]}`}>
-                {" "}
-                전체 맥주 보기 ▶{" "}
-              </a>
-            </div>
-            <div className={`${styles[`drink-list-wrap`]}`}>
-              <ul className={`${styles[`tab-drink-list`]}`}>
-                {dummyList.map((wine) => (
-                  <li key={wine.id}>
-                    <div className={styles["img-container"]}>
-                      <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
-                      <p>{wine.name}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </TabPanel>
-      </SwipeableViews>
-    </Box>
+          </TabPanel>
+        </SwipeableViews>
+      </Box>
+    </ThemeProvider>
   );
 }
