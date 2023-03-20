@@ -10,6 +10,7 @@ import PlaygroundMain from "@/pages/Playground/PlaygroundMain";
 import ABTI from "@/pages/Playground/ABTI/ABTI";
 import Guide from "@/pages/Playground/Guide/Guide";
 import Hometender from "@/pages/Playground/Hometender/Hometender";
+import HometenderMain from "@/pages/Playground/Hometender/HometenderMain";
 import MyPage from "@/pages/MyPage/MyPage";
 
 const router = createBrowserRouter([
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
             path: ":feedId",
             element: <FeedDetail></FeedDetail>,
           },
-        ],
+        ],  
       },
       {
         path: "playground",
@@ -50,6 +51,16 @@ const router = createBrowserRouter([
           {
             path: "hometender",
             element: <Hometender></Hometender>,
+            children: [
+              {
+                index: true,
+                element: <HometenderMain></HometenderMain>,
+              },
+              {
+                path: ":feedId",
+                element: <FeedDetail></FeedDetail>,
+              },
+            ],  
           },
           {
             path: "guide",
