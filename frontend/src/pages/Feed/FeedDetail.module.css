@@ -13,7 +13,9 @@
 
 .user-img {
   border-radius: 50%;
-  margin-right: 3%;
+  margin-right: 8px;
+  height: 20px;
+  width: 20px;
 }
 
 .feed-img {

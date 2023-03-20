@@ -1,6 +1,6 @@
 import * as React from "react";
 import styles from "./BottomBar.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Box } from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -10,8 +10,13 @@ import LocalBarIcon from "@mui/icons-material/LocalBar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function BottomBar() {
-  const pathname = window.location.pathname;
+  const { pathname } = useLocation();
+  const feedPath = pathname.split("/").slice(0, 2).join("/");
   const [value, setValue] = React.useState(pathname);
+
+  React.useEffect(() => {
+    setValue(feedPath);
+  }, [pathname]);
 
   return (
     <Box className={`${styles[`bottom-bar-container`]}`}>
