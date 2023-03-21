@@ -2,6 +2,7 @@ package com.osakak.jusangnakwon.common.oauth.filter;
 
 import com.osakak.jusangnakwon.common.jwt.AuthToken;
 import com.osakak.jusangnakwon.common.jwt.AuthTokenProvider;
+import com.osakak.jusangnakwon.common.utils.HeaderUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
