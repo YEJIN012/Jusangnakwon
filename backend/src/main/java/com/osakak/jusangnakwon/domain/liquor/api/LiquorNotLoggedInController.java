@@ -1,9 +1,8 @@
 package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
-import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorResponse;
+import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorService;
-import com.osakak.jusangnakwon.domain.liquor.dao.WineRepository;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.dto.SearchType;
 import lombok.RequiredArgsConstructor;
@@ -12,16 +11,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api")
 public class LiquorNotLoggedInController {
     private final LiquorService liquorService;
-    private final WineRepository wineRepository;
 
     /**
      * 주종별 랭킹 - 와인
@@ -29,16 +26,15 @@ public class LiquorNotLoggedInController {
      * @return 랭킹순 5개
      */
     @GetMapping("rank/l1")
-    public ResponseEntity<ResponseDto> rankWine() {
+    public ResponseEntity<ResponseDto> rankWine(@RequestParam int page) {
+        Pageable pageable = PageRequest.of(page, 4);
+
         ResponseDto responseDto = new ResponseDto();
-        Pageable pageable = PageRequest.of(1, 3);
-        List<LiquorResponse> liquorList = liquorService.getLiquorList(LiquorType.WINE, SearchType.RANK, pageable);
+        LiquorListMainResponse liquorList = liquorService.getLiquorList(LiquorType.WINE, SearchType.RANK, pageable);
         responseDto.setBody(liquorList);
         responseDto.setSuccess(true);
-//        List<Wine> all = wineRepository.findAll();
-//        System.out.println(all.size());
-//        responseDto.setBody(all);
-//        responseDto.setSuccess(true);
+
+        // TODO: 응답에 페이징 처리 추가 되어야 함
         return ResponseEntity.ok(responseDto);
     }
 
