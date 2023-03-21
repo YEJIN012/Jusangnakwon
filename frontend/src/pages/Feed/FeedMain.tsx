@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./FeedMain.module.css";
 import { Grid } from "@mui/material";
 import FeedComponent from "@/components/Feed/FeedComponent";
+import { Dispatch, SetStateAction } from "react";
 
 interface Feed {
   id: number;
@@ -10,9 +11,23 @@ interface Feed {
   classification: string;
   img: string;
   content: string;
+  liked: boolean;
+  setDummyFeedList: Dispatch<
+    SetStateAction<
+      {
+        id: number;
+        userName: string;
+        userImg: string;
+        classification: string;
+        img: string;
+        content: string;
+        liked: boolean;
+      }[]
+    >
+  >;
 }
 
-const FeedMain = ({ feed }: { feed: Feed }) => {
+const FeedMain = () => {
   const [dummyFeedList, setDummyFeedList] = useState([
     {
       id: 1,
@@ -21,6 +36,7 @@ const FeedMain = ({ feed }: { feed: Feed }) => {
       classification: "게시글",
       img: "https://picsum.photos/300/300/?random",
       content: "이야호",
+      liked: false,
     },
     {
       id: 2,
@@ -29,6 +45,7 @@ const FeedMain = ({ feed }: { feed: Feed }) => {
       classification: "질문글",
       img: "https://picsum.photos/300/300/?random",
       content: "와인 추천해주세요!!!",
+      liked: false,
     },
     {
       id: 3,
@@ -37,6 +54,7 @@ const FeedMain = ({ feed }: { feed: Feed }) => {
       classification: "게시글",
       img: "https://picsum.photos/300/300/?random",
       content: "부야호",
+      liked: false,
     },
   ]);
 
@@ -109,7 +127,7 @@ const FeedMain = ({ feed }: { feed: Feed }) => {
       {focusedPostList === "전체글" ? (
         <Grid container spacing={1} padding={1}>
           {dummyFeedList.map((feed) => (
-            <FeedComponent key={feed.id} feed={feed}></FeedComponent>
+            <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>
           ))}
         </Grid>
       ) : (
@@ -117,7 +135,7 @@ const FeedMain = ({ feed }: { feed: Feed }) => {
           {dummyFeedList
             .filter((feed) => feed.classification === focusedPostList)
             .map((feed) => (
-              <FeedComponent key={feed.id} feed={feed}></FeedComponent>
+              <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>
             ))}
         </Grid>
       )}

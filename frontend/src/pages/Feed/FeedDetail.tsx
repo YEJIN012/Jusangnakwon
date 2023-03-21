@@ -1,40 +1,58 @@
+import { useState } from "react";
+import * as React from "react";
 import styles from "./FeedDetail.module.css";
 import { useParams } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import Stars from "@/components/Commons/Stars/Stars";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 const FeedDetail = () => {
   const { feedId } = useParams();
-  const dummyFeedList = [
+  const [dummyFeedList, setDummyFeedList] = useState([
     {
       id: 1,
       userName: "hojung",
-      userImg: "https://picsum.photos/30/30/?random",
+      userImg: "https://picsum.photos/100/100/?random",
       classification: "게시글",
       img: "https://picsum.photos/300/300/?random",
       content: "이야호",
+      liked: false,
     },
     {
       id: 2,
       userName: "이담비",
-      userImg: "https://picsum.photos/30/30/?random",
+      userImg: "https://picsum.photos/100/100/?random",
       classification: "질문글",
       img: "https://picsum.photos/300/300/?random",
-      content: "와인 추천해주세요!!",
+      content: "와인 추천해주세요!!!",
+      liked: false,
     },
     {
       id: 3,
       userName: "스텝한이",
-      userImg: "https://picsum.photos/30/30/?random",
+      userImg: "https://picsum.photos/100/100/?random",
       classification: "게시글",
       img: "https://picsum.photos/300/300/?random",
       content: "부야호",
+      liked: false,
     },
-  ];
+  ]);
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <div className={`${styles[`feed-classify-btn`]}`}>
+    <div>
       {dummyFeedList
         .filter((feed) => feed.id === Number(feedId))
         .map((feed) => (
@@ -44,7 +62,34 @@ const FeedDetail = () => {
                 <img src={feed.userImg} className={`${styles[`user-img`]}`}></img>
                 <p>{feed.userName}</p>
               </div>
-              <MenuIcon />
+              <div>
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                  style={{ minWidth: "0", color: "white" }}
+                >
+                  <MoreVertIcon />
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                  sx={{
+                    position: "absolute",
+                    right: "0",
+                  }}
+                >
+                  <MenuItem onClick={handleClose}>수정하기</MenuItem>
+                  <MenuItem onClick={handleClose}>삭제하기</MenuItem>
+                </Menu>
+              </div>
             </div>
             <img src={feed.img} className={`${styles[`feed-img`]}`}></img>
             <div className={`${styles[`feed-content-container`]}`}>
@@ -54,7 +99,49 @@ const FeedDetail = () => {
               </div>
               <div className={`${styles[`feed-stars-like`]}`}>
                 {/* <Stars></Stars> */}
-                <FavoriteBorderIcon />
+                {feed.liked ? (
+                  <button
+                    style={{
+                      color: "white",
+                      background: "none",
+                      border: "none",
+                    }}
+                    onClick={() => {
+                      setDummyFeedList((prevList) =>
+                        prevList.map((prevFeed) => {
+                          if (prevFeed.id === feed.id) {
+                            return { ...prevFeed, liked: !prevFeed.liked };
+                          } else {
+                            return prevFeed;
+                          }
+                        }),
+                      );
+                    }}
+                  >
+                    <FavoriteIcon></FavoriteIcon>
+                  </button>
+                ) : (
+                  <button
+                    style={{
+                      color: "white",
+                      background: "none",
+                      border: "none",
+                    }}
+                    onClick={() => {
+                      setDummyFeedList((prevList) =>
+                        prevList.map((prevFeed) => {
+                          if (prevFeed.id === feed.id) {
+                            return { ...prevFeed, liked: !prevFeed.liked };
+                          } else {
+                            return prevFeed;
+                          }
+                        }),
+                      );
+                    }}
+                  >
+                    <FavoriteBorderIcon />
+                  </button>
+                )}
               </div>
             </div>
             {feed.classification === "게시글" ? (

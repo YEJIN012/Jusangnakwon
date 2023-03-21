@@ -11,12 +11,12 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function BottomBar() {
   const { pathname } = useLocation();
-  const feedPath = pathname.split("/").slice(0, 2).join("/");
+  // const feedPath = pathname.split("/").slice(0, 2).join("/");
   const [value, setValue] = React.useState(pathname);
 
-  React.useEffect(() => {
-    setValue(feedPath);
-  }, [pathname]);
+  // React.useEffect(() => {
+  //   setValue(feedPath);
+  // }, [pathname]);
 
   return (
     <Box className={`${styles[`bottom-bar-container`]}`}>
