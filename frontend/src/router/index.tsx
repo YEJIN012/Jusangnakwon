@@ -18,6 +18,7 @@ import Guide from "@/pages/Playground/Guide/Guide";
 import Hometender from "@/pages/Playground/Hometender/Hometender";
 import HometenderMain from "@/pages/Playground/Hometender/HometenderMain";
 import MyPage from "@/pages/MyPage/MyPage";
+import DrinkDetail from "@/pages/Commons/DrinkDetail"
 
 const router = createBrowserRouter([
   {
@@ -92,11 +93,7 @@ const router = createBrowserRouter([
                 index: true,
                 element: <HometenderMain></HometenderMain>,
               },
-              {
-                path: ":feedId",
-                element: <FeedDetail></FeedDetail>,
-              },
-            ],
+            ],  
           },
           {
             path: "guide",
@@ -116,6 +113,14 @@ const router = createBrowserRouter([
       //   path: "sign",
       //   element: <Sign></Sign>,
       // },
+      {
+        path: "details/:drinktype/:id",
+        element: <DrinkDetail></DrinkDetail>,
+      },
+      {
+        path: "details/feed/:id",
+        element: <FeedDetail></FeedDetail>
+      }
     ],
   },
 ]);

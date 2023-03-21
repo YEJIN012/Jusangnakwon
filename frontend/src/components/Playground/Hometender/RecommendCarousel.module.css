@@ -17,19 +17,6 @@
   border-radius: 10px;
 }
 
-.row-container{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-}
-
-.ingredient{
-  margin-right: 5px;
-  padding: 8px;
-  background-color: gray;
-  border-radius: 15px;
-}
-
 .info {
   margin-left: 6vw;
   display: flex;

@@ -6,6 +6,7 @@ import RecipeFeed from "@/components/Playground/Hometender/RecipeFeed";
 const recommendDummy = [
   {
     id: 1,
+    type: "l6",
     img: "https://picsum.photos/300/300/?random",
     name: "콥케",
     ingredients: ["딸기", "소주", "사이다"],
@@ -13,6 +14,7 @@ const recommendDummy = [
   },
   {
     id: 2,
+    type: "l6",
     img: "https://picsum.photos/300/300/?random",
     name: "샌드맨",
     ingredients: ["딸기", "소주", "사이다", "메로나"],
@@ -21,6 +23,7 @@ const recommendDummy = [
   },
   {
     id: 3,
+    type: "l6",
     img: "https://picsum.photos/300/300/?random",
     name: "맛있는와인",
     ingredients: ["딸기", "소주", "사이다"],
@@ -28,6 +31,7 @@ const recommendDummy = [
   },
   {
     id: 4,
+    type: "l6",
     img: "https://picsum.photos/300/300/?random",
     name: "달콤한와인",
     ingredients: ["딸기", "소주", "사이다", "메로나"],
@@ -36,6 +40,7 @@ const recommendDummy = [
   },
   {
     id: 5,
+    type: "l6",
     img: "https://picsum.photos/300/300/?random",
     name: "달콤한와인",
     ingredients: ["딸기", "소주", "사이다"],
@@ -46,30 +51,35 @@ const recommendDummy = [
 const recipeDummy = [
   {
     id: 1,
+    type: "l6",
     img: "https://picsum.photos/300/300/?random",
     name: "콥케",
     likes: 4,
   },
   {
     id: 2,
+    type: "l6",
     img: "https://picsum.photos/300/300/?random",
     name: "샌드맨",
     likes: 56,
   },
   {
     id: 3,
+    type: "l6",
     img: "https://picsum.photos/300/300/?random",
     name: "맛있는와인",
     likes: 23,
   },
   {
     id: 4,
+    type: "l6",
     img: "https://picsum.photos/300/300/?random",
     name: "달콤한와인",
     likes: 332,
   },
   {
     id: 5,
+    type: "l6",
     img: "https://picsum.photos/300/300/?random",
     name: "달콤한와인",
     likes: 22,
