@@ -2,6 +2,7 @@ package com.osakak.jusangnakwon.domain.liquor.entity;
 
 import io.swagger.annotations.ApiModel;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder(builderMethodName = "WineBuilder")
 public class Wine {
+    @Id
+    private String id;
     private String name;
     private int price;
     private String img;

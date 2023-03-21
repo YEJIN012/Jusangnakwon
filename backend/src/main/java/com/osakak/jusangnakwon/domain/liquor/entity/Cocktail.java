@@ -46,7 +46,7 @@ public class Cocktail {
     private int rating_avg;
     private List<String> feed_id;
 
-    public static CocktailBuilder builder(Cocktail cocktail) {
+   /* public static CocktailBuilder builder(Cocktail cocktail) {
         return CocktailBuilder()
                 .name(cocktail.getName())
                 .img(cocktail.getImg())
@@ -74,7 +74,7 @@ public class Cocktail {
                 .rating_avg(cocktail.getRating_avg())
                 .ratings(cocktail.getRatings())
                 .feed_id(cocktail.getFeed_id());
-    }
+    }*/
 
 
 }
