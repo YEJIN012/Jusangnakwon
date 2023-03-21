@@ -24,52 +24,71 @@ public class LiquorNotLoggedInController {
     private final LiquorService liquorService;
 
     /**
+     * 주종별 랭킹순 추천 페이징 처리
+     *
+     * @param page       현재 페이지
+     * @param liquorType 주종 타입
+     * @return 페이지 정보 포함 술 id, name 정보
+     */
+    private LiquorListMainResponse getLiquorListWithPaging(int page, LiquorType liquorType) {
+        Pageable pageable = PageRequest.of(page, 4);
+        return liquorService.getLiquorList(liquorType, SearchType.RANK, pageable);
+    }
+
+    /**
      * 주종별 랭킹 - 와인
      *
-     * @return 랭킹순 5개
+     * @param page 현재 페이지
+     * @return 랭킹순 4개씩
      */
     @GetMapping("rank/l1")
     public ResponseEntity<ResponseDto> rankWine(@RequestParam int page) {
-        Pageable pageable = PageRequest.of(page, 4);
-
         ResponseDto responseDto = new ResponseDto();
-        LiquorListMainResponse liquorList = liquorService.getLiquorList(LiquorType.WINE, SearchType.RANK, pageable);
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.WINE);
         responseDto.setBody(liquorList);
         responseDto.setSuccess(true);
 
-        // TODO: 응답에 페이징 처리 추가 되어야 함
         return ResponseEntity.ok(responseDto);
     }
 
     /**
      * 주종별 랭킹 - 위스키
      *
-     * @return 랭킹순 5개
+     * @param page 현재 페이지
+     * @return 랭킹순 4개씩
      */
     @GetMapping("rank/l2")
-    public ResponseEntity<ResponseDto> rankWhisky() {
+    public ResponseEntity<ResponseDto> rankWhisky(@RequestParam int page) {
         ResponseDto responseDto = new ResponseDto();
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.WHISKY);
+        responseDto.setBody(liquorList);
+        responseDto.setSuccess(true);
         return ResponseEntity.ok(responseDto);
     }
 
     /**
      * 주종별 랭킹 - 맥주
      *
-     * @return 랭킹순 5개
+     * @param page 현재 페이지
+     * @return 랭킹순 4개씩
      */
     @GetMapping("rank/l3")
-    public ResponseEntity<ResponseDto> rankBeer() {
+    public ResponseEntity<ResponseDto> rankBeer(@RequestParam int page) {
         ResponseDto responseDto = new ResponseDto();
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.BEER);
+        responseDto.setBody(liquorList);
+        responseDto.setSuccess(true);
         return ResponseEntity.ok(responseDto);
     }
 
     /**
      * 주종별 랭킹 - 전통주
      *
-     * @return 랭킹순 5개
+     * @param page 현재 페이지
+     * @return 랭킹순 4개씩
      */
     @GetMapping("rank/l4")
-    public ResponseEntity<ResponseDto> rankTradition() {
+    public ResponseEntity<ResponseDto> rankTradition(@RequestParam int page) {
         ResponseDto responseDto = new ResponseDto();
         return ResponseEntity.ok(responseDto);
     }
@@ -77,10 +96,11 @@ public class LiquorNotLoggedInController {
     /**
      * 주종별 랭킹 - 칵테일
      *
-     * @return 랭킹순 5개
+     * @param page 현재 페이지
+     * @return 랭킹순 4개씩
      */
     @GetMapping("rank/l5")
-    public ResponseEntity<ResponseDto> rankCocktail() {
+    public ResponseEntity<ResponseDto> rankCocktail(@RequestParam int page) {
         ResponseDto responseDto = new ResponseDto();
         return ResponseEntity.ok(responseDto);
     }
