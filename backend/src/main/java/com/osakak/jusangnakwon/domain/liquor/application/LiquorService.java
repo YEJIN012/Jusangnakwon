@@ -66,7 +66,9 @@ public class LiquorService {
             case WHISKY:
                 return null;
             case WINE:
+                // TODO: 조회 부분 랭킹 순으로 변경하기
                 Page<Wine> wines = wineRepository.findAll(pageable);
+
                 List<LiquorListItemDto> liquorListItemDtos = wineMapper.winesToSearchLiquorDtos(wines.getContent());
                 int totalPages = wines.getTotalPages();
                 int pageNumber = wines.getPageable().getPageNumber();
@@ -77,11 +79,7 @@ public class LiquorService {
                 return null;
             case TRADITION:
                 return null;
-
         }
-
         return null;
     }
-
-
 }
