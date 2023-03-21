@@ -1,8 +1,8 @@
-import styles from "@/pages/Home/AllDrinkList.module.css";
+import styles from "@/pages/Home/AllDrinkList/AllCocktail.module.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const AlldrinkList = () => {
+const AllCocktail = () => {
   const dummyList = [
     {
       id: 1,
@@ -75,7 +75,7 @@ const AlldrinkList = () => {
           <li key={wine.id}>
             <div>
               <img src={wine.img} style={{ maxWidth: "100%", height: "auto" }}></img>
-              <p>{wine.name}</p>
+              <p className={`${styles["drink-name"]}`}>{wine.name}</p>
             </div>
           </li>
         ))}
@@ -84,4 +84,4 @@ const AlldrinkList = () => {
   );
 };
 
-export default AlldrinkList;
+export default AllCocktail;

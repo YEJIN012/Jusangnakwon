@@ -12,7 +12,7 @@ interface Feed {
   content: string;
 }
 
-const FeedMain = ({ feed }: { feed: Feed }) => {
+const FeedMain = () => {
   const [dummyFeedList, setDummyFeedList] = useState([
     {
       id: 1,

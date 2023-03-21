@@ -242,7 +242,7 @@ export default function MainTab() {
               }}
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/alldrinklist`}>
+                <Link to={`/drinklist/cocktail`}>
                   <a className={`${styles[`all-drink-list`]}`}> 전체 칵테일 보기 ▶ </a>
                 </Link>
               </div>
@@ -250,10 +250,12 @@ export default function MainTab() {
                 <ul className={`${styles[`tab-drink-list`]}`}>
                   {dummyList.slice(0, cocktailItemsToShow).map(({ id, img, name }) => (
                     <li key={id}>
+                      <Link to={`/recommend/${id}`}>
                       <div className={styles["img-container"]}>
                         <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
                         <p>{name}</p>
                       </div>
+                        </Link>
                     </li>
                   ))}
                 </ul>

@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "@/App";
 import Home from "@/pages/Home/Home";
-import AlldrinkList from "@/pages/Home/AllDrinkList";
+import HomeMain from "@/pages/Home/HomeMain";
+import AllCocktail from "@/pages/Home/AllDrinkList/AllCocktail";
+import CocktailDetail from "@/pages/Home/DrinkDetail/CocktailDetail";
 import Feed from "@/pages/Feed/Feed";
 import FeedMain from "@/pages/Feed/FeedMain";
 import FeedDetail from "@/pages/Feed/FeedDetail";
@@ -19,8 +21,22 @@ const router = createBrowserRouter([
     path: "/",
     children: [
       {
-        index: true,
+        path: "",
         element: <Home></Home>,
+        children: [
+          {
+            index: true,
+            element: <HomeMain></HomeMain>,
+          },
+          {
+            path: "drinklist/cocktail",
+            element: <AllCocktail></AllCocktail>,
+          },
+          {
+            path: "recommend/:cocktailId",
+            element: <CocktailDetail></CocktailDetail>,
+          },
+        ],
       },
       {
         path: "feed",
@@ -34,7 +50,7 @@ const router = createBrowserRouter([
             path: ":feedId",
             element: <FeedDetail></FeedDetail>,
           },
-        ],  
+        ],
       },
       {
         path: "playground",
@@ -60,7 +76,7 @@ const router = createBrowserRouter([
                 path: ":feedId",
                 element: <FeedDetail></FeedDetail>,
               },
-            ],  
+            ],
           },
           {
             path: "guide",
@@ -71,10 +87,6 @@ const router = createBrowserRouter([
       {
         path: "mypage",
         element: <MyPage></MyPage>,
-      },
-      {
-        path: "alldrinklist",
-        element: <AlldrinkList></AlldrinkList>,
       },
     ],
   },
