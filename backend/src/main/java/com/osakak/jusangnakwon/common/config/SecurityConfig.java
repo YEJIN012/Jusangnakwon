@@ -1,5 +1,11 @@
 package com.osakak.jusangnakwon.common.config;
 
+import com.osakak.jusangnakwon.common.oauth.exception.RestAuthenticationEntryPoint;
+import com.osakak.jusangnakwon.common.oauth.filter.TokenAuthenticationFilter;
+import com.osakak.jusangnakwon.common.oauth.handler.OAuth2AuthenticationFailureHandler;
+import com.osakak.jusangnakwon.common.oauth.handler.OAuth2AuthenticationSuccessHandler;
+import com.osakak.jusangnakwon.common.oauth.service.CustomOAuth2UserService;
+import com.osakak.jusangnakwon.common.oauth.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
