@@ -1,8 +1,16 @@
 package com.osakak.jusangnakwon.common.oauth.handler;
 
+import com.osakak.jusangnakwon.common.jwt.AuthToken;
 import com.osakak.jusangnakwon.common.jwt.AuthTokenProvider;
+import com.osakak.jusangnakwon.common.oauth.entity.ProviderType;
+import com.osakak.jusangnakwon.common.oauth.entity.RoleType;
+import com.osakak.jusangnakwon.common.oauth.info.OAuth2UserInfo;
+import com.osakak.jusangnakwon.common.oauth.info.OAuth2UserInfoFactory;
+import com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.osakak.jusangnakwon.common.properties.AppProperties;
+import com.osakak.jusangnakwon.common.utils.CookieUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -20,6 +28,10 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+
+import static com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.REFRESH_TOKEN;
 
 
 @Component
@@ -28,7 +40,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private final AuthTokenProvider tokenProvider;
     private final AppProperties appProperties;
-    private final UserRefreshTokenRepository userRefreshTokenRepository;
+    private final RedisTemplate<String, String> redisTemplate;
     private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
 
     @Override
@@ -61,7 +73,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
         Collection<? extends GrantedAuthority> authorities = ((OidcUser) authentication.getPrincipal()).getAuthorities();
 
-        RoleType roleType = hasAuthority(authorities, RoleType.ADMIN.getCode()) ? RoleType.ADMIN : RoleType.USER;
+        RoleType roleType = RoleType.USER;
 
         Date now = new Date();
         AuthToken accessToken = tokenProvider.createAuthToken(
@@ -73,24 +85,32 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         // refresh 토큰 설정
         long refreshTokenExpiry = appProperties.getAuth().getRefreshTokenExpiry();
 
-        AuthToken refreshToken = tokenProvider.createAuthToken(
+        AuthToken makeRefreshToken = tokenProvider.createAuthToken(
                 appProperties.getAuth().getTokenSecret(),
                 new Date(now.getTime() + refreshTokenExpiry)
         );
 
-        // DB 저장
-        UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByUserId(userInfo.getId());
+        String refreshToken = makeRefreshToken.getToken();
+
+        // Redis에서 저장된 Refresh Token 값을 가져온다.
+        String userRefreshToken = redisTemplate.opsForValue().get(authentication.getName());
+
         if (userRefreshToken != null) {
-            userRefreshToken.setRefreshToken(refreshToken.getToken());
-        } else {
-            userRefreshToken = new UserRefreshToken(userInfo.getId(), refreshToken.getToken());
-            userRefreshTokenRepository.saveAndFlush(userRefreshToken);
+            redisTemplate.opsForValue().getAndDelete(authentication.getName());
         }
+        // Redis에 저장 - 만료 시간 설정을 통해 자동 삭제 처리
+        redisTemplate.opsForValue().set(
+                userInfo.getId(),
+                refreshToken,
+                refreshTokenExpiry,
+                TimeUnit.MILLISECONDS
+        );
+
 
         int cookieMaxAge = (int) refreshTokenExpiry / 60;
 
         CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
-        CookieUtil.addCookie(response, REFRESH_TOKEN, refreshToken.getToken(), cookieMaxAge);
+        CookieUtil.addCookie(response, REFRESH_TOKEN, refreshToken, cookieMaxAge);
 
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token", accessToken.getToken())
