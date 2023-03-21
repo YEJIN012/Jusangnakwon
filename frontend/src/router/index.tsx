@@ -3,6 +3,10 @@ import App from "@/App";
 import Home from "@/pages/Home/Home";
 import HomeMain from "@/pages/Home/HomeMain";
 import AllCocktail from "@/pages/Home/AllDrinkList/AllCocktail";
+import AllWhiskey from "@/pages/Home/AllDrinkList/AllWhiskey";
+import AllWine from "@/pages/Home/AllDrinkList/AllWine";
+import AllKorean from "@/pages/Home/AllDrinkList/AllKorean";
+import AllBeer from "@/pages/Home/AllDrinkList/AllBeer";
 import CocktailDetail from "@/pages/Home/DrinkDetail/CocktailDetail";
 import Feed from "@/pages/Feed/Feed";
 import FeedMain from "@/pages/Feed/FeedMain";
@@ -31,6 +35,22 @@ const router = createBrowserRouter([
           {
             path: "drinklist/cocktail",
             element: <AllCocktail></AllCocktail>,
+          },
+          {
+            path: "drinklist/whiskey",
+            element: <AllWhiskey></AllWhiskey>,
+          },
+          {
+            path: "drinklist/wine",
+            element: <AllWine></AllWine>,
+          },
+          {
+            path: "drinklist/korean",
+            element: <AllKorean></AllKorean>,
+          },
+          {
+            path: "drinklist/beer",
+            element: <AllBeer></AllBeer>,
           },
           {
             path: "recommend/:cocktailId",
@@ -88,6 +108,14 @@ const router = createBrowserRouter([
         path: "mypage",
         element: <MyPage></MyPage>,
       },
+      // {
+      //   path: "login",
+      //   element: <Login></Login>,
+      // },
+      // {
+      //   path: "sign",
+      //   element: <Sign></Sign>,
+      // },
     ],
   },
 ]);

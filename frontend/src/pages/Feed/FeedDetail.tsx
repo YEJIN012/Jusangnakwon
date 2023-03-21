@@ -83,7 +83,16 @@ const FeedDetail = () => {
                   }}
                   sx={{
                     position: "absolute",
-                    right: "0",
+                    '& .css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper': {
+                      right: 0,
+                    },
+                    '& .css-6hp17o-MuiList-root-MuiMenu-list'
+                    : {
+                      display:"flex",
+                      flexDirection: "column",
+                      justifyContent:"center",
+                      alignItems:"center",
+                    }
                   }}
                 >
                   <MenuItem onClick={handleClose}>수정하기</MenuItem>

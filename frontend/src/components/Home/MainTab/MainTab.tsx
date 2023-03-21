@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import styles from "@/components/Home/MainTab/MainTab.module.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -44,6 +45,7 @@ function a11yProps(index: number) {
     "aria-controls": `full-width-tabpanel-${index}`,
   };
 }
+
 
 export default function MainTab() {
   const theme = useTheme();
@@ -250,12 +252,12 @@ export default function MainTab() {
                 <ul className={`${styles[`tab-drink-list`]}`}>
                   {dummyList.slice(0, cocktailItemsToShow).map(({ id, img, name }) => (
                     <li key={id}>
-                      <Link to={`/recommend/${id}`}>
                       <div className={styles["img-container"]}>
+                      <Link to={`/recommend/${id}`}>
                         <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
-                        <p>{name}</p>
-                      </div>
+                        <p className={styles["drink-name"]}>{name}</p>
                         </Link>
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -283,7 +285,7 @@ export default function MainTab() {
               }}
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/alldrinklist`}>
+                <Link to={`/drinklist/whiskey`}>
                   <a href="#none" className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 위스키 보기 ▶{" "}
@@ -325,7 +327,7 @@ export default function MainTab() {
               }}
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/alldrinklist`}>
+                <Link to={`/drinklist/wine`}>
                   <a href="#none" className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 와인 보기 ▶{" "}
@@ -367,7 +369,7 @@ export default function MainTab() {
               }}
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/alldrinklist`}>
+                <Link to={`/drinklist/korean`}>
                   <a href="#none" className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 전통주 보기 ▶{" "}
@@ -409,7 +411,7 @@ export default function MainTab() {
               }}
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/alldrinklist`}>
+                <Link to={`/drinklist/beer`}>
                   <a href="#none" className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 맥주 보기 ▶{" "}

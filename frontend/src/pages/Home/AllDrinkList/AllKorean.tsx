@@ -2,7 +2,7 @@ import styles from "@/pages/Home/AllDrinkList/AllCocktail.module.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const AllCocktail = () => {
+const AllKorean = () => {
   const dummyList = [
     {
       id: 1,
@@ -68,9 +68,9 @@ const AllCocktail = () => {
 
   return (
     <div className={`${styles["container"]}`}>
-      <h3>칵테일</h3>
+      <h3>전통주</h3>
       <Link to={`/playground/guide`}>
-      <a>칵테일 입문가이드 바로가기 ▶ </a>
+      <a>전통주 입문가이드 바로가기 ▶ </a>
       </Link>
       <ul className={`${styles["drink-list"]}`}>
         {dummyList.map((wine) => (
@@ -86,4 +86,4 @@ const AllCocktail = () => {
   );
 };
 
-export default AllCocktail;
+export default AllKorean;
