@@ -4,29 +4,6 @@ import { Grid } from "@mui/material";
 import FeedComponent from "@/components/Feed/FeedComponent";
 import { Dispatch, SetStateAction } from "react";
 
-// interface Feed {
-//   id: number;
-//   userName: string;
-//   userImg: string;
-//   classification: string;
-//   img: string;
-//   content: string;
-//   liked: boolean;
-//   setDummyFeedList: Dispatch<
-//     SetStateAction<
-//       {
-//         id: number;
-//         userName: string;
-//         userImg: string;
-//         classification: string;
-//         img: string;
-//         content: string;
-//         liked: boolean;
-//       }[]
-//     >
-//   >;
-// }
-
 const FeedMain = () => {
   const [dummyFeedList, setDummyFeedList] = useState([
     {

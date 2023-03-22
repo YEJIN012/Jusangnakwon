@@ -5,11 +5,11 @@ import { useParams } from "react-router-dom";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Stars from "@/components/Commons/Stars/Stars";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import Rating from "@mui/material/Rating";
+import CommentList from "@/components/Feed/CommentList";
 
 const FeedDetail = () => {
   const { id } = useParams();
@@ -34,11 +34,47 @@ const FeedDetail = () => {
     },
     {
       id: 3,
+      userName: "동동이",
+      userImg: "https://picsum.photos/100/100/?random",
+      classification: "질문글",
+      img: "https://picsum.photos/300/300/?random",
+      content: "저는 칵테일 추천해주세요 ~~ !",
+      liked: false,
+    },
+    {
+      id: 4,
       userName: "스텝한이",
       userImg: "https://picsum.photos/100/100/?random",
       classification: "게시글",
       img: "https://picsum.photos/300/300/?random",
       content: "부야호",
+      liked: false,
+    },
+    {
+      id: 5,
+      userName: "스텝한이",
+      userImg: "https://picsum.photos/100/100/?random",
+      classification: "게시글",
+      img: "https://picsum.photos/300/300/?random",
+      content: "부야호오오오",
+      liked: false,
+    },
+    {
+      id: 6,
+      userName: "이랑이",
+      userImg: "https://picsum.photos/100/100/?random",
+      classification: "게시글",
+      img: "https://picsum.photos/300/300/?random",
+      content: "냠냠 와인 냠냠",
+      liked: false,
+    },
+    {
+      id: 7,
+      userName: "주연이",
+      userImg: "https://picsum.photos/100/100/?random",
+      classification: "질문글",
+      img: "https://picsum.photos/300/300/?random",
+      content: "위스키랑 같이 먹을 안주 추천해주세요",
       liked: false,
     },
   ]);
@@ -107,7 +143,7 @@ const FeedDetail = () => {
                 <button className={`${styles[`feed-detail-content-btn`]}`}>더보기</button>
               </div>
               <div className={`${styles[`feed-stars-like`]}`}>
-                {/* <Stars></Stars> */}
+                <Rating name="read-only" value={5} readOnly />
                 {feed.liked ? (
                   <button
                     style={{
@@ -127,7 +163,7 @@ const FeedDetail = () => {
                       );
                     }}
                   >
-                    <FavoriteIcon></FavoriteIcon>
+                    <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
                   </button>
                 ) : (
                   <button
@@ -161,6 +197,7 @@ const FeedDetail = () => {
                 <p>소비뇽</p>
               </div>
             ) : null}
+            <CommentList></CommentList>
           </div>
         ))}
     </div>

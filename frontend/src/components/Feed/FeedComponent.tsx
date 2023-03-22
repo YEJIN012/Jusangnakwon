@@ -97,7 +97,7 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                       console.log(feed.liked);
                     }}
                   >
-                    <FavoriteIcon></FavoriteIcon>
+                    <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
                   </button>
                 ) : (
                   <button
@@ -160,7 +160,7 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                         console.log(feed.liked);
                       }}
                     >
-                      <FavoriteIcon></FavoriteIcon>
+                      <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
                     </button>
                   ) : (
                     <button
