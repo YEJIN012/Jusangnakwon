@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -9,7 +9,7 @@ import Ingredients from "@/components/Commons/Ingredients/Ingredients";
 interface RecommendList {
   recommendList: {
     id: number;
-    type:string;
+    type: string;
     img: string;
     name: string;
     ingredients: string[];
@@ -18,10 +18,10 @@ interface RecommendList {
 }
 
 export default function RecommendCarousel(props: RecommendList) {
-  const navigate = useNavigate()
-  const onClickImg = (type: string, id : number) => {
-    navigate(`/details/${type}/${id}`, { state: { from: location.pathname } })
-  }
+  const navigate = useNavigate();
+  const onClick = (type: string, id: number) => {
+    navigate(`/details/${type}/${id}`, { state: { from: location.pathname } });
+  };
   const settings = {
     dots: false,
     arrows: false,
@@ -55,14 +55,14 @@ export default function RecommendCarousel(props: RecommendList) {
     <Slider {...settings} className={`${styles[`carousel`]}`}>
       {props.recommendList.map((item) => (
         <div key={item.id}>
-            <div className={`${styles[`box`]}`} onClick={() => onClickImg(item.type,item.id)}>
-              <img className={`${styles[`img-box`]}`} src={item.img} />
-              <div className={`${styles[`info`]}`}>
-                {item.name}
-                <Ingredients ingredients={item.ingredients}></Ingredients>
-                <div>{item.explan.substring(0, 15)}</div>
-              </div>
+          <div className={`${styles[`box`]}`} onClick={() => onClick(item.type, item.id)}>
+            <img className={`${styles[`img-box`]}`} src={item.img} />
+            <div className={`${styles[`info`]}`}>
+              {item.name}
+              <Ingredients ingredients={item.ingredients}></Ingredients>
+              <div>{item.explan.substring(0, 15)}</div>
             </div>
+          </div>
         </div>
       ))}
     </Slider>

@@ -10,7 +10,8 @@ import AllBeer from "@/pages/Home/AllDrinkList/AllBeer";
 import CocktailDetail from "@/pages/Home/DrinkDetail/CocktailDetail";
 import Feed from "@/pages/Feed/Feed";
 import FeedMain from "@/pages/Feed/FeedMain";
-import FeedDetail from "@/pages/Feed/FeedDetail";
+// import FeedDetail from "@/pages/Feed/FeedDetail";
+import FeedDetail from "@/pages/Commons/FeedDetail/FeedDetail";
 import Playground from "@/pages/Playground/Playground";
 import PlaygroundMain from "@/pages/Playground/PlaygroundMain";
 import ABTI from "@/pages/Playground/ABTI/ABTI";
@@ -18,9 +19,13 @@ import Guide from "@/pages/Playground/Guide/Guide";
 import Hometender from "@/pages/Playground/Hometender/Hometender";
 import HometenderMain from "@/pages/Playground/Hometender/HometenderMain";
 import MyPage from "@/pages/MyPage/MyPage";
-import DrinkDetail from "@/pages/Commons/DrinkDetail";
+import DrinkDetail from "@/pages/Commons/DrinkDetail/DrinkDetail";
 import Login from "@/pages/User/Login";
 import Sign from "@/pages/User/Sign";
+import Write from "@/pages/Commons/Write/Write";
+import WriteQuestion from "@/pages/Commons/Write/WriteQuestion";
+import WriteReview from "@/pages/Commons/Write/WriteReview";
+import WriteRecipe from "@/pages/Commons/Write/WriteRecipe";
 
 const router = createBrowserRouter([
   {
@@ -122,6 +127,24 @@ const router = createBrowserRouter([
       {
         path: "details/feed/:id",
         element: <FeedDetail></FeedDetail>,
+      },
+      {
+        path: "write",
+        element: <Write></Write>,
+        children: [
+          {
+            path: "question",
+            element: <WriteQuestion></WriteQuestion>,
+          },
+          {
+            path: "review",
+            element: <WriteReview></WriteReview>,
+          },
+          {
+            path: "recipe",
+            element: <WriteRecipe></WriteRecipe>,
+          },
+        ],
       },
     ],
   },

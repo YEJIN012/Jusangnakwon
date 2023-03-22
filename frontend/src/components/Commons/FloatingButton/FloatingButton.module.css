@@ -1,0 +1,16 @@
+.dial-box{
+    background-color: white;
+    width: 30vw;
+    height: 30%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+
+}
+.dial-item{
+    padding: 10%;
+    color: black;
+    display: flex;
+    justify-content: start;
+}

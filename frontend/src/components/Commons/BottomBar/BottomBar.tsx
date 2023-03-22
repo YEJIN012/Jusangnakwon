@@ -15,13 +15,14 @@ function BottomBar() {
   const priorPath = location.state?.from.split("/").slice(0, 2).join("/");
   const [value, setValue] = React.useState(pathname);
 
-  // console.log(priorPath)
-  // console.log(pathname)
-  // console.log(value)
+  console.log(priorPath);
+  console.log(pathname);
+  console.log(value);
 
   React.useEffect(() => {
     if (priorPath) {
-    setValue(priorPath)}
+      setValue(priorPath);
+    }
   }, [value]);
 
   return (
