@@ -20,7 +20,7 @@ interface RecommendList {
 export default function RecommendCarousel(props: RecommendList) {
   const navigate = useNavigate()
   const onClickImg = (type: string, id : number) => {
-    navigate(`/details/${type}/${id}`)
+    navigate(`/details/${type}/${id}`, { state: { from: location.pathname } })
   }
   const settings = {
     dots: false,
