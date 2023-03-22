@@ -21,5 +21,5 @@
 }
 
 .feed-classify-btn:focus {
-  background-color: pink;
+  background: linear-gradient(180deg, #f8c2df 0%, #d298ff 113.89%);
 }
