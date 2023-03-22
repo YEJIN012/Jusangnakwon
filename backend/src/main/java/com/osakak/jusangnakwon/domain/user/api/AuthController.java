@@ -47,8 +47,11 @@ public class AuthController {
         String accessToken = HeaderUtil.getAccessToken(request);
         AuthToken authToken = tokenProvider.convertAuthToken(accessToken);
         if (!authToken.validate()) {
+            /**
+             * 에러처리 해야함
+             */
             ResponseDto responseDto = new ResponseDto();
-            responseDto.setError(INVALID_PARAMS);
+//            responseDto.setError(INVALID_PARAMS);
             return ResponseEntity.ok(responseDto);
         }
 

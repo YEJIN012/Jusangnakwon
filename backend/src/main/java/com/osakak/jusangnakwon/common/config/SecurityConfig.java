@@ -44,6 +44,7 @@ public class SecurityConfig {
     private final CorsProperties corsProperties;
     private final AppProperties appProperties;
     private final AuthTokenProvider tokenProvider;
+    private final RedisTemplate<String, String> redisTemplate;
     private final CustomUserDetailsService customUserDetailsService;
     private final CustomOAuth2UserService customOAuth2UserService;
     private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
@@ -115,7 +116,7 @@ public class SecurityConfig {
         return new OAuth2AuthenticationSuccessHandler(
                 tokenProvider,
                 appProperties,
-                new RedisTemplate<>(),
+                redisTemplate,
                 oAuth2AuthorizationRequestBasedOnCookieRepository()
         );
     }
