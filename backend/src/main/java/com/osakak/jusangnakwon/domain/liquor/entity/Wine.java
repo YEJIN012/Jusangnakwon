@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder(builderMethodName = "WineBuilder")
+@ToString
 public class Wine {
     @Id
     private String id;

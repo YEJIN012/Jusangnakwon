@@ -43,6 +43,8 @@ public class LiquorNotLoggedInController {
      */
     @GetMapping("rank/l1")
     public ResponseEntity<ResponseDto> rankWine(@RequestParam int page) {
+        // TODO: mongodb 유사 데이터, mysql 유사 데이터 속도 확인
+
         ResponseDto responseDto = new ResponseDto();
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.WINE);
         responseDto.setBody(liquorList);
