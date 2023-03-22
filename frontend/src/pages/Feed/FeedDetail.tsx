@@ -9,9 +9,10 @@ import Stars from "@/components/Commons/Stars/Stars";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 const FeedDetail = () => {
-  const { feedId } = useParams();
+  const { id } = useParams();
   const [dummyFeedList, setDummyFeedList] = useState([
     {
       id: 1,
@@ -54,7 +55,7 @@ const FeedDetail = () => {
   return (
     <div>
       {dummyFeedList
-        .filter((feed) => feed.id === Number(feedId))
+        .filter((feed) => feed.id === Number(id))
         .map((feed) => (
           <div key={feed.id}>
             <div className={`${styles[`user-profile-container`]}`}>
@@ -83,16 +84,15 @@ const FeedDetail = () => {
                   }}
                   sx={{
                     position: "absolute",
-                    '& .css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper': {
+                    "& .css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper": {
                       right: 0,
                     },
-                    '& .css-6hp17o-MuiList-root-MuiMenu-list'
-                    : {
-                      display:"flex",
+                    "& .css-6hp17o-MuiList-root-MuiMenu-list": {
+                      display: "flex",
                       flexDirection: "column",
-                      justifyContent:"center",
-                      alignItems:"center",
-                    }
+                      justifyContent: "center",
+                      alignItems: "center",
+                    },
                   }}
                 >
                   <MenuItem onClick={handleClose}>수정하기</MenuItem>

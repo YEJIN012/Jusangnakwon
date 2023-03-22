@@ -27,3 +27,7 @@ a:hover,
 a:active {
   text-decoration: none;
 }
+
+:root {
+  --main-bg-color: #06031a;
+}

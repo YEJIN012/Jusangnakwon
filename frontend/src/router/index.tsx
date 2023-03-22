@@ -69,10 +69,10 @@ const router = createBrowserRouter([
             index: true,
             element: <FeedMain></FeedMain>,
           },
-          {
-            path: ":feedId",
-            element: <FeedDetail></FeedDetail>,
-          },
+          // {
+          //   path: ":feedId",
+          //   element: <FeedDetail></FeedDetail>,
+          // },
         ],
       },
       {
