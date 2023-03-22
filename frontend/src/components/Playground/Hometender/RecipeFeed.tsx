@@ -26,9 +26,6 @@ export default function RecipeFeed(props: RecipeList) {
         {props.recipeList.map((item) => (
           <li key={item.id}>
             <div className={styles["item-container"]}>
-              {/* <Link to={`/detail/${item.id}`}>
-              <img src={item.img}></img>
-              </Link> */}
               <img src={item.img} onClick={() => onClickImg(item.type,item.id)}></img>
               <div className={styles["item-title"]}>
                 <div>{item.name}</div>

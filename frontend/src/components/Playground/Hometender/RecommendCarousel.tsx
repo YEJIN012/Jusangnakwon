@@ -55,7 +55,6 @@ export default function RecommendCarousel(props: RecommendList) {
     <Slider {...settings} className={`${styles[`carousel`]}`}>
       {props.recommendList.map((item) => (
         <div key={item.id}>
-          {/* <Link to={`${item.id}`}> */}
             <div className={`${styles[`box`]}`} onClick={() => onClickImg(item.type,item.id)}>
               <img className={`${styles[`img-box`]}`} src={item.img} />
               <div className={`${styles[`info`]}`}>
@@ -64,7 +63,6 @@ export default function RecommendCarousel(props: RecommendList) {
                 <div>{item.explan.substring(0, 15)}</div>
               </div>
             </div>
-          {/* </Link> */}
         </div>
       ))}
     </Slider>
