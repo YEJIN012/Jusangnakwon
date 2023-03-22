@@ -1,9 +1,13 @@
 import MainTab from "@/components/Home/MainTab/MainTab";
 import styles from "@/pages/Home/HomeMain.module.css";
+import { Link } from "react-router-dom";
 
 const HomeMain = () => {
   return (
     <div className={`${styles[`container`]}`}>
+      <Link to={`/login`}>
+      <div>록으인</div>
+      </Link>
       <div className={`${styles[`banner-box`]}`}>
         <p>
           홈텐딩 레시피 바로가기! <br />

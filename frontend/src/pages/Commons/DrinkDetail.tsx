@@ -50,7 +50,7 @@ const DrinkDetail = () => {
 
         <p>{drink.explan}</p>
         <button className={`${styles[`drink-detail-content-btn`]}`}>더보기</button>
-      <ReviewList></ReviewList>
+        <ReviewList></ReviewList>
       </div>
     </>
   );

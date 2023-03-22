@@ -18,7 +18,9 @@ import Guide from "@/pages/Playground/Guide/Guide";
 import Hometender from "@/pages/Playground/Hometender/Hometender";
 import HometenderMain from "@/pages/Playground/Hometender/HometenderMain";
 import MyPage from "@/pages/MyPage/MyPage";
-import DrinkDetail from "@/pages/Commons/DrinkDetail"
+import DrinkDetail from "@/pages/Commons/DrinkDetail";
+import Login from "@/pages/User/Login";
+import Sign from "@/pages/User/Sign";
 
 const router = createBrowserRouter([
   {
@@ -53,10 +55,10 @@ const router = createBrowserRouter([
             path: "drinklist/beer",
             element: <AllBeer></AllBeer>,
           },
-          {
-            path: "recommend/:cocktailId",
-            element: <CocktailDetail></CocktailDetail>,
-          },
+          // {
+          //   path: "recommend/:cocktailId",
+          //   element: <CocktailDetail></CocktailDetail>,
+          // },
         ],
       },
       {
@@ -93,7 +95,7 @@ const router = createBrowserRouter([
                 index: true,
                 element: <HometenderMain></HometenderMain>,
               },
-            ],  
+            ],
           },
           {
             path: "guide",
@@ -105,22 +107,22 @@ const router = createBrowserRouter([
         path: "mypage",
         element: <MyPage></MyPage>,
       },
-      // {
-      //   path: "login",
-      //   element: <Login></Login>,
-      // },
-      // {
-      //   path: "sign",
-      //   element: <Sign></Sign>,
-      // },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "sign",
+        element: <Sign></Sign>,
+      },
       {
         path: "details/:drinktype/:id",
         element: <DrinkDetail></DrinkDetail>,
       },
       {
         path: "details/feed/:id",
-        element: <FeedDetail></FeedDetail>
-      }
+        element: <FeedDetail></FeedDetail>,
+      },
     ],
   },
 ]);
