@@ -25,7 +25,7 @@ public class Hometender {
     private int scrap_cnt;
     private Object scrap_users;
     private Object ratings;
-    private int rating_avg;
+    private Double rating_avg;
     private List<String> feed_id;
     private String user_id;
 

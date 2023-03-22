@@ -40,6 +40,6 @@ public class Whisky {
     private Object scrap_users;
     // RatingUser를 객체로 사용
     private Object ratings;
-    private int rating_avg;
+    private Double rating_avg;
     private List<String> feed_id;
 }

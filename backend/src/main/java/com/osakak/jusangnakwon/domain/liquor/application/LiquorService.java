@@ -11,6 +11,7 @@ import com.osakak.jusangnakwon.domain.liquor.mapper.WineMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,8 +46,8 @@ public class LiquorService {
     private LiquorListMainResponse getLiquorListBySearchType(LiquorType liquorType, SearchType searchType, Pageable pageable) {
         switch (searchType) {
             case RANK:
-                System.out.println("rank");
-                return getLiquorListByRank(liquorType, pageable);
+                Sort sort = Sort.by(Sort.Direction.DESC, "ratings_avg");
+                return getLiquorListByRank(liquorType, pageable, sort);
             case RECOMM:
                 System.out.println("recomm");
                 return null;
@@ -61,13 +62,13 @@ public class LiquorService {
      * @param pageable   페이징
      * @return 페이징 포함 주종 id, name 정보
      */
-    private LiquorListMainResponse getLiquorListByRank(LiquorType liquorType, Pageable pageable) {
+    private LiquorListMainResponse getLiquorListByRank(LiquorType liquorType, Pageable pageable, Sort sort) {
         switch (liquorType) {
             case WHISKY:
                 return null;
             case WINE:
                 // TODO: 조회 부분 랭킹 순으로 변경하기
-                Page<Wine> wines = wineRepository.findAll(pageable);
+                Page<Wine> wines = wineRepository.findAll(pageable, sort);
 
                 List<LiquorListItemDto> liquorListItemDtos = wineMapper.winesToSearchLiquorDtos(wines.getContent());
                 int totalPages = wines.getTotalPages();
