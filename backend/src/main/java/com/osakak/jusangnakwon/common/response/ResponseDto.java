@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class ResponseDto {
     private boolean success;
-    private ErrorDto error;
+    private ErrorCode error;
     private Object body;
 
 }
