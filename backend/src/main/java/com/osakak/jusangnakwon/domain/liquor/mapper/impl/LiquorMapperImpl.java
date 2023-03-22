@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 public class LiquorMapperImpl implements LiquorMapper {
-    private final WineRepository wineRepository;
-
     /**
      * 메인 페이지에 보여줄 페이징된 술 리스트
      *
@@ -22,11 +19,10 @@ public class LiquorMapperImpl implements LiquorMapper {
      */
     @Override
     public LiquorListMainResponse toMainPageResponse(List<LiquorListItemDto> content, int totalPage, int curPageNumber) {
-        LiquorListMainResponse response = new LiquorListMainResponse();
-        response.setTotalPage(totalPage);
-        response.setCurPageNumber(curPageNumber);
-        response.setContent(content);
-        return response;
+        return LiquorListMainResponse.builder()
+                .totalPage(totalPage)
+                .curPageNumber(curPageNumber)
+                .content(content).build();
     }
 
 }
