@@ -30,5 +30,4 @@ public enum ErrorCode {
                 .findAny()
                 .orElse(null);
     }
-
 }
