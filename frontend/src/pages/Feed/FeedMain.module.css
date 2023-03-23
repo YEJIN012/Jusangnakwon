@@ -20,6 +20,15 @@
   font-weight: 600;
 }
 
-.feed-classify-btn:focus {
+/* .feed-classify-btn:focus {
   background: linear-gradient(180deg, #f8c2df 0%, #d298ff 113.89%);
+} */
+
+.focused-feed-classify-btn {
+  padding: 1% 7%;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  background: linear-gradient(180deg, #ffa0d3 0%, #cb8bfc 113.89%);
+  outline: none;
 }

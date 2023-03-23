@@ -39,28 +39,58 @@
 }
 
 .feed-alcohol-info-container {
-  padding-left: 3%;
-  padding-right: 3%;
+  box-sizing: border-box;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  width: 80%;
+  margin-bottom: 3%;
 }
 
 .feed-alcohol-tag {
-  width: 20%;
+  width: 80px;
   text-align: center;
   padding: 1% 3%;
   background-color: blueviolet;
   border-radius: 30px;
   font-size: 0.9rem;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 .feed-alcohol-type-tag {
-  width: 20%;
+  width: 80px;
   text-align: center;
   padding: 1% 3%;
   border-radius: 30px;
   font-size: 0.9rem;
   background-color: rgb(43, 189, 226);
+  margin-right: 20px;
+}
+
+.feed-alcohol-info-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.comment-input-container {
+  display: flex;
+  justify-content: center;
+}
+
+.comment-input {
+  width: 80%;
+  height: 20px;
+  background-color: inherit;
+  border: none;
+  padding: 1%;
+  border-bottom: 0.1px solid white;
+  color: white;
+}
+
+.comment-input:focus {
+  width: 80%;
+  height: 20px;
+  padding: 1%;
+  outline: none;
+  caret-color: white;
 }

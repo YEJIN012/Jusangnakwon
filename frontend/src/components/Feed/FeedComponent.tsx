@@ -33,45 +33,13 @@ interface Feed {
 const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
   return (
     <>
-      {/* <div>
-        <div
-          style={{
-            backgroundImage: `url(${dummyFeedList[0].img})`,
-            height: randomNum,
-            position: "relative",
-            borderRadius: "5px",
-          }}
-        >
-          <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.8rem", paddingTop: "5px" }}>
-            <div className={`${styles[`user-profile`]}`}>
-              <img src={dummyFeedList[0].userImg} className={`${styles[`user-img`]}`}></img>
-              <p>{dummyFeedList[0].userName}</p>
-            </div>
-          </div>
-          <button
-            style={{
-              color: "white",
-              background: "none",
-              border: "none",
-              position: "absolute",
-              bottom: "2%",
-              right: "3%",
-            }}
-          >
-            <FavoriteBorderIcon />
-          </button>
-        </div>
-        <div style={{ backgroundColor: "inherit", padding: "5px" }}>
-          <p style={{ color: "white" }}>{dummyFeedList[0].content}</p>
-        </div>
-      </div> */}
       {feed.classification === "게시글" ? (
         <Grid item key={feed.id} paddingBottom={1}>
           <Card style={{ backgroundColor: "inherit" }}>
-            <Link to={`../details/feed/${feed.id}`} style={{ textDecoration: "none" }}>
-              <CardMedia component="img" height="150" image={feed.img} alt={feed.userName} />
+            <Link to={`../details/feed/${feed.id}`}>
+              <CardMedia component="img" height="auto" image={feed.img} alt={feed.userName} />
             </Link>
-            <CardContent style={{ backgroundColor: "#3D3D3D", padding: "2px" }}>
+            <CardContent style={{ backgroundColor: `rgba(40, 40, 50, 0.7)`, padding: "2px" }}>
               <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.8rem", color: "white" }}>
                 <div className={`${styles[`user-profile`]}`}>
                   <img src={feed.userImg} className={`${styles[`user-img`]}`}></img>
@@ -94,7 +62,7 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                           }
                         }),
                       );
-                      console.log(feed.liked);
+                      // console.log(feed.liked);
                     }}
                   >
                     <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
@@ -116,7 +84,7 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                           }
                         }),
                       );
-                      console.log(feed.liked);
+                      // console.log(feed.liked);
                     }}
                   >
                     <FavoriteBorderIcon />
@@ -157,7 +125,7 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                             }
                           }),
                         );
-                        console.log(feed.liked);
+                        // console.log(feed.liked);
                       }}
                     >
                       <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
@@ -179,7 +147,7 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                             }
                           }),
                         );
-                        console.log(feed.liked);
+                        // console.log(feed.liked);
                       }}
                     >
                       <FavoriteBorderIcon />

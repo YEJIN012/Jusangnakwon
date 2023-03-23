@@ -10,6 +10,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Rating from "@mui/material/Rating";
 import CommentList from "@/components/Feed/CommentList";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const FeedDetail = () => {
   const { id } = useParams();
@@ -74,10 +75,14 @@ const FeedDetail = () => {
       userImg: "https://picsum.photos/100/100/?random",
       classification: "질문글",
       img: "https://picsum.photos/300/300/?random",
-      content: "위스키랑 같이 먹을 안주 추천해주세요",
+      content: "위스키랑 같이 먹을 안주 추천해주세요ㅇ라ㅣㅁㄴㅇ럼ㄴㅇ라ㅣㅓㅁㄴ이;러ㅣㄴ;ㅇ머ㅏㅣㅓ",
       liked: false,
     },
   ]);
+
+  // 내용 더보기 버튼
+  const [showContent, setShowContent] = useState(false);
+  const toggleContent = () => setShowContent((prev) => !prev);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -139,8 +144,14 @@ const FeedDetail = () => {
             <img src={feed.img} className={`${styles[`feed-img`]}`}></img>
             <div className={`${styles[`feed-content-container`]}`}>
               <div>
-                <p>{feed.content}</p>
-                <button className={`${styles[`feed-detail-content-btn`]}`}>더보기</button>
+                {showContent ? feed.content : `${feed.content.slice(0, 100)}...`}
+                {!showContent && (
+                  <button className={`${styles[`feed-detail-content-btn`]}`} onClick={toggleContent}>
+                    더 보기
+                  </button>
+                )}
+                {/* <p>{feed.content}</p> */}
+                {/* <button className={`${styles[`feed-detail-content-btn`]}`}>더보기</button> */}
               </div>
               <div className={`${styles[`feed-stars-like`]}`}>
                 <Rating name="read-only" value={5} readOnly />

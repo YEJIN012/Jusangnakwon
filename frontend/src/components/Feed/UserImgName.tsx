@@ -2,7 +2,7 @@ import styles from "@/pages/Feed/FeedDetail.module.css";
 
 const UserImgName = () => {
   const dummyUser = {
-    userName: "호정",
+    userName: "banabana",
     userImg: "https://picsum.photos/30/30/?random",
   };
 

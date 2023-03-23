@@ -89,54 +89,30 @@ const FeedMain = () => {
   return (
     <div className={`${styles[`feed-main-container`]}`}>
       <div className={`${styles[`feed-classify-btn-container`]}`}>
-        <button className={styles["feed-classify-btn"]} value={"전체글"} onClick={sortPostList} ref={allButtonRef}>
+        <button
+          className={focusedPostList === "전체글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
+          value={"전체글"}
+          onClick={sortPostList}
+          ref={allButtonRef}
+        >
           전체글
         </button>
-        <button className={styles["feed-classify-btn"]} value={"게시글"} onClick={sortPostList}>
+        <button
+          className={focusedPostList === "게시글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
+          value={"게시글"}
+          onClick={sortPostList}
+        >
           게시글
         </button>
-        <button className={styles["feed-classify-btn"]} value={"질문글"} onClick={sortPostList}>
+        <button
+          className={focusedPostList === "질문글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
+          value={"질문글"}
+          onClick={sortPostList}
+        >
           질문글
         </button>
       </div>
 
-      {/* <div style={{ display: "flex", width: "100vw", justifyContent: "center" }}>
-        <div
-          style={{
-            display: "flex",
-            width: "45%",
-            marginTop: "15px",
-            flexDirection: "column",
-          }}
-        >
-          <FeedComponent />
-          <FeedComponent />
-        </div>
-      </div> */}
-
-      {/* <ul>
-        {focusedPostList === "전체글"
-          ? dummyFeedList.map((feed) => (
-              <li key={feed.id}>
-                <p>작성자: {feed.userName}</p>
-                <Link to={`/feed/${feed.id}`}>
-                  <img src={feed.img}></img>
-                </Link>
-                <p>내용: {feed.content}</p>
-              </li>
-            ))
-          : dummyFeedList
-              .filter((feed) => feed.classification === focusedPostList)
-              .map((feed) => (
-                <li key={feed.id}>
-                  <p>작성자: {feed.userName}</p>
-                  <Link to={`/feed/${feed.id}`}>
-                    <img src={feed.img}></img>
-                  </Link>
-                  <p>내용: {feed.content}</p>
-                </li>
-              ))}
-      </ul> */}
       {focusedPostList === "전체글" ? (
         <Grid container spacing={1} padding={1}>
           <Grid item xs={6} md={6} lg={6}>

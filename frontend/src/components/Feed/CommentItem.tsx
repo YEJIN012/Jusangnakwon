@@ -1,4 +1,4 @@
-import styles from "@/components/Commons/ReviewList/ReviewList.module.css";
+import styles from "./CommentList.module.css";
 import Rating from "@mui/material/Rating";
 import CreateIcon from "@mui/icons-material/Create";
 import UserImgName from "./UserImgName";
@@ -16,11 +16,10 @@ interface Comment {
 const CommentItem = ({ comment }: Comment) => {
   return (
     <>
-      <div className={`${styles[`review-item`]}`}>
-        <div className={`${styles[`column-container`]}`}>
+      <div className={`${styles[`comment-item`]}`}>
+        <div className={`${styles[`row-container`]}`}>
           <UserImgName />
-          <div>{comment.content}</div>
-          <div className={`${styles[`row-container`]}`}></div>
+          <div className={`${styles[`comment-content`]}`}>{comment.content}</div>
         </div>
         <div className={`${styles[`date`]}`}>{comment.date}</div>
       </div>
