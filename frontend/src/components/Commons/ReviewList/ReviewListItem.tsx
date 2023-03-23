@@ -13,7 +13,7 @@ interface Review {
   };
 }
 
-export default function ReviewListItem(props: Review) {
+const ReviewListItem = (props: Review) => {
   const navigate = useNavigate();
   const onClick = (id: number) => {
     navigate(`/details/feed/${id}`, { state: { from: location.pathname } });
@@ -33,4 +33,6 @@ export default function ReviewListItem(props: Review) {
       </div>
     </>
   );
-}
+};
+
+export default ReviewListItem;

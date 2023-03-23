@@ -1,9 +1,18 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import todoSlice from "@/slices/todoSlice";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import tabSlice from "@/slices/tabSlice";
+
+const persistConfig = {
+  key : "root",
+  storage,
+  // whitelist:[],
+  // blacklist:[]
+}
 
 const rootReducer = combineReducers({
-  todo: todoSlice,
+  tab: tabSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer);

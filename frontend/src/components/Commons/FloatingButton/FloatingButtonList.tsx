@@ -12,22 +12,22 @@ const types = [
   { icon: <LocalBarIcon />, name: "레시피", path: "recipe" },
 ];
 
-export default function FloatingButtonItem() {
+const FloatingButtonList = () => {
   const navigate = useNavigate();
   const onClick = (index: number) => {
     navigate(`/write/${types[index].path}`, { state: { from: location.pathname } });
   };
-  //   const [open, setOpen] = useState(false);
-  //   const handleOpen = () => setOpen(true);
-  //   const handleClose = () => setOpen(false);
-    return (
-        <>
-            {types.map((type, index) =>
-                <div key={index} className={`${styles[`dial-item`]}`} onClick={() => onClick(index)}>
-                    {type.icon}
-                    {type.name}
-                </div>,
-            )}
-        </>
-    )
-}
+
+  return (
+    <div className={`${styles[`dial-box`]}`}>
+      {types.map((type, index) => (
+        <div key={index} className={`${styles[`dial-item`]}`} onClick={() => onClick(index)}>
+          {type.icon}
+          {type.name}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default FloatingButtonList;

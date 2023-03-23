@@ -13,7 +13,7 @@ interface RecipeList {
   }[];
 }
 
-export default function RecipeFeed(props: RecipeList) {
+const RecipeFeed = (props: RecipeList) => {
   const navigate = useNavigate();
   const onClick = (type: string, id: number) => {
     navigate(`/details/${type}/${id}`, { state: { from: location.pathname } });
@@ -39,4 +39,6 @@ export default function RecipeFeed(props: RecipeList) {
       </ul>
     </div>
   );
-}
+};
+
+export default RecipeFeed;

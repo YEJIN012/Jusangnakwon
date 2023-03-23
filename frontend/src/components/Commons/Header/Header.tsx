@@ -4,7 +4,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import styles from "./Header.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function Header() {
+const Header = () => {
   const { pathname } = useLocation();
   const rootPathList = ["/", "/feed", "/playground", "/mypage"];
   const navigate = useNavigate();

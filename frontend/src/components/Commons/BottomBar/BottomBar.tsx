@@ -8,22 +8,31 @@ import HomeIcon from "@mui/icons-material/Home";
 import LanguageIcon from "@mui/icons-material/Language";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { updateTabActions } from "@/slices/tabSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
 
-function BottomBar() {
+const BottomBar = () => {
   const location = useLocation();
   const pathname = location.pathname.split("/").slice(0, 2).join("/");
-  const priorPath = location.state?.from.split("/").slice(0, 2).join("/");
-  const [value, setValue] = React.useState(pathname);
+  // const priorPath = location.state?.from.split("/").slice(0, 2).join("/");
+  const dispatch = useDispatch()
+  const focusedTab = useSelector((state: RootState) => state.tab)
 
-  console.log(priorPath);
-  console.log(pathname);
-  console.log(value);
+  const [value, setValue] = React.useState(focusedTab);
+  // console.log(priorPath);
+  // console.log(pathname);
+  // console.log(value);
 
   React.useEffect(() => {
-    if (priorPath) {
-      setValue(priorPath);
-    }
+    dispatch(updateTabActions.updateTab(value))
   }, [value]);
+  // const onclick =function() {
+  // dispatch(updateTabActions.updateTab(value))
+  // }
+
+  // console.log(focusedTab)
 
   return (
     <Box className={`${styles[`bottom-bar-container`]}`}>
@@ -31,7 +40,8 @@ function BottomBar() {
         showLabels
         value={value}
         onChange={(event, newValue) => {
-          setValue(newValue);
+          // dispatch(updateTabActions.updateTab(newValue))
+          setValue(newValue)
         }}
         sx={{
           backgroundColor: "black",

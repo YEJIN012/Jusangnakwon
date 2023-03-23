@@ -17,7 +17,7 @@ interface RecommendList {
   }[];
 }
 
-export default function RecommendCarousel(props: RecommendList) {
+const RecommendCarousel = (props: RecommendList) => {
   const navigate = useNavigate();
   const onClick = (type: string, id: number) => {
     navigate(`/details/${type}/${id}`, { state: { from: location.pathname } });
@@ -67,4 +67,6 @@ export default function RecommendCarousel(props: RecommendList) {
       ))}
     </Slider>
   );
-}
+};
+
+export default RecommendCarousel;

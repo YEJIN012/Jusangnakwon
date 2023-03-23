@@ -87,7 +87,7 @@ const recipeDummy = [
   },
 ];
 
-function HometenderMain() {
+const HometenderMain = () => {
   return (
     <>
     <FloatingButton></FloatingButton>
