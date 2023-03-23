@@ -1,4 +1,4 @@
-function Guide() {
+const Guide = () => {
   return (
     <div>
       <h1>입문자가이드</h1>
