@@ -12,5 +12,4 @@ public class SimilarItemValueType {
     private Long item3;
     private Long item4;
     private Long item5;
-
 }
