@@ -1,0 +1,25 @@
+.carousel{
+  width: 90vw;  
+}
+.box{
+  display: flex;
+  flex-direction: row;
+  height: 10vh;
+  background-color:#d9d9d980;
+  border-radius: 10px;
+  padding: 4vw;
+  align-items: center;
+}
+
+.img-box{
+  width: 10vh;
+  height: 10vh;
+  border-radius: 10px;
+}
+
+.info {
+  margin-left: 6vw;
+  display: flex;
+  flex-direction: column;
+
+}

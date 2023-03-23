@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import styles from "./PlaygroundMain.module.css";
 
-function PlaygroundMain() {
+const PlaygroundMain = () => {
   return (
     <div className={`${styles[`container`]}`}>
       <Link to={`/playground/abti`} style={{ textDecoration: "none" }}>
