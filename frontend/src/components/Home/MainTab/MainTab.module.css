@@ -6,20 +6,22 @@
 .all-drink-list-btn {
   display: flex;
   justify-content: flex-end;
-  /* margin-bottom: 3%; */
+  margin-bottom: 10%;
+  margin-right: 3%;
 }
 
 .all-drink-list {
-  text-decoration: none;
   display: inline-block;
-  color: white;
-  margin: 1%;
+  font-size: smaller;
+  color: rgb(245, 245, 245);
+  /* margin: 1%; */
   /* border: 1px solid #ffffff; */
 }
 
 .drink-list-wrap {
   text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -63,3 +65,16 @@
 /* .tab-drink-list li:last-child {
   margin-right: 0;
 } */
+.css-np9o25-MuiButtonBase-root-MuiTab-root {
+  min-width: 20px;
+}
+
+.more-drink-btn {
+  margin-bottom: 20px;
+  color: white;
+  /* margin-top: 0; */
+}
+
+.drink-name{
+  color: white;
+}
