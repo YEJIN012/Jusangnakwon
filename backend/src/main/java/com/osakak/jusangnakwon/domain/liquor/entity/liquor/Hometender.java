@@ -29,6 +29,7 @@ public class Hometender {
     private int bitter;
     private int sweet;
     @Column(name = "liquor_type")
+    @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
     @OneToOne(mappedBy = "hometender")
     private SimilarHometenderItem similarHometenderItem;

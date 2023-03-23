@@ -3,6 +3,7 @@ package com.osakak.jusangnakwon.domain.liquor.entity.similar;
 import com.osakak.jusangnakwon.domain.liquor.dto.SimilarItemValueType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Whisky;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,4 +21,11 @@ public class SimilarWhiskyItem {
     @OneToOne
     @JoinColumn(name = "whisky_id")
     private Whisky whisky;
+
+    @Builder
+    public SimilarWhiskyItem(Long id, SimilarItemValueType similarLiquor, Whisky whisky) {
+        this.id = id;
+        this.similarLiquor = similarLiquor;
+        this.whisky = whisky;
+    }
 }

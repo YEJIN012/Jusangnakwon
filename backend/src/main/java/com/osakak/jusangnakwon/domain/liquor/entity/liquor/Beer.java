@@ -3,8 +3,10 @@ package com.osakak.jusangnakwon.domain.liquor.entity.liquor;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarBeerItem;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -35,7 +37,24 @@ public class Beer {
     @Column(length = 10, nullable = false)
     private Double mouthfeel;
     @Column(name = "liquor_type", length = 10, nullable = false)
+    @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
     @OneToOne(mappedBy = "beer")
     private SimilarBeerItem similarBeerItem;
+
+    @Builder
+    public Beer(Long id, String name, String img, String type, String country, String description, Double aroma, Double appearance, Double flavor, Double mouthfeel, LiquorType liquorType, SimilarBeerItem similarBeerItem) {
+        this.id = id;
+        this.name = name;
+        this.img = img;
+        this.type = type;
+        this.country = country;
+        this.description = description;
+        this.aroma = aroma;
+        this.appearance = appearance;
+        this.flavor = flavor;
+        this.mouthfeel = mouthfeel;
+        this.liquorType = liquorType;
+        this.similarBeerItem = similarBeerItem;
+    }
 }

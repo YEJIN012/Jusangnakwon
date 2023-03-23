@@ -4,6 +4,7 @@ import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarWineItem;
 import io.swagger.annotations.ApiModel;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -55,9 +56,34 @@ public class Wine {
     @Column(length = 10, nullable = false)
     private int tannin;
     @Column(name = "liquor_type", length = 10)
+    @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
 
     @OneToOne(mappedBy = "wine")
     private SimilarWineItem similarWineItem;
 
+    @Builder
+    public Wine(Long id, String name, String img, int price, String link, double alcohol, String type, String country, String winery, String province, String grapeType, String foodPairing, String vintage, int size, String description, int sweetness, int acidity, int body, int tannin, LiquorType liquorType, SimilarWineItem similarWineItem) {
+        this.id = id;
+        this.name = name;
+        this.img = img;
+        this.price = price;
+        this.link = link;
+        this.alcohol = alcohol;
+        this.type = type;
+        this.country = country;
+        this.winery = winery;
+        this.province = province;
+        this.grapeType = grapeType;
+        this.foodPairing = foodPairing;
+        this.vintage = vintage;
+        this.size = size;
+        this.description = description;
+        this.sweetness = sweetness;
+        this.acidity = acidity;
+        this.body = body;
+        this.tannin = tannin;
+        this.liquorType = liquorType;
+        this.similarWineItem = similarWineItem;
+    }
 }
