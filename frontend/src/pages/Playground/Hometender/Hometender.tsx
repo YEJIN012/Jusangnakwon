@@ -1,8 +1,11 @@
-function Hometender() {
+import { Outlet } from "react-router-dom";
+
+const Hometender = () => {
   return (
     <div>
-      <h1>홈텐더 메인페이지</h1>
+      <Outlet></Outlet>
     </div>
-  )
-}
-export default Hometender
+  );
+};
+
+export default Hometender;
