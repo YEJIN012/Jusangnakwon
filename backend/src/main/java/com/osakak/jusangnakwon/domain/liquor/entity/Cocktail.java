@@ -1,27 +1,32 @@
 package com.osakak.jusangnakwon.domain.liquor.entity;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.persistence.*;
 
 @ApiModel(value = "cocktail")
-@Document(collection = "cocktail")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder(builderMethodName = "CocktailBuilder")
 @Schema(description = "칵테일 테이블")
+@Entity
 public class Cocktail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Schema(description = "칵테일 이름")
     private String name;
     private String img;
     private int alcohol;
     private String type;
-    private String base_wine;
-    private int base_wine_amt;
+    @Column(name = "base_wine")
+    private String baseWine;
+    private int baseWineAmt;
     private String liquor;
     private int liquor_amt;
     private String juice;
@@ -37,44 +42,33 @@ public class Cocktail {
     private int bitter;
     private int sweet;
     private int spicy;
-    private List<String> similar_liquor;
-    private int scrap_cnt;
-    // ScrapUser 를 객체로 사용
-    private Object scrap_users;
-    // RatingUser를 객체로 사용
-    private Object ratings;
-    private Double rating_avg;
-    private List<String> feed_id;
+    @Column(name = "liquor_type")
+    private LiquorType liquorType;
 
-   /* public static CocktailBuilder builder(Cocktail cocktail) {
-        return CocktailBuilder()
-                .name(cocktail.getName())
-                .img(cocktail.getImg())
-                .alcohol(cocktail.getAlcohol())
-                .type(cocktail.getType())
-                .base_wine(cocktail.getBase_wine())
-                .liquor(cocktail.getLiquor())
-                .liquor_amt(cocktail.getLiquor_amt())
-                .juice(cocktail.getJuice())
-                .juice_amt(cocktail.getJuice_amt())
-                .spice(cocktail.getSpice())
-                .spice_amt(cocktail.getSpice_amt())
-                .soda(cocktail.getSoda())
-                .soda_amt(cocktail.getSoda_amt())
-                .others(cocktail.getOthers())
-                .salty(cocktail.getSalty())
-                .savory(cocktail.getSavory())
-                .sour(cocktail.getSour())
-                .bitter(cocktail.getBitter())
-                .sweet(cocktail.getSweet())
-                .spicy(cocktail.getSpicy())
-                .similar_liquor(cocktail.getSimilar_liquor())
-                .scrap_cnt(cocktail.getScrap_cnt())
-                .scrap_users(cocktail.getScrap_users())
-                .rating_avg(cocktail.getRating_avg())
-                .ratings(cocktail.getRatings())
-                .feed_id(cocktail.getFeed_id());
-    }*/
-
-
+    @Builder
+    public Cocktail(Long id, String name, String img, int alcohol, String type, String baseWine, int baseWineAmt, String liquor, int liquor_amt, String juice, int juice_amt, String spice, int spice_amt, String soda, int soda_amt, String others, int salty, int savory, int sour, int bitter, int sweet, int spicy, LiquorType liquorType) {
+        this.id = id;
+        this.name = name;
+        this.img = img;
+        this.alcohol = alcohol;
+        this.type = type;
+        this.baseWine = baseWine;
+        this.baseWineAmt = baseWineAmt;
+        this.liquor = liquor;
+        this.liquor_amt = liquor_amt;
+        this.juice = juice;
+        this.juice_amt = juice_amt;
+        this.spice = spice;
+        this.spice_amt = spice_amt;
+        this.soda = soda;
+        this.soda_amt = soda_amt;
+        this.others = others;
+        this.salty = salty;
+        this.savory = savory;
+        this.sour = sour;
+        this.bitter = bitter;
+        this.sweet = sweet;
+        this.spicy = spicy;
+        this.liquorType = liquorType;
+    }
 }

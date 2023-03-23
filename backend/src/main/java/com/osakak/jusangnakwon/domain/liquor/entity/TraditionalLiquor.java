@@ -1,37 +1,36 @@
 package com.osakak.jusangnakwon.domain.liquor.entity;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import io.swagger.annotations.ApiModel;
-import lombok.*;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.persistence.*;
 
 @ApiModel(value = "tradition")
-@Document(collection = "tradition")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder(builderMethodName = "TraditionalBuilder")
+@Entity
 public class TraditionalLiquor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    private int price;
-    private int alcohol;
-    private int size;
+    private String price;
+    private String img;
+    private double alcohol;
+    private String size;
     private String materials;
     private String brewery;
-    // desc: 술 설명
-    private String desc;
-    private int sweetness;
-    private int acidity;
-    private int freshness;
+    private String description;
+    private double sweeetness;
+    private double acidity;
+    private double freshness;
     private int body;
-    private List<String> similar_liquor;
-    private int scrap_cnt;
-    // ScrapUser 를 객체로 사용
-    private Object scrap_users;
-    // RatingUser를 객체로 사용
-    private Object ratings;
-    private Double rating_avg;
-    private List<String> feed_id;
+    @Column(name = "liquor_type")
+    private LiquorType liquorType;
+
 
 }

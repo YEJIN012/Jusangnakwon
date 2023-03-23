@@ -8,7 +8,6 @@ import com.osakak.jusangnakwon.domain.liquor.entity.Wine;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.WineMapper;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,9 +21,9 @@ public class LiquorRecommService {
     private final WineMapper wineMapper;
 
 
-    public LiquorDetailResponse findLiquorDetail(String id) {
-        ObjectId objectId = new ObjectId(id);
-        Wine wine = wineRepository.findById(objectId);
+    public LiquorDetailResponse findLiquorDetail(Long id) {
+
+        Wine wine = wineRepository.findById(id);
 
         LiquorRecommInfoDto liquorRecommInfoDto = wineMapper.toRecommInfo(wine);
         List<LiquorListItemDto> liquorListItemDto = getLiquorListItemDto(liquorRecommInfoDto.getSimilar_liquor());
@@ -40,8 +39,8 @@ public class LiquorRecommService {
         List<LiquorListItemDto> out = new ArrayList<>();
         for (String item :
                 similarLiquor) {
-            ObjectId itemId = new ObjectId(item);
-            Wine wine = wineRepository.findById(itemId);
+
+            Wine wine = wineRepository.findById(1L);
             LiquorListItemDto itemInfo = new LiquorListItemDto();
             itemInfo.setId(item);
             itemInfo.setName(wine.getName());

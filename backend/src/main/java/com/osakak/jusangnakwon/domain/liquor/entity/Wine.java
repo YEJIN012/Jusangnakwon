@@ -1,46 +1,83 @@
 package com.osakak.jusangnakwon.domain.liquor.entity;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import io.swagger.annotations.ApiModel;
-import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.persistence.*;
 
 @ApiModel(value = "wine")
-@Document(collection = "wine")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder(builderMethodName = "WineBuilder")
-@ToString
+@Entity
 public class Wine {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 100, nullable = false)
+    private Long id;
+    @Column(length = 40, nullable = false)
     private String name;
-    private int price;
+    @Column(length = 200, nullable = false)
     private String img;
+    @Column(length = 10, nullable = false)
+    private int price;
+    @Column(length = 200, nullable = false)
     private String link;
-    private int alcohol;
+    @Column(length = 10, nullable = false)
+    private double alcohol;
+    @Column(length = 30, nullable = false)
     private String type;
+    @Column(length = 30, nullable = false)
     private String country;
+    @Column(length = 30, nullable = false)
     private String winery;
+    @Column(length = 30, nullable = false)
     private String province;
-    private String grape_type;
-    private String food_pairing;
+    @Column(name = "grape_type", length = 30)
+    private String grapeType;
+    @Column(name = "food_pairing", length = 100)
+    private String foodPairing;
+    @Column(length = 30, nullable = false)
     private String vintage;
+    @Column(length = 10, nullable = false)
     private int size;
-    private String desc;
+    @Column(nullable = false)
+    private String description;
+    @Column(length = 10, nullable = false)
     private int sweetness;
+    @Column(length = 10, nullable = false)
     private int acidity;
+    @Column(length = 10, nullable = false)
     private int body;
+    @Column(length = 10, nullable = false)
     private int tannin;
-    private List<String> similar_liquor;
-    private int scrap_cnt;
-    // ScrapUser 를 객체로 사용
-    private Object scrap_users;
-    // RatingUser를 객체로 사용
-    private Object ratings;
-    private Double rating_avg;
-    private List<String> feed_id;
+    @Column(name = "liquor_type", length = 10)
+    private LiquorType liquorType;
+
+    @Builder
+    public Wine(Long id, String name, String img, int price, String link, double alcohol, String type, String country, String winery, String province, String grapeType, String foodPairing, String vintage, int size, String description, int sweetness, int acidity, int body, int tannin, LiquorType liquorType) {
+        this.id = id;
+        this.name = name;
+        this.img = img;
+        this.price = price;
+        this.link = link;
+        this.alcohol = alcohol;
+        this.type = type;
+        this.country = country;
+        this.winery = winery;
+        this.province = province;
+        this.grapeType = grapeType;
+        this.foodPairing = foodPairing;
+        this.vintage = vintage;
+        this.size = size;
+        this.description = description;
+        this.sweetness = sweetness;
+        this.acidity = acidity;
+        this.body = body;
+        this.tannin = tannin;
+        this.liquorType = liquorType;
+    }
 }

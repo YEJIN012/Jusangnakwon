@@ -1,45 +1,70 @@
 package com.osakak.jusangnakwon.domain.liquor.entity;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import io.swagger.annotations.ApiModel;
-import lombok.*;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.persistence.*;
 
 @ApiModel(value = "whisky")
-@Document(collection = "whisky")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder(builderMethodName = "WhiskyBuilder")
+@Entity
 public class Whisky {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    private int price;
     private String img;
+    private double price;
     private String link;
-    private int alcohol;
+    private double alcohol;
     // 평점
-    private int meta_critic;
-    private int body;
-    private int sweet;
-    private int sherry;
+    @Column(name = "meta_critic")
+    private double metaCritic;
+    private double body;
+    private double sweet;
+    private double sherry;
     private int malt;
-    private int aperitif;
-    private int smoky;
-    private int pungent;
-    private int fruity;
-    private int honey;
-    private int floral;
-    private int spicy;
-    private int medicinal;
-    private int nutty;
-    private int winey;
-    private List<String> similar_liquor;
-    private int scrap_cnt;
-    // ScrapUser 를 객체로 사용
-    private Object scrap_users;
-    // RatingUser를 객체로 사용
-    private Object ratings;
-    private Double rating_avg;
-    private List<String> feed_id;
+    private double aperitif;
+    private double smoky;
+    private double pungent;
+    private double fruity;
+    private double honey;
+    private double floral;
+    private double spicy;
+    private double medicinal;
+    private double nutty;
+    private double winey;
+    @Column(name = "liquor_type")
+    private LiquorType liquorType;
+
+    @Builder
+    public Whisky(Long id, String name, String img, double price, String link, double alcohol, double metaCritic, double body, double sweet, double sherry, int malt, double aperitif, double smoky, double pungent, double fruity, double honey, double floral, double spicy, double medicinal, double nutty, double winey, LiquorType liquorType) {
+        this.id = id;
+        this.name = name;
+        this.img = img;
+        this.price = price;
+        this.link = link;
+        this.alcohol = alcohol;
+        this.metaCritic = metaCritic;
+        this.body = body;
+        this.sweet = sweet;
+        this.sherry = sherry;
+        this.malt = malt;
+        this.aperitif = aperitif;
+        this.smoky = smoky;
+        this.pungent = pungent;
+        this.fruity = fruity;
+        this.honey = honey;
+        this.floral = floral;
+        this.spicy = spicy;
+        this.medicinal = medicinal;
+        this.nutty = nutty;
+        this.winey = winey;
+        this.liquorType = liquorType;
+    }
 }

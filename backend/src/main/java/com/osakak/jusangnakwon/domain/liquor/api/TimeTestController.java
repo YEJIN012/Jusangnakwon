@@ -20,7 +20,7 @@ public class TimeTestController {
     public ResponseEntity<ResponseDto> test(@PathVariable String id) {
         ResponseDto responseDto = new ResponseDto();
 
-        LiquorDetailResponse liquorDetail = liquorRecommService.findLiquorDetail(id);
+        LiquorDetailResponse liquorDetail = liquorRecommService.findLiquorDetail(1L);
         responseDto.setBody(liquorDetail);
         responseDto.setSuccess(true);
         return ResponseEntity.ok(responseDto);

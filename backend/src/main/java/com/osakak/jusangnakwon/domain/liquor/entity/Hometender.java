@@ -1,33 +1,43 @@
 package com.osakak.jusangnakwon.domain.liquor.entity;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import io.swagger.annotations.ApiModel;
-import lombok.*;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.persistence.*;
 
 @ApiModel(value = "hometender")
-@Document(collection = "hometender")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder(builderMethodName = "HomeTenderBuilder")
+@Entity
 public class Hometender {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
+    @Column(name = "image")
     private String img;
-    private List<String> materials;
-    private String desc;
+    private String materials;
     private int salty;
     private int sour;
     private int bitter;
     private int sweet;
-    private List<String> similar_liquor;
-    private int scrap_cnt;
-    private Object scrap_users;
-    private Object ratings;
-    private Double rating_avg;
-    private List<String> feed_id;
-    private String user_id;
+    @Column(name = "liquor_type")
+    private LiquorType liquorType;
 
-
+    @Builder
+    public Hometender(Long id, String name, String img, String materials, int salty, int sour, int bitter, int sweet, LiquorType liquorType) {
+        this.id = id;
+        this.name = name;
+        this.img = img;
+        this.materials = materials;
+        this.salty = salty;
+        this.sour = sour;
+        this.bitter = bitter;
+        this.sweet = sweet;
+        this.liquorType = liquorType;
+    }
 }
