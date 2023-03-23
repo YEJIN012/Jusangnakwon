@@ -14,17 +14,15 @@ interface Review {
 
 const ReviewListItem = (props: Review) => {
   return (
-    <Link to={`/details/feed/${props.review.id}`}>
-      <div className={`${styles[`review-item`]}`}>
-        <div className={`${styles[`column-container`]}`}>
-          <div className={`${styles[`row-container`]}`}>
-            <Rating name="read-only" value={props.review.ratings} readOnly />
-            {props.review.date}
-          </div>
-          <div>{props.review.explan}</div>
+    <Link to={`/details/feed/${props.review.id}`} className={`${styles[`review-item`]}`}>
+      <div className={`${styles[`column-container`]}`}>
+        <div className={`${styles[`row-container`]}`}>
+          <Rating name="read-only" value={props.review.ratings} readOnly />
+          <div className={`${styles[`date`]}`}>{props.review.date}</div>
         </div>
-        <img className={`${styles[`img-box`]}`} src={props.review.img} />
+        <div>{props.review.explan}</div>
       </div>
+      <img className={`${styles[`img-box`]}`} src={props.review.img} />
     </Link>
   );
 };

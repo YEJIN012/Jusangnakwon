@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./ReviewList.module.css";
 import CreateIcon from "@mui/icons-material/Create";
 import ReviewListItem from "./ReviewListItem";
@@ -32,15 +32,14 @@ const ReviewList = () => {
     <>
       <div className={`${styles[`title`]}`}>
         <h1>리뷰 모아보기</h1>
-        <button>
-          내 리뷰 작성하기
-          <CreateIcon />
-        </button>
+        <Link to={`/write/review`}>
+          <button>
+            내 리뷰 작성하기
+            <CreateIcon />
+          </button>
+        </Link>
       </div>
       {reviewList.map((review) => {
-        {
-          console.log(review);
-        }
         return <ReviewListItem review={review}></ReviewListItem>;
       })}
     </>

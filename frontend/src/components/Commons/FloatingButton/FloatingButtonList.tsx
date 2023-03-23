@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./FloatingButton.module.css";
 import CreateIcon from "@mui/icons-material/Create";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
@@ -11,18 +11,14 @@ const types = [
 ];
 
 const FloatingButtonList = () => {
-  const navigate = useNavigate();
-  const onClick = (index: number) => {
-    navigate(`/write/${types[index].path}`, { state: { from: location.pathname } });
-  };
-
   return (
     <div className={`${styles[`dial-box`]}`}>
       {types.map((type, index) => (
-        <div key={index} className={`${styles[`dial-item`]}`} onClick={() => onClick(index)}>
+        <Link key={index} to={`/write/${type.path}`} className={`${styles[`dial-item`]}`}>
           {type.icon}
           {type.name}
-        </div>
+        </Link>
+
       ))}
     </div>
   );

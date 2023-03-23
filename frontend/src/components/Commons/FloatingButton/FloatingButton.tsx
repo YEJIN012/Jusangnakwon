@@ -4,16 +4,6 @@ import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import EditIcon from "@mui/icons-material/Edit";
 import FloatingButtonList from "./FloatingButtonList";
-import { useNavigate } from "react-router-dom";
-import CreateIcon from "@mui/icons-material/Create";
-import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import LocalBarIcon from "@mui/icons-material/LocalBar";
-
-const types = [
-  { icon: <CreateIcon />, name: "리뷰", path: "review" },
-  { icon: <QuestionMarkIcon />, name: "질문글", path: "question" },
-  { icon: <LocalBarIcon />, name: "레시피", path: "recipe" },
-];
 
 const FloatingButton = () => {
   const [open, setOpen] = useState(false);

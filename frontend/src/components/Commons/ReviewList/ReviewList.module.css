@@ -1,5 +1,6 @@
 .title {
   margin-top: 8%;
+  margin-bottom: 5%;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -17,12 +18,13 @@
 
 .review-item {
   box-sizing: border-box;
-  margin-top: 2%;
-  margin-bottom: 2%;
+  padding: 3%;
+  /* margin-top: 2%; */
+  /* margin-bottom: 2%; */
   /* width: 100%; */
   /* height: 55px; */
 
-  /* border: 1px solid#ffff; */
+  border-top: solid  rgb(149, 149, 149);
 
   /* Inside auto layout */
   display: flex;
