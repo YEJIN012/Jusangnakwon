@@ -27,7 +27,7 @@ const reviewList = [
   },
 ];
 
-export default function ReviewList() {
+const ReviewList = () => {
   return (
     <>
       <div className={`${styles[`title`]}`}>
@@ -45,4 +45,6 @@ export default function ReviewList() {
       })}
     </>
   );
-}
+};
+
+export default ReviewList;

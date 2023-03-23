@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import styles from "./BottomBar.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
@@ -8,21 +8,18 @@ import HomeIcon from "@mui/icons-material/Home";
 import LanguageIcon from "@mui/icons-material/Language";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { updateTabActions } from "@/slices/tabSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
 
-function BottomBar() {
-  const location = useLocation();
-  const pathname = location.pathname.split("/").slice(0, 2).join("/");
-  const priorPath = location.state?.from.split("/").slice(0, 2).join("/");
-  const [value, setValue] = React.useState(pathname);
+const BottomBar = () => {
+  const dispatch = useDispatch();
+  const focusedTab = useSelector((state: RootState) => state.tab);
+  const [value, setValue] = useState(focusedTab);
 
-  console.log(priorPath);
-  console.log(pathname);
-  console.log(value);
-
-  React.useEffect(() => {
-    if (priorPath) {
-      setValue(priorPath);
-    }
+  useEffect(() => {
+    dispatch(updateTabActions.updateTab(value));
   }, [value]);
 
   return (
@@ -78,6 +75,6 @@ function BottomBar() {
       </BottomNavigation>
     </Box>
   );
-}
+};
 
 export default BottomBar;
