@@ -33,7 +33,7 @@ const HomeMain = () => {
   return (
     <div className={`${styles[`container`]}`}>
       <Link to={`/login`}>
-        <div>록으인</div>
+        <div>로그인</div>
       </Link>
       <div className={`${styles[`banner-box`]}`}>
         <Slider {...settings} className={`${styles[`slider`]} fade`}>
