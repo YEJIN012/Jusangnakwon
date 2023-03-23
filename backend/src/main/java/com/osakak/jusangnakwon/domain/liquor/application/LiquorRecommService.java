@@ -6,6 +6,7 @@ import com.osakak.jusangnakwon.domain.liquor.dao.SojuRepository;
 import com.osakak.jusangnakwon.domain.liquor.dao.WineRepository;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorRecommInfoDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.SojuItem;
 import com.osakak.jusangnakwon.domain.liquor.entity.Soju;
 import com.osakak.jusangnakwon.domain.liquor.entity.Wine;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
@@ -73,11 +74,20 @@ public class LiquorRecommService {
             list.add(itemId3);
             list.add(itemId4);
             list.add(itemId5);
+            List<SojuItem> sojuItems = new ArrayList<>();
+            for (Long ids :
+                    list) {
+                Soju soju1 = sojuRepository.findById(ids).get();
+                SojuItem sojuItem = new SojuItem();
+                sojuItem.setId(soju1.getId());
+                sojuItem.setName(soju1.getName());
+                sojuItems.add(sojuItem);
+            }
 
 
             out.setId(id);
             out.setName(soju.getName());
-            out.setSimilarItem(list);
+            out.setSimilarItem(sojuItems);
         }
         return out;
     }
