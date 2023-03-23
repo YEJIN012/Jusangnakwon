@@ -1,0 +1,39 @@
+.mypage-profile-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3%;
+  border-radius: 30px;
+  margin: 2%;
+}
+
+.mypage-profile {
+  display: flex;
+  align-items: center;
+}
+
+.mypage-profile-img {
+  border-radius: 50%;
+}
+
+.mypage-profile-name {
+  margin-left: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.mypage-profile-item-container {
+  display: flex;
+}
+
+.mypage-profile-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+}
+
+.mypage-profile-item-text {
+  font-size: 0.9rem;
+}

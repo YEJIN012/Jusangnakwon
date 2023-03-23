@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
 import styles from "./FeedMain.module.css";
+import { useEffect, useRef, useState } from "react";
 import { Grid } from "@mui/material";
 import FeedComponent from "@/components/Feed/FeedComponent";
-import { Dispatch, SetStateAction } from "react";
+import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
 
 const FeedMain = () => {
   const [dummyFeedList, setDummyFeedList] = useState([
@@ -87,84 +87,87 @@ const FeedMain = () => {
   }, []);
 
   return (
-    <div className={`${styles[`feed-main-container`]}`}>
-      <div className={`${styles[`feed-classify-btn-container`]}`}>
-        <button
-          className={focusedPostList === "전체글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
-          value={"전체글"}
-          onClick={sortPostList}
-          ref={allButtonRef}
-        >
-          전체글
-        </button>
-        <button
-          className={focusedPostList === "게시글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
-          value={"게시글"}
-          onClick={sortPostList}
-        >
-          게시글
-        </button>
-        <button
-          className={focusedPostList === "질문글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
-          value={"질문글"}
-          onClick={sortPostList}
-        >
-          질문글
-        </button>
-      </div>
+    <>
+      <FloatingButton></FloatingButton>
+      <div className={`${styles[`feed-main-container`]}`}>
+        <div className={`${styles[`feed-classify-btn-container`]}`}>
+          <button
+            className={focusedPostList === "전체글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
+            value={"전체글"}
+            onClick={sortPostList}
+            ref={allButtonRef}
+          >
+            전체글
+          </button>
+          <button
+            className={focusedPostList === "게시글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
+            value={"게시글"}
+            onClick={sortPostList}
+          >
+            게시글
+          </button>
+          <button
+            className={focusedPostList === "질문글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
+            value={"질문글"}
+            onClick={sortPostList}
+          >
+            질문글
+          </button>
+        </div>
 
-      {focusedPostList === "전체글" ? (
-        <Grid container spacing={1} padding={1}>
-          <Grid item xs={6} md={6} lg={6}>
-            {dummyFeedList.map((feed) => {
-              if (feed.id % 2 === 1) {
-                return <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>;
-              }
-            })}
-          </Grid>
-          <Grid item xs={6} md={6} lg={6}>
-            {dummyFeedList.map((feed) => {
-              if (feed.id % 2 === 0) {
-                return <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>;
-              }
-            })}
-          </Grid>
-        </Grid>
-      ) : (
-        <Grid container spacing={1} padding={1}>
-          <Grid item xs={6} md={6} lg={6}>
-            {dummyFeedList
-              .filter((feed) => feed.classification === focusedPostList)
-              .map((feed) => {
-                if (feed.id % 2 === 0) {
-                  return (
-                    <FeedComponent
-                      key={`${feed.classification}+${feed.id}`}
-                      feed={feed}
-                      setDummyFeedList={setDummyFeedList}
-                    ></FeedComponent>
-                  );
-                }
-              })}
-          </Grid>
-          <Grid item xs={6} md={6} lg={6}>
-            {dummyFeedList
-              .filter((feed) => feed.classification === focusedPostList)
-              .map((feed) => {
+        {focusedPostList === "전체글" ? (
+          <Grid container spacing={0.5}>
+            <Grid item xs={6} md={6} lg={6}>
+              {dummyFeedList.map((feed) => {
                 if (feed.id % 2 === 1) {
-                  return (
-                    <FeedComponent
-                      key={`${feed.classification}+${feed.id}`}
-                      feed={feed}
-                      setDummyFeedList={setDummyFeedList}
-                    ></FeedComponent>
-                  );
+                  return <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>;
                 }
               })}
+            </Grid>
+            <Grid item xs={6} md={6} lg={6} sx={{ paddingTop: "5px" }}>
+              {dummyFeedList.map((feed) => {
+                if (feed.id % 2 === 0) {
+                  return <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>;
+                }
+              })}
+            </Grid>
           </Grid>
-        </Grid>
-      )}
-    </div>
+        ) : (
+          <Grid container spacing={0.5}>
+            <Grid item xs={6} md={6} lg={6}>
+              {dummyFeedList
+                .filter((feed) => feed.classification === focusedPostList)
+                .map((feed) => {
+                  if (feed.id % 2 === 0) {
+                    return (
+                      <FeedComponent
+                        key={`${feed.classification}+${feed.id}`}
+                        feed={feed}
+                        setDummyFeedList={setDummyFeedList}
+                      ></FeedComponent>
+                    );
+                  }
+                })}
+            </Grid>
+            <Grid item xs={6} md={6} lg={6}>
+              {dummyFeedList
+                .filter((feed) => feed.classification === focusedPostList)
+                .map((feed) => {
+                  if (feed.id % 2 === 1) {
+                    return (
+                      <FeedComponent
+                        key={`${feed.classification}+${feed.id}`}
+                        feed={feed}
+                        setDummyFeedList={setDummyFeedList}
+                      ></FeedComponent>
+                    );
+                  }
+                })}
+            </Grid>
+          </Grid>
+        )}
+      </div>
+    </>
   );
 };
 

@@ -7,10 +7,7 @@ import path from "@/config/path";
 const MyPage = () => {
   return (
     <div>
-      <h1>MyPage</h1>
       <Outlet></Outlet>
-      <MyPageCalendar></MyPageCalendar>
-      <MyReviewList/>
     </div>
   );
 };

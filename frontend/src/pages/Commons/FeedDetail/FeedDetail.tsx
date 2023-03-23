@@ -1,11 +1,12 @@
-import { useState } from "react";
 import styles from "./FeedDetail.module.css";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Menu, MenuItem, Rating, Button } from "@mui/material";
 import CommentList from "@/components/Feed/CommentList";
+import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
 
 const FeedDetail = () => {
   const { id } = useParams();
@@ -139,14 +140,22 @@ const FeedDetail = () => {
             <img src={feed.img} className={`${styles[`feed-img`]}`}></img>
             <div className={`${styles[`feed-content-container`]}`}>
               <div>
-                {showContent ? feed.content : `${feed.content.slice(0, 10)}...`}
-                {!showContent && (
-                  <button className={`${styles[`feed-detail-content-btn`]}`} onClick={toggleContent}>
-                    더 보기
-                  </button>
+                {feed.content.length <= 10 ? (
+                  <>{feed.content}</>
+                ) : (
+                  <>
+                    {showContent ? (
+                      <>{feed.content}</>
+                    ) : (
+                      <>
+                        {feed.content.slice(0, 10)}...
+                        <button className={`${styles[`feed-detail-content-btn`]}`} onClick={toggleContent}>
+                          더 보기
+                        </button>
+                      </>
+                    )}
+                  </>
                 )}
-                {/* <p>{feed.content}</p> */}
-                {/* <button className={`${styles[`feed-detail-content-btn`]}`}>더보기</button> */}
               </div>
               <div className={`${styles[`feed-stars-like`]}`}>
                 {feed.classification === "게시글" ? <Rating name="read-only" value={5} readOnly /> : null}
