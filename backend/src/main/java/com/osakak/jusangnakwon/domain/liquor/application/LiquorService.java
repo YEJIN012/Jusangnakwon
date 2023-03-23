@@ -5,7 +5,7 @@ import com.osakak.jusangnakwon.domain.liquor.dao.WineRepository;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.dto.SearchType;
-import com.osakak.jusangnakwon.domain.liquor.entity.Wine;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Wine;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.WineMapper;
 import lombok.RequiredArgsConstructor;

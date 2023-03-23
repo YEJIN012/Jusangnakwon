@@ -1,21 +1,20 @@
-package com.osakak.jusangnakwon.domain.liquor.entity;
+package com.osakak.jusangnakwon.domain.liquor.entity.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import io.swagger.annotations.ApiModel;
+import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarTraditionItem;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@ApiModel(value = "tradition")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class TraditionalLiquor {
+public class Tradition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 100, nullable = false)
     private Long id;
     private String name;
     private String price;
@@ -31,6 +30,8 @@ public class TraditionalLiquor {
     private int body;
     @Column(name = "liquor_type")
     private LiquorType liquorType;
+    @OneToOne(mappedBy = "tradition")
+    private SimilarTraditionItem similarTraditionalLiquorItem;
 
 
 }

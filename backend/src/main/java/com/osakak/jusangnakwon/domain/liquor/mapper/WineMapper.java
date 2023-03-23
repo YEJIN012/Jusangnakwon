@@ -2,7 +2,7 @@ package com.osakak.jusangnakwon.domain.liquor.mapper;
 
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorRecommInfoDto;
-import com.osakak.jusangnakwon.domain.liquor.entity.Wine;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Wine;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

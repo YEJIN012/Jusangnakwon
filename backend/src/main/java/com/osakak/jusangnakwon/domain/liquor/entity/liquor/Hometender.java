@@ -1,6 +1,8 @@
-package com.osakak.jusangnakwon.domain.liquor.entity;
+package com.osakak.jusangnakwon.domain.liquor.entity.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
+import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarCocktailItem;
+import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarHometenderItem;
 import io.swagger.annotations.ApiModel;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -16,6 +18,7 @@ import javax.persistence.*;
 public class Hometender {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 100, nullable = false)
     private Long id;
     private String name;
     @Column(name = "image")
@@ -27,9 +30,11 @@ public class Hometender {
     private int sweet;
     @Column(name = "liquor_type")
     private LiquorType liquorType;
+    @OneToOne(mappedBy = "hometender")
+    private SimilarHometenderItem similarHometenderItem;
 
     @Builder
-    public Hometender(Long id, String name, String img, String materials, int salty, int sour, int bitter, int sweet, LiquorType liquorType) {
+    public Hometender(Long id, String name, String img, String materials, int salty, int sour, int bitter, int sweet, LiquorType liquorType, SimilarHometenderItem similarHometenderItem) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -39,5 +44,6 @@ public class Hometender {
         this.bitter = bitter;
         this.sweet = sweet;
         this.liquorType = liquorType;
+        this.similarHometenderItem = similarHometenderItem;
     }
 }
