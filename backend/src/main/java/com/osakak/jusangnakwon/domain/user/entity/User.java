@@ -1,8 +1,6 @@
 package com.osakak.jusangnakwon.domain.user.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -11,122 +9,61 @@ import javax.validation.constraints.Size;
 import com.osakak.jusangnakwon.common.oauth.entity.ProviderType;
 import com.osakak.jusangnakwon.common.oauth.entity.RoleType;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "users")
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @NotBlank
-    @Size(max = 20)
+    @Column(name = "USER_ID", nullable = false, length = 64, unique = true)
+    private String userId;
+
+    @Column(name = "username", nullable = false, length = 50)
     private String username;
 
-    @NotBlank
-    @Size(max = 20)
+    @Column(name = "is_deleted", nullable = false)
+    private boolean isDeleted;
+
+    @Column(name = "provider", nullable = false, length = 10)
     private ProviderType providerType;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
+    @Column(name = "email", nullable = false, length = 50)
     private String email;
 
-    @NotBlank
-    @Size(max = 120)
-    private String password;
+    @CreationTimestamp
+    @Column(name = "date_registered")
+    private Timestamp dateRegisted;
 
-    @NotBlank
-    @Size(max = 20)
+    @Column(name = "role", nullable = false, length = 50)
     private RoleType role;
 
-    @NotBlank
-    @Size(max = 512)
+    @Column(name = "role", nullable = false, length = 512)
     private String profileImageUrl;
 
-    public User() {
-    }
-
-    public User(String username, ProviderType providerType, String email, String password) {
-        this.username = username;
-        this.providerType = providerType;
-        this.email = email;
-        this.password = password;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public ProviderType getProviderType() {
-        return providerType;
-    }
-
-    public void setProviderType(ProviderType providerType) {
-        this.providerType = providerType;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public RoleType getRoles() {
-        return role;
-    }
-
-    public void setRoles(RoleType roles) {
-        this.role = roles;
-    }
-
-    public RoleType getRole() {
-        return role;
-    }
-
-    public void setRole(RoleType role) {
-        this.role = role;
-    }
-
-    public String getProfileImageUrl() {
-        return profileImageUrl;
-    }
-
-    public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
-    }
-
     @Builder
-    public User(String id, String username, ProviderType providerType, String email, String password, RoleType role, String profileImageUrl) {
-        this.id = id;
+    public User(String userId, String username, boolean isDeleted, ProviderType providerType, String email, Timestamp dateRegisted, RoleType role, String profileImageUrl) {
+        this.userId = userId;
         this.username = username;
+        this.isDeleted = isDeleted;
         this.providerType = providerType;
         this.email = email;
-        this.password = password;
+        this.dateRegisted = dateRegisted;
         this.role = role;
         this.profileImageUrl = profileImageUrl;
+    }
+
+    public User() {
+
     }
 }
