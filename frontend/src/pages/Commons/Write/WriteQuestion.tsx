@@ -3,10 +3,13 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 const WriteQuestion = () => {
   return (
-    <div>
+    <div className={`${styles[`container`]}`}>
+      <div className={`${styles[`row-container`]}`}>
       사진
-      <div style={{width:"5vw", height:"5vw", border: "solid 1px 0px 1px 0px white"}}>
-        <PhotoCameraIcon/>
+      <div style={{fontSize:"0.8rem", color:"rgb(149, 149, 149)"}}>(선택)</div>
+      </div>
+      <div className={`${styles[`camera-box`]}`}>
+        <PhotoCameraIcon sx={{fontSize: { xs: 25, sm: 35, md: 40, lg: 50 } }}/>
       </div>
     </div>
   );

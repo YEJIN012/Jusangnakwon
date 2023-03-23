@@ -29,7 +29,7 @@ const reviewList = [
 
 const ReviewList = () => {
   return (
-    <>
+    <div>
       <div className={`${styles[`title`]}`}>
         <h1>리뷰 모아보기</h1>
         <Link to={`/write/review`}>
@@ -42,7 +42,7 @@ const ReviewList = () => {
       {reviewList.map((review) => {
         return <ReviewListItem review={review}></ReviewListItem>;
       })}
-    </>
+    </div>
   );
 };
 
