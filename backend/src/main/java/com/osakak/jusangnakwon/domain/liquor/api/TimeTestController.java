@@ -2,6 +2,7 @@ package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
+import com.osakak.jusangnakwon.domain.liquor.api.response.SojuResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorRecommService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,15 @@ public class TimeTestController {
         ResponseDto responseDto = new ResponseDto();
 
         LiquorDetailResponse liquorDetail = liquorRecommService.findLiquorDetail(id);
+        responseDto.setBody(liquorDetail);
+        responseDto.setSuccess(true);
+        return ResponseEntity.ok(responseDto);
+    }
+
+    @GetMapping("/mysql/{id}")
+    public ResponseEntity<ResponseDto> test2(@PathVariable Long id) {
+        ResponseDto responseDto = new ResponseDto();
+        SojuResponse liquorDetail = liquorRecommService.findLiquorDetailMysql(id);
         responseDto.setBody(liquorDetail);
         responseDto.setSuccess(true);
         return ResponseEntity.ok(responseDto);
