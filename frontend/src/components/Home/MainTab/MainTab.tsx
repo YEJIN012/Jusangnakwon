@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -10,7 +9,7 @@ import Box from "@mui/material/Box";
 import styles from "@/components/Home/MainTab/MainTab.module.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -46,7 +45,6 @@ function a11yProps(index: number) {
   };
 }
 
-
 export default function MainTab() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -55,6 +53,7 @@ export default function MainTab() {
   const [wineItemsToShow, setwineItemsToShow] = useState(4);
   const [koreanItemsToShow, setkoreanItemsToShow] = useState(4);
   const [beerItemsToShow, setbeerItemsToShow] = useState(4);
+  const navigate = useNavigate();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -69,61 +68,73 @@ export default function MainTab() {
       id: 1,
       img: "https://picsum.photos/300/300/?random",
       name: "콥케",
+      drinktype: "l6",
     },
     {
       id: 2,
       img: "https://picsum.photos/300/300/?random",
       name: "샌드맨",
+      drinktype: "l6",
     },
     {
       id: 3,
       img: "https://picsum.photos/300/300/?random",
       name: "맛있는와인",
+      drinktype: "l6",
     },
     {
       id: 4,
       img: "https://picsum.photos/300/300/?random",
       name: "달콤한와인",
+      drinktype: "l6",
     },
     {
       id: 5,
       img: "https://picsum.photos/300/300/?random",
       name: "새콤한와인",
+      drinktype: "l6",
     },
     {
       id: 6,
       img: "https://picsum.photos/300/300/?random",
       name: "시큼한와인",
+      drinktype: "l6",
     },
     {
       id: 7,
       img: "https://picsum.photos/300/300/?random",
       name: "매콤한와인",
+      drinktype: "l6",
     },
     {
       id: 8,
       img: "https://picsum.photos/300/300/?random",
       name: "씁쓸한와인",
+      drinktype: "l6",
     },
     {
       id: 9,
       img: "https://picsum.photos/300/300/?random",
       name: "텁텁한와인",
+      drinktype: "l6",
     },
     {
       id: 10,
       img: "https://picsum.photos/300/300/?random",
       name: "짭짤한와인",
+      drinktype: "l6",
     },
     {
       id: 11,
       img: "https://picsum.photos/300/300/?random",
       name: "밋밋한와인",
+      drinktype: "l6",
     },
     {
       id: 12,
       img: "https://picsum.photos/300/300/?random",
       name: "느끼한와인",
+      drinktype: "l6",
     },
   ];
 
@@ -250,13 +261,18 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <ul className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, cocktailItemsToShow).map(({ id, img, name }) => (
+                  {dummyList.slice(0, cocktailItemsToShow).map(({ id, img, name, drinktype }) => (
                     <li key={id}>
                       <div className={styles["img-container"]}>
-                      <Link to={`/recommend/${id}`}>
-                        <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        {/* <Link to={`/recommend/${id}`}> */}
+                        <img
+                          src={img}
+                          style={{ maxWidth: "100%", height: "auto" }}
+                          alt={name}
+                          onClick={() => navigate(`/details/${drinktype}/${id}`)}
+                        />
                         <p className={styles["drink-name"]}>{name}</p>
-                        </Link>
+                        {/* </Link> */}
                       </div>
                     </li>
                   ))}
@@ -294,10 +310,15 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <ul className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, whiskeyItemsToShow).map(({ id, img, name }) => (
+                  {dummyList.slice(0, whiskeyItemsToShow).map(({ id, img, name, drinktype }) => (
                     <li key={id}>
                       <div className={styles["img-container"]}>
-                        <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        <img
+                          src={img}
+                          style={{ maxWidth: "100%", height: "auto" }}
+                          alt={name}
+                          onClick={() => navigate(`/details/${drinktype}/${id}`)}
+                        />
                         <p>{name}</p>
                       </div>
                     </li>
@@ -336,10 +357,15 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <ul className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, wineItemsToShow).map(({ id, img, name }) => (
+                  {dummyList.slice(0, wineItemsToShow).map(({ id, img, name, drinktype }) => (
                     <li key={id}>
                       <div className={styles["img-container"]}>
-                        <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        <img
+                          src={img}
+                          style={{ maxWidth: "100%", height: "auto" }}
+                          alt={name}
+                          onClick={() => navigate(`/details/${drinktype}/${id}`)}
+                        />
                         <p>{name}</p>
                       </div>
                     </li>
@@ -378,10 +404,15 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <ul className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, koreanItemsToShow).map(({ id, img, name }) => (
+                  {dummyList.slice(0, koreanItemsToShow).map(({ id, img, name, drinktype }) => (
                     <li key={id}>
                       <div className={styles["img-container"]}>
-                        <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        <img
+                          src={img}
+                          style={{ maxWidth: "100%", height: "auto" }}
+                          alt={name}
+                          onClick={() => navigate(`/details/${drinktype}/${id}`)}
+                        />
                         <p>{name}</p>
                       </div>
                     </li>
@@ -420,10 +451,15 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <ul className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, beerItemsToShow).map(({ id, img, name }) => (
+                  {dummyList.slice(0, beerItemsToShow).map(({ id, img, name, drinktype }) => (
                     <li key={id}>
                       <div className={styles["img-container"]}>
-                        <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        <img
+                          src={img}
+                          style={{ maxWidth: "100%", height: "auto" }}
+                          alt={name}
+                          onClick={() => navigate(`/details/${drinktype}/${id}`)}
+                        />
                         <p>{name}</p>
                       </div>
                     </li>

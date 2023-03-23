@@ -2,7 +2,7 @@ import React from "react";
 import RecommendCarousel from "@/components/Playground/Hometender/RecommendCarousel";
 import styles from "./Hometender.module.css";
 import RecipeFeed from "@/components/Playground/Hometender/RecipeFeed";
-import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton"
+import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
 
 const recommendDummy = [
   {
@@ -90,17 +90,17 @@ const recipeDummy = [
 function HometenderMain() {
   return (
     <>
-    <FloatingButton></FloatingButton>
-    <div className={`${styles[`container`]}`}>
-      <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
-      <RecommendCarousel recommendList={recommendDummy}></RecommendCarousel>
-      <div className={`${styles[`recommend-title`]}`}>주상낙원 Best 레시피</div>
-      <RecommendCarousel recommendList={recommendDummy}></RecommendCarousel>
-      <div className={`${styles[`recipe-title`]}`}>
-        <div>주상낙원의 홈텐더들을 위한 레시피</div>
-      </div>
+      <FloatingButton></FloatingButton>
+      <div className={`${styles[`container`]}`}>
+        <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
+        <RecommendCarousel recommendList={recommendDummy}></RecommendCarousel>
+        <div className={`${styles[`recommend-title`]}`}>주상낙원 Best 레시피</div>
+        <RecommendCarousel recommendList={recommendDummy}></RecommendCarousel>
+        <div className={`${styles[`recipe-title`]}`}>
+          <div>주상낙원의 홈텐더들을 위한 레시피</div>
+        </div>
         <RecipeFeed recipeList={recipeDummy}></RecipeFeed>
-    </div>
+      </div>
     </>
   );
 }

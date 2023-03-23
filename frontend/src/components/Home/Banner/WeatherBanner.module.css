@@ -1,0 +1,24 @@
+.container {
+  width: 90%;
+  height: 20vh;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  /* margin-top: 50px;
+      margin-bottom: 50px; */
+  margin: 0 auto;
+  background: linear-gradient(180deg, #d780ff 0%, #fff6e3 100%);
+}
+
+.content-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-wrap {
+  color: black;
+}

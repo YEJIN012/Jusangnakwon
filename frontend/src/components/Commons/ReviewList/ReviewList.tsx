@@ -37,13 +37,12 @@ export default function ReviewList() {
           <CreateIcon />
         </button>
       </div>
-        {reviewList.map((review) => {
-          {console.log(review)}
-          return (
-            <ReviewListItem review={review}></ReviewListItem>
-          )
-        })}
-
+      {reviewList.map((review) => {
+        {
+          console.log(review);
+        }
+        return <ReviewListItem review={review}></ReviewListItem>;
+      })}
     </>
   );
 }
