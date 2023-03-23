@@ -37,11 +37,8 @@ const ReviewList = () => {
           <CreateIcon />
         </button>
       </div>
-      {reviewList.map((review) => {
-        {
-          console.log(review);
-        }
-        return <ReviewListItem review={review}></ReviewListItem>;
+      {reviewList.map((review, index) => {
+        return <ReviewListItem key={index} review={review}></ReviewListItem>;
       })}
     </>
   );

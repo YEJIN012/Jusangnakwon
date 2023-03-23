@@ -1,5 +1,4 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -18,10 +17,6 @@ interface RecommendList {
 }
 
 const RecommendCarousel = (props: RecommendList) => {
-  const navigate = useNavigate();
-  const onClick = (type: string, id: number) => {
-    navigate(`/details/${type}/${id}`, { state: { from: location.pathname } });
-  };
   const settings = {
     dots: false,
     arrows: false,
@@ -55,7 +50,8 @@ const RecommendCarousel = (props: RecommendList) => {
     <Slider {...settings} className={`${styles[`carousel`]}`}>
       {props.recommendList.map((item) => (
         <div key={item.id}>
-          <div className={`${styles[`box`]}`} onClick={() => onClick(item.type, item.id)}>
+          <Link to={`/details/${item.type}/${item.id}`}>
+          <div className={`${styles[`box`]}`}>
             <img className={`${styles[`img-box`]}`} src={item.img} />
             <div className={`${styles[`info`]}`}>
               {item.name}
@@ -63,6 +59,7 @@ const RecommendCarousel = (props: RecommendList) => {
               <div>{item.explan.substring(0, 15)}</div>
             </div>
           </div>
+          </Link>
         </div>
       ))}
     </Slider>

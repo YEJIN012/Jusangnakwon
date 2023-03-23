@@ -1,4 +1,3 @@
-import React from "react";
 import RecommendCarousel from "@/components/Playground/Hometender/RecommendCarousel";
 import styles from "./Hometender.module.css";
 import RecipeFeed from "@/components/Playground/Hometender/RecipeFeed";

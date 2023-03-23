@@ -13,16 +13,16 @@ const App = () => {
   return (
     <div className="App">
       <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Header />
-        <div className={`${styles[`content-wrapper`]}`}>
-          <Outlet></Outlet>
-        </div>
-        <BottomBar />
+        <PersistGate loading={null} persistor={persistor}>
+          <Header />
+          <div className={`${styles[`content-wrapper`]}`}>
+            <Outlet></Outlet>
+          </div>
+          <BottomBar />
         </PersistGate>
       </Provider>
     </div>
   );
-}
+};
 
 export default App;
