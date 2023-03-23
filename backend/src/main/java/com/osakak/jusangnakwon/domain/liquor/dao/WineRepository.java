@@ -13,7 +13,5 @@ public interface WineRepository extends JpaRepository<Wine, String> {
 
     Page<Wine> findAll(Pageable pageable);
 
-    Wine findById(Long id);
-
 
 }

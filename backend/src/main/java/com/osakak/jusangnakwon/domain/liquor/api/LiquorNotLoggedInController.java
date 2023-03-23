@@ -43,14 +43,8 @@ public class LiquorNotLoggedInController {
      */
     @GetMapping("rank/l1")
     public ResponseEntity<ResponseDto> rankWine(@RequestParam int page) {
-        // TODO: mongodb 유사 데이터, mysql 유사 데이터 속도 확인
-
-        ResponseDto responseDto = new ResponseDto();
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.WINE);
-        responseDto.setBody(liquorList);
-        responseDto.setSuccess(true);
-
-        return ResponseEntity.ok(responseDto);
+        return ResponseEntity.ok(ResponseDto.builder().body(liquorList).success(true).build());
     }
 
     /**
@@ -61,10 +55,12 @@ public class LiquorNotLoggedInController {
      */
     @GetMapping("rank/l2")
     public ResponseEntity<ResponseDto> rankWhisky(@RequestParam int page) {
-        ResponseDto responseDto = new ResponseDto();
+
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.WHISKY);
-        responseDto.setBody(liquorList);
-        responseDto.setSuccess(true);
+        ResponseDto responseDto = ResponseDto.builder()
+                .success(true)
+                .body(liquorList)
+                .build();
         return ResponseEntity.ok(responseDto);
     }
 
@@ -76,10 +72,12 @@ public class LiquorNotLoggedInController {
      */
     @GetMapping("rank/l3")
     public ResponseEntity<ResponseDto> rankBeer(@RequestParam int page) {
-        ResponseDto responseDto = new ResponseDto();
+
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.BEER);
-        responseDto.setBody(liquorList);
-        responseDto.setSuccess(true);
+        ResponseDto responseDto = ResponseDto.builder()
+                .success(true)
+                .body(liquorList)
+                .build();
         return ResponseEntity.ok(responseDto);
     }
 
@@ -91,8 +89,8 @@ public class LiquorNotLoggedInController {
      */
     @GetMapping("rank/l4")
     public ResponseEntity<ResponseDto> rankTradition(@RequestParam int page) {
-        ResponseDto responseDto = new ResponseDto();
-        return ResponseEntity.ok(responseDto);
+
+        return ResponseEntity.ok(ResponseDto.builder().build());
     }
 
     /**
@@ -103,7 +101,7 @@ public class LiquorNotLoggedInController {
      */
     @GetMapping("rank/l5")
     public ResponseEntity<ResponseDto> rankCocktail(@RequestParam int page) {
-        ResponseDto responseDto = new ResponseDto();
-        return ResponseEntity.ok(responseDto);
+
+        return ResponseEntity.ok(ResponseDto.builder().build());
     }
 }

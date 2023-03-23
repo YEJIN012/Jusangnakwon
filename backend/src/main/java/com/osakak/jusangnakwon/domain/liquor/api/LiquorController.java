@@ -33,8 +33,8 @@ public class LiquorController {
     )
     @Tag(name = "liquor")
     public ResponseEntity<ResponseDto> randHometender() {
-        ResponseDto responseDto = new ResponseDto();
-        return ResponseEntity.ok(responseDto);
+
+        return ResponseEntity.ok(ResponseDto.builder().build());
     }
 
     /**
@@ -46,7 +46,7 @@ public class LiquorController {
     @GetMapping("search/{keyword}")
     @Tag(name = "liquor")
     public ResponseEntity<ResponseDto> searchLiquor(@PathVariable String keyword) {
-        ResponseDto responseDto = new ResponseDto();
-        return ResponseEntity.ok(responseDto);
+
+        return ResponseEntity.ok(ResponseDto.builder().build());
     }
 }

@@ -22,8 +22,8 @@ public class LiquorLoggedInController {
      */
     @GetMapping("l1")
     public ResponseEntity<ResponseDto> recommendWine() {
-        ResponseDto responseDto = new ResponseDto();
-        return ResponseEntity.ok(responseDto);
+
+        return ResponseEntity.ok(ResponseDto.builder().build());
     }
 
     /**
@@ -34,8 +34,8 @@ public class LiquorLoggedInController {
      */
     @GetMapping("l2")
     public ResponseEntity<ResponseDto> recommendWhisky() {
-        ResponseDto responseDto = new ResponseDto();
-        return ResponseEntity.ok(responseDto);
+
+        return ResponseEntity.ok(ResponseDto.builder().build());
     }
 
     /**
@@ -46,8 +46,8 @@ public class LiquorLoggedInController {
      */
     @GetMapping("l3")
     public ResponseEntity<ResponseDto> recommendBeer() {
-        ResponseDto responseDto = new ResponseDto();
-        return ResponseEntity.ok(responseDto);
+
+        return ResponseEntity.ok(ResponseDto.builder().build());
     }
 
     /**
@@ -58,8 +58,8 @@ public class LiquorLoggedInController {
      */
     @GetMapping("l4")
     public ResponseEntity<ResponseDto> recommendTradition() {
-        ResponseDto responseDto = new ResponseDto();
-        return ResponseEntity.ok(responseDto);
+
+        return ResponseEntity.ok(ResponseDto.builder().build());
     }
 
     /**
@@ -70,8 +70,8 @@ public class LiquorLoggedInController {
      */
     @GetMapping("l5")
     public ResponseEntity<ResponseDto> recommendCocktail() {
-        ResponseDto responseDto = new ResponseDto();
-        return ResponseEntity.ok(responseDto);
+
+        return ResponseEntity.ok(ResponseDto.builder().build());
     }
 
 }
