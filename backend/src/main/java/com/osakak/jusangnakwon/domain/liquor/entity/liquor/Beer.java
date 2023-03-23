@@ -20,21 +20,20 @@ public class Beer {
     private Long id;
     @Column(length = 40, nullable = false)
     private String name;
-    @Column(length = 200, nullable = false)
+    @Column(length = 200)
     private String img;
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String type;
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String country;
-    @Column(nullable = false)
     private String description;
-    @Column(length = 10, nullable = false)
+    @Column(length = 10)
     private Double aroma;
-    @Column(length = 10, nullable = false)
+    @Column(length = 10)
     private Double appearance;
-    @Column(length = 10, nullable = false)
+    @Column(length = 10)
     private Double flavor;
-    @Column(length = 10, nullable = false)
+    @Column(length = 10)
     private Double mouthfeel;
     @Column(name = "liquor_type", length = 10, nullable = false)
     @Enumerated(EnumType.STRING)
