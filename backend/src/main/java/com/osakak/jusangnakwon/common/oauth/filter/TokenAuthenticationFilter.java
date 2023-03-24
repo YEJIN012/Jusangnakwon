@@ -25,7 +25,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     // 인증에서 제외할 url
     private static final List<String> EXCLUDE_URL =
-            List.of("/static/**", "/favicon.ico", "/admin", "/admin/authentication", "/auth/refresh", "/api/v1/auth/refresh");
+            List.of("/static/**", "/favicon.ico", "/admin", "/admin/authentication", "/auth/refresh", "/api/v1/auth/refresh","/api/rank/a");
 
     @Override
     protected void doFilterInternal(
