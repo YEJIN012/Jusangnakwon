@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 public class CommentDto {
 
     private final Long id;
-    private final UserDto writer;
+    private final WriterDto writer;
     private final String content;
     private final LocalDateTime dateCreated;
 
     @Builder
-    public CommentDto(Long id, UserDto writer, String content, LocalDateTime dateCreated) {
+    public CommentDto(Long id, WriterDto writer, String content, LocalDateTime dateCreated) {
         this.id = id;
         this.writer = writer;
         this.content = content;

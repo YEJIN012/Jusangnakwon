@@ -2,6 +2,8 @@ package com.osakak.jusangnakwon.domain.feed.entity;
 
 import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
 import com.osakak.jusangnakwon.domain.user.entity.User;
+import java.util.ArrayList;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,12 +53,15 @@ public class Feed {
     @Column(columnDefinition = "LONGTEXT")
     private String content;
 
-    @Column(nullable = false)
-    private Boolean is_public;
+    @Column(name = "is_public", nullable = false)
+    private Boolean isPublic;
+
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Feed(Long id, User user, String type, String img, String title, String liquorType,
-            String liquorName, String content, Boolean is_public) {
+            String liquorName, String content, Boolean isPublic) {
         this.id = id;
         this.user = user;
         this.type = type;
@@ -64,6 +70,9 @@ public class Feed {
         this.liquorType = liquorType;
         this.liquorName = liquorName;
         this.content = content;
-        this.is_public = is_public;
+        this.isPublic = isPublic;
+        this.comments = new ArrayList<>();
     }
+
+
 }

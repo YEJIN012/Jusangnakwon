@@ -16,7 +16,7 @@ public class FeedDto {
     private final String liquorName;
     private final String content;
     private final Boolean isPublic;
-    private final UserDto writer;
+    private final WriterDto writer;
     private final Integer likeCnt;
     private final Boolean liked;
     private final List<CommentDto> comments;
@@ -24,7 +24,7 @@ public class FeedDto {
     @Builder
     public FeedDto(Long id, String type, String img, String title, String liquorType,
             String liquorName,
-            String content, Boolean isPublic, UserDto writer, Integer likeCnt, Boolean liked,
+            String content, Boolean isPublic, WriterDto writer, Integer likeCnt, Boolean liked,
             List<CommentDto> comments) {
         this.id = id;
         this.type = type;
