@@ -10,6 +10,7 @@ import com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationReques
 import com.osakak.jusangnakwon.common.properties.AppProperties;
 import com.osakak.jusangnakwon.common.utils.CookieUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 import static com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 import static com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.REFRESH_TOKEN;
 
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -93,11 +94,11 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String refreshToken = makeRefreshToken.getToken();
 
         // Redis에서 저장된 Refresh Token 값을 가져온다.
-        String userRefreshToken = redisTemplate.opsForValue().get(authentication.getName());
+        String userRefreshToken = redisTemplate.opsForValue().get(userInfo.getId());
 
         // 새로운 RefreshToken을 저장하기 위해 기존 토큰이 존재한다면 삭제
         if (userRefreshToken != null) {
-            redisTemplate.delete(authentication.getName());
+            redisTemplate.delete(userInfo.getId());
         }
         // Redis에 저장 - 만료 시간 설정을 통해 자동 삭제 처리
         redisTemplate.opsForValue().set(
