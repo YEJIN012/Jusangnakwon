@@ -1,13 +1,11 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
-import com.osakak.jusangnakwon.domain.liquor.dao.BeerRepository;
-import com.osakak.jusangnakwon.domain.liquor.dao.WineRepository;
+import com.osakak.jusangnakwon.domain.liquor.dao.*;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.dto.SearchType;
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Wine;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorCustomMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +21,10 @@ import java.util.List;
 public class LiquorService {
     private final WineRepository wineRepository;
     private final BeerRepository beerRepository;
+    private final WhiskyRepository whiskyRepository;
+    private final CocktailRepository cocktailRepository;
+    private final HometenderRepository hometenderRepository;
+    private final TraditionRepository traditionRepository;
     private final LiquorCustomMapper liquorCustomMapper;
     private final LiquorMapper liquorMapper;
     static int totalPage = 0;
@@ -70,25 +72,35 @@ public class LiquorService {
         List<LiquorListItemDto> list = new ArrayList<>();
         switch (liquorType) {
             case WHISKY:
-                return null;
+                Page<Whisky> whiskies = whiskyRepository.findByRatingAvg(pageable);
+                list = liquorMapper.toLiquorListDtoWhisky(whiskies.getContent());
+                return getLiquorListMainResponse(whiskies.getTotalPages(), whiskies.getPageable(), list);
             case WINE:
-                // TODO: 조회 부분 랭킹 순으로 변경하기
-                Page<Wine> wines = wineRepository.findAll(pageable);
+                Page<Wine> wines = wineRepository.findByRatingAvg(pageable);
                 list = liquorMapper.toLiquorListDtoWine(wines.getContent());
-                totalPage = wines.getTotalPages();
-                pageNumber = wines.getPageable().getPageNumber();
-                return liquorCustomMapper.toMainPageResponse(list, totalPage, pageNumber);
+                return getLiquorListMainResponse(wines.getTotalPages(), wines.getPageable(), list);
             case BEER:
                 Page<Beer> beers = beerRepository.findByRatingAvg(pageable);
                 list = liquorMapper.toLiquorListDtoBeer(beers.getContent());
-                totalPage = beers.getTotalPages();
-                pageNumber = beers.getPageable().getPageNumber();
-                return liquorCustomMapper.toMainPageResponse(list, totalPage, pageNumber);
+                return getLiquorListMainResponse(beers.getTotalPages(), beers.getPageable(), list);
             case COCKTAIL:
-                return null;
+                Page<Cocktail> cocktails = cocktailRepository.findByRatingAvg(pageable);
+                list = liquorMapper.toLiquorListDtoCocktail(cocktails.getContent());
+                return getLiquorListMainResponse(cocktails.getTotalPages(), cocktails.getPageable(), list);
             case TRADITION:
-                return null;
+                Page<Tradition> traditions = traditionRepository.findByRatingAvg(pageable);
+                list = liquorMapper.toLiquorListDtoTradition(traditions.getContent());
+                return getLiquorListMainResponse(traditions.getTotalPages(), traditions.getPageable(), list);
+            case HOMETENDER:
+                Page<Hometender> hometenders = hometenderRepository.findByRatingAvg(pageable);
+                list = liquorMapper.toLiquorListDtoHometender(hometenders.getContent());
+                return getLiquorListMainResponse(hometenders.getTotalPages(), hometenders.getPageable(), list);
         }
         return null;
+    }
+
+    private LiquorListMainResponse getLiquorListMainResponse(int totalPage, Pageable pageable, List<LiquorListItemDto> list) {
+        pageNumber = pageable.getPageNumber();
+        return liquorCustomMapper.toMainPageResponse(list, totalPage, pageNumber);
     }
 }

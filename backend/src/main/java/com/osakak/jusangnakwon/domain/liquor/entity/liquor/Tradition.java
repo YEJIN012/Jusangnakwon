@@ -17,19 +17,31 @@ public class Tradition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 100, nullable = false)
     private Long id;
+    @Column(length = 30)
     private String name;
+    @Column(length = 30)
     private String price;
+    @Column(length = 30)
     private String img;
+    @Column(length = 30)
     private double alcohol;
+    @Column(length = 30)
     private String size;
+
     private String materials;
+    @Column(length = 30)
     private String brewery;
+    @Column(length = 30)
     private String description;
+    @Column(length = 30)
     private double sweeetness;
+    @Column(length = 30)
     private double acidity;
+    @Column(length = 30)
     private double freshness;
+    @Column(length = 30)
     private int body;
-    @Column(name = "liquor_type")
+    @Column(name = "liquor_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
     @OneToOne(mappedBy = "tradition")

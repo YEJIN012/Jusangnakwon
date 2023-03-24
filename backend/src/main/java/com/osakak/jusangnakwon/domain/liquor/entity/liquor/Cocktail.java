@@ -22,29 +22,49 @@ public class Cocktail {
     @Column(length = 100, nullable = false)
     private Long id;
     @Schema(description = "칵테일 이름")
+    @Column(length = 50, nullable = false)
     private String name;
+    @Column(length = 30)
     private String img;
+    @Column(length = 30)
     private int alcohol;
+    @Column(length = 30)
     private String type;
-    @Column(name = "base_wine")
+    @Column(name = "base_wine", length = 100)
     private String baseWine;
+    @Column(name = "base_wine_amt", length = 30)
     private int baseWineAmt;
+    @Column(length = 30)
     private String liquor;
-    private int liquor_amt;
+    @Column(name = "liquor_amt", length = 30)
+    private int liquorAmt;
+    @Column(length = 30)
     private String juice;
-    private int juice_amt;
+    @Column(name = "juice_amt", length = 30)
+    private int juiceAmt;
+    @Column(length = 30)
     private String spice;
-    private int spice_amt;
+    @Column(name = "spice_amt", length = 30)
+    private int spiceAmt;
+    @Column(length = 30)
     private String soda;
-    private int soda_amt;
+    @Column(name = "soda_amt", length = 30)
+    private int sodaAmt;
+    @Column(length = 30)
     private String others;
+    @Column(length = 30)
     private int salty;
+    @Column(length = 30)
     private int savory;
+    @Column(length = 30)
     private int sour;
+    @Column(length = 30)
     private int bitter;
+    @Column(length = 30)
     private int sweet;
+    @Column(length = 30)
     private int spicy;
-    @Column(name = "liquor_type")
+    @Column(name = "liquor_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
     @OneToOne(mappedBy = "cocktail")
@@ -54,7 +74,7 @@ public class Cocktail {
     private double ratingAvg;
 
     @Builder
-    public Cocktail(Long id, String name, String img, int alcohol, String type, String baseWine, int baseWineAmt, String liquor, int liquor_amt, String juice, int juice_amt, String spice, int spice_amt, String soda, int soda_amt, String others, int salty, int savory, int sour, int bitter, int sweet, int spicy, LiquorType liquorType, SimilarCocktailItem similarCocktailItem, double ratingAvg) {
+    public Cocktail(Long id, String name, String img, int alcohol, String type, String baseWine, int baseWineAmt, String liquor, int liquorAmt, String juice, int juiceAmt, String spice, int spiceAmt, String soda, int sodaAmt, String others, int salty, int savory, int sour, int bitter, int sweet, int spicy, LiquorType liquorType, SimilarCocktailItem similarCocktailItem, double ratingAvg) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -63,13 +83,13 @@ public class Cocktail {
         this.baseWine = baseWine;
         this.baseWineAmt = baseWineAmt;
         this.liquor = liquor;
-        this.liquor_amt = liquor_amt;
+        this.liquorAmt = liquorAmt;
         this.juice = juice;
-        this.juice_amt = juice_amt;
+        this.juiceAmt = juiceAmt;
         this.spice = spice;
-        this.spice_amt = spice_amt;
+        this.spiceAmt = spiceAmt;
         this.soda = soda;
-        this.soda_amt = soda_amt;
+        this.sodaAmt = sodaAmt;
         this.others = others;
         this.salty = salty;
         this.savory = savory;

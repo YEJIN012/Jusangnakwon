@@ -19,29 +19,48 @@ public class Whisky {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 100, nullable = false)
     private Long id;
+    @Column(length = 30)
     private String name;
+    @Column(length = 30)
     private String img;
+    @Column(length = 30)
     private double price;
+    @Column(length = 30)
     private String link;
+    @Column(length = 30)
     private double alcohol;
     // 평점
     @Column(name = "meta_critic")
     private double metaCritic;
+    @Column(length = 30)
     private double body;
+    @Column(length = 30)
     private double sweet;
+    @Column(length = 30)
     private double sherry;
+    @Column(length = 30)
     private int malt;
+    @Column(length = 30)
     private double aperitif;
+    @Column(length = 30)
     private double smoky;
+    @Column(length = 30)
     private double pungent;
+    @Column(length = 30)
     private double fruity;
+    @Column(length = 30)
     private double honey;
+    @Column(length = 30)
     private double floral;
+    @Column(length = 30)
     private double spicy;
+    @Column(length = 30)
     private double medicinal;
+    @Column(length = 30)
     private double nutty;
+    @Column(length = 30)
     private double winey;
-    @Column(name = "liquor_type")
+    @Column(name = "liquor_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
 

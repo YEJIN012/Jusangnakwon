@@ -19,15 +19,21 @@ public class Hometender {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 100, nullable = false)
     private Long id;
+    @Column(length = 30)
     private String name;
-    @Column(name = "image")
+    @Column(name = "image", length = 100)
     private String img;
+    @Column(length = 30)
     private String materials;
+    @Column(length = 30)
     private int salty;
+    @Column(length = 30)
     private int sour;
+    @Column(length = 30)
     private int bitter;
+    @Column(length = 30)
     private int sweet;
-    @Column(name = "liquor_type")
+    @Column(name = "liquor_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
     @OneToOne(mappedBy = "hometender")
