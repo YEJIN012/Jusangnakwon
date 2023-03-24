@@ -1,7 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
-import com.osakak.jusangnakwon.domain.liquor.mapper.HometenderMapper;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("api")
 public class LiquorController {
-    private final HometenderMapper hometenderMapper;
 
     /**
      * 홈텐더 랜덤 추천
