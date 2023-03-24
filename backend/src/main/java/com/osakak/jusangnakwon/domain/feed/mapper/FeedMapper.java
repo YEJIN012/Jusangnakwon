@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface FeedMapper {
 
+    /*
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "user.profileImageUrl", target = "writerProfileImg")
     @Mapping(source = "user.id", target = "writerId")
@@ -16,4 +17,5 @@ public interface FeedMapper {
 
     @Mapping(source = "user", target = "user")
     Feed feedDtotoFeed(FeedDto feedDto, User user);
+     */
 }

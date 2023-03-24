@@ -21,16 +21,18 @@ public class FeedService {
     private final FeedRepository feedRepository;
     private final UserRepository userRepository;
 
-    private final FeedMapper feedMapper = Mappers.getMapper(FeedMapper.class)
+    //private final FeedMapper feedMapper = Mappers.getMapper(FeedMapper.class);
 
     @Transactional
     public FeedDto createFeed(String id, FeedDto feedDto, RatingDto ratingDto) {
-        User user = findUser(id);
-        Feed feed = feedMapper.feedDtotoFeed(feedDto, user);
-
+        //User user = findUser(id);
+        //Feed feed = feedMapper.feedDtotoFeed(feedDto, user);
+        return null;
     }
 
+    /*
     private User findUser(String id) {
-        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        return userRepository.findByUserId(id).orElseThrow(() -> new UserNotFoundException(id));
     }
+     */
 }
