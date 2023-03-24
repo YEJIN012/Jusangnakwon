@@ -31,19 +31,21 @@ const dummyList = [
 
 export default function HometenderBanner() {
   return (
-    <div className={`${styles[`container`]}`}>
-      <ul>
-        {dummyList.map(({ id, img, name }) => (
-          <li key={id} className={`${styles[`content-wrap`]}`}>
-            <img src={img} style={{ maxWidth: "30%", height: "auto" }} />
-            <div className={`${styles[`text-wrap`]}`}>
-              <h4>당신을 위한 홈텐딩 레시피</h4>
-              <p className={`${styles[`drink-name`]}`}>{name}</p>
-              <p className={`${styles[`drink-ingre`]}`}>재료: 햄버거, 소주, 토닉워터</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Link to={`/playground/hometender`}>
+      <div className={`${styles[`container`]}`}>
+        <ul>
+          {dummyList.map(({ id, img, name }) => (
+            <li key={id} className={`${styles[`content-wrap`]}`}>
+              <img src={img} style={{ maxWidth: "30%", height: "auto" }} />
+              <div className={`${styles[`text-wrap`]}`}>
+                <h4>당신을 위한 홈텐딩 레시피</h4>
+                <p className={`${styles[`drink-name`]}`}>{name}</p>
+                <p className={`${styles[`drink-ingre`]}`}>재료: 햄버거, 소주, 토닉워터</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Link>
   );
 }

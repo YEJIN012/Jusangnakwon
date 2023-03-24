@@ -2,12 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "@/App";
 import Home from "@/pages/Home/Home";
 import HomeMain from "@/pages/Home/HomeMain";
-import AllCocktail from "@/pages/Home/AllDrinkList/AllCocktail";
-import AllWhiskey from "@/pages/Home/AllDrinkList/AllWhiskey";
-import AllWine from "@/pages/Home/AllDrinkList/AllWine";
-import AllKorean from "@/pages/Home/AllDrinkList/AllKorean";
-import AllBeer from "@/pages/Home/AllDrinkList/AllBeer";
-import CocktailDetail from "@/pages/Home/DrinkDetail/CocktailDetail";
+import AllDrink from "@/pages/Home/AllDrinkList/AllDrink";
 import Feed from "@/pages/Feed/Feed";
 import FeedMain from "@/pages/Feed/FeedMain";
 // import FeedDetail from "@/pages/Feed/FeedDetail";
@@ -27,6 +22,7 @@ import WriteQuestion from "@/pages/Commons/Write/WriteQuestion";
 import WriteReview from "@/pages/Commons/Write/WriteReview";
 import WriteRecipe from "@/pages/Commons/Write/WriteRecipe";
 import MyPageMain from "@/pages/MyPage/MyPageMain";
+import TasteForm from "@/components/Commons/TasteForm/TasteForm";
 
 const router = createBrowserRouter([
   {
@@ -42,28 +38,24 @@ const router = createBrowserRouter([
             element: <HomeMain></HomeMain>,
           },
           {
-            path: "drinklist/cocktail",
-            element: <AllCocktail></AllCocktail>,
-          },
-          {
-            path: "drinklist/whiskey",
-            element: <AllWhiskey></AllWhiskey>,
-          },
-          {
-            path: "drinklist/wine",
-            element: <AllWine></AllWine>,
-          },
-          {
-            path: "drinklist/korean",
-            element: <AllKorean></AllKorean>,
-          },
-          {
-            path: "drinklist/beer",
-            element: <AllBeer></AllBeer>,
+            path: "drinklist/:drinktype",
+            element: <AllDrink></AllDrink>,
           },
           // {
-          //   path: "recommend/:cocktailId",
-          //   element: <CocktailDetail></CocktailDetail>,
+          //   path: "drinklist/whiskey",
+          //   element: <AllWhiskey></AllWhiskey>,
+          // },
+          // {
+          //   path: "drinklist/wine",
+          //   element: <AllWine></AllWine>,
+          // },
+          // {
+          //   path: "drinklist/korean",
+          //   element: <AllKorean></AllKorean>,
+          // },
+          // {
+          //   path: "drinklist/beer",
+          //   element: <AllBeer></AllBeer>,
           // },
         ],
       },
@@ -126,6 +118,10 @@ const router = createBrowserRouter([
       {
         path: "sign",
         element: <Sign></Sign>,
+      },
+      {
+        path: "tasteform",
+        element: <TasteForm></TasteForm>,
       },
       {
         path: "details/:drinktype/:id",

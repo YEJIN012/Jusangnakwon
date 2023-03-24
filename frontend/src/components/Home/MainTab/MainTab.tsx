@@ -48,7 +48,6 @@ function a11yProps(index: number) {
 }
 
 const useStyles = makeStyles((theme) => ({
-
   selectedTab: {
     "&.css-1e884rx-MuiButtonBase-root-MuiTab-root.Mui-selected": {
       backgroundColor: "#997D7B",
@@ -79,6 +78,8 @@ export default function MainTab() {
   const [beerItemsToShow, setbeerItemsToShow] = useState(4);
   const navigate = useNavigate();
   const classes = useStyles();
+
+  const drinktype = ["칵테일", "위스키", "와인", "전통주", "맥주"];
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -297,7 +298,7 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/cocktail`}>
-                  <a className={`${styles[`all-drink-list`]}`}> 전체 칵테일 보기 ▶ </a>
+                  <a className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[0]} 보기 ▶ </a>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -305,15 +306,10 @@ export default function MainTab() {
                   {dummyList.slice(0, cocktailItemsToShow).map(({ id, img, name, drinktype }) => (
                     <li key={id}>
                       <div className={styles["img-container"]}>
-                        {/* <Link to={`/recommend/${id}`}> */}
-                        <img
-                          src={img}
-                          style={{ maxWidth: "100%", height: "auto" }}
-                          alt={name}
-                          onClick={() => navigate(`/details/${drinktype}/${id}`)}
-                        />
-                        <p className={styles["drink-name"]}>{name}</p>
-                        {/* </Link> */}
+                        <Link to={`/details/${drinktype}/${id}`}>
+                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                          <p className={styles["drink-name"]}>{name}</p>
+                        </Link>
                       </div>
                     </li>
                   ))}
@@ -345,7 +341,7 @@ export default function MainTab() {
                 <Link to={`/drinklist/whiskey`}>
                   <a href="#none" className={`${styles[`all-drink-list`]}`}>
                     {" "}
-                    전체 위스키 보기 ▶{" "}
+                    전체 {drinktype[1]} 보기 ▶{" "}
                   </a>
                 </Link>
               </div>
@@ -354,13 +350,10 @@ export default function MainTab() {
                   {dummyList.slice(0, whiskeyItemsToShow).map(({ id, img, name, drinktype }) => (
                     <li key={id}>
                       <div className={styles["img-container"]}>
-                        <img
-                          src={img}
-                          style={{ maxWidth: "100%", height: "auto" }}
-                          alt={name}
-                          onClick={() => navigate(`/details/${drinktype}/${id}`)}
-                        />
-                        <p>{name}</p>
+                        <Link to={`/details/${drinktype}/${id}`}>
+                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                          <p>{name}</p>
+                        </Link>
                       </div>
                     </li>
                   ))}
@@ -392,7 +385,7 @@ export default function MainTab() {
                 <Link to={`/drinklist/wine`}>
                   <a href="#none" className={`${styles[`all-drink-list`]}`}>
                     {" "}
-                    전체 와인 보기 ▶{" "}
+                    전체 {drinktype[2]} 보기 ▶{" "}
                   </a>
                 </Link>
               </div>
@@ -401,13 +394,10 @@ export default function MainTab() {
                   {dummyList.slice(0, wineItemsToShow).map(({ id, img, name, drinktype }) => (
                     <li key={id}>
                       <div className={styles["img-container"]}>
-                        <img
-                          src={img}
-                          style={{ maxWidth: "100%", height: "auto" }}
-                          alt={name}
-                          onClick={() => navigate(`/details/${drinktype}/${id}`)}
-                        />
-                        <p>{name}</p>
+                        <Link to={`/details/${drinktype}/${id}`}>
+                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                          <p>{name}</p>
+                        </Link>
                       </div>
                     </li>
                   ))}
@@ -439,7 +429,7 @@ export default function MainTab() {
                 <Link to={`/drinklist/korean`}>
                   <a href="#none" className={`${styles[`all-drink-list`]}`}>
                     {" "}
-                    전체 전통주 보기 ▶{" "}
+                    전체 {drinktype[3]} 보기 ▶{" "}
                   </a>
                 </Link>
               </div>
@@ -448,13 +438,10 @@ export default function MainTab() {
                   {dummyList.slice(0, koreanItemsToShow).map(({ id, img, name, drinktype }) => (
                     <li key={id}>
                       <div className={styles["img-container"]}>
-                        <img
-                          src={img}
-                          style={{ maxWidth: "100%", height: "auto" }}
-                          alt={name}
-                          onClick={() => navigate(`/details/${drinktype}/${id}`)}
-                        />
-                        <p>{name}</p>
+                        <Link to={`/details/${drinktype}/${id}`}>
+                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                          <p>{name}</p>
+                        </Link>
                       </div>
                     </li>
                   ))}
@@ -486,7 +473,7 @@ export default function MainTab() {
                 <Link to={`/drinklist/beer`}>
                   <a href="#none" className={`${styles[`all-drink-list`]}`}>
                     {" "}
-                    전체 맥주 보기 ▶{" "}
+                    전체 {drinktype[4]} 보기 ▶{" "}
                   </a>
                 </Link>
               </div>
@@ -495,13 +482,10 @@ export default function MainTab() {
                   {dummyList.slice(0, beerItemsToShow).map(({ id, img, name, drinktype }) => (
                     <li key={id}>
                       <div className={styles["img-container"]}>
-                        <img
-                          src={img}
-                          style={{ maxWidth: "100%", height: "auto" }}
-                          alt={name}
-                          onClick={() => navigate(`/details/${drinktype}/${id}`)}
-                        />
-                        <p>{name}</p>
+                        <Link to={`/details/${drinktype}/${id}`}>
+                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                          <p>{name}</p>
+                        </Link>
                       </div>
                     </li>
                   ))}
