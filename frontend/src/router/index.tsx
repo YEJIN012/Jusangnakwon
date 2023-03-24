@@ -26,6 +26,7 @@ import Write from "@/pages/Commons/Write/Write";
 import WriteQuestion from "@/pages/Commons/Write/WriteQuestion";
 import WriteReview from "@/pages/Commons/Write/WriteReview";
 import WriteRecipe from "@/pages/Commons/Write/WriteRecipe";
+import MyPageMain from "@/pages/MyPage/MyPageMain";
 
 const router = createBrowserRouter([
   {
@@ -111,6 +112,12 @@ const router = createBrowserRouter([
       {
         path: "mypage",
         element: <MyPage></MyPage>,
+        children: [
+          {
+            index: true,
+            element: <MyPageMain></MyPageMain>,
+          },
+        ],
       },
       {
         path: "login",

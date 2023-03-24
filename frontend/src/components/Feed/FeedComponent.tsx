@@ -62,7 +62,6 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                           }
                         }),
                       );
-                      // console.log(feed.liked);
                     }}
                   >
                     <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
@@ -84,7 +83,6 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                           }
                         }),
                       );
-                      // console.log(feed.liked);
                     }}
                   >
                     <FavoriteBorderIcon />
@@ -99,9 +97,8 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
         </Grid>
       ) : (
         <Grid item key={feed.id} paddingBottom={1}>
-          <Link to={`../details/feed/${feed.id}`} style={{ textDecoration: "none" }}>
-            <Card style={{ backgroundColor: "inherit" }}>
-              <Link to={`../details/feed/${feed.id}`} style={{ textDecoration: "none" }}></Link>
+          <Card style={{ backgroundColor: "inherit" }}>
+            <Link to={`../details/feed/${feed.id}`}>
               <CardContent style={{ backgroundColor: "#3D3D3D", padding: "2px" }}>
                 <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.8rem", color: "white" }}>
                   <div className={`${styles[`user-profile`]}`}>
@@ -158,8 +155,8 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                   {feed.content}
                 </Typography>
               </CardContent>
-            </Card>
-          </Link>
+            </Link>
+          </Card>
         </Grid>
       )}
     </>
