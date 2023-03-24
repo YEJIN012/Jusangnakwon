@@ -40,9 +40,11 @@ public class Beer {
     private LiquorType liquorType;
     @OneToOne(mappedBy = "beer")
     private SimilarBeerItem similarBeerItem;
+    @Column(name = "rating_avg", length = 20)
+    private double ratingAvg;
 
     @Builder
-    public Beer(Long id, String name, String img, String type, String country, String description, Double aroma, Double appearance, Double flavor, Double mouthfeel, LiquorType liquorType, SimilarBeerItem similarBeerItem) {
+    public Beer(Long id, String name, String img, String type, String country, String description, Double aroma, Double appearance, Double flavor, Double mouthfeel, LiquorType liquorType, SimilarBeerItem similarBeerItem, double ratingAvg) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -55,5 +57,6 @@ public class Beer {
         this.mouthfeel = mouthfeel;
         this.liquorType = liquorType;
         this.similarBeerItem = similarBeerItem;
+        this.ratingAvg = ratingAvg;
     }
 }

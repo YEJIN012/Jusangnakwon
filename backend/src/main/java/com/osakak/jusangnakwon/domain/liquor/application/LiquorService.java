@@ -1,10 +1,12 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
+import com.osakak.jusangnakwon.domain.liquor.dao.BeerRepository;
 import com.osakak.jusangnakwon.domain.liquor.dao.WineRepository;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.dto.SearchType;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Wine;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.WineMapper;
@@ -19,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LiquorService {
     private final WineRepository wineRepository;
+    private final BeerRepository beerRepository;
     private final WineMapper wineMapper;
     private final LiquorMapper liquorMapper;
 
@@ -73,6 +76,9 @@ public class LiquorService {
                 int pageNumber = wines.getPageable().getPageNumber();
                 return liquorMapper.toMainPageResponse(liquorListItemDtos, totalPages, pageNumber);
             case BEER:
+                Page<Beer> all = beerRepository.findAll(pageable);
+                // TODO: rating 어떻게 할지 고민 
+
                 return null;
             case COCKTAIL:
                 return null;
