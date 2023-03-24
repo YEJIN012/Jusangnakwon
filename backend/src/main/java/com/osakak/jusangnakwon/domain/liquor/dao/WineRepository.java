@@ -10,8 +10,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WineRepository extends JpaRepository<Wine, String> {
-
     Page<Wine> findAll(Pageable pageable);
-
-
 }

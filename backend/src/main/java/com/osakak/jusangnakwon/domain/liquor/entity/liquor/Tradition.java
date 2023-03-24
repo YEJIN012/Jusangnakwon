@@ -35,8 +35,11 @@ public class Tradition {
     @OneToOne(mappedBy = "tradition")
     private SimilarTraditionItem similarTraditionalLiquorItem;
 
+    @Column(name = "rating_avg", length = 20)
+    private double ratingAvg;
+
     @Builder
-    public Tradition(Long id, String name, String price, String img, double alcohol, String size, String materials, String brewery, String description, double sweeetness, double acidity, double freshness, int body, LiquorType liquorType, SimilarTraditionItem similarTraditionalLiquorItem) {
+    public Tradition(Long id, String name, String price, String img, double alcohol, String size, String materials, String brewery, String description, double sweeetness, double acidity, double freshness, int body, LiquorType liquorType, SimilarTraditionItem similarTraditionalLiquorItem, double ratingAvg) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -52,5 +55,6 @@ public class Tradition {
         this.body = body;
         this.liquorType = liquorType;
         this.similarTraditionalLiquorItem = similarTraditionalLiquorItem;
+        this.ratingAvg = ratingAvg;
     }
 }

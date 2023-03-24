@@ -36,3 +36,6 @@ out/
 .vscode/
 src/main/resources/application-local.yml
 src/main/resources/environment/env.yml
+
+# init data
+src/main/resources/data.sql

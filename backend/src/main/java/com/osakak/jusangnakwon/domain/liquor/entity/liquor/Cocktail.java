@@ -50,8 +50,11 @@ public class Cocktail {
     @OneToOne(mappedBy = "cocktail")
     private SimilarCocktailItem similarCocktailItem;
 
+    @Column(name = "rating_avg", length = 20)
+    private double ratingAvg;
+
     @Builder
-    public Cocktail(Long id, String name, String img, int alcohol, String type, String baseWine, int baseWineAmt, String liquor, int liquor_amt, String juice, int juice_amt, String spice, int spice_amt, String soda, int soda_amt, String others, int salty, int savory, int sour, int bitter, int sweet, int spicy, LiquorType liquorType, SimilarCocktailItem similarCocktailItem) {
+    public Cocktail(Long id, String name, String img, int alcohol, String type, String baseWine, int baseWineAmt, String liquor, int liquor_amt, String juice, int juice_amt, String spice, int spice_amt, String soda, int soda_amt, String others, int salty, int savory, int sour, int bitter, int sweet, int spicy, LiquorType liquorType, SimilarCocktailItem similarCocktailItem, double ratingAvg) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -76,5 +79,6 @@ public class Cocktail {
         this.spicy = spicy;
         this.liquorType = liquorType;
         this.similarCocktailItem = similarCocktailItem;
+        this.ratingAvg = ratingAvg;
     }
 }

@@ -1,16 +1,16 @@
 package com.osakak.jusangnakwon.domain.liquor.mapper.impl;
 
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
-import com.osakak.jusangnakwon.domain.liquor.dao.WineRepository;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
+import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorCustomMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-public class LiquorMapperImpl implements LiquorMapper {
-    private final WineRepository wineRepository;
+public class LiquorMapperImpl implements LiquorCustomMapper {
+    private final LiquorMapper liquorMapper;
 
     /**
      * 메인 페이지에 보여줄 페이징된 술 리스트
@@ -28,5 +28,4 @@ public class LiquorMapperImpl implements LiquorMapper {
                 .content(content)
                 .build();
     }
-
 }

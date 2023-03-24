@@ -72,7 +72,6 @@ public class LiquorNotLoggedInController {
      */
     @GetMapping("rank/l3")
     public ResponseEntity<ResponseDto> rankBeer(@RequestParam int page) {
-
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.BEER);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
