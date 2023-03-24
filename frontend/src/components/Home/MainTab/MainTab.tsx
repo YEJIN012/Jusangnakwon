@@ -4,12 +4,14 @@ import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+// import { Tabs, Tab, Box, SwipeableViews } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import styles from "@/components/Home/MainTab/MainTab.module.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -45,6 +47,28 @@ function a11yProps(index: number) {
   };
 }
 
+const useStyles = makeStyles((theme) => ({
+
+  selectedTab: {
+    "&.css-1e884rx-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+      backgroundColor: "#997D7B",
+      color: "white",
+    },
+    "&.css-x31445-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+      backgroundColor: "#421F3C",
+      color: "white",
+    },
+    "&.css-ljmcya-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+      backgroundColor: "#4E3415",
+      color: "white",
+    },
+    "&.css-1qobvqn-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+      backgroundColor: "#9D615F",
+      color: "white",
+    },
+  },
+}));
+
 export default function MainTab() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -54,6 +78,7 @@ export default function MainTab() {
   const [koreanItemsToShow, setkoreanItemsToShow] = useState(4);
   const [beerItemsToShow, setbeerItemsToShow] = useState(4);
   const navigate = useNavigate();
+  const classes = useStyles();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -191,14 +216,18 @@ export default function MainTab() {
               label="칵테일"
               {...a11yProps(0)}
               sx={{
-                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                bgcolor: value === 0 ? "#7B334E" : "#06031A",
                 fontSize: { xs: 12, md: 16 },
-                "&:hover": { bgcolor: "#7B334E" },
+                // "&:hover": { bgcolor: "#7B334E" },
               }}
               disableRipple
             />
             <Tab
               label="위스키"
+              classes={{
+                // root: classes.tab,
+                selected: classes.selectedTab,
+              }}
               {...a11yProps(1)}
               sx={{
                 bgcolor: value === 0 ? "#06031A" : "#06031A",
@@ -209,16 +238,24 @@ export default function MainTab() {
             />
             <Tab
               label="와인"
+              classes={{
+                // root: classes.tab,
+                selected: classes.selectedTab,
+              }}
               {...a11yProps(2)}
               sx={{
                 bgcolor: value === 0 ? "#06031A" : "#06031A",
                 fontSize: { xs: 12, md: 16 },
-                "&:hover": { bgcolor: "#421F3C " },
+                "&:hover": { bgcolor: "#421F3C" },
               }}
               disableRipple
             />
             <Tab
               label="전통주"
+              classes={{
+                // root: classes.tab,
+                selected: classes.selectedTab,
+              }}
               {...a11yProps(3)}
               sx={{
                 bgcolor: value === 0 ? "#06031A" : "#06031A",
@@ -229,6 +266,10 @@ export default function MainTab() {
             />
             <Tab
               label="맥주"
+              classes={{
+                // root: classes.tab,
+                selected: classes.selectedTab,
+              }}
               {...a11yProps(4)}
               sx={{
                 bgcolor: value === 0 ? "#06031A" : "#06031A",
