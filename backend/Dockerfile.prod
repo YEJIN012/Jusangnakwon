@@ -36,18 +36,18 @@ FROM adoptopenjdk:11-hotspot
 COPY --from=builder build/libs/*.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "\
-    -Ddatabase.hostname=${HOSTNAME} \
-    -Ddatabase.schema=${SCHEMA} \
-    -Ddatabase.username=${USERNAME} \
-    -Ddatabase.password=${PASSWORD} \
-    -Dgclient.id=${GCLIENTID} \
-    -Dgclient.secret=${GSECRET} \
-    -Dkclient.id=${KCLIENTID} \
-    -Dkclient.secret=${KSECRET} \
-    -Dkredirecturl=${KREDIRECT} \
-    -Dclient.origin=${ORIGIN} \
-    -Djwt.secret=${JWTSECRET} \
-    -Dapp.auth.secret=${APP_AUTH_SECRET} \
-    -Dport=${SERVER_PORT} \
-    -Ddomain=${DOMAIN} \
+    -Ddatabase.hostname=${HOSTNAME}, \
+    -Ddatabase.schema=${SCHEMA}, \
+    -Ddatabase.username=${USERNAME}, \
+    -Ddatabase.password=${PASSWORD}, \
+    -Dgclient.id=${GCLIENTID}, \
+    -Dgclient.secret=${GSECRET}, \
+    -Dkclient.id=${KCLIENTID}, \
+    -Dkclient.secret=${KSECRET}, \
+    -Dkredirecturl=${KREDIRECT}, \
+    -Dclient.origin=${ORIGIN}, \
+    -Djwt.secret=${JWTSECRET}, \
+    -Dapp.auth.secret=${APP_AUTH_SECRET}, \
+    -Dport=${SERVER_PORT}, \
+    -Ddomain=${DOMAIN}, \
     /app.jar"]
