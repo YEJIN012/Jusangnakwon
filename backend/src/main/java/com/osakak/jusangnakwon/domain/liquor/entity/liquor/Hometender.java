@@ -1,7 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.entity.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarCocktailItem;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarHometenderItem;
 import io.swagger.annotations.ApiModel;
 import lombok.AccessLevel;
@@ -34,8 +33,11 @@ public class Hometender {
     @OneToOne(mappedBy = "hometender")
     private SimilarHometenderItem similarHometenderItem;
 
+    @Column(name = "rating_avg", length = 20)
+    private double ratingAvg;
+
     @Builder
-    public Hometender(Long id, String name, String img, String materials, int salty, int sour, int bitter, int sweet, LiquorType liquorType, SimilarHometenderItem similarHometenderItem) {
+    public Hometender(Long id, String name, String img, String materials, int salty, int sour, int bitter, int sweet, LiquorType liquorType, SimilarHometenderItem similarHometenderItem, double ratingAvg) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -46,5 +48,6 @@ public class Hometender {
         this.sweet = sweet;
         this.liquorType = liquorType;
         this.similarHometenderItem = similarHometenderItem;
+        this.ratingAvg = ratingAvg;
     }
 }

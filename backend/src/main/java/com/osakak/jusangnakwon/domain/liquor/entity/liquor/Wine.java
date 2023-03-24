@@ -62,8 +62,11 @@ public class Wine {
     @OneToOne(mappedBy = "wine")
     private SimilarWineItem similarWineItem;
 
+    @Column(name = "rating_avg", length = 20)
+    private double ratingAvg;
+
     @Builder
-    public Wine(Long id, String name, String img, int price, String link, double alcohol, String type, String country, String winery, String province, String grapeType, String foodPairing, String vintage, int size, String description, int sweetness, int acidity, int body, int tannin, LiquorType liquorType, SimilarWineItem similarWineItem) {
+    public Wine(Long id, String name, String img, int price, String link, double alcohol, String type, String country, String winery, String province, String grapeType, String foodPairing, String vintage, int size, String description, int sweetness, int acidity, int body, int tannin, LiquorType liquorType, SimilarWineItem similarWineItem, double ratingAvg) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -85,5 +88,6 @@ public class Wine {
         this.tannin = tannin;
         this.liquorType = liquorType;
         this.similarWineItem = similarWineItem;
+        this.ratingAvg = ratingAvg;
     }
 }

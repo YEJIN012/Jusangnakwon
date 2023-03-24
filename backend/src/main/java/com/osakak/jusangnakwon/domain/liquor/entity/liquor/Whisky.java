@@ -48,8 +48,11 @@ public class Whisky {
     @OneToOne(mappedBy = "whisky")
     private SimilarWhiskyItem similarWhiskyItem;
 
+    @Column(name = "rating_avg", length = 20)
+    private double ratingAvg;
+
     @Builder
-    public Whisky(Long id, String name, String img, double price, String link, double alcohol, double metaCritic, double body, double sweet, double sherry, int malt, double aperitif, double smoky, double pungent, double fruity, double honey, double floral, double spicy, double medicinal, double nutty, double winey, LiquorType liquorType, SimilarWhiskyItem similarWhiskyItem) {
+    public Whisky(Long id, String name, String img, double price, String link, double alcohol, double metaCritic, double body, double sweet, double sherry, int malt, double aperitif, double smoky, double pungent, double fruity, double honey, double floral, double spicy, double medicinal, double nutty, double winey, LiquorType liquorType, SimilarWhiskyItem similarWhiskyItem, double ratingAvg) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -73,5 +76,6 @@ public class Whisky {
         this.winey = winey;
         this.liquorType = liquorType;
         this.similarWhiskyItem = similarWhiskyItem;
+        this.ratingAvg = ratingAvg;
     }
 }
