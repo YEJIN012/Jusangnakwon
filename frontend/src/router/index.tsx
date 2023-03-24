@@ -27,6 +27,8 @@ import WriteQuestion from "@/pages/Commons/Write/WriteQuestion";
 import WriteReview from "@/pages/Commons/Write/WriteReview";
 import WriteRecipe from "@/pages/Commons/Write/WriteRecipe";
 import MyPageMain from "@/pages/MyPage/MyPageMain";
+import MyFeed from "@/pages/MyPage/MyFeed";
+import BookmarkList from "@/pages/MyPage/BookmarkList";
 
 const router = createBrowserRouter([
   {
@@ -116,6 +118,14 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <MyPageMain></MyPageMain>,
+          },
+          {
+            path: "bookmarks",
+            element: <BookmarkList></BookmarkList>,
+          },
+          {
+            path: "feed",
+            element: <MyFeed></MyFeed>,
           },
         ],
       },

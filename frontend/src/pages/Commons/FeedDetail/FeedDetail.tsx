@@ -6,7 +6,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Menu, MenuItem, Rating, Button } from "@mui/material";
 import CommentList from "@/components/Feed/CommentList";
-import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
 
 const FeedDetail = () => {
   const { id } = useParams();
