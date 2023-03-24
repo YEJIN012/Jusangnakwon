@@ -5,11 +5,13 @@ import com.osakak.jusangnakwon.common.jwt.AuthTokenProvider;
 import com.osakak.jusangnakwon.common.oauth.entity.RoleType;
 import com.osakak.jusangnakwon.common.properties.AppProperties;
 import com.osakak.jusangnakwon.common.response.ErrorCode;
+import com.osakak.jusangnakwon.common.response.ErrorDto;
 import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.common.utils.CookieUtil;
 import com.osakak.jusangnakwon.common.utils.HeaderUtil;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,7 @@ import static com.osakak.jusangnakwon.common.response.ErrorCode.INVALID_PARAMS;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthController {
 
     private final AppProperties appProperties;
@@ -42,27 +45,10 @@ public class AuthController {
 
 
     @GetMapping("/refresh")
-    public ResponseEntity<ResponseDto> refreshToken(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {
         // access token 확인
         String accessToken = HeaderUtil.getAccessToken(request);
         AuthToken authToken = tokenProvider.convertAuthToken(accessToken);
-        if (!authToken.validate()) {
-            /**
-             * 에러처리 해야함
-             */
-            ResponseDto responseDto = new ResponseDto();
-//            responseDto.setError(INVALID_PARAMS);
-            return ResponseEntity.ok(responseDto);
-        }
-
-        // expired access token 인지 확인
-        Claims claims = authToken.getExpiredTokenClaims();
-        if (claims == null) {
-            return ResponseEntity.ok(new ResponseDto());
-        }
-
-        String userId = claims.getSubject();
-        RoleType roleType = RoleType.of(claims.get("role", String.class));
 
         // refresh token
         String refreshToken = CookieUtil.getCookie(request, REFRESH_TOKEN)
@@ -70,20 +56,28 @@ public class AuthController {
                 .orElse((null));
         AuthToken authRefreshToken = tokenProvider.convertAuthToken(refreshToken);
 
-        if (authRefreshToken.validate()) {
-            return ResponseEntity.ok(new ResponseDto());
+        // expired access token 인지 확인
+        Claims claims = authToken.getExpiredTokenClaims();
+        if (claims == null) {
+            ResponseDto responseDto = ResponseDto.builder().success(false).error(new ErrorDto(ErrorCode.NOT_EXPIRED_TOKEN)).build();
+            return ResponseEntity.ok(responseDto);
+        }
+
+        String userId = claims.getSubject();
+        RoleType roleType = RoleType.of(claims.get("role", String.class));
+
+
+        if (!authRefreshToken.validate()) {
+            ResponseDto responseDto = ResponseDto.builder().success(false).error(new ErrorDto(ErrorCode.EXPIRED_REFRESH_TOKEN)).build();
+            return ResponseEntity.ok(responseDto);
         }
 
 
         // Redis에서 저장된 Refresh Token 값을 가져온다.
         String refreshTokenValue = redisTemplate.opsForValue().get(userId);
-        if (!refreshTokenValue.equals(authRefreshToken.getToken())) {
-            //throw new exception
-        }
-
-
         if (refreshTokenValue == null) {
-            return ResponseEntity.ok(new ResponseDto());
+            ResponseDto responseDto = ResponseDto.builder().success(false).error(new ErrorDto(ErrorCode.UNAUTORIZED)).build();
+            return ResponseEntity.ok(responseDto);
         }
 
         Date now = new Date();
@@ -118,8 +112,8 @@ public class AuthController {
             CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
             CookieUtil.addCookie(response, REFRESH_TOKEN, authRefreshToken.getToken(), cookieMaxAge);
         }
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setBody(newAccessToken.getToken());
+
+        ResponseDto responseDto = ResponseDto.builder().success(true).body(newAccessToken.getToken()).build();
         return ResponseEntity.ok(responseDto);
     }
 }

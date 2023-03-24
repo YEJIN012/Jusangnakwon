@@ -1,15 +1,9 @@
 package com.osakak.jusangnakwon.domain.user.dao;
 
-import java.util.Optional;
-
 import com.osakak.jusangnakwon.domain.user.entity.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-
-public interface UserRepository extends MongoRepository<User, String> {
-    Optional<User> findByUsername(String username);
-
-    Boolean existsByUsername(String username);
-
-    Boolean existsByEmail(String email);
+public interface UserRepository extends JpaRepository<User, Long> {
+    public User findByUserId(String userId);
 }
+

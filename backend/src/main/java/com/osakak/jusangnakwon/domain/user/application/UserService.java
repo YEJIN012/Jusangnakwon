@@ -12,8 +12,8 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public Optional<User> getUser(String userId) {
-        return userRepository.findById(userId);
+    public User getUser(String userId) {
+        return userRepository.findByUserId(userId);
     }
 }
 
