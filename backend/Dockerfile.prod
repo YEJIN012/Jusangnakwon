@@ -6,7 +6,21 @@ ENV PASSWORD pwd
 ENV HOST localhost
 ENV PORT port
 ENV DATABASE osakak
-# env finish
+
+# client origin
+ENV ORIGIN e
+
+# security
+ENV GCLIENTID e
+ENV GSECRET e
+ENV KCLIENTID e
+ENV KSECRET e
+ENV KREDIRECT e
+
+# cors
+ENV JWTSECRET e
+ENV APP_AUTH_SECRET e
+
 COPY backend/gradlew .
 COPY backend/gradle gradle
 COPY backend/build.gradle .
@@ -18,4 +32,20 @@ RUN ./gradlew clean bootJar
 FROM adoptopenjdk:11-hotspot
 COPY --from=builder build/libs/*.jar app.jar
 
-ENTRYPOINT ["java","-jar","-Dspring.profiles.active=${USE_PROFILE}", "-Dmongo.username=${USERNAME}", "-Dmongo.password=${PASSWORD}", "-Dmongo.host=${HOST}", "-Dmongo.port=${PORT}", "-Dmongo.database=${DATABASE}", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "\
+    -Dspring.profiles.active=${USE_PROFILE} \
+    -Datlas.username=${USERNAME} \
+    -Datlas.password=${PASSWORD} \
+    -Datlas.project=${PROJECT} \
+    -Datlas.project=${PROJECT} \
+    -Datlas.name=${NAME} \
+    -Dgclient.id=${GCLIENTID} \
+    -Dgclient.secret=${GSECRET} \
+    -Dkclient.id=${KCLIENTID} \
+    -Dkclient.secret=${KSECRET} \
+    -Dkredirecturl=${KREDIRECT} \
+    -Dclient.origin=${ORIGIN} \
+    -Djwt.secret=${JWTSECRET} \
+    -Dapp.auth.secret=${APP_AUTH_SECRET} \
+    /app.jar
+"]
