@@ -8,11 +8,11 @@ import lombok.Setter;
 @Setter
 public class ResponseDto {
     private boolean success;
-    private ErrorCode error;
+    private ErrorDto error;
     private Object body;
 
     @Builder
-    public ResponseDto(boolean success, ErrorCode error, Object body) {
+    public ResponseDto(boolean success, ErrorDto error, Object body) {
         this.success = success;
         this.error = error;
         this.body = body;
