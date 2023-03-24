@@ -8,16 +8,16 @@ import java.time.LocalDateTime;
 @Getter
 public class CommentDto {
 
-    private final String profileImg;
-    private final String name;
+    private final Long id;
+    private final UserDto writer;
     private final String content;
-    private final LocalDateTime createdAt;
+    private final LocalDateTime dateCreated;
 
     @Builder
-    public CommentDto(String profileImg, String name, String content, LocalDateTime createdAt) {
-        this.profileImg = profileImg;
-        this.name = name;
+    public CommentDto(Long id, UserDto writer, String content, LocalDateTime dateCreated) {
+        this.id = id;
+        this.writer = writer;
         this.content = content;
-        this.createdAt = createdAt;
+        this.dateCreated = dateCreated;
     }
 }

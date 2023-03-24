@@ -23,17 +23,12 @@ import java.io.OutputStream;
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            AuthenticationException authException
-    ) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         log.error("잘못된 토큰입니다.");
 
         ErrorCode errorCode = ErrorCode.UNAUTORIZED;
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setSuccess(false);
-        responseDto.setError(new ErrorDto(errorCode));
+
+        ResponseDto responseDto = ResponseDto.builder().success(false).error(new ErrorDto(errorCode)).build();
 
         try (OutputStream os = response.getOutputStream()) {
             ObjectMapper objectMapper = new ObjectMapper();

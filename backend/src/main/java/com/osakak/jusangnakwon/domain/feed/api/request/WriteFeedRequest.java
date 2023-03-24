@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
@@ -18,9 +17,8 @@ public class WriteFeedRequest {
     private String liquorType;
     private String liquorName;
     private String content;
-    private Double rating;
+    private Double ratingScore;
     @NotBlank
     private Boolean isPublic;
-
 
 }

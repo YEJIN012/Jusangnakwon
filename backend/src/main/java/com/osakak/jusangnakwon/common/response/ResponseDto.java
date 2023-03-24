@@ -1,5 +1,7 @@
 package com.osakak.jusangnakwon.common.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,4 +12,10 @@ public class ResponseDto {
     private ErrorDto error;
     private Object body;
 
+    @Builder
+    public ResponseDto(boolean success, ErrorDto error, Object body) {
+        this.success = success;
+        this.error = error;
+        this.body = body;
+    }
 }

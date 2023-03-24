@@ -5,6 +5,7 @@ import com.osakak.jusangnakwon.domain.feed.api.request.WriteFeedRequest;
 import com.osakak.jusangnakwon.domain.feed.api.response.WriteFeedResponse;
 import com.osakak.jusangnakwon.domain.feed.application.FeedService;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
+import com.osakak.jusangnakwon.domain.feed.dto.RatingDto;
 import com.osakak.jusangnakwon.domain.feed.mapper.FeedDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
@@ -27,10 +28,18 @@ public class FeedController {
      * @return WriteFeedResponse : 생성된 피드 정보
      */
     @PostMapping("/api/feed/{id}")
-    public ResponseEntity<ResponseDto> create(@PathVariable String id, @RequestBody @Valid WriteFeedRequest writeFeedRequest){
-        FeedDto requestDto = feedDtoMapper.fromWriteRequest(writeFeedRequest);
-        FeedDto feedDto = feedService.createFeed(id, requestDto);
-        return ResponseEntity.ok(new ResponseDto(true, null, feedDto));
+    public ResponseEntity<ResponseDto> create(@PathVariable String id,
+            @RequestBody @Valid WriteFeedRequest writeFeedRequest) {
+        FeedDto requestFeedDto = feedDtoMapper.writeFeedRequestToFeedDto(writeFeedRequest);
+        RatingDto requestRatingDto = feedDtoMapper.writeFeedRequestToRatingDto(writeFeedRequest);
+        FeedDto feedDto = feedService.createFeed(id, requestFeedDto, requestRatingDto);
+
+        return null;
+        /*
+        return ResponseEntity.ok(
+                ResponseDto.builder().success(true).body(feedDtoMapper.toWriteResponse(feedDto))
+                        .build());
+         */
     }
 
 }
