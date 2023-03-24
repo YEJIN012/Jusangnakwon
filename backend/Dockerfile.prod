@@ -1,14 +1,12 @@
 FROM adoptopenjdk:11-hotspot AS builder
-# env 
-ENV USE_PROFILE prod
+ENV USE_PROFILE staging
+
+# mysql
+ENV HOSTNAME H
+ENV SCHEMA S
 ENV USERNAME username
 ENV PASSWORD pwd
-ENV HOST localhost
-ENV PORT port
-ENV DATABASE osakak
-
-# client origin
-ENV ORIGIN e
+ENV DOMAIN D
 
 # security
 ENV GCLIENTID e
@@ -17,9 +15,14 @@ ENV KCLIENTID e
 ENV KSECRET e
 ENV KREDIRECT e
 
+# client origin
+ENV ORIGIN e
+
 # cors
 ENV JWTSECRET e
 ENV APP_AUTH_SECRET e
+
+ENV SERVER_PORT 0
 
 COPY backend/gradlew .
 COPY backend/gradle gradle
@@ -33,12 +36,10 @@ FROM adoptopenjdk:11-hotspot
 COPY --from=builder build/libs/*.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "\
-    -Dspring.profiles.active=${USE_PROFILE} \
-    -Datlas.username=${USERNAME} \
-    -Datlas.password=${PASSWORD} \
-    -Datlas.project=${PROJECT} \
-    -Datlas.project=${PROJECT} \
-    -Datlas.name=${NAME} \
+    -Ddatabase.hostname=${HOSTNAME} \
+    -Ddatabase.schema=${SCHEMA} \
+    -Ddatabase.username=${USERNAME} \
+    -Ddatabase.password=${PASSWORD} \
     -Dgclient.id=${GCLIENTID} \
     -Dgclient.secret=${GSECRET} \
     -Dkclient.id=${KCLIENTID} \
@@ -47,5 +48,7 @@ ENTRYPOINT ["java", "-jar", "\
     -Dclient.origin=${ORIGIN} \
     -Djwt.secret=${JWTSECRET} \
     -Dapp.auth.secret=${APP_AUTH_SECRET} \
+    -Dport=${SERVER_PORT} \
+    -Ddomain=${DOMAIN}
     /app.jar
 "]
