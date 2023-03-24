@@ -1,9 +1,20 @@
+:root {
+  --tag-color-red: rgb(255, 0, 0, 0.8);
+  --tag-color-orange: rgb(255, 166, 0, 0.8);
+  --tag-color-skyblue: rgb(137, 207, 235, 0.8);
+  --tag-color-gold: rgb(255, 215, 0, 0.8);
+  --tag-color-green: rgb(0, 128, 0, 0.8);
+  --tag-color-hotpink: rgb(255, 105, 180, 0.8);
+  --tag-color-purple: rgb(128, 0, 128, 0.8);
+}
+
 .drink-list-wrap {
   width: 90vw;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 5%;
 }
 
 .tab-drink-list {
@@ -24,14 +35,15 @@
 }
 .item-container img {
   width: 100%;
-  max-width: "100%";
-  height: "auto";
+  border-radius: 3%;
+  /* box-shadow: 1px 1px 5px rgb(65, 65, 65); */
 }
 
 .item-title {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .like-box {
@@ -51,4 +63,14 @@
     display: flex;
     justify-content: center;
   }
+}
+
+.alcohol-type {
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.alcohol-name {
+  font-size: 0.8rem;
 }

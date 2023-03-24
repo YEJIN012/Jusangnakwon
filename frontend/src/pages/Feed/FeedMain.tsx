@@ -1,7 +1,7 @@
 import styles from "./FeedMain.module.css";
 import { useEffect, useRef, useState } from "react";
 import { Grid } from "@mui/material";
-import FeedComponent from "@/components/Feed/FeedComponent";
+import FeedComponent from "@/components/Feed/FeedItem";
 import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
 
 const FeedMain = () => {
