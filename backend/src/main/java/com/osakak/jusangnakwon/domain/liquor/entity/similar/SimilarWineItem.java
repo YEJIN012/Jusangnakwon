@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class SimilarWineItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, length = 30)
     private Long id;
     @Embedded
     private SimilarItemValueType similarLiquor;

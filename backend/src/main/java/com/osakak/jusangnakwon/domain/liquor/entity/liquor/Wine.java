@@ -24,11 +24,11 @@ public class Wine {
     @Column(length = 200)
     private String img;
     @Column(length = 10)
-    private int price;
+    private Integer price;
     @Column(length = 200)
     private String link;
     @Column(length = 10)
-    private double alcohol;
+    private Double alcohol;
     @Column(length = 30)
     private String type;
     @Column(length = 30)
@@ -44,17 +44,16 @@ public class Wine {
     @Column(length = 30)
     private String vintage;
     @Column(length = 10)
-    private int size;
-
+    private Integer size;
     private String description;
     @Column(length = 10)
-    private int sweetness;
+    private Integer sweetness;
     @Column(length = 10)
-    private int acidity;
+    private Integer acidity;
     @Column(length = 10)
-    private int body;
+    private Integer body;
     @Column(length = 10)
-    private int tannin;
+    private Integer tannin;
     @Column(name = "liquor_type", length = 10)
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;

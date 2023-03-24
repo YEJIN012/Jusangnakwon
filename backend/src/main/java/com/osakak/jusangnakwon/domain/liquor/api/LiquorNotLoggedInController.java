@@ -44,7 +44,11 @@ public class LiquorNotLoggedInController {
     @GetMapping("rank/l1")
     public ResponseEntity<ResponseDto> rankWine(@RequestParam int page) {
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.WINE);
-        return ResponseEntity.ok(ResponseDto.builder().body(liquorList).success(true).build());
+        ResponseDto responseDto = ResponseDto.builder()
+                .success(true)
+                .body(liquorList)
+                .build();
+        return ResponseEntity.ok(responseDto);
     }
 
     /**
@@ -55,7 +59,6 @@ public class LiquorNotLoggedInController {
      */
     @GetMapping("rank/l2")
     public ResponseEntity<ResponseDto> rankWhisky(@RequestParam int page) {
-
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.WHISKY);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
@@ -88,8 +91,12 @@ public class LiquorNotLoggedInController {
      */
     @GetMapping("rank/l4")
     public ResponseEntity<ResponseDto> rankTradition(@RequestParam int page) {
-
-        return ResponseEntity.ok(ResponseDto.builder().build());
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.TRADITION);
+        ResponseDto responseDto = ResponseDto.builder()
+                .success(true)
+                .body(liquorList)
+                .build();
+        return ResponseEntity.ok(responseDto);
     }
 
     /**
@@ -100,7 +107,21 @@ public class LiquorNotLoggedInController {
      */
     @GetMapping("rank/l5")
     public ResponseEntity<ResponseDto> rankCocktail(@RequestParam int page) {
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.COCKTAIL);
+        ResponseDto responseDto = ResponseDto.builder()
+                .success(true)
+                .body(liquorList)
+                .build();
+        return ResponseEntity.ok(responseDto);
+    }
 
-        return ResponseEntity.ok(ResponseDto.builder().build());
+    @GetMapping("rank/l6")
+    public ResponseEntity<ResponseDto> rankHometender(@RequestParam int page) {
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.HOMETENDER);
+        ResponseDto responseDto = ResponseDto.builder()
+                .success(true)
+                .body(liquorList)
+                .build();
+        return ResponseEntity.ok(responseDto);
     }
 }

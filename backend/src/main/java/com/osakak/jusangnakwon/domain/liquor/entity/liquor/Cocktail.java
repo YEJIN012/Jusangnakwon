@@ -14,56 +14,54 @@ import javax.persistence.*;
 @ApiModel(value = "cocktail")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Schema(description = "칵테일 테이블")
 @Entity
 public class Cocktail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 100, nullable = false)
     private Long id;
-    @Schema(description = "칵테일 이름")
     @Column(length = 50, nullable = false)
     private String name;
     @Column(length = 30)
     private String img;
     @Column(length = 30)
-    private int alcohol;
+    private Integer alcohol;
     @Column(length = 30)
     private String type;
     @Column(name = "base_wine", length = 100)
     private String baseWine;
     @Column(name = "base_wine_amt", length = 30)
-    private int baseWineAmt;
+    private Integer baseWineAmt;
     @Column(length = 30)
     private String liquor;
     @Column(name = "liquor_amt", length = 30)
-    private int liquorAmt;
+    private Integer liquorAmt;
     @Column(length = 30)
     private String juice;
     @Column(name = "juice_amt", length = 30)
-    private int juiceAmt;
+    private Integer juiceAmt;
     @Column(length = 30)
     private String spice;
     @Column(name = "spice_amt", length = 30)
-    private int spiceAmt;
+    private Integer spiceAmt;
     @Column(length = 30)
     private String soda;
     @Column(name = "soda_amt", length = 30)
-    private int sodaAmt;
+    private Integer sodaAmt;
     @Column(length = 30)
     private String others;
     @Column(length = 30)
-    private int salty;
+    private Integer salty;
     @Column(length = 30)
-    private int savory;
+    private Integer savory;
     @Column(length = 30)
-    private int sour;
+    private Integer sour;
     @Column(length = 30)
-    private int bitter;
+    private Integer bitter;
     @Column(length = 30)
-    private int sweet;
+    private Integer sweet;
     @Column(length = 30)
-    private int spicy;
+    private Integer spicy;
     @Column(name = "liquor_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
@@ -74,7 +72,7 @@ public class Cocktail {
     private double ratingAvg;
 
     @Builder
-    public Cocktail(Long id, String name, String img, int alcohol, String type, String baseWine, int baseWineAmt, String liquor, int liquorAmt, String juice, int juiceAmt, String spice, int spiceAmt, String soda, int sodaAmt, String others, int salty, int savory, int sour, int bitter, int sweet, int spicy, LiquorType liquorType, SimilarCocktailItem similarCocktailItem, double ratingAvg) {
+    public Cocktail(Long id, String name, String img, Integer alcohol, String type, String baseWine, Integer baseWineAmt, String liquor, Integer liquorAmt, String juice, Integer juiceAmt, String spice, Integer spiceAmt, String soda, Integer sodaAmt, String others, Integer salty, Integer savory, Integer sour, Integer bitter, Integer sweet, Integer spicy, LiquorType liquorType, SimilarCocktailItem similarCocktailItem, double ratingAvg) {
         this.id = id;
         this.name = name;
         this.img = img;

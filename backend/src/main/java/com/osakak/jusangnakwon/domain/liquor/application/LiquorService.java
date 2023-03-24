@@ -27,7 +27,6 @@ public class LiquorService {
     private final TraditionRepository traditionRepository;
     private final LiquorCustomMapper liquorCustomMapper;
     private final LiquorMapper liquorMapper;
-    static int totalPage = 0;
     static int pageNumber = 0;
 
     /**

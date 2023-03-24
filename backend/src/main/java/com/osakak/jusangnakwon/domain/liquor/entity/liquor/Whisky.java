@@ -24,42 +24,42 @@ public class Whisky {
     @Column(length = 30)
     private String img;
     @Column(length = 30)
-    private double price;
+    private Double price;
     @Column(length = 30)
     private String link;
     @Column(length = 30)
-    private double alcohol;
+    private Double alcohol;
     // 평점
     @Column(name = "meta_critic")
-    private double metaCritic;
+    private Double metaCritic;
     @Column(length = 30)
-    private double body;
+    private Double body;
     @Column(length = 30)
-    private double sweet;
+    private Double sweet;
     @Column(length = 30)
-    private double sherry;
+    private Double sherry;
     @Column(length = 30)
-    private int malt;
+    private Integer malt;
     @Column(length = 30)
-    private double aperitif;
+    private Double aperitif;
     @Column(length = 30)
-    private double smoky;
+    private Double smoky;
     @Column(length = 30)
-    private double pungent;
+    private Double pungent;
     @Column(length = 30)
-    private double fruity;
+    private Double fruity;
     @Column(length = 30)
-    private double honey;
+    private Double honey;
     @Column(length = 30)
-    private double floral;
+    private Double floral;
     @Column(length = 30)
-    private double spicy;
+    private Double spicy;
     @Column(length = 30)
-    private double medicinal;
+    private Double medicinal;
     @Column(length = 30)
-    private double nutty;
+    private Double nutty;
     @Column(length = 30)
-    private double winey;
+    private Double winey;
     @Column(name = "liquor_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;

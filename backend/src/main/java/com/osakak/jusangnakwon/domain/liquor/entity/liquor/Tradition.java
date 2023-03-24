@@ -24,7 +24,7 @@ public class Tradition {
     @Column(length = 30)
     private String img;
     @Column(length = 30)
-    private double alcohol;
+    private Double alcohol;
     @Column(length = 30)
     private String size;
 
@@ -34,13 +34,13 @@ public class Tradition {
     @Column(length = 30)
     private String description;
     @Column(length = 30)
-    private double sweeetness;
+    private Double sweeetness;
     @Column(length = 30)
-    private double acidity;
+    private Double acidity;
     @Column(length = 30)
-    private double freshness;
+    private Double freshness;
     @Column(length = 30)
-    private int body;
+    private Integer body;
     @Column(name = "liquor_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;

@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WineRepository extends JpaRepository<Wine, String> {
+public interface WineRepository extends JpaRepository<Wine, Long> {
     /**
      * 전체 와인 랭킹순 조회
      * @param pageable 페이징 정보
