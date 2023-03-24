@@ -49,5 +49,4 @@ ENTRYPOINT ["java", "-jar", "\
     -Djwt.secret=${JWTSECRET} \
     -Dapp.auth.secret=${APP_AUTH_SECRET} \
     -Dport=${SERVER_PORT}
-    /app.jar
-"]
+    /app.jar"]
