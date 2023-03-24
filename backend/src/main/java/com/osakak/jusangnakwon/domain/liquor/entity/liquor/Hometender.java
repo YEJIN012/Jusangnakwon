@@ -26,13 +26,13 @@ public class Hometender {
     @Column(length = 30)
     private String materials;
     @Column(length = 30)
-    private int salty;
+    private Integer salty;
     @Column(length = 30)
-    private int sour;
+    private Integer sour;
     @Column(length = 30)
-    private int bitter;
+    private Integer bitter;
     @Column(length = 30)
-    private int sweet;
+    private Integer sweet;
     @Column(name = "liquor_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
@@ -43,7 +43,7 @@ public class Hometender {
     private double ratingAvg;
 
     @Builder
-    public Hometender(Long id, String name, String img, String materials, int salty, int sour, int bitter, int sweet, LiquorType liquorType, SimilarHometenderItem similarHometenderItem, double ratingAvg) {
+    public Hometender(Long id, String name, String img, String materials, Integer salty, Integer sour, Integer bitter, Integer sweet, LiquorType liquorType, SimilarHometenderItem similarHometenderItem, double ratingAvg) {
         this.id = id;
         this.name = name;
         this.img = img;
