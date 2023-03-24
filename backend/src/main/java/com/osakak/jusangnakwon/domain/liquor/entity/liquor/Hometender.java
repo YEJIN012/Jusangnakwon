@@ -1,7 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.entity.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarCocktailItem;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarHometenderItem;
 import io.swagger.annotations.ApiModel;
 import lombok.AccessLevel;

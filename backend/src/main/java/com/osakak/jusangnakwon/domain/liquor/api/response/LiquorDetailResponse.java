@@ -3,7 +3,6 @@ package com.osakak.jusangnakwon.domain.liquor.api.response;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
