@@ -5,21 +5,25 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  data:
-    mongodb:
-      username: ${mongo.username}
-      password: ${mongo.password}
-      host: ${mongo.host}
-      port: ${mongo.port}
-      database: ${mongo.database}
-
+  datasource:
+    url: jdbc:mysql://${database.hostname}:3306/${database.schema}?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: ${database.username}
+    password: ${database.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
   redis:
     lettuce:
       pool:
         max-active: 5
         max-idle: 5
         min-idle: 2
-    host: localhost
+    host: ${domain}
     port: 6379
 
   # Security OAuth
@@ -65,11 +69,12 @@ jwt.secret: ${jwt.secret}
 app:
   auth:
     tokenSecret: ${app.auth.secret}
-    tokenExpiry: 5000
+    tokenExpiry: 50000
     refreshTokenExpiry: 604800000
   oauth2:
     authorizedRedirectUris:
       - ${client.origin}/oauth/redirect
 
+# --- server port ---
 server:
-  port: 8089
+  port: ${port}

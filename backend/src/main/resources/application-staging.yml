@@ -5,11 +5,21 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  data:
-    mongodb:
-      # mongodb atlas 사용 시 uri만 사용
-      uri: mongodb+srv://${atlas.username}:${atlas.password}@${atlas.project}.vxpncyr.mongodb.net/${atlas.name}?retryWrites=true&w=majority
-
+  datasource:
+    url: jdbc:mysql://${database.hostname}:3306/${database.schema}?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: ${database.username}
+    password: ${database.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+        show_sql: false
+    # data.sql 보다 hibernate 먼저 실행
+    defer-datasource-initialization: true
   redis:
     lettuce:
       pool:
@@ -48,6 +58,11 @@ spring:
           userInfoUri: https://kapi.kakao.com/v2/user/me
           userNameAttribute: id
 
+  # resources/data.sql 을 실행시켜 더미 데이터 생성
+  sql:
+    init:
+      mode: always
+
 # cors 설정
 cors:
   allowed-origins: ${client.origin}
@@ -62,11 +77,12 @@ jwt.secret: ${jwt.secret}
 app:
   auth:
     tokenSecret: ${app.auth.secret}
-    tokenExpiry: 5000
+    tokenExpiry: 50000
     refreshTokenExpiry: 604800000
   oauth2:
     authorizedRedirectUris:
       - ${client.origin}/oauth/redirect
 
+# --- server port ---
 server:
-  port: 8082
+  port: ${port}
