@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -45,36 +46,33 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         ProviderType providerType = ProviderType.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
         OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
-        Optional<User> savedUser = userRepository.findById(userInfo.getId());
+        User savedUser = userRepository.findByUserId(userInfo.getId());
 
-        if (savedUser.isPresent()) {
-            User user1 = savedUser.get();
-            if (providerType != user1.getProviderType()) {
+        if (savedUser != null) {
+            if (providerType != savedUser.getProviderType()) {
                 throw new OAuthProviderMissMatchException(
                         "Looks like you're signed up with " + providerType +
-                                " account. Please use your " + user1.getProviderType() + " account to login."
+                                " account. Please use your " + savedUser.getProviderType() + " account to login."
                 );
             }
         } else {
-            User user1 = createUser(userInfo, providerType);
-            savedUser = Optional.of(user1);
+            savedUser = createUser(userInfo, providerType);
         }
 
-        return UserPrincipal.create(savedUser.get(), user.getAttributes());
+        return UserPrincipal.create(savedUser, user.getAttributes());
     }
 
     private User createUser(OAuth2UserInfo userInfo, ProviderType providerType) {
         User user = User.builder()
-                .id(userInfo.getId())
-                .username(userInfo.getName())
+                .userId(userInfo.getId())
                 .email(userInfo.getEmail())
-                .password(UUID.randomUUID().toString())
                 .role(RoleType.USER)
-                .providerType(providerType)
+                .isDeleted(false)
+                .username(userInfo.getName())
                 .profileImageUrl(userInfo.getImageUrl())
+                .providerType(providerType)
                 .build();
-
-        return userRepository.save(user);
+        return userRepository.saveAndFlush(user);
     }
-
 }
+

@@ -24,10 +24,8 @@ public class UserController {
     public ResponseEntity<ResponseDto> getUser(Authentication authentication) {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         authentication.getPrincipal();
-        Optional<User> user = userService.getUser(principal.getUsername());
-        ResponseDto responseDto=new ResponseDto();
-        responseDto.setBody(user.get());
-
+        User user = userService.getUser(principal.getUsername());
+        ResponseDto responseDto = ResponseDto.builder().success(true).body(user).build();
         return ResponseEntity.ok(responseDto);
     }
 }
