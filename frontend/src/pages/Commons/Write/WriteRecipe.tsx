@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import { pink } from "@mui/material/colors";
@@ -12,35 +12,19 @@ import Search from "@mui/icons-material/Search";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import StarIcon from "@mui/icons-material/Star";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import styles from "./Write.module.css";
 import ImageUpload from "@/components/Commons/ImageUpload/ImageUpload";
+import Ingredients from "@/components/Commons/Ingredients/Ingredients";
 
 interface FormData {
-  img: string | null;
-  type: string;
+  img: string;
   name: string;
-  content: string | null;
-  ratings: number;
-  isPrivate: boolean;
+  ingredients: string[];
+  taste: { [key: string]: string | null} ;
+  content: string;
+  // isPrivate: boolean;
 }
-
-// const StyleModal = styled(ModalDialog)(({theme}) => ({
-//     "& .JoyModal-backdrop": {
-//       backgroundColor:" #000000"
-//     },
-// }));
-
-const StyleSwitch = styled(Switch)(({ theme }) => ({
-  "& .MuiSwitch-switchBase.Mui-checked": {
-    color: pink[600],
-    "&:hover": {
-      backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
-    },
-  },
-  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-    backgroundColor: pink[600],
-  },
-}));
 
 // 임의 리스트
 const DrinkTypeList = {
@@ -53,25 +37,21 @@ const DrinkTypeList = {
 };
 
 const WriteRecipe = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     img: "",
-    type: "",
     name: "",
+    ingredients: [],
+    taste: {
+      "단맛": null,
+      "신맛": null,
+      "쓴맛": null,
+      "짠맛" : null
+    },
     content: "",
-    ratings: 0,
-    isPrivate: false,
+    // isPrivate: false,
   });
 
-  // 모달 오픈 변수
-  const [open, setOpen] = useState(false);
-
   const navigate = useNavigate();
-
-  const handleRatingChange = (event: React.ChangeEvent<{}>, newValue: number | null) => {
-    if (newValue !== null) {
-      setFormData({ ...formData, ratings: newValue });
-    }
-  };
 
   const handleSubmit = (formData: FormData) => {
     // 제출 api호출
@@ -82,22 +62,45 @@ const WriteRecipe = () => {
     return (
       <div className={`${styles[`header-container`]}`}>
         <CloseIcon onClick={() => navigate(-1)} />
-        <div>게시글 작성</div>
+        <div>레시피 작성</div>
         <div onClick={() => handleSubmit(formData)}>완료</div>
       </div>
     );
   };
 
-  
+  const [ingredientValue, setIngredientValue] = useState("");
+
+  const handleIngredientValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIngredientValue(e.target.value);
+  };
+
+  const PushIngredient = (newValue: string) => {
+    if (newValue) {
+      const updatedIngredients = [...formData.ingredients, newValue];
+      setFormData({ ...formData, ingredients: updatedIngredients });
+    }
+    setIngredientValue("");
+  };
+
+  const DeleteIngredient = (index: number) => {
+    if (index !== null) {
+      const updatedIngredients = formData.ingredients
+      console.log(index)
+      updatedIngredients.splice(index, 1);
+      setFormData({ ...formData, ingredients: updatedIngredients });
+    }
+  };
+  console.log(formData.ingredients)
+
   return (
     <div className={`${styles[`container`]}`}>
       <WriteHeader></WriteHeader>
       <form className={`${styles[`container`]}`}>
         <div className={`${styles[`row-container`]}`}>
-          <div style={{width:"inherit"}}>
+          <div style={{ width: "inherit" }}>
             <div className={`${styles[`subtitle-row`]}`}>
               사진
-              <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)" }}> (선택)</div>
+              {/* <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)" }}> (선택)</div> */}
             </div>
             {/* 이미지 선택, 미리보기, 업로드 로직 컴포넌트 */}
             <ImageUpload></ImageUpload>
@@ -105,85 +108,73 @@ const WriteRecipe = () => {
         </div>
 
         <div className={`${styles[`row-container`]}`}>
-          {/* 술상세페이지에서 리뷰작성으로 넘어오면 */}
-          {/* navigate state로 주종 같이 넘겨줘서 select value에 담아놓기  */}
-          <div className={`${styles[`subtitle-container`]}`}>주종</div>
-          <select
-            style={{
-              width: "30vw",
-              fontSize: "100%",
-              backgroundColor: "#06031a",
-              borderColor: "#06031a",
-              color: "white",
-            }}
-            value={formData.type}
-            onChange={(e) => {
-              setFormData({ ...formData, type: e.target.value });
-            }}
-          >
-            <option value="" disabled>
-              선택
-            </option>
-            {Object.keys(DrinkTypeList).map((type, index) => (
-              <option key={index} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+          <div className={`${styles[`subtitle-container`]}`}>이름</div>
+          <input
+            className={`${styles[`input-basic`]}`}
+            placeholder="입력"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
         </div>
 
         <div className={`${styles[`row-container`]}`}>
-          <div className={`${styles[`subtitle-container`]}`}>술 이름</div>
-          <div className={`${styles[`end-container`]}`}>
-            <Search onClick={() => setOpen(true)} />
+          <div className={`${styles[`subtitle-container`]}`}>재료</div>
+          <div style={{ display: "flex", flexDirection: "column", width: "80%" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                className={`${styles[`input-ingredient-div`]}`}
+                style={{
+                  minWidth: "5ch",
+                  width: ingredientValue ? `${ingredientValue.length * 2}ch` : "5ch",
+                }}
+              >
+                <input
+                  className={`${styles[`input-ingredient`]}`}
+                  value={ingredientValue}
+                  placeholder="입력"
+                  type="text"
+                  onChange={handleIngredientValue}
+                />
+              </div>
+              <AddCircleOutlineIcon
+                fontSize="large"
+                onClick={() => {
+                  PushIngredient(ingredientValue);
+                }}
+              />
+            </div>
+            <Ingredients ingredients={formData.ingredients} delete={DeleteIngredient}></Ingredients>
           </div>
+        </div>
+
+        <div className={`${styles[`row-container`]}`}>
+          <div className={`${styles[`subtitle-container`]}`}>특징</div>
+          <input
+            className={`${styles[`input-basic`]}`}
+            placeholder="취향받는 컴포쓰기...."
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
         </div>
 
         <div className={`${styles[`row-container`]}`}>
           <textarea
             style={{}}
-            placeholder="내용 입력..."
+            placeholder="레시피 설명"
             value={formData.content}
             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
           />
         </div>
-
-        <div className={`${styles[`row-container`]}`}>
-          <div className={`${styles[`subtitle-container`]}`}>별점</div>
-          <Rating
-            value={formData.ratings}
-            onChange={handleRatingChange}
-            emptyIcon={<StarIcon style={{ color: "#6c6c6c" }} fontSize="inherit" />}
-          />
-        </div>
-
-        <div className={`${styles[`row-container`]}`}>
-          <div className={`${styles[`subtitle-container`]}`}>
-            {formData.isPrivate ? <LockIcon sx={{ fontSize: 35 }} /> : <LockOpenIcon sx={{ fontSize: 35 }} />}
-          </div>
-          <StyleSwitch onClick={() => setFormData({ ...formData, isPrivate: !formData.isPrivate })} />
-          {/* <button onClick={() => setPrivate(false)}>공개</button>
-          <button onClick={() => setPrivate(true)}>비공개</button> */}
-        </div>
       </form>
 
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <ModalDialog color="neutral" variant="plain">
-          술 이름 검색
-        </ModalDialog>
-      </Modal>
-
       <div>
-        데이터 확인 :
-        {formData.type}
-        {formData.name}
+        데이터 확인 :{formData.name}
         {formData.content}
-        {formData.ratings}
-        {formData.isPrivate}
+        {formData.ingredients}
+        {/* {formData.isPrivate} */}
       </div>
     </div>
   );
 };
 
 export default WriteRecipe;
-

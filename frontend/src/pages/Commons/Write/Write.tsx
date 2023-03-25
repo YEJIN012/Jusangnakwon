@@ -3,7 +3,9 @@ import styles from "./Feed.module.css";
 
 const Write = () => {
   return (
+    <div>
       <Outlet></Outlet>
+    </div>
   );
 };
 

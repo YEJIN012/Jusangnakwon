@@ -6,11 +6,14 @@ import { PersistGate } from "redux-persist/integration/react";
 import BottomBar from "@/components/Commons/BottomBar/BottomBar";
 import Header from "@/components/Commons/Header/Header";
 import styles from "./App.module.css";
+import ScrollToTop from "./components/Commons/ScrollToTop";
 
 const persistor = persistStore(store);
 
 const App = () => {
   return (
+    <>
+    <ScrollToTop></ScrollToTop>
     <div className="App">
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
@@ -22,6 +25,7 @@ const App = () => {
         </PersistGate>
       </Provider>
     </div>
+    </>
   );
 };
 

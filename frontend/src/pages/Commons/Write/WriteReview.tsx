@@ -75,14 +75,14 @@ const WriteReview = () => {
 
   const handleSubmit = (formData: FormData) => {
     // 제출 api호출
-    navigate(-1);
+    navigate(-1); // 대신 해당 리뷰상세페이지로 이동
   };
 
   const WriteHeader = () => {
     return (
       <div className={`${styles[`header-container`]}`}>
         <CloseIcon onClick={() => navigate(-1)} />
-        <div>게시글 작성</div>
+        <div>리뷰 작성</div>
         <div onClick={() => handleSubmit(formData)}>완료</div>
       </div>
     );
@@ -141,7 +141,6 @@ const WriteReview = () => {
 
         <div className={`${styles[`row-container`]}`}>
           <textarea
-            style={{}}
             placeholder="내용 입력..."
             value={formData.content}
             onChange={(e) => setFormData({ ...formData, content: e.target.value })}

@@ -22,12 +22,6 @@ interface FormData {
   // isPrivate: boolean;
 }
 
-// const StyleModal = styled(ModalDialog)(({theme}) => ({
-//     "& .JoyModal-backdrop": {
-//       backgroundColor:" #000000"
-//     },
-// }));
-
 const StyleSwitch = styled(Switch)(({ theme }) => ({
   "& .MuiSwitch-switchBase.Mui-checked": {
     color: pink[600],
@@ -40,16 +34,6 @@ const StyleSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-// 임의 리스트
-const DrinkTypeList = {
-  와인: "l1",
-  전통주: "l2",
-  맥주: "l3",
-  위스키: "l4",
-  칵테일: "l5",
-  홈테일: "l6",
-};
-
 const WriteQuestion = () => {
   const [formData, setFormData] = useState({
     img: "",
@@ -57,7 +41,6 @@ const WriteQuestion = () => {
     content: "",
     // isPrivate: false,
   });
-
 
   const navigate = useNavigate();
 
@@ -82,7 +65,7 @@ const WriteQuestion = () => {
       <WriteHeader></WriteHeader>
       <form className={`${styles[`container`]}`}>
         <div className={`${styles[`row-container`]}`}>
-          <div style={{width:"inherit"}}>
+          <div style={{ width: "inherit" }}>
             <div className={`${styles[`subtitle-row`]}`}>
               사진
               <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)" }}> (선택)</div>
@@ -95,6 +78,9 @@ const WriteQuestion = () => {
         <div className={`${styles[`row-container`]}`}>
           <div className={`${styles[`subtitle-container`]}`}>글 제목</div>
           <input
+            className={`${styles[`input-basic`]}`}
+            type="text"
+            placeholder="입력"
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           />
@@ -109,8 +95,7 @@ const WriteQuestion = () => {
         </div>
       </form>
       <div>
-        데이터 확인 :
-        {formData.title}
+        데이터 확인 :{formData.title}
         {formData.content}
       </div>
     </div>

@@ -7,7 +7,7 @@ const ImageUpload = () => {
   const [imgFile, setImgFile] = useState<File | null>(null); // 선택한 이미지 파일
 
   const inputRef = useRef<HTMLInputElement>(null); // Icon onClick에 input File을 달기 위한 ref
-  console.log(inputRef);
+  // console.log(inputRef);
 
   // 선택이미지 미리보기
   const handleChangePreview = (e: React.ChangeEvent<HTMLInputElement>) => {
