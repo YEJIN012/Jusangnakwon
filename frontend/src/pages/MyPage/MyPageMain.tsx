@@ -7,7 +7,9 @@ const MyPageMain = () => {
     <div>
       <UserProfile></UserProfile>
       <MyPageCalendar></MyPageCalendar>
-      <MyReviewList />
+      <div style={{ padding: "0px 20px", marginTop: "-8%" }}>
+        <MyReviewList />
+      </div>
     </div>
   );
 };

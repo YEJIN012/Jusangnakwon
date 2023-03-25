@@ -1,32 +1,25 @@
-.MyCalendar {
-  /* display: flex; */
-  /* justify-content: center; */
-  margin-top: 10%;
-}
+/* .MyCalendar { */
+/* display: flex; */
+/* justify-content: center; */
+/* margin-top: 10%; */
+/* } */
 
 .calender-container {
   display: flex;
   width: 100%;
   justify-content: center;
-  /* padding: 0 5% 0 5%; */
-  /* border: 1px solid #ff3f3f; */
 }
 
 /* 캘린더 wrap (배경) */
 .react-calendar {
   width: 90%;
-  /* height: 70%; */
   padding: 20px;
   background-color: #1f1f21;
-  /* border: 1px solid #000; */
   border-radius: 30px;
   /* border: 5px solid #868db3; */
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
-  /* box-shadow: 5px 5px 5px 5px rgba(34, 93, 141, 0.8); */
-  /* margin-right: 10%; */
-  /* margin-top: 8%; */
 }
 
 .react-calendar--doubleView {
@@ -54,28 +47,40 @@
   margin: 0;
   border: 0;
   outline: none;
-  font-size: 0.75rem;
-  line-height: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.1rem;
   background-color: #1f1f21;
   color: white;
   /* border: 1px solid #000; */
 }
+
+/* 오늘날짜 */
+.react-calendar__tile--now {
+  /* background: #ff947a;
+  border: 1px; */
+  background-color: #eaa7f1;
+  font-weight: bolder;
+  color: #4094bf;
+  border-radius: 9999px;
+  border: 1px solid #000;
+}
+
 .react-calendar button:enabled:hover {
   cursor: pointer;
 }
 
+/* 캘린더 네비 */
 .react-calendar__navigation {
   display: flex;
   height: 44px;
   margin-bottom: 1em;
 }
 
-/* 캘린더 네비 */
 .react-calendar__navigation button {
   color: white;
   min-width: 44px;
   background: none;
-  font-size: 16px;
+  font-size: 17px;
   margin-top: 8px;
   font-weight: bold;
 }
@@ -90,9 +95,9 @@
 /* 월 화 수 목 금 토 일 */
 .react-calendar__month-view__weekdays {
   text-align: center;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 0.75em;
+  /* text-transform: uppercase; */
+  /* font-weight: bold; */
+  font-size: 0.8rem;
   margin-bottom: 2%;
 }
 
@@ -104,30 +109,26 @@ abbr[title] {
 /* 머임 */
 .react-calendar__tile {
   max-width: 100%;
+  height: 7vh;
   padding: 10px 6.6667px;
   border-radius: 9999px;
   text-align: center;
   line-height: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 /* 일자 호버 */
-.react-calendar__tile:enabled:hover,
+/* .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
   color: black;
   font-weight: bolder;
   transform: scale(1);
-  background-color: #6f48eb33;
   background-color: #b1d9ff;
   color: white;
-}
-
-/* .react-calendar__tile--now {
-      border: 1px;
-      background-color: #6f48eb33;
-      font-weight: bolder;
-      color: #4094bf;
-      border-radius: 9999px;
-    } */
+} */
 
 /* .react-calendar__tile--active {
       border: 1px;
@@ -181,10 +182,6 @@ abbr[title] {
   display: none;
 }
 
-.react-calendar__navigation button:disabled {
-  /* background-color: #f0f0f0; */
-}
-
 /* .react-calendar__month-view__days__day--weekend {
       color: #d10000;
     } */
@@ -197,22 +194,18 @@ abbr[title] {
   background-color: #cf3333;
 }
 
+/* 날짜 클릭했을 때 배경색 */
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #e0c9f9;
+  color: black;
+}
+
 /* .react-calendar__tile:enabled:hover,
     .react-calendar__tile:enabled:focus {
       background-color: #b1d9ff;
       color: white;
     } */
-
-/* 오늘날짜 */
-.react-calendar__tile--now {
-  background: #ff947a;
-  border: 1px;
-  background-color: #6f48eb33;
-  font-weight: bolder;
-  color: #4094bf;
-  border-radius: 9999px;
-  border: 1px solid #000;
-}
 
 /* 오늘 날짜 호버 */
 /* .react-calendar__tile--now:enabled:hover,
@@ -235,14 +228,6 @@ abbr[title] {
   font-weight: 800;
   border-radius: 9999px;
   background-color: #6f48eb33;
-}
-.react-calendar__tile--active:enabled:hover,
-.react-calendar__tile--active:enabled:focus {
-  background: #e6e6e6;
-  color: black;
-}
-.react-calendar--selectRange .react-calendar__tile--hover {
-  background-color: #bb2c2c;
 }
 
 .right-box {
@@ -309,20 +294,6 @@ abbr[title] {
   margin-bottom: 20px;
   /* box-sizing: border-box; */
   /* box-shadow: 3px 3px 3px 3px rgb(180, 180, 180); */
-}
-
-.todo-box {
-  display: flex;
-  justify-content: space-between;
-  /* border: 1px solid #000; */
-  width: 70%;
-  padding: 5%;
-  /* padding-bottom: 5%; */
-  border-radius: 10px;
-  background-color: #fff;
-  margin-bottom: 3%;
-  box-shadow: 3px 3px 3px 3px rgba(150, 150, 150, 0.7);
-  /* box-shadow: 5px 5px 5px 5px rgba(34, 93, 141, 0.8) */
 }
 
 .todo-content {

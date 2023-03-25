@@ -34,13 +34,13 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
   return (
     <>
       {feed.classification === "게시글" ? (
-        <Grid item key={feed.id} paddingBottom={1}>
-          <Card style={{ backgroundColor: "inherit" }}>
+        <Grid item key={feed.id} paddingBottom={0.5}>
+          <Card style={{ backgroundColor: "inherit", boxShadow: "0px 0px 2px gray" }}>
             <Link to={`../details/feed/${feed.id}`}>
               <CardMedia component="img" height="auto" image={feed.img} alt={feed.userName} />
             </Link>
-            <CardContent style={{ backgroundColor: `rgba(40, 40, 50, 0.7)`, padding: "2px" }}>
-              <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.8rem", color: "white" }}>
+            <CardContent style={{ backgroundColor: `inherit`, padding: "2px" }}>
+              <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.9rem", color: "white" }}>
                 <div className={`${styles[`user-profile`]}`}>
                   <img src={feed.userImg} className={`${styles[`user-img`]}`}></img>
                   <p>{feed.userName}</p>
@@ -96,10 +96,10 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
           </Card>
         </Grid>
       ) : (
-        <Grid item key={feed.id} paddingBottom={1}>
+        <Grid item key={feed.id} paddingBottom={0.5}>
           <Card style={{ backgroundColor: "inherit" }}>
             <Link to={`../details/feed/${feed.id}`}>
-              <CardContent style={{ backgroundColor: "#3D3D3D", padding: "2px" }}>
+              <CardContent style={{ backgroundColor: "rgba(50, 50, 55, 0.9)", padding: "2px" }}>
                 <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.8rem", color: "white" }}>
                   <div className={`${styles[`user-profile`]}`}>
                     <img src={feed.userImg} className={`${styles[`user-img`]}`}></img>

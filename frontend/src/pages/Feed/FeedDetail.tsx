@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as React from "react";
 import styles from "./FeedDetail.module.css";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -136,7 +136,9 @@ const FeedDetail = () => {
                     },
                   }}
                 >
-                  <MenuItem onClick={handleClose}>수정하기</MenuItem>
+                  <Link to="../wrtie/review">
+                    <MenuItem onClick={handleClose}>수정하기</MenuItem>
+                  </Link>
                   <MenuItem onClick={handleClose}>삭제하기</MenuItem>
                 </Menu>
               </div>

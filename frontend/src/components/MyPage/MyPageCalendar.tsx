@@ -1,8 +1,8 @@
-// import moment from "moment"
 import Calendar from "react-calendar";
 // import "react-calendar/dist/Calendar.css";
 import "@/components/MyPage/MyPageCalendar.css";
 import { useState } from "react";
+import moment from "moment";
 
 const dummyFeedList = [
   {
@@ -10,44 +10,55 @@ const dummyFeedList = [
     userName: "hojung",
     userImg: "https://picsum.photos/100/100/?random",
     classification: "게시글",
-    alcoholType: "위스키",
+    alcoholType: "whisky",
     img: "https://picsum.photos/300/300/?random",
     content: "이야호",
     liked: false,
-    date: "2023-03-24",
+    date: "2023-03-22",
   },
   {
     id: 2,
     userName: "스텝한이",
     userImg: "https://picsum.photos/100/100/?random",
     classification: "게시글",
-    alcoholType: "와인",
+    alcoholType: "wine",
     img: "https://picsum.photos/300/300/?random",
     content: "부야호",
     liked: false,
-    date: "2023-03-24",
+    date: "2023-03-21",
   },
   {
     id: 3,
     userName: "스텝한이",
     userImg: "https://picsum.photos/100/100/?random",
     classification: "게시글",
-    alcoholType: "칵테일",
+    alcoholType: "cocktail",
     img: "https://picsum.photos/300/300/?random",
     content: "부야호오오오",
     liked: false,
-    date: "2023-03-24",
+    date: "2023-03-07",
   },
   {
     id: 4,
     userName: "이랑이",
     userImg: "https://picsum.photos/100/100/?random",
     classification: "게시글",
-    alcoholType: "맥주",
+    alcoholType: "beer",
     img: "https://picsum.photos/300/300/?random",
     content: "냠냠 와인 냠냠",
     liked: false,
     date: "2023-03-24",
+  },
+  {
+    id: 5,
+    userName: "이랑이",
+    userImg: "https://picsum.photos/100/100/?random",
+    classification: "게시글",
+    alcoholType: "traditional",
+    img: "https://picsum.photos/300/300/?random",
+    content: "냠냠 와인 냠냠",
+    liked: false,
+    date: "2023-03-05",
   },
 ];
 
@@ -55,6 +66,29 @@ const MyPageCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [value, onChange] = useState(new Date());
   // const selectedDate = moment(date)
+
+  const tileContent = ({ date }: any) => {
+    const formattedDate = moment(date).format("YYYY-MM-DD");
+    const feed = dummyFeedList.find((feed) => feed.date === formattedDate);
+    if (feed) {
+      const iconUrl = `/assets/${feed.alcoholType}.svg`;
+      return (
+        <div>
+          <img style={{ height: "25px", width: "25px" }} src={iconUrl} alt={feed.alcoholType} />
+        </div>
+      );
+    }
+    if (formattedDate === moment(new Date()).format("YYYY-MM-DD")) {
+    }
+    return null;
+  };
+
+  // const tileClassName = ({ date }: any) => {
+  //   if (moment(date).isSame(moment(), "day")) {
+  //     return "today";
+  //   }
+  //   return null;
+  // };
 
   return (
     <div className="MyCalendar">
@@ -71,11 +105,10 @@ const MyPageCalendar = () => {
           maxDetail="month"
           showNeighboringMonth={false}
           // 달력에 '일' 빼는 코드
-          tileContent={
-            <div>
-              <img src="/assets/soju.svg"></img>
-            </div>
-          }
+          formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })}
+          tileContent={tileContent}
+          // 오늘 날짜 배경색 바뀌어 있게 설정
+          // tileClassName={tileClassName({ date })}
         />
       </div>
     </div>

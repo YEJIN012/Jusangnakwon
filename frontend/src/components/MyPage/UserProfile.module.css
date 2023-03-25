@@ -2,9 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 3%;
+  padding: 0px 10px;
   border-radius: 30px;
-  margin: 2%;
+  margin: 20px;
 }
 
 .mypage-profile {
@@ -17,9 +17,9 @@
 }
 
 .mypage-profile-name {
-  margin-left: 5px;
+  margin-left: 8px;
   font-size: 1.1rem;
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 .mypage-profile-item-container {
@@ -31,9 +31,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 6px;
+  padding: 5px;
 }
 
 .mypage-profile-item-text {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }

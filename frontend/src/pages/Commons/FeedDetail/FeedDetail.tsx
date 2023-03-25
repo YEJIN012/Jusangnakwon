@@ -1,11 +1,12 @@
 import styles from "./FeedDetail.module.css";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useParams, Link } from "react-router-dom";
+import { Menu, MenuItem, Rating, Button } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Menu, MenuItem, Rating, Button } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CommentList from "@/components/Feed/CommentList";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const FeedDetail = () => {
   const { id } = useParams();
@@ -131,7 +132,11 @@ const FeedDetail = () => {
                     },
                   }}
                 >
-                  <MenuItem onClick={handleClose}>수정하기</MenuItem>
+                  <Link to="../write/review">
+                    <MenuItem onClick={handleClose} sx={{ color: "black" }}>
+                      수정하기
+                    </MenuItem>
+                  </Link>
                   <MenuItem onClick={handleClose}>삭제하기</MenuItem>
                 </Menu>
               </div>

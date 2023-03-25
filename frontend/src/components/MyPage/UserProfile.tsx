@@ -7,7 +7,7 @@ import path from "@/config/path";
 const UserProfile = () => {
   const dummyUser = {
     userName: "banabana",
-    userImg: "https://picsum.photos/70/70/?random",
+    userImg: "https://picsum.photos/65/65/?random",
   };
 
   return (
