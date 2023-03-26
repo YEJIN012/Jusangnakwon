@@ -2,7 +2,7 @@
   margin: 0 auto;
   text-align: center;
   width: 90vw;
-  height: 80vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   /* justify-content: space-evenly; */
@@ -17,7 +17,7 @@
 
 .info-text {
   font-size: 0.7rem;
-  margin-bottom: 10%;
+  margin-bottom: 15%;
 }
 
 .taste-wrap {
@@ -35,6 +35,5 @@
 }
 
 .taste-name{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
-

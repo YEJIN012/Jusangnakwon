@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width: "90%",
     margin: "0 auto",
     // border: "solid ",
+    marginBottom: "40px",
   },
   formControlLabel: {
     // margin: theme.spacing(1),

@@ -12,6 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -308,8 +309,11 @@ export default function MainTab() {
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
-                          <p className={styles["drink-name"]}>{name}</p>
                         </Link>
+                        <div className={styles["drink-label-wrap"]}>
+                          <p className={styles["drink-name"]}>{name}</p>
+                          <BookmarkBorder fontSize="small" />
+                        </div>
                       </div>
                     </li>
                   ))}
@@ -352,8 +356,11 @@ export default function MainTab() {
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
-                          <p>{name}</p>
                         </Link>
+                        <div className={styles["drink-label-wrap"]}>
+                          <p className={styles["drink-name"]}>{name}</p>
+                          <BookmarkBorder fontSize="small" />
+                        </div>
                       </div>
                     </li>
                   ))}
@@ -396,8 +403,11 @@ export default function MainTab() {
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
-                          <p>{name}</p>
                         </Link>
+                        <div className={styles["drink-label-wrap"]}>
+                          <p className={styles["drink-name"]}>{name}</p>
+                          <BookmarkBorder fontSize="small" />
+                        </div>
                       </div>
                     </li>
                   ))}
@@ -440,8 +450,11 @@ export default function MainTab() {
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
-                          <p>{name}</p>
                         </Link>
+                        <div className={styles["drink-label-wrap"]}>
+                          <p className={styles["drink-name"]}>{name}</p>
+                          <BookmarkBorder fontSize="small" />
+                        </div>
                       </div>
                     </li>
                   ))}
@@ -484,8 +497,11 @@ export default function MainTab() {
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
-                          <p>{name}</p>
                         </Link>
+                        <div className={styles["drink-label-wrap"]}>
+                          <p className={styles["drink-name"]}>{name}</p>
+                          <BookmarkBorder fontSize="small" />
+                        </div>
                       </div>
                     </li>
                   ))}
