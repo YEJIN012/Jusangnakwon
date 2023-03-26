@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Grid } from "@mui/material";
 import FeedComponent from "@/components/Feed/FeedItem";
 import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
+import { Masonry } from "@mui/lab";
 
 const FeedMain = () => {
   const [dummyFeedList, setDummyFeedList] = useState([
@@ -116,55 +117,19 @@ const FeedMain = () => {
         </div>
 
         {focusedPostList === "전체글" ? (
-          <Grid container spacing={0.5}>
-            <Grid item xs={6} md={6} lg={6}>
-              {dummyFeedList.map((feed) => {
-                if (feed.id % 2 === 1) {
-                  return <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>;
-                }
-              })}
-            </Grid>
-            <Grid item xs={6} md={6} lg={6} sx={{ paddingTop: "5px" }}>
-              {dummyFeedList.map((feed) => {
-                if (feed.id % 2 === 0) {
-                  return <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>;
-                }
-              })}
-            </Grid>
-          </Grid>
+          <Masonry columns={2} spacing={0.5}>
+            {dummyFeedList.map((feed) => (
+              <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>
+            ))}
+          </Masonry>
         ) : (
-          <Grid container spacing={0.5}>
-            <Grid item xs={6} md={6} lg={6}>
-              {dummyFeedList
-                .filter((feed) => feed.classification === focusedPostList)
-                .map((feed) => {
-                  if (feed.id % 2 === 0) {
-                    return (
-                      <FeedComponent
-                        key={`${feed.classification}+${feed.id}`}
-                        feed={feed}
-                        setDummyFeedList={setDummyFeedList}
-                      ></FeedComponent>
-                    );
-                  }
-                })}
-            </Grid>
-            <Grid item xs={6} md={6} lg={6}>
-              {dummyFeedList
-                .filter((feed) => feed.classification === focusedPostList)
-                .map((feed) => {
-                  if (feed.id % 2 === 1) {
-                    return (
-                      <FeedComponent
-                        key={`${feed.classification}+${feed.id}`}
-                        feed={feed}
-                        setDummyFeedList={setDummyFeedList}
-                      ></FeedComponent>
-                    );
-                  }
-                })}
-            </Grid>
-          </Grid>
+          <Masonry columns={2} spacing={0.5}>
+            {dummyFeedList
+              .filter((feed) => feed.classification === focusedPostList)
+              .map((feed) => (
+                <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>
+              ))}
+          </Masonry>
         )}
       </div>
     </>

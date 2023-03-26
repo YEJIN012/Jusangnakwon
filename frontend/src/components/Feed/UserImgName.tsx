@@ -1,4 +1,4 @@
-import styles from "@/pages/Feed/FeedDetail.module.css";
+import styles from "@/pages/Commons/FeedDetail/FeedDetail.module.css";
 
 const UserImgName = () => {
   const dummyUser = {

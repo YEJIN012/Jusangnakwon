@@ -1,10 +1,11 @@
 import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
+import MyFeedList from "@/components/MyPage/MyFeedList";
 
 const MyFeed = () => {
   return (
     <div>
       <FloatingButton></FloatingButton>
-      MyFeed
+      <MyFeedList></MyFeedList>
     </div>
   );
 };
