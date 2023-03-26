@@ -59,7 +59,6 @@ const WriteQuestion = () => {
     );
   };
 
-  
   return (
     <div className={`${styles[`container`]}`}>
       <WriteHeader></WriteHeader>

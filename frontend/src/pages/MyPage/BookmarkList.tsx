@@ -64,28 +64,31 @@ const alcoholTypeStyle: { [key: string]: string } = {
 
 const BookmarkList = () => {
   return (
-    <div className={`${styles[`drink-list-wrap`]}`}>
-      <FloatingButton></FloatingButton>
-      <ul className={`${styles[`tab-drink-list`]}`}>
-        {dummyBookmarkList.map((bookmark) => (
-          <li key={bookmark.id}>
-            <div className={styles["item-container"]}>
-              <Link to={`/details/${bookmark.type}/${bookmark.id}`}>
-                <img src={bookmark.img}></img>
-              </Link>
-              <div className={styles["item-title"]}>
-                <div className={styles["alcohol-type"]} style={{ backgroundColor: alcoholTypeStyle[bookmark.type] }}>
-                  {bookmark.alcoholType}
-                </div>
-                <div className={styles["like-box"]}>
-                  <div className={styles["alcohol-name"]}>{bookmark.alcoholName}</div>
+    <>
+      <h2 style={{ marginLeft: "5%" }}>나의 스크랩북</h2>
+      <div className={`${styles[`drink-list-wrap`]}`}>
+        <FloatingButton></FloatingButton>
+        <ul className={`${styles[`tab-drink-list`]}`}>
+          {dummyBookmarkList.map((bookmark) => (
+            <li key={bookmark.id}>
+              <div className={styles["item-container"]}>
+                <Link to={`/details/${bookmark.type}/${bookmark.id}`}>
+                  <img src={bookmark.img}></img>
+                </Link>
+                <div className={styles["item-title"]}>
+                  <div className={styles["alcohol-type"]} style={{ backgroundColor: alcoholTypeStyle[bookmark.type] }}>
+                    {bookmark.alcoholType}
+                  </div>
+                  <div className={styles["like-box"]}>
+                    <div className={styles["alcohol-name"]}>{bookmark.alcoholName}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
 

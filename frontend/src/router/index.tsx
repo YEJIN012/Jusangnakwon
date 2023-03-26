@@ -26,7 +26,6 @@ import TasteForm from "@/components/Commons/TasteForm/TasteForm";
 import MyFeed from "@/pages/MyPage/MyFeed";
 import BookmarkList from "@/pages/MyPage/BookmarkList";
 
-
 const router = createBrowserRouter([
   {
     element: <App></App>,

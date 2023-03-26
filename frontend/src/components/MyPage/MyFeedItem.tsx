@@ -5,9 +5,10 @@ import Rating from "@mui/material/Rating";
 interface MyFeed {
   myfeed: {
     id: number;
-    ratings: null | number;
+    ratings: number | null;
     date: string;
     classification: string;
+    alcoholType: string | null;
     img: string;
     content: string;
   };

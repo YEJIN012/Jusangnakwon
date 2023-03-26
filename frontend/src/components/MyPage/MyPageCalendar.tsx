@@ -66,6 +66,7 @@ const MyPageCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [value, onChange] = useState(new Date());
   // const selectedDate = moment(date)
+  console.log(date);
 
   const tileContent = ({ date }: any) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
@@ -82,13 +83,6 @@ const MyPageCalendar = () => {
     }
     return null;
   };
-
-  // const tileClassName = ({ date }: any) => {
-  //   if (moment(date).isSame(moment(), "day")) {
-  //     return "today";
-  //   }
-  //   return null;
-  // };
 
   return (
     <div className="MyCalendar">
@@ -107,8 +101,6 @@ const MyPageCalendar = () => {
           // 달력에 '일' 빼는 코드
           formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })}
           tileContent={tileContent}
-          // 오늘 날짜 배경색 바뀌어 있게 설정
-          // tileClassName={tileClassName({ date })}
         />
       </div>
     </div>

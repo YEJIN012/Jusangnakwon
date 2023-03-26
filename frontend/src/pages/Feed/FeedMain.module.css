@@ -14,21 +14,21 @@
 }
 
 .feed-classify-btn {
-  padding: 1.5% 7%;
+  padding: 1% 7%;
   background-color: white;
   border: none;
   border-radius: 20px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .focused-feed-classify-btn {
-  padding: 1.5% 7%;
+  padding: 1% 7%;
   border: none;
   border-radius: 20px;
   background: linear-gradient(180deg, #b9d8f7 0%, #feeb8b 100%);
   outline: none;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: black;
 }

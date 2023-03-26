@@ -13,7 +13,7 @@
 /* 캘린더 wrap (배경) */
 .react-calendar {
   width: 90%;
-  padding: 20px;
+  padding: 15px;
   background-color: #1f1f21;
   border-radius: 30px;
   /* border: 5px solid #868db3; */
@@ -109,11 +109,11 @@ abbr[title] {
 /* 머임 */
 .react-calendar__tile {
   max-width: 100%;
-  height: 7vh;
+  height: 8vh;
   padding: 10px 6.6667px;
   border-radius: 9999px;
   text-align: center;
-  line-height: 16px;
+  line-height: 15px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
