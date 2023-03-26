@@ -11,6 +11,7 @@ import Playground from "@/pages/Playground/Playground";
 import PlaygroundMain from "@/pages/Playground/PlaygroundMain";
 import ABTI from "@/pages/Playground/ABTI/ABTI";
 import Guide from "@/pages/Playground/Guide/Guide";
+import GuideMain from "@/pages/Playground/Guide/GuideMain";
 import Hometender from "@/pages/Playground/Hometender/Hometender";
 import HometenderMain from "@/pages/Playground/Hometender/HometenderMain";
 import MyPage from "@/pages/MyPage/MyPage";
@@ -101,6 +102,12 @@ const router = createBrowserRouter([
           {
             path: "guide",
             element: <Guide></Guide>,
+            children: [
+              {
+                index: true,
+                element: <GuideMain></GuideMain>,
+              },
+            ],
           },
         ],
       },

@@ -1,0 +1,19 @@
+.container{
+    text-align: center;
+    padding-top: 5%;
+}
+
+.guide-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drink-guide{
+    margin-right: 3%;
+    margin-left: 3%;
+}
+
+.book-img{
+    width: 15%;
+}
