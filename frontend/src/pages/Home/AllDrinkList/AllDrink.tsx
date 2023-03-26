@@ -128,14 +128,18 @@ const AllDrink = () => {
           </Link>
           <ul className={`${styles["drink-list"]}`}>
             {dummyList.map((wine) => (
-              <li key={wine.id}>
-                <div>
+              <li key={wine.id} className={`${styles["drink-list-item"]}`}>
+                <div className={`${styles["item-wrap"]}`}>
                   <img
                     src={wine.img}
                     style={{ maxWidth: "100%", height: "auto" }}
                     onClick={() => navigate(`/details/${wine.drinktype}/${wine.id}`)}
                   ></img>
-                  <p className={`${styles["drink-name"]}`}>{wine.name}</p>
+                  {/* <p className={`${styles["drink-name"]}`}>{wine.name}</p> */}
+                  <div className={styles["drink-label-wrap"]}>
+                    <p className={`${styles["drink-name"]}`}>{wine.name}</p>
+                    <BookmarkBorder fontSize="small" />
+                  </div>
                 </div>
               </li>
             ))}
@@ -150,14 +154,18 @@ const AllDrink = () => {
           </Link>
           <ul className={`${styles["drink-list"]}`}>
             {dummyList.map((wine) => (
-              <li key={wine.id}>
-                <div>
+              <li key={wine.id} className={`${styles["drink-list-item"]}`}>
+                <div className={`${styles["item-wrap"]}`}>
                   <img
                     src={wine.img}
                     style={{ maxWidth: "100%", height: "auto" }}
                     onClick={() => navigate(`/details/${wine.drinktype}/${wine.id}`)}
                   ></img>
-                  <p className={`${styles["drink-name"]}`}>{wine.name}</p>
+                  {/* <p className={`${styles["drink-name"]}`}>{wine.name}</p> */}
+                  <div className={styles["drink-label-wrap"]}>
+                    <p className={`${styles["drink-name"]}`}>{wine.name}</p>
+                    <BookmarkBorder fontSize="small" />
+                  </div>
                 </div>
               </li>
             ))}
@@ -172,14 +180,18 @@ const AllDrink = () => {
           </Link>
           <ul className={`${styles["drink-list"]}`}>
             {dummyList.map((wine) => (
-              <li key={wine.id}>
-                <div>
+              <li key={wine.id} className={`${styles["drink-list-item"]}`}>
+                <div className={`${styles["item-wrap"]}`}>
                   <img
                     src={wine.img}
                     style={{ maxWidth: "100%", height: "auto" }}
                     onClick={() => navigate(`/details/${wine.drinktype}/${wine.id}`)}
                   ></img>
-                  <p className={`${styles["drink-name"]}`}>{wine.name}</p>
+                  {/* <p className={`${styles["drink-name"]}`}>{wine.name}</p> */}
+                  <div className={styles["drink-label-wrap"]}>
+                    <p className={`${styles["drink-name"]}`}>{wine.name}</p>
+                    <BookmarkBorder fontSize="small" />
+                  </div>
                 </div>
               </li>
             ))}
@@ -194,14 +206,18 @@ const AllDrink = () => {
           </Link>
           <ul className={`${styles["drink-list"]}`}>
             {dummyList.map((wine) => (
-              <li key={wine.id}>
-                <div>
+              <li key={wine.id} className={`${styles["drink-list-item"]}`}>
+                <div className={`${styles["item-wrap"]}`}>
                   <img
                     src={wine.img}
                     style={{ maxWidth: "100%", height: "auto" }}
                     onClick={() => navigate(`/details/${wine.drinktype}/${wine.id}`)}
                   ></img>
-                  <p className={`${styles["drink-name"]}`}>{wine.name}</p>
+                  {/* <p className={`${styles["drink-name"]}`}>{wine.name}</p> */}
+                  <div className={styles["drink-label-wrap"]}>
+                    <p className={`${styles["drink-name"]}`}>{wine.name}</p>
+                    <BookmarkBorder fontSize="small" />
+                  </div>
                 </div>
               </li>
             ))}
