@@ -3,6 +3,7 @@ import styles from "@/pages/User/Login.module.css";
 import logo from "/assets/logo.png";
 import kakao from "/assets/kakao-icon.png";
 import google from "/assets/google-icon.png";
+import GoogleLogin from "@/components/User/GoogleLogin";
 
 const Login = () => {
   return (
@@ -21,7 +22,12 @@ const Login = () => {
         <img src={kakao} />
         <span>카카오톡으로 시작하기</span>
       </div>
-      <div className={`${styles["google"]}`}>
+      <div
+        className={`${styles["google"]}`}
+        onClick={() => {
+          GoogleLogin();
+        }}
+      >
         <img src={google} />
         <span>구글계정으로 시작하기</span>
       </div>
