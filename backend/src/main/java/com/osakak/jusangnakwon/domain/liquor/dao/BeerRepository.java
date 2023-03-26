@@ -22,6 +22,6 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
     @Query("select b from Beer b order by b.ratingAvg desc")
     Page<Beer> findByRatingAvg(Pageable pageable);
 
-    @Query("select l from Beer l where l.name like :keyword")
+    @Query("select l from Beer l where l.name like %:keyword%")
     List<Beer> findByKeyword(@Param("keyword") String keyword);
 }
