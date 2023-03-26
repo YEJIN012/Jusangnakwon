@@ -21,7 +21,7 @@ interface FormData {
   img: string;
   name: string;
   ingredients: string[];
-  taste: { [key: string]: string | null} ;
+  taste: { [key: string]: string | null };
   content: string;
   // isPrivate: boolean;
 }
@@ -42,10 +42,10 @@ const WriteRecipe = () => {
     name: "",
     ingredients: [],
     taste: {
-      "단맛": null,
-      "신맛": null,
-      "쓴맛": null,
-      "짠맛" : null
+      단맛: null,
+      신맛: null,
+      쓴맛: null,
+      짠맛: null,
     },
     content: "",
     // isPrivate: false,
@@ -84,13 +84,13 @@ const WriteRecipe = () => {
 
   const DeleteIngredient = (index: number) => {
     if (index !== null) {
-      const updatedIngredients = formData.ingredients
-      console.log(index)
+      const updatedIngredients = formData.ingredients;
+      console.log(index);
       updatedIngredients.splice(index, 1);
       setFormData({ ...formData, ingredients: updatedIngredients });
     }
   };
-  console.log(formData.ingredients)
+  console.log(formData.ingredients);
 
   return (
     <div className={`${styles[`container`]}`}>
