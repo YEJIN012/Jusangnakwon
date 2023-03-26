@@ -1,6 +1,10 @@
 package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
+import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
+import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorSearchResponse;
+import com.osakak.jusangnakwon.domain.liquor.application.LiquorCommonService;
+import com.osakak.jusangnakwon.domain.liquor.application.LiquorService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -12,11 +16,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @Tag(name = "liquor", description = "공통 술 api")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api")
 public class LiquorController {
+    private final LiquorCommonService liquorCommonService;
 
     /**
      * 홈텐더 랜덤 추천
@@ -41,10 +48,14 @@ public class LiquorController {
      * @param keyword: 술 이름
      * @return 술 이름 조회 결과
      */
-    @GetMapping("search/{keyword}")
+    @GetMapping("search/{keyword}/{curpage}")
     @Tag(name = "liquor")
-    public ResponseEntity<ResponseDto> searchLiquor(@PathVariable String keyword) {
+    public ResponseEntity<ResponseDto> searchLiquor(@PathVariable String keyword, @PathVariable(value = "curpage") int curPage) {
+        LiquorListMainResponse liquorSearchResponse = liquorCommonService.searchLiquorByKeyword(curPage, keyword);
 
-        return ResponseEntity.ok(ResponseDto.builder().build());
+        ResponseDto responseDto = ResponseDto.builder()
+                .body(liquorSearchResponse)
+                .success(true).build();
+        return ResponseEntity.ok(responseDto);
     }
 }
