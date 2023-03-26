@@ -6,6 +6,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CommentList from "@/components/Feed/CommentList";
+import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const FeedDetail = () => {
@@ -76,10 +77,6 @@ const FeedDetail = () => {
     },
   ]);
 
-  // 내용 더보기 버튼
-  const [showContent, setShowContent] = useState(false);
-  const toggleContent = () => setShowContent((prev) => !prev);
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -143,24 +140,7 @@ const FeedDetail = () => {
             </div>
             <img src={feed.img} className={`${styles[`feed-img`]}`}></img>
             <div className={`${styles[`feed-content-container`]}`}>
-              <div>
-                {feed.content.length <= 10 ? (
-                  <>{feed.content}</>
-                ) : (
-                  <>
-                    {showContent ? (
-                      <>{feed.content}</>
-                    ) : (
-                      <>
-                        {feed.content.slice(0, 10)}...
-                        <button className={`${styles[`feed-detail-content-btn`]}`} onClick={toggleContent}>
-                          더 보기
-                        </button>
-                      </>
-                    )}
-                  </>
-                )}
-              </div>
+              <ReadMore content={feed.content}></ReadMore>
               <div className={`${styles[`feed-stars-like`]}`}>
                 {feed.classification === "게시글" ? <Rating name="read-only" value={5} readOnly /> : null}
                 {feed.liked ? (

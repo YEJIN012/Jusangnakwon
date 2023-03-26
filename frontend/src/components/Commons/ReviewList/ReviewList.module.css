@@ -4,6 +4,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .row-container {
@@ -39,4 +40,14 @@
   width: 10vh;
   height: 10vh;
   border-radius: 10px;
+}
+
+.write-review-button {
+  background-color: rgb(149, 149, 149);
+  border-radius: 20px;
+  display: flex;
+  box-sizing: content-box;
+  padding: 5px;
+  align-items: center;
+  margin-top: 2px;
 }
