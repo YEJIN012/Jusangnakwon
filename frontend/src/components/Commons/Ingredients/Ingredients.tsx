@@ -17,7 +17,7 @@ const RandomColor = [
 
 const Ingredients = (props : Ingredients) => {
   // const randomIndex = Math.floor(Math.random() * RandomColor.length);
-  console.log(props);
+  // console.log(props);
   // if (props.delete !== null) {
   //   const handleDelete = props.delete()
   // }

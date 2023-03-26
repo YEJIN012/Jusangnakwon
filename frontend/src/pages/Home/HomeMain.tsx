@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import styles from "@/pages/Home/HomeMain.module.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 const banner = [<HometenderBanner />, <WeatherBanner />, <DrinkBtiBanner />];
 
 const settings = {

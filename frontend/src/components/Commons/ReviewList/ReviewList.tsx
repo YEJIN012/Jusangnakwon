@@ -39,8 +39,8 @@ const ReviewList = () => {
           </button>
         </Link>
       </div>
-      {reviewList.map((review) => {
-        return <ReviewListItem review={review}></ReviewListItem>;
+      {reviewList.map((review, index) => {
+        return <ReviewListItem key={index} review={review}></ReviewListItem>;
       })}
     </div>
   );

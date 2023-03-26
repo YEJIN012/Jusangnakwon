@@ -6,25 +6,27 @@ import { PersistGate } from "redux-persist/integration/react";
 import BottomBar from "@/components/Commons/BottomBar/BottomBar";
 import Header from "@/components/Commons/Header/Header";
 import styles from "./App.module.css";
-import ScrollToTop from "./components/Commons/ScrollToTop";
+import ScrollToTop from "./components/Commons/ScrollToTop/ScrollToTop";
+import TopButton from "./components/Commons/ScrollToTop/TopButton";
 
 const persistor = persistStore(store);
 
 const App = () => {
   return (
     <>
-    <ScrollToTop></ScrollToTop>
-    <div className="App">
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Header />
-          <div className={`${styles[`content-wrapper`]}`}>
-            <Outlet></Outlet>
-          </div>
-          <BottomBar />
-        </PersistGate>
-      </Provider>
-    </div>
+      <ScrollToTop></ScrollToTop>
+      <div className="App">
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <Header />
+            <div className={`${styles[`content-wrapper`]}`}>
+              <Outlet></Outlet>
+            </div>
+            <BottomBar />
+          </PersistGate>
+        </Provider>
+      </div>
+      <TopButton></TopButton>
     </>
   );
 };
