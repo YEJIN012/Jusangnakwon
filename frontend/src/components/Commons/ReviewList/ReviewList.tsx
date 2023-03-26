@@ -29,11 +29,11 @@ const reviewList = [
 
 const ReviewList = () => {
   return (
-    <div>
+    <div style={{width:"100%"}}>
       <div className={`${styles[`title`]}`}>
         <h1>리뷰 모아보기</h1>
         <Link to={`/write/review`}>
-          <button>
+          <button className={`${styles[`write-review-button`]}`}>
             내 리뷰 작성하기
             <CreateIcon />
           </button>

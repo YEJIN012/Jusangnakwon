@@ -25,6 +25,7 @@ import MyPageMain from "@/pages/MyPage/MyPageMain";
 import TasteForm from "@/components/Commons/TasteForm/TasteForm";
 import MyFeed from "@/pages/MyPage/MyFeed";
 import BookmarkList from "@/pages/MyPage/BookmarkList";
+import SocialLogin from "@/pages/User/Login";
 
 const router = createBrowserRouter([
   {
@@ -158,6 +159,10 @@ const router = createBrowserRouter([
             element: <WriteRecipe></WriteRecipe>,
           },
         ],
+      },
+      {
+        path: "oauth/redirect",
+        element: <SocialLogin></SocialLogin>,
       },
     ],
   },

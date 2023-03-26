@@ -5,6 +5,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Ingredients from "@/components/Commons/Ingredients/Ingredients";
 import ReviewList from "@/components/Commons/ReviewList/ReviewList";
 import RecommendInDetail from "@/components/Commons/RecommendInDetail/RecommendInDetail";
+import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 
 const DrinkDetail = () => {
   const params = useParams();
@@ -79,11 +80,9 @@ const DrinkDetail = () => {
           </div>
           <BookmarkBorderIcon />
         </div>
-        <Ingredients ingredients={drink.ingredients}></Ingredients>
-        <Ingredients ingredients={drink.taste}></Ingredients>
-
-        <p>{drink.explan}</p>
-        <button className={`${styles[`drink-detail-content-btn`]}`}>더보기</button>
+        <Ingredients ingredients={drink.ingredients} delete={null}></Ingredients>
+        <Ingredients ingredients={drink.taste} delete={null}></Ingredients>
+        <ReadMore content={drink.explan}></ReadMore>
         <ReviewList></ReviewList>
         <RecommendInDetail dummyList={dummyList}></RecommendInDetail>
       </div>
