@@ -5,12 +5,76 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  data:
-    mongodb:
-      username: ${mongo.username}
-      password: ${mongo.password}
-      host: ${mongo.host}
-      port: ${mongo.port}
-      database: ${mongo.database}
+  datasource:
+    url: jdbc:mysql://${database.hostname}:3306/${database.schema}?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: ${database.username}
+    password: ${database.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+  redis:
+    lettuce:
+      pool:
+        max-active: 5
+        max-idle: 5
+        min-idle: 2
+    host: ${domain}
+    port: 6379
+
+  # Security OAuth
+  security:
+    oauth2.client:
+      registration:
+        google:
+          clientId: ${gclient.id}
+          clientSecret: ${gclient.secret}
+          scope:
+            - email
+            - profile
+        kakao:
+          clientId: ${kclient.id}
+          clientSecret: ${kclient.secret}
+          clientAuthenticationMethod: post
+          authorizationGrantType: authorization_code
+          redirectUri: ${kredirecturl}
+          scope:
+            - profile_nickname
+            - profile_image
+            - account_email
+          clientName: Kakao
+      # Provider 설정
+      provider:
+        kakao:
+          authorizationUri: https://kauth.kakao.com/oauth/authorize
+          tokenUri: https://kauth.kakao.com/oauth/token
+          userInfoUri: https://kapi.kakao.com/v2/user/me
+          userNameAttribute: id
+
+# cors 설정
+cors:
+  allowed-origins: ${client.origin}
+  allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+  allowed-headers: '*'
+  max-age: 3600
+
+# jwt secret key 설정
+jwt.secret: ${jwt.secret}
+
+# 토큰 관련 secret Key 및 RedirectUri 설정
+app:
+  auth:
+    tokenSecret: ${app.auth.secret}
+    tokenExpiry: 50000
+    refreshTokenExpiry: 604800000
+  oauth2:
+    authorizedRedirectUris:
+      - ${client.origin}/oauth/redirect
+
+# --- server port ---
 server:
-  port: 8089
+  port: ${port}
