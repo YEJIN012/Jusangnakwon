@@ -45,22 +45,6 @@ const router = createBrowserRouter([
             path: "drinklist/:drinktype",
             element: <AllDrink></AllDrink>,
           },
-          // {
-          //   path: "drinklist/whiskey",
-          //   element: <AllWhiskey></AllWhiskey>,
-          // },
-          // {
-          //   path: "drinklist/wine",
-          //   element: <AllWine></AllWine>,
-          // },
-          // {
-          //   path: "drinklist/korean",
-          //   element: <AllKorean></AllKorean>,
-          // },
-          // {
-          //   path: "drinklist/beer",
-          //   element: <AllBeer></AllBeer>,
-          // },
         ],
       },
       {
@@ -100,7 +84,7 @@ const router = createBrowserRouter([
             ],
           },
           {
-            path: "guide",
+            path: "guide/:drinktype?",
             element: <Guide></Guide>,
             children: [
               {
