@@ -1,5 +1,4 @@
 import MyFeedList from "@/components/MyPage/MyFeedList";
-import MyPageCalendar from "@/components/MyPage/MyPageCalendar";
 import UserProfile from "@/components/MyPage/UserProfile";
 import { useState } from "react";
 import Calendar from "react-calendar";

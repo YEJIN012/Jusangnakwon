@@ -27,6 +27,7 @@ import TasteForm from "@/components/Commons/TasteForm/TasteForm";
 import MyFeed from "@/pages/MyPage/MyFeed";
 import BookmarkList from "@/pages/MyPage/BookmarkList";
 import SocialLogin from "@/pages/User/Login";
+import SearchPage from "@/pages/Commons/SearchPage";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
           {
             path: "drinklist/:drinktype",
             element: <AllDrink></AllDrink>,
+          },
+          {
+            path: "search",
+            element: <SearchPage></SearchPage>,
           },
         ],
       },

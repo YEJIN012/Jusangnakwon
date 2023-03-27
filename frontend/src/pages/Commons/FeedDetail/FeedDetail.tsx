@@ -7,7 +7,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CommentList from "@/components/Feed/CommentList";
 import ReadMore from "@/components/Commons/ReadMore/ReadMore";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const FeedDetail = () => {
   const { id } = useParams();
@@ -139,10 +138,10 @@ const FeedDetail = () => {
               </div>
             </div>
             <img src={feed.img} className={`${styles[`feed-img`]}`}></img>
+
             <div className={`${styles[`feed-content-container`]}`}>
               <ReadMore content={feed.content}></ReadMore>
               <div className={`${styles[`feed-stars-like`]}`}>
-                {feed.classification === "게시글" ? <Rating name="read-only" value={5} readOnly /> : null}
                 {feed.liked ? (
                   <button
                     style={{
@@ -190,10 +189,16 @@ const FeedDetail = () => {
             </div>
             {feed.classification === "게시글" ? (
               <div className={`${styles[`feed-alcohol-info-container`]}`}>
-                <p className={`${styles[`feed-alcohol-type-tag`]}`}>주종</p>
-                <p>와인</p>
-                <p className={`${styles[`feed-alcohol-tag`]}`}>술 이름</p>
+                {/* <p>주종</p> */}
+                <p className={`${styles[`feed-alcohol-type-tag`]}`} style={{ marginLeft: "5%" }}>
+                  와인
+                </p>
+                {/* <p>술 이름</p> */}
                 <p>소비뇽</p>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "50%" }}>
+                  {feed.classification === "게시글" ? <Rating name="read-only" value={5} readOnly /> : null}
+                  <p style={{ fontSize: "0.7rem", color: "gray" }}>{feed.userName}님의 평점</p>
+                </div>
               </div>
             ) : null}
             <div className={`${styles[`comment-input-container`]}`}>
