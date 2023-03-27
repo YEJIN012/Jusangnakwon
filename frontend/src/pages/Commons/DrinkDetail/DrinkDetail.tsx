@@ -83,7 +83,7 @@ const DrinkDetail = () => {
         <Ingredients ingredients={drink.ingredients} delete={null}></Ingredients>
         <Ingredients ingredients={drink.taste} delete={null}></Ingredients>
         <ReadMore content={drink.explan}></ReadMore>
-        <ReviewList></ReviewList>
+        <ReviewList type={drink.type} name={drink.name}></ReviewList>
         <RecommendInDetail dummyList={dummyList}></RecommendInDetail>
       </div>
     </>

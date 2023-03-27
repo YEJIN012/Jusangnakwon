@@ -16,13 +16,6 @@ const RandomColor = [
 ];
 
 const Ingredients = (props : Ingredients) => {
-  // const randomIndex = Math.floor(Math.random() * RandomColor.length);
-  // console.log(props);
-  // if (props.delete !== null) {
-  //   const handleDelete = props.delete()
-  // }
-
-
   return (
     <div className={`${styles[`flexwrap-container`]}`}>
       {props.ingredients.map((ingredient, index) => (
@@ -33,7 +26,7 @@ const Ingredients = (props : Ingredients) => {
           >
             {ingredient}
           </div>
-          {(props.delete !== null) ? (
+          {props.delete? (
             <CancelIcon
               fontSize="small"
               className={`${styles[`delete`]}`}

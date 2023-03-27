@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { pink } from "@mui/material/colors";
 import { alpha, styled } from "@mui/material/styles";
 import { Rating } from "@mui/material";
@@ -12,14 +11,19 @@ import Search from "@mui/icons-material/Search";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import StarIcon from "@mui/icons-material/Star";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/esm/locale";
 import styles from "./Write.module.css";
 import ImageUpload from "@/components/Commons/ImageUpload/ImageUpload";
+import moment from "moment";
 
 interface FormData {
   img: string | null;
   type: string;
   name: string;
-  content: string | null;
+  date: Date | null;
+  content: string | number | readonly string[] | undefined;
   ratings: number;
   isPrivate: boolean;
 }
@@ -52,15 +56,35 @@ const DrinkTypeList = {
   홈테일: "l6",
 };
 
+interface StateType {
+  type: string | null;
+  name: string | null;
+  date: Date | null;
+}
+
 const WriteReview = () => {
-  const [formData, setFormData] = useState({
-    img: "",
+  const location = useLocation();
+
+  // 술상세페이지(type, name)나 마이페이지(date) 에서 넘어오는 경우에는
+  // state와 함께 넘어와서 폼에 미리 작성되어 있는다.
+  const state = location.state ? (location.state as StateType) : null;
+  const type = state ? state.type : null;
+  const name = state ? state.name : null;
+  const date = state ? state.date : null;
+
+  const [formData, setFormData] = useState<FormData>({
+    img: null,
     type: "",
     name: "",
+    date: new Date(),
     content: "",
     ratings: 0,
     isPrivate: false,
   });
+
+  useEffect(() => {
+    location.state ? setFormData({ ...formData, type: location.state.type, name: location.state.name }) : {};
+  }, []);
 
   // 모달 오픈 변수
   const [open, setOpen] = useState(false);
@@ -88,13 +112,12 @@ const WriteReview = () => {
     );
   };
 
-  
   return (
     <div className={`${styles[`container`]}`}>
       <WriteHeader></WriteHeader>
       <form className={`${styles[`container`]}`}>
         <div className={`${styles[`row-container`]}`}>
-          <div style={{width:"inherit"}}>
+          <div style={{ width: "inherit" }}>
             <div className={`${styles[`subtitle-row`]}`}>
               사진
               <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)" }}> (선택)</div>
@@ -135,6 +158,7 @@ const WriteReview = () => {
         <div className={`${styles[`row-container`]}`}>
           <div className={`${styles[`subtitle-container`]}`}>술 이름</div>
           <div className={`${styles[`end-container`]}`}>
+            <input className={`${styles[`input-basic`]}`} type="text" value={formData.name} readOnly />
             <Search onClick={() => setOpen(true)} />
           </div>
         </div>
@@ -144,6 +168,16 @@ const WriteReview = () => {
             placeholder="내용 입력..."
             value={formData.content}
             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+          />
+        </div>
+
+        <div className={`${styles[`row-container`]}`}>
+          <DatePicker
+            selected={formData.date}
+            dateFormat="yyyy년 MM월 dd일"
+            locale={ko}
+            className={`${styles[`input-basic`]}`}
+            onChange={(d) => setFormData({ ...formData, date: d })}
           />
         </div>
 
@@ -173,11 +207,11 @@ const WriteReview = () => {
       </Modal>
 
       <div>
-        데이터 확인 :
-        {formData.type}
+        데이터 확인 :{formData.type}
         {formData.name}
         {formData.content}
         {formData.ratings}
+        {/* {moment(formData.date)} */}
         {formData.isPrivate}
       </div>
     </div>
@@ -185,4 +219,3 @@ const WriteReview = () => {
 };
 
 export default WriteReview;
-

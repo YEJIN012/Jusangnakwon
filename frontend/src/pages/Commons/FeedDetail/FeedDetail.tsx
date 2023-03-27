@@ -128,11 +128,11 @@ const FeedDetail = () => {
                     },
                   }}
                 >
-                  <Link to="../write/review">
+                  {/* <Link to="../write/review">
                     <MenuItem onClick={handleClose} sx={{ color: "black" }}>
                       수정하기
                     </MenuItem>
-                  </Link>
+                  </Link> */}
                   <MenuItem onClick={handleClose}>삭제하기</MenuItem>
                 </Menu>
               </div>
