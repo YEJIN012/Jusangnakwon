@@ -10,6 +10,8 @@ import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.common.utils.CookieUtil;
 import com.osakak.jusangnakwon.common.utils.HeaderUtil;
 import io.jsonwebtoken.Claims;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -43,7 +45,18 @@ public class AuthController {
     private final static long THREE_DAYS_MSEC = 259200000;
     private final static String REFRESH_TOKEN = "refresh_token";
 
-
+    /**
+     * access token 재발급
+     *
+     * @param request
+     * @param response
+     * @return access token
+     */
+    @Tag(name = "getAccessToken")
+    @Operation(
+            summary = "AccessToken 재발급",
+            description = "AccessToken이 만료되었을 때, RefreshToken을 이용해서 AccessToken을 재발급"
+    )
     @GetMapping("/refresh")
     public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {
         // access token 확인
@@ -113,7 +126,10 @@ public class AuthController {
             CookieUtil.addCookie(response, REFRESH_TOKEN, authRefreshToken.getToken(), cookieMaxAge);
         }
 
-        ResponseDto responseDto = ResponseDto.builder().success(true).body(newAccessToken.getToken()).build();
+        ResponseDto responseDto = ResponseDto.builder()
+                .success(true)
+                .body(newAccessToken.getToken())
+                .build();
         return ResponseEntity.ok(responseDto);
     }
 }

@@ -12,6 +12,7 @@ import com.osakak.jusangnakwon.common.oauth.service.CustomOAuth2UserService;
 import com.osakak.jusangnakwon.common.oauth.service.CustomUserDetailsService;
 import com.osakak.jusangnakwon.common.properties.AppProperties;
 import com.osakak.jusangnakwon.common.properties.CorsProperties;
+import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomUserDetailsService userDetailsService;
     private final CustomOAuth2UserService oAuth2UserService;
     private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
+    private final UserRepository userRepository;
 
     /*
      * UserDetailsService 설정
@@ -80,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/rank/**").permitAll()
                 .antMatchers("/api/v1/auth/refresh").permitAll()
                 .antMatchers("/api/v1/**").hasAnyAuthority(RoleType.USER.getCode())
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
@@ -145,6 +147,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler() {
         return new OAuth2AuthenticationSuccessHandler(
+                userRepository,
                 tokenProvider,
                 appProperties,
                 redisTemplate,

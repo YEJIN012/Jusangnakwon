@@ -21,11 +21,23 @@ public class UserService {
         return userRepository.findByUserId(userId);
     }
 
+    /**
+     * user entity를 dto로 반환
+     *
+     * @param userId
+     * @return userDto
+     */
     public UserResponseDto getUserInfo(String userId) {
         User user = findUser(userId);
         return userMapper.toDto(user);
     }
 
+    /**
+     * 유저ID를 이용해 유저 Entity를 반환
+     *
+     * @param userId
+     * @return user entity
+     */
     private User findUser(String userId) {
         return userRepository.findByUserId(userId);
     }

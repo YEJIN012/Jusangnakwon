@@ -9,6 +9,7 @@ import com.osakak.jusangnakwon.common.oauth.info.OAuth2UserInfoFactory;
 import com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.osakak.jusangnakwon.common.properties.AppProperties;
 import com.osakak.jusangnakwon.common.utils.CookieUtil;
+import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -39,6 +40,7 @@ import static com.osakak.jusangnakwon.common.oauth.repository.OAuth2Authorizatio
 @RequiredArgsConstructor
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+    private final UserRepository userRepository;
     private final AuthTokenProvider tokenProvider;
     private final AppProperties appProperties;
     private final RedisTemplate<String, String> redisTemplate;
@@ -116,6 +118,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token", accessToken.getToken())
+                .queryParam("survey", userRepository.findByUserId(userInfo.getId()).getSurvey())
                 .build().toUriString();
     }
 
