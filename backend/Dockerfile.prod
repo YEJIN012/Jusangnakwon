@@ -1,4 +1,5 @@
 FROM adoptopenjdk:11-hotspot AS builder
+ENV USE_PROFILE prod
 # mysql
 ENV HOSTNAME H
 ENV SCHEMA S
@@ -34,6 +35,7 @@ FROM adoptopenjdk:11-hotspot
 COPY --from=builder build/libs/*.jar app.jar
 
 ENTRYPOINT ["java", "-jar", \
+    "-Dspring.profiles.active=${USE_PROFILE}", \
     "-Ddatabase.hostname=${HOSTNAME}", \
     "-Ddatabase.schema=${SCHEMA}", \
     "-Ddatabase.username=${USERNAME}", \
