@@ -3,7 +3,7 @@ import styles from "@/pages/User/Login.module.css";
 import logo from "/assets/logo.png";
 import kakao from "/assets/kakao-icon.png";
 import google from "/assets/google-icon.png";
-import GoogleLogin from "@/components/User/GoogleLogin";
+import socialLogin from "@/utils/socialLogin";
 
 const Login = () => {
   return (
@@ -18,14 +18,19 @@ const Login = () => {
         세상의 모든 술 어쩌구
       </p>
       <p className={`${styles["nineteen-text"]}`}>19세 이상 이용 가능한 서비스입니다.</p>
-      <div className={`${styles["kakao"]}`}>
+      <div
+        className={`${styles["kakao"]}`}
+        onClick={() => {
+          socialLogin({ provider_id: "kakao" });
+        }}
+      >
         <img src={kakao} />
         <span>카카오톡으로 시작하기</span>
       </div>
       <div
         className={`${styles["google"]}`}
         onClick={() => {
-          GoogleLogin();
+          socialLogin({ provider_id: "google" });
         }}
       >
         <img src={google} />

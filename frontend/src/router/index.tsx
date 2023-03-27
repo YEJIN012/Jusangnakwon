@@ -17,7 +17,7 @@ import HometenderMain from "@/pages/Playground/Hometender/HometenderMain";
 import MyPage from "@/pages/MyPage/MyPage";
 import DrinkDetail from "@/pages/Commons/DrinkDetail/DrinkDetail";
 import Login from "@/pages/User/Login";
-import Sign from "@/pages/User/Sign";
+// import Sign from "@/pages/User/Sign";
 import Write from "@/pages/Commons/Write/Write";
 import WriteQuestion from "@/pages/Commons/Write/WriteQuestion";
 import WriteReview from "@/pages/Commons/Write/WriteReview";
@@ -26,8 +26,8 @@ import MyPageMain from "@/pages/MyPage/MyPageMain";
 import TasteForm from "@/components/Commons/TasteForm/TasteForm";
 import MyFeed from "@/pages/MyPage/MyFeed";
 import BookmarkList from "@/pages/MyPage/BookmarkList";
-import SocialLogin from "@/pages/User/Login";
 import SearchPage from "@/pages/Commons/SearchPage";
+import SocialRedirect from "@/pages/User/SocialRedirect";
 
 const router = createBrowserRouter([
   {
@@ -122,10 +122,10 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login></Login>,
       },
-      {
-        path: "sign",
-        element: <Sign></Sign>,
-      },
+      // {
+      //   path: "sign",
+      //   element: <Sign></Sign>,
+      // },
       {
         path: "tasteform",
         element: <TasteForm></TasteForm>,
@@ -158,7 +158,7 @@ const router = createBrowserRouter([
       },
       {
         path: "oauth/redirect",
-        element: <SocialLogin></SocialLogin>,
+        element: <SocialRedirect></SocialRedirect>,
       },
     ],
   },

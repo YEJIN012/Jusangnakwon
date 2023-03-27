@@ -5,6 +5,7 @@ import Calendar from "react-calendar";
 // import "react-calendar/dist/Calendar.css";
 import "@/components/MyPage/MyPageCalendar.css";
 import moment from "moment";
+import Logout from "@/components/MyPage/Logout/Logout";
 
 const myFeedListProps = [
   {
@@ -131,6 +132,7 @@ const MyPageMain = () => {
       <div style={{ marginTop: "10%" }}>
         <MyFeedList myFeedListProps={myFeedListProps} selectedDate={date}></MyFeedList>
       </div>
+      <Logout></Logout>
     </div>
   );
 };
