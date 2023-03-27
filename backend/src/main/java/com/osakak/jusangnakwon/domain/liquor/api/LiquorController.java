@@ -43,10 +43,11 @@ public class LiquorController {
     }
 
     /**
-     * 술 이름으로 검색
+     * 키워드 기반 술 이름 조회
      *
-     * @param keyword: 술 이름
-     * @return 술 이름 조회 결과
+     * @param keyword 사용자 입력 키워드
+     * @param curPage 현재 페이지
+     * @return 키워드 포함한 술 이름 데이터 리스트
      */
     @GetMapping("search/{keyword}/{curpage}")
     @Tag(name = "liquor")

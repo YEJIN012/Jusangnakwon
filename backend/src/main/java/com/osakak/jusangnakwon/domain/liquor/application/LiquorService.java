@@ -12,12 +12,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class LiquorService {
     private final WineRepository wineRepository;
     private final BeerRepository beerRepository;
@@ -98,6 +100,14 @@ public class LiquorService {
         return null;
     }
 
+    /**
+     * 메인 페이지 응답에 페이징 처리
+     *
+     * @param totalPage 전체 페이지
+     * @param pageable  pageable 객체
+     * @param list      데이터 리스트
+     * @return 메인에 표시할 페이징 포함 데이터
+     */
     private LiquorListMainResponse getLiquorListMainResponse(int totalPage, Pageable pageable, List<LiquorListItemDto> list) {
         pageNumber = pageable.getPageNumber();
         return liquorCustomMapper.toMainPageResponse(list, totalPage, pageNumber);

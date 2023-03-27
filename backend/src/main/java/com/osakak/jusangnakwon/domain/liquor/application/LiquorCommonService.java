@@ -14,12 +14,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class LiquorCommonService {
     private final BeerRepository beerRepository;
     private final CocktailRepository cocktailRepository;
@@ -47,6 +49,13 @@ public class LiquorCommonService {
         return liquorCustomMapper.toMainPageResponse(pageList.getContent(), pageList.getTotalPages(), pageList.getPageable().getPageNumber());
     }
 
+    /**
+     * 주종별 키워드 검색 데이터 조회
+     *
+     * @param keyword    사용자 입력 키워드
+     * @param liquorType 주종 타입
+     * @return 키워드를 포함한 술 이름 리스트
+     */
     private List<LiquorListItemDto> getLiquorByKeyword(String keyword, LiquorType liquorType) {
         switch (liquorType) {
             case BEER:
@@ -71,11 +80,19 @@ public class LiquorCommonService {
         return null;
     }
 
+    /**
+     * 키워드 조회 주종 리스트 페이징 처리
+     *
+     * @param list       주종 리스트 모은 데이터
+     * @param pageNumber 현재 페이지 번호
+     * @param pageSize   한번에 보여줄 데이터 개수
+     * @param <T>
+     * @return Page 객체
+     */
     private <T> Page<T> convert(List<T> list, int pageNumber, int pageSize) {
         int startIndex = pageNumber * pageSize;
         int endIndex = Math.min(startIndex + pageSize, list.size());
         List<T> sublist = list.subList(startIndex, endIndex);
         return new PageImpl<>(sublist, PageRequest.of(pageNumber, pageSize), list.size());
     }
-
 }
