@@ -2,9 +2,8 @@ package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
-import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorSearchResponse;
+import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorCommonService;
-import com.osakak.jusangnakwon.domain.liquor.application.LiquorService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @Tag(name = "liquor", description = "공통 술 api")
 @RestController
@@ -38,8 +35,12 @@ public class LiquorController {
     )
     @Tag(name = "liquor")
     public ResponseEntity<ResponseDto> randHometender() {
+        RandomHometenderResponse response = liquorCommonService.getRandomHometender();
 
-        return ResponseEntity.ok(ResponseDto.builder().build());
+        return ResponseEntity.ok(ResponseDto.builder()
+                .body(response)
+                .success(true)
+                .build());
     }
 
     /**

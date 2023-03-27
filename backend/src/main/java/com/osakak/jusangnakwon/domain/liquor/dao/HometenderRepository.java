@@ -18,6 +18,15 @@ public interface HometenderRepository extends JpaRepository<Hometender, Long> {
      */
     @Query("select c from Hometender c order by c.ratingAvg desc")
     Page<Hometender> findByRatingAvg(Pageable pageable);
+
     @Query("select l from Hometender l where l.name like %:keyword%")
     List<Hometender> findByKeyword(@Param("keyword") String keyword);
+
+    /**
+     * 칵테일 랜덤 조회
+     *
+     * @return 랜덤으로 뽑힌 칵테일 반환
+     */
+    @Query("select l from Hometender l order by FUNCTION('RAND')")
+    Page<Hometender> findByRandom(Pageable pageable);
 }

@@ -1,7 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
-import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorSearchResponse;
+import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.*;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
@@ -94,5 +94,18 @@ public class LiquorCommonService {
         int endIndex = Math.min(startIndex + pageSize, list.size());
         List<T> sublist = list.subList(startIndex, endIndex);
         return new PageImpl<>(sublist, PageRequest.of(pageNumber, pageSize), list.size());
+    }
+
+    /**
+     * 칵테일 랜덤 조회
+     *
+     * @return 칵테일 재료정보, 이름, 이미지
+     */
+    public RandomHometenderResponse getRandomHometender() {
+        Pageable pageable = PageRequest.of(0, 1);
+        Page<Hometender> hometenderPage = hometenderRepository.findByRandom(pageable);
+        Hometender hometender = hometenderPage.getContent().get(0);
+        System.out.println(hometender.getName());
+        return liquorMapper.toRandHometender(hometender);
     }
 }
