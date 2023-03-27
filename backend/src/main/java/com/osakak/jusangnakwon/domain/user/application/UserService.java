@@ -1,8 +1,12 @@
 package com.osakak.jusangnakwon.domain.user.application;
 
+import com.osakak.jusangnakwon.common.errors.UserNotFoundException;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
+import com.osakak.jusangnakwon.domain.user.dto.UserResponseDto;
 import com.osakak.jusangnakwon.domain.user.entity.User;
+import com.osakak.jusangnakwon.domain.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,8 +15,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     public User getUser(String userId) {
+        return userRepository.findByUserId(userId);
+    }
+
+    public UserResponseDto getUserInfo(String userId) {
+        User user = findUser(userId);
+        return userMapper.toDto(user);
+    }
+
+    private User findUser(String userId) {
         return userRepository.findByUserId(userId);
     }
 }

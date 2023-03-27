@@ -2,6 +2,7 @@ package com.osakak.jusangnakwon.domain.user.entity;
 
 import com.osakak.jusangnakwon.common.oauth.entity.ProviderType;
 import com.osakak.jusangnakwon.common.oauth.entity.RoleType;
+import io.jsonwebtoken.Claims;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,8 +49,12 @@ public class User {
     @Column(name = "profile_img", nullable = false, length = 512)
     private String profileImageUrl;
 
+    @Column(name= "survey",nullable = false)
+    private Byte survey;
+
     @Builder
-    public User(String userId, String username, boolean isDeleted, ProviderType providerType, String email, Timestamp dateRegisted, RoleType role, String profileImageUrl) {
+    public User(Long id, String userId, String username, boolean isDeleted, ProviderType providerType, String email, Timestamp dateRegisted, RoleType role, String profileImageUrl, Byte survey) {
+        this.id = id;
         this.userId = userId;
         this.username = username;
         this.isDeleted = isDeleted;
@@ -58,6 +63,10 @@ public class User {
         this.dateRegisted = dateRegisted;
         this.role = role;
         this.profileImageUrl = profileImageUrl;
+        this.survey = survey;
     }
 
+    public User(String userId) {
+        this.userId = userId;
+    }
 }
