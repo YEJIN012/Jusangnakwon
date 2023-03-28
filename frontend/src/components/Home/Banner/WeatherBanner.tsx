@@ -1,4 +1,5 @@
 import styles from "@/components/Home/Banner/WeatherBanner.module.css";
+import { Link } from "react-router-dom";
 
 const dummyList = [
   {

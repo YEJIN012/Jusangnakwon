@@ -55,7 +55,7 @@ const RecommendCarousel = (props: RecommendList) => {
             <img className={`${styles[`img-box`]}`} src={item.img} />
             <div className={`${styles[`info`]}`}>
               {item.name}
-              <Ingredients ingredients={item.ingredients}></Ingredients>
+              <Ingredients ingredients={item.ingredients} delete={null}></Ingredients>
               <div>{item.explan.substring(0, 15)}</div>
             </div>
           </div>

@@ -1,3 +1,121 @@
-.camera-box{
-  border : solid 1px 0px 1px 0px white
+/* 헤더컴포에서 z-index만 다름 */
+.header-container {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  background-color: #06031a;
+  top: 0;
+  z-index: 200;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  color: white;
+  width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
+  gap: 2%;
+}
+
+.subtitle-row {
+  display: flex;
+  align-items: center;
+}
+
+.subtitle-container {
+  width: 20%;
+}
+
+.end-container {
+  display: flex;
+  justify-content: end;
+  width: 80%;
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  border-bottom: solid 0.5px rgb(149, 149, 149);
+  gap: 5%;
+}
+
+.row-container {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  border-bottom: solid 0.5px rgb(149, 149, 149);
+  box-sizing: border-box;
+  padding: 6%;
+  gap: 2%;
+}
+
+select option[value=""][disabled] {
+  display: none;
+}
+select :focus {
+  outline: none !important;
+}
+select :hover {
+  outline: none !important;
+}
+
+.input-basic {
+  background-color: transparent;
+  border: solid rgba(149, 149, 149, 0);
+  color: #ffff;
+  outline: none;
+}
+
+.input-basic :focus {
+  outline: none;
+  background-color: transparent;
+  border: 0px solid;
+  border-color: rgba(149, 149, 149, 0);
+}
+
+textarea {
+  width: 100%;
+  height: 20vh;
+  background-color: transparent;
+  border: solid rgba(149, 149, 149, 0);
+  color: #ffff;
+  resize: none;
+}
+textarea:focus {
+  outline: none !important;
+  background-color: transparent;
+}
+
+.input-ingredient-div {
+  border-color: white;
+  border-radius: 15px;
+  border-style: dashed;
+  padding-left: 10px;
+  padding-right: 5px;
+}
+
+.input-ingredient {
+  background-color: transparent;
+  border: solid rgba(149, 149, 149, 0);
+  color: #ffff;
+  outline: none;
+  font-size: 1rem;
+  max-width: 90%;
+  /* padding-right: 15px; */
+}
+
+.input-ingredient :focus {
+  outline: none;
+  background-color: transparent;
+  border: 0px solid;
+  border-color: rgba(149, 149, 149, 0);
 }
