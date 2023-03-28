@@ -1,11 +1,13 @@
 package com.osakak.jusangnakwon.domain.liquor.dao;
 
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Hometender;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Tradition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface TraditionRepository extends JpaRepository<Tradition, Long> {
     /**
@@ -16,4 +18,6 @@ public interface TraditionRepository extends JpaRepository<Tradition, Long> {
      */
     @Query("select c from Tradition c order by c.ratingAvg desc")
     Page<Tradition> findByRatingAvg(Pageable pageable);
+    @Query("select l from Tradition l where l.name like %:keyword%")
+    List<Tradition> findByKeyword(@Param("keyword") String keyword);
 }
