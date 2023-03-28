@@ -8,7 +8,7 @@
 
 .tab-drink-list {
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   /* overflow-x: auto; */
   padding: 0;
   margin: 0;
@@ -16,7 +16,7 @@
   /* border: 1px solid #ffffff; */
 }
 
-.item-container{
+.item-container {
   width: 90%;
   flex-direction: column;
   align-items: center;

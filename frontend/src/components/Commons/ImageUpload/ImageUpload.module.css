@@ -1,0 +1,26 @@
+.row-container {
+  display: flex;
+  margin-top: 8%;
+}
+
+.camera-box {
+  width: 15vw;
+  height: 15vw;
+  border-radius: 10px;
+  border: solid 0.5px white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-box {
+  width: 15vw;
+  height: 15vw;
+  margin-right: 2%;
+  border-radius: 10px;
+  /* border: solid 0.5px white; */
+}
+
+.row-container {
+  display: flex;
+}
