@@ -15,7 +15,7 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/joy": "^5.0.0-alpha.72",
     "@mui/lab": "^5.0.0-alpha.123",
-    "@mui/material": "^5.11.13",
+    "@mui/material": "^5.11.14",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/axios": "^0.14.0",
     "@types/react-datepicker": "^4.10.0",
