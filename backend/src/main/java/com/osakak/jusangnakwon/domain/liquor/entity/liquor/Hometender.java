@@ -23,7 +23,7 @@ public class Hometender {
     private String name;
     @Column(name = "image", length = 100)
     private String img;
-    @Column(length = 30)
+
     private String materials;
     @Column(length = 30)
     private Integer salty;
