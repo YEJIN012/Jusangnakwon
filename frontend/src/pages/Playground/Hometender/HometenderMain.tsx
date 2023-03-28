@@ -84,6 +84,41 @@ const recipeDummy = [
     name: "달콤한와인",
     likes: 22,
   },
+  {
+    id: 6,
+    type: "l6",
+    img: "https://picsum.photos/300/300/?random",
+    name: "달콤한와인",
+    likes: 22,
+  },
+  {
+    id: 7,
+    type: "l6",
+    img: "https://picsum.photos/300/300/?random",
+    name: "달콤한와인",
+    likes: 22,
+  },
+  {
+    id: 8,
+    type: "l6",
+    img: "https://picsum.photos/300/300/?random",
+    name: "달콤한와인",
+    likes: 22,
+  },
+  {
+    id: 9,
+    type: "l6",
+    img: "https://picsum.photos/300/300/?random",
+    name: "달콤한와인",
+    likes: 22,
+  },
+  {
+    id: 10,
+    type: "l6",
+    img: "https://picsum.photos/300/300/?random",
+    name: "달콤한와인",
+    likes: 22,
+  },
 ];
 
 const HometenderMain = () => {
