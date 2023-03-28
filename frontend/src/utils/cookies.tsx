@@ -15,7 +15,7 @@ export const setRefreshToken = (props: RefreshToken) => {
     sameSite: "strict",
     path: "/",
     expires: expires_time,
-    httpOnly: true
+    // httpOnly: true
   });
 };
 
@@ -26,5 +26,5 @@ export const getCookieToken = () => {
 export const removeCookieToken = () => {
   cookies.remove("refresh_token", { sameSite: "strict", path: "/" })
   // session에 accesstoken도 삭제
-  sessionStorage.clear()
+  // sessionStorage.clear()
 };

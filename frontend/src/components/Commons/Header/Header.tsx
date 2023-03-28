@@ -6,6 +6,7 @@ import styles from "./Header.module.css";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import NeonTitle from "@/components/Commons/NeonTitle/NeonTitle"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -76,7 +77,8 @@ const Header = () => {
         </Search>
       ) : (
         <>
-          <img src={logo} height="20vw" alt="" />
+          {/* <img src={logo} height="20vw" alt="" /> */}
+          <NeonTitle></NeonTitle>
           <Link to="search" className={`${styles[`search-button`]}`}>
             <SearchIcon />
           </Link>

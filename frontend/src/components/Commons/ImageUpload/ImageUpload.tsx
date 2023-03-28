@@ -3,8 +3,8 @@ import styles from "./ImageUpload.module.css";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 
 const ImageUpload = () => {
-  const [imgBase64, setImgBase64] = useState<string | null>(null); // 미리보기 파일
-  const [imgFile, setImgFile] = useState<File | null>(null); // 선택한 이미지 파일
+  const [imgBase64, setImgBase64] = useState<string | null>(); // 미리보기 파일
+  const [imgFile, setImgFile] = useState<File | null>(); // 선택한 이미지 파일
 
   const inputRef = useRef<HTMLInputElement>(null); // Icon onClick에 input File을 달기 위한 ref
   // console.log(inputRef);
