@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from "react";
 import styles from "./FeedMain.module.css";
-import { Grid } from "@mui/material";
-import FeedComponent from "@/components/Feed/FeedComponent";
-import { Dispatch, SetStateAction } from "react";
+import { useEffect, useRef, useState } from "react";
+import FeedComponent from "@/components/Feed/FeedItem";
+import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
+import { Masonry } from "@mui/lab";
+import lottie from "lottie-web";
+import animationData from "./cheers-wine.json";
 
 const FeedMain = () => {
   const [dummyFeedList, setDummyFeedList] = useState([
@@ -71,6 +73,23 @@ const FeedMain = () => {
     },
   ]);
 
+  const container = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let animation: any;
+    if (container.current) {
+      animation = lottie.loadAnimation({
+        container: container.current,
+        animationData: animationData,
+      });
+    }
+
+    return () => {
+      if (animation) {
+        animation.destroy();
+      }
+    };
+  }, []);
   const [focusedPostList, setFocusedPostList] = useState("전체글");
   const allButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -87,84 +106,52 @@ const FeedMain = () => {
   }, []);
 
   return (
-    <div className={`${styles[`feed-main-container`]}`}>
-      <div className={`${styles[`feed-classify-btn-container`]}`}>
-        <button
-          className={focusedPostList === "전체글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
-          value={"전체글"}
-          onClick={sortPostList}
-          ref={allButtonRef}
-        >
-          전체글
-        </button>
-        <button
-          className={focusedPostList === "게시글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
-          value={"게시글"}
-          onClick={sortPostList}
-        >
-          게시글
-        </button>
-        <button
-          className={focusedPostList === "질문글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
-          value={"질문글"}
-          onClick={sortPostList}
-        >
-          질문글
-        </button>
-      </div>
+    <>
+      <div ref={container}></div>
+      <FloatingButton></FloatingButton>
+      <div className={`${styles[`feed-main-container`]}`}>
+        <div className={`${styles[`feed-classify-btn-container`]}`}>
+          <button
+            className={focusedPostList === "전체글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
+            value={"전체글"}
+            onClick={sortPostList}
+            ref={allButtonRef}
+          >
+            전체글
+          </button>
+          <button
+            className={focusedPostList === "게시글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
+            value={"게시글"}
+            onClick={sortPostList}
+          >
+            게시글
+          </button>
+          <button
+            className={focusedPostList === "질문글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
+            value={"질문글"}
+            onClick={sortPostList}
+          >
+            질문글
+          </button>
+        </div>
 
-      {focusedPostList === "전체글" ? (
-        <Grid container spacing={1} padding={1}>
-          <Grid item xs={6} md={6} lg={6}>
-            {dummyFeedList.map((feed) => {
-              if (feed.id % 2 === 1) {
-                return <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>;
-              }
-            })}
-          </Grid>
-          <Grid item xs={6} md={6} lg={6}>
-            {dummyFeedList.map((feed) => {
-              if (feed.id % 2 === 0) {
-                return <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>;
-              }
-            })}
-          </Grid>
-        </Grid>
-      ) : (
-        <Grid container spacing={1} padding={1}>
-          <Grid item xs={6} md={6} lg={6}>
+        {focusedPostList === "전체글" ? (
+          <Masonry columns={2} spacing={0.5}>
+            {dummyFeedList.map((feed) => (
+              <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>
+            ))}
+          </Masonry>
+        ) : (
+          <Masonry columns={2} spacing={0.5}>
             {dummyFeedList
               .filter((feed) => feed.classification === focusedPostList)
-              .map((feed) => {
-                if (feed.id % 2 === 0) {
-                  return (
-                    <FeedComponent
-                      key={`${feed.classification}+${feed.id}`}
-                      feed={feed}
-                      setDummyFeedList={setDummyFeedList}
-                    ></FeedComponent>
-                  );
-                }
-              })}
-          </Grid>
-          <Grid item xs={6} md={6} lg={6}>
-            {dummyFeedList
-              .filter((feed) => feed.classification === focusedPostList)
-              .map((feed) => {
-                if (feed.id % 2 === 1) {
-                  return (
-                    <FeedComponent
-                      key={`${feed.classification}+${feed.id}`}
-                      feed={feed}
-                      setDummyFeedList={setDummyFeedList}
-                    ></FeedComponent>
-                  );
-                }
-              })}
-          </Grid>
-        </Grid>
-      )}
-    </div>
+              .map((feed) => (
+                <FeedComponent key={feed.id} feed={feed} setDummyFeedList={setDummyFeedList}></FeedComponent>
+              ))}
+          </Masonry>
+        )}
+      </div>
+    </>
   );
 };
 

@@ -20,7 +20,7 @@ const RecipeFeed = (props: RecipeList) => {
           <li key={item.id}>
             <div className={styles["item-container"]}>
               <Link to={`/details/${item.type}/${item.id}`}>
-              <img src={item.img}></img>
+                <img src={item.img}></img>
               </Link>
               <div className={styles["item-title"]}>
                 <div>{item.name}</div>
