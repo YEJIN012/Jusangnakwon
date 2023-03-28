@@ -1,6 +1,7 @@
 .myfeed-title {
-  margin: 2%;
-  margin-left: 4%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0% 5%;
 }
 
 .myfeed-item-container {

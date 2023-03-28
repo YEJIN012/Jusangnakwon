@@ -1,7 +1,7 @@
 import styles from "./MyFeedList.module.css";
 import MyFeedItem from "./MyFeedItem";
-import { useLocation } from "react-router-dom";
-import path from "path";
+import { useLocation, Link } from "react-router-dom";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 interface MyFeedItem {
   id: number;
@@ -30,6 +30,11 @@ const MyFeedList = ({ myFeedListProps, selectedDate }: MyFeedListProps) => {
     <div className={`${styles[`myfeed-container`]}`}>
       <div className={`${styles[`myfeed-title`]}`}>
         <h2>내가 쓴 게시글</h2>
+        {pathname === "/mypage" && (
+          <Link to="../write/review">
+            <AddCircleIcon fontSize="large" sx={{ color: "white" }}></AddCircleIcon>
+          </Link>
+        )}
       </div>
       {pathname === "/mypage/feed"
         ? myFeedListProps.map((myfeed) => {

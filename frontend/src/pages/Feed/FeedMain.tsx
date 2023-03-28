@@ -1,9 +1,10 @@
 import styles from "./FeedMain.module.css";
 import { useEffect, useRef, useState } from "react";
-import { Grid } from "@mui/material";
 import FeedComponent from "@/components/Feed/FeedItem";
 import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
 import { Masonry } from "@mui/lab";
+import lottie from "lottie-web";
+import animationData from "./cheers-wine.json";
 
 const FeedMain = () => {
   const [dummyFeedList, setDummyFeedList] = useState([
@@ -72,6 +73,23 @@ const FeedMain = () => {
     },
   ]);
 
+  const container = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let animation: any;
+    if (container.current) {
+      animation = lottie.loadAnimation({
+        container: container.current,
+        animationData: animationData,
+      });
+    }
+
+    return () => {
+      if (animation) {
+        animation.destroy();
+      }
+    };
+  }, []);
   const [focusedPostList, setFocusedPostList] = useState("전체글");
   const allButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -89,6 +107,7 @@ const FeedMain = () => {
 
   return (
     <>
+      <div ref={container}></div>
       <FloatingButton></FloatingButton>
       <div className={`${styles[`feed-main-container`]}`}>
         <div className={`${styles[`feed-classify-btn-container`]}`}>
