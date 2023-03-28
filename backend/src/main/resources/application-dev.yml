@@ -17,7 +17,6 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 100
-        show_sql: false
     # data.sql 보다 hibernate 먼저 실행
     defer-datasource-initialization: true
   redis:
