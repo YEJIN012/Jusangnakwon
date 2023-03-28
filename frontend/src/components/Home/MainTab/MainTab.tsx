@@ -232,9 +232,10 @@ export default function MainTab() {
               }}
               {...a11yProps(1)}
               sx={{
-                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                // bgcolor: value === 1 ? "#06031A" : "#06031A",
+                bgcolor: value === 1 ? "#997D7B" : "#06031A",
                 fontSize: { xs: 12, md: 16 },
-                "&:hover": { bgcolor: "#997D7B" },
+                // "&:hover": { bgcolor: "#997D7B" },
               }}
               disableRipple
             />
@@ -246,9 +247,10 @@ export default function MainTab() {
               }}
               {...a11yProps(2)}
               sx={{
-                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                // bgcolor: value === 0 ? "#06031A" : "#06031A",
+                bgcolor: value === 2 ? "#421F3C" : "#06031A",
                 fontSize: { xs: 12, md: 16 },
-                "&:hover": { bgcolor: "#421F3C" },
+                // "&:hover": { bgcolor: "#421F3C" },
               }}
               disableRipple
             />
@@ -260,9 +262,10 @@ export default function MainTab() {
               }}
               {...a11yProps(3)}
               sx={{
-                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                // bgcolor: value === 0 ? "#06031A" : "#06031A",
+                bgcolor: value === 3 ? "#4E3415" : "#06031A",
                 fontSize: { xs: 12, md: 16 },
-                "&:hover": { bgcolor: "#4E3415" },
+                // "&:hover": { bgcolor: "#4E3415" },
               }}
               disableRipple
             />
@@ -274,9 +277,10 @@ export default function MainTab() {
               }}
               {...a11yProps(4)}
               sx={{
-                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                // bgcolor: value === 0 ? "#06031A" : "#06031A",
+                bgcolor: value === 4 ? "#9D615F" : "#06031A",
                 fontSize: { xs: 12, md: 16 },
-                "&:hover": { bgcolor: "#9D615F" },
+                // "&:hover": { bgcolor: "#9D615F" },
               }}
               disableRipple
             />

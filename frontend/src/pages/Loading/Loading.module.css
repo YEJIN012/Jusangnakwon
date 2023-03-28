@@ -12,35 +12,36 @@
   justify-content: center;
   align-items: center;  
   background: #06031a;
-  height: 38px;
+  height: 40vh;
+  width: 40vw;
 }
 
-h5 {
-  font-size: 1rem;
-  font-weight: 100;
+h6 {
+  font-size: 3rem;
+  font-weight: 500;
   font-style: italic;
   color: #fff;
-  /* padding: 4rem 6rem 5.5rem; */
-  padding: 7.5px 11.5px 7.5px 7.5px;
+  padding: 3rem 2rem 3rem 2.9rem;
+  /* padding: 7.5px 11.5px 7.5px 7.5px; */
   /* padding: 15px; */
-  border: 0.1rem solid #fff;
+  border: 0.3rem solid #fff;
   border-radius: 0.5rem;
   /* text-transform: uppercase; */
   animation: flicker 1.5s infinite alternate;
 
 }
 
-h5::-moz-selection {
+h6::-moz-selection {
   background-color: var(--neon-border-color);
   color: var(--neon-text-color);
 }
 
-h5::selection {
+h6::selection {
   background-color: var(--neon-border-color);
   color: var(--neon-text-color);
 }
 
-h5:focus {
+h6:focus {
   outline: none;
 }
 

@@ -4,9 +4,9 @@ const NeonTitle = () => {
   return (
     <>
     <div className={`${styles[`container`]}`}>
-      <div className={`${styles[`style`]}`} id="text" contentEditable spellCheck={false}>
-        주상낙원
-      </div>
+      <h5 id="text" spellCheck={false}>
+          주상낙원
+      </h5>
     </div>
     </>
   );

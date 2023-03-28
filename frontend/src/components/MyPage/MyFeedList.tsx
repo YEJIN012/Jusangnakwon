@@ -1,6 +1,6 @@
 import styles from "./MyFeedList.module.css";
 import MyFeedItem from "./MyFeedItem";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 interface MyFeedItem {
@@ -20,6 +20,7 @@ interface MyFeedListProps {
 
 const MyFeedList = ({ myFeedListProps, selectedDate }: MyFeedListProps) => {
   const { pathname } = useLocation();
+  const navigate = useNavigate()
   const filteredPosts = myFeedListProps
     ? myFeedListProps.filter((feed) => {
         return new Date(feed.date).toDateString() === selectedDate.toDateString();
@@ -31,9 +32,7 @@ const MyFeedList = ({ myFeedListProps, selectedDate }: MyFeedListProps) => {
       <div className={`${styles[`myfeed-title`]}`}>
         <h2>내가 쓴 게시글</h2>
         {pathname === "/mypage" && (
-          <Link to="../write/review">
-            <AddCircleIcon fontSize="large" sx={{ color: "white" }}></AddCircleIcon>
-          </Link>
+          <AddCircleIcon fontSize="large" sx={{ color: "white" }} onClick={() => { navigate("/write/review", { state: { date: selectedDate } })}}></AddCircleIcon>
         )}
       </div>
       {pathname === "/mypage/feed"

@@ -6,7 +6,7 @@ import styles from "./Header.module.css";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import NeonTitle from "@/components/Commons/NeonTitle/NeonTitle"
+import NeonTitle from "@/components/Commons/NeonTitle/NeonTitle";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,31 +60,39 @@ const Header = () => {
   };
 
   const rootPathList = ["/", "/feed", "/playground", "/mypage"];
+  const noneHeader = ["write", "loading"]
   const navigate = useNavigate();
   return (
-    <div className={`${styles[`header-container`]}`}>
-      {rootPathList.includes(pathname) ? null : <ArrowBackIcon onClick={() => navigate(-1)} />}
-      {pathname === "/search" ? (
-        <Search sx={{ marginLeft: "2%" }}>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="주상낙원 통합검색"
-            inputProps={{ "aria-label": "search" }}
-            onChange={handleSearchValue}
-          />
-        </Search>
+    <>
+      {pathname.includes("write") || pathname.includes("loading") ? (
+        <></>
       ) : (
-        <>
-          {/* <img src={logo} height="20vw" alt="" /> */}
-          <NeonTitle></NeonTitle>
-          <Link to="search" className={`${styles[`search-button`]}`}>
-            <SearchIcon />
-          </Link>
-        </>
+        <div className={`${styles[`header-container`]}`}>
+          {rootPathList.includes(pathname) ? null : <ArrowBackIcon onClick={() => navigate(-1)} />}
+
+          {pathname === "/search" ? (
+            <Search sx={{ marginLeft: "2%" }}>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="주상낙원 통합검색"
+                inputProps={{ "aria-label": "search" }}
+                onChange={handleSearchValue}
+              />
+            </Search>
+          ) : (
+            <>
+              {/* <img src={logo} height="20vw" alt="" /> */}
+              <NeonTitle></NeonTitle>
+              <Link to="search" className={`${styles[`search-button`]}`}>
+                <SearchIcon />
+              </Link>
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
