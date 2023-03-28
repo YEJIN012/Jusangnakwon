@@ -45,7 +45,7 @@ const TasteForm = () => {
     sweetness: null,
     bitter: null,
     body: null,
-    dryness: null,
+    aroma: null,
     sour: null,
   });
 
@@ -173,15 +173,15 @@ const TasteForm = () => {
           </FormControl>
         </div>
         <div className={`${styles[`classes.root`]}`}>
-          <h4 className={`${styles[`taste-name`]}`}>텁텁함</h4>
+          <h4 className={`${styles[`taste-name`]}`}>풍부한 향</h4>
           <FormControl component="fieldset" className={classes.formControl}>
             <RadioGroup
               className={classes.radioGroup}
               row
               aria-labelledby="demo-form-control-label-placement"
-              name="dryness"
+              name="aroma"
               defaultValue="top"
-              value={selectedValue.dryness}
+              value={selectedValue.aroma}
               onChange={handleChange}
             >
               <FormControlLabel
