@@ -75,6 +75,11 @@
   /* margin-top: 0; */
 }
 
-.drink-name{
+.drink-name {
   color: white;
+}
+
+.drink-label-wrap{
+  display: flex;
+  justify-content: space-between;
 }

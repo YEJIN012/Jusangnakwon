@@ -1,0 +1,69 @@
+.container {
+  /* text-align: center; */
+  padding-top: 5%;
+}
+
+.guide-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3%;
+}
+
+.drink-guide {
+  margin-right: 3%;
+  margin-left: 3%;
+}
+
+.book-img {
+  width: 15%;
+}
+
+.guide-select-btn-wrap {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  /* flex-wrap: wrap; */
+  /* width: 80%; */
+  align-items: center;
+  margin: 0 auto;
+}
+
+.three-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+  margin-bottom: 5%;
+}
+
+.two-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+}
+
+.guide-select-btn {
+  padding: 1% 7%;
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.guide-select-btn-active {
+  padding: 1% 7%;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #b9d8f7 0%, #feeb8b 100%);
+  outline: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: black;
+}
+
+.component-wrap{
+    margin-top: 10%;
+}

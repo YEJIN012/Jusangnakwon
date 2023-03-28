@@ -1,4 +1,5 @@
-.row-container {
+.flexwrap-container {
+  width: 100% ;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -8,8 +9,19 @@
 
 .ingredient{
   font-size: 0.8rem;
-  margin-right: 5px;
   padding: 8px;
-  background-color: gray;
+  background-color: rgb(75, 75, 75);
   border-radius: 15px;
+}
+
+.relative {
+  position: relative;
+  margin-right: 1vw;
+}
+
+.delete {
+  position: absolute;
+  z-index: 100;
+  top: -5px;
+  right: -5px;
 }

@@ -1,0 +1,9 @@
+.top-button-container {
+  border-radius: 80%;
+  background-color: #0000008a;
+  color: #ffffff;
+  position: fixed;
+  bottom: 7%;
+  left: 46.5vw;
+  z-index: 2;
+}

@@ -10,6 +10,7 @@
   right: 2px;
   bottom: 2px;
   margin: 3%;
+  z-index: 10;
 }
 
 .user-profile {
