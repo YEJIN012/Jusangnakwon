@@ -1,11 +1,12 @@
-import { useState } from "react";
 import styles from "./FeedDetail.module.css";
-import { useParams } from "react-router-dom";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { Menu, MenuItem, Rating, Button } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Menu, MenuItem, Rating, Button } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CommentList from "@/components/Feed/CommentList";
+import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 
 const FeedDetail = () => {
   const { id } = useParams();
@@ -75,10 +76,6 @@ const FeedDetail = () => {
     },
   ]);
 
-  // 내용 더보기 버튼
-  const [showContent, setShowContent] = useState(false);
-  const toggleContent = () => setShowContent((prev) => !prev);
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -131,25 +128,20 @@ const FeedDetail = () => {
                     },
                   }}
                 >
-                  <MenuItem onClick={handleClose}>수정하기</MenuItem>
+                  {/* <Link to="../write/review">
+                    <MenuItem onClick={handleClose} sx={{ color: "black" }}>
+                      수정하기
+                    </MenuItem>
+                  </Link> */}
                   <MenuItem onClick={handleClose}>삭제하기</MenuItem>
                 </Menu>
               </div>
             </div>
             <img src={feed.img} className={`${styles[`feed-img`]}`}></img>
+
             <div className={`${styles[`feed-content-container`]}`}>
-              <div>
-                {showContent ? feed.content : `${feed.content.slice(0, 10)}...`}
-                {!showContent && (
-                  <button className={`${styles[`feed-detail-content-btn`]}`} onClick={toggleContent}>
-                    더 보기
-                  </button>
-                )}
-                {/* <p>{feed.content}</p> */}
-                {/* <button className={`${styles[`feed-detail-content-btn`]}`}>더보기</button> */}
-              </div>
+              <ReadMore content={feed.content}></ReadMore>
               <div className={`${styles[`feed-stars-like`]}`}>
-                {feed.classification === "게시글" ? <Rating name="read-only" value={5} readOnly /> : null}
                 {feed.liked ? (
                   <button
                     style={{
@@ -197,10 +189,16 @@ const FeedDetail = () => {
             </div>
             {feed.classification === "게시글" ? (
               <div className={`${styles[`feed-alcohol-info-container`]}`}>
-                <p className={`${styles[`feed-alcohol-type-tag`]}`}>주종</p>
-                <p>와인</p>
-                <p className={`${styles[`feed-alcohol-tag`]}`}>술 이름</p>
+                {/* <p>주종</p> */}
+                <p className={`${styles[`feed-alcohol-type-tag`]}`} style={{ marginLeft: "5%" }}>
+                  와인
+                </p>
+                {/* <p>술 이름</p> */}
                 <p>소비뇽</p>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "50%" }}>
+                  {feed.classification === "게시글" ? <Rating name="read-only" value={5} readOnly /> : null}
+                  <p style={{ fontSize: "0.7rem", color: "gray" }}>{feed.userName}님의 평점</p>
+                </div>
               </div>
             ) : null}
             <div className={`${styles[`comment-input-container`]}`}>
