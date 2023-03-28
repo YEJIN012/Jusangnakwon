@@ -9,12 +9,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public class LiquorListItemDto {
-    private String id;
+    private Long id;
     private String name;
+    private LiquorType liquorType;
 
     @Builder
-    public LiquorListItemDto(String id, String name) {
+    public LiquorListItemDto(Long id, String name, LiquorType liquorType) {
         this.id = id;
         this.name = name;
+        this.liquorType = liquorType;
     }
 }
