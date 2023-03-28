@@ -1,6 +1,9 @@
 package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
+import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
+import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
+import com.osakak.jusangnakwon.domain.liquor.application.LiquorCommonService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("api")
 public class LiquorController {
+    private final LiquorCommonService liquorCommonService;
 
     /**
      * 홈텐더 랜덤 추천
@@ -31,20 +35,29 @@ public class LiquorController {
     )
     @Tag(name = "liquor")
     public ResponseEntity<ResponseDto> randHometender() {
+        RandomHometenderResponse response = liquorCommonService.getRandomHometender();
 
-        return ResponseEntity.ok(ResponseDto.builder().build());
+        return ResponseEntity.ok(ResponseDto.builder()
+                .body(response)
+                .success(true)
+                .build());
     }
 
     /**
-     * 술 이름으로 검색
+     * 키워드 기반 술 이름 조회
      *
-     * @param keyword: 술 이름
-     * @return 술 이름 조회 결과
+     * @param keyword 사용자 입력 키워드
+     * @param curPage 현재 페이지
+     * @return 키워드 포함한 술 이름 데이터 리스트
      */
-    @GetMapping("search/{keyword}")
+    @GetMapping("search/{keyword}/{curpage}")
     @Tag(name = "liquor")
-    public ResponseEntity<ResponseDto> searchLiquor(@PathVariable String keyword) {
+    public ResponseEntity<ResponseDto> searchLiquor(@PathVariable String keyword, @PathVariable(value = "curpage") int curPage) {
+        LiquorListMainResponse liquorSearchResponse = liquorCommonService.searchLiquorByKeyword(curPage, keyword);
 
-        return ResponseEntity.ok(ResponseDto.builder().build());
+        ResponseDto responseDto = ResponseDto.builder()
+                .body(liquorSearchResponse)
+                .success(true).build();
+        return ResponseEntity.ok(responseDto);
     }
 }
