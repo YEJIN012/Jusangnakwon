@@ -7,7 +7,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CommentList from "@/components/Feed/CommentList";
 import ReadMore from "@/components/Commons/ReadMore/ReadMore";
-
+import CommentIcon from "@mui/icons-material/Comment";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 const FeedDetail = () => {
   const { id } = useParams();
   const [dummyFeedList, setDummyFeedList] = useState([
@@ -202,6 +203,7 @@ const FeedDetail = () => {
               </div>
             ) : null}
             <div className={`${styles[`comment-input-container`]}`}>
+              <ChatBubbleOutlineIcon sx={{ color: "white" }}></ChatBubbleOutlineIcon>
               <input className={`${styles[`comment-input`]}`} placeholder="댓글을 입력해주세요..."></input>
             </div>
             <CommentList></CommentList>
