@@ -1,4 +1,4 @@
-import styles from "@/components/Playground/DrinkGuide/CocktailGuide.module.css";
+import styles from "@/components/Playground/DrinkGuide/BeerGuide.module.css";
 
 const BeerGuide = () => {
   return (

@@ -1,4 +1,4 @@
-import styles from "@/components/Playground/DrinkGuide/CocktailGuide.module.css";
+import styles from "@/components/Playground/DrinkGuide/KoreanGuide.module.css";
 
 const KoreanGuide = () => {
   return (
