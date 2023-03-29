@@ -30,8 +30,8 @@ public class AuthTokenProvider {
         return new AuthToken(id, expiry, key);
     }
 
-    public AuthToken createAuthToken(String id, String role, Date expiry) {
-        return new AuthToken(id, role, expiry, key);
+    public AuthToken createAuthToken(Long id,String userId, String role, Date expiry) {
+        return new AuthToken(id,userId, role, expiry, key);
     }
 
     public AuthToken convertAuthToken(String token) {
@@ -50,7 +50,7 @@ public class AuthTokenProvider {
 
             log.debug("claims subject := [{}]", claims.getSubject());
 
-            return new UsernamePasswordAuthenticationToken(new User(claims.getSubject()), authToken, authorities);
+            return new UsernamePasswordAuthenticationToken(new User(claims.get("id", Long.class),claims.getSubject()), authToken, authorities);
         } else {
             throw new TokenValidFailedException();
         }

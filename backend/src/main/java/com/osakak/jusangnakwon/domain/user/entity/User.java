@@ -66,7 +66,8 @@ public class User {
         this.survey = survey;
     }
 
-    public User(String userId) {
+    public User(Long id,String userId) {
+        this.id=id;
         this.userId = userId;
     }
 }

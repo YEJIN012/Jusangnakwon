@@ -10,6 +10,7 @@ import com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationReques
 import com.osakak.jusangnakwon.common.properties.AppProperties;
 import com.osakak.jusangnakwon.common.utils.CookieUtil;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
+import com.osakak.jusangnakwon.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -77,9 +78,11 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         Collection<? extends GrantedAuthority> authorities = ((OidcUser) authentication.getPrincipal()).getAuthorities();
 
         RoleType roleType = RoleType.USER;
+        User byUserId = userRepository.findByUserId(userInfo.getId());
 
         Date now = new Date();
         AuthToken accessToken = tokenProvider.createAuthToken(
+                byUserId.getId(),
                 userInfo.getId(),
                 roleType.getCode(),
                 new Date(now.getTime() + appProperties.getAuth().getTokenExpiry())
@@ -118,7 +121,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token", accessToken.getToken())
-                .queryParam("survey", userRepository.findByUserId(userInfo.getId()).getSurvey())
+                .queryParam("survey", byUserId.getSurvey())
                 .build().toUriString();
     }
 

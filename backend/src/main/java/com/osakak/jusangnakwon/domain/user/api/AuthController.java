@@ -77,8 +77,8 @@ public class AuthController {
         }
 
         String userId = claims.getSubject();
+        Long id = claims.get("id", Long.class);
         RoleType roleType = RoleType.of(claims.get("role", String.class));
-
 
         if (!authRefreshToken.validate()) {
             ResponseDto responseDto = ResponseDto.builder().success(false).error(new ErrorDto(ErrorCode.EXPIRED_REFRESH_TOKEN)).build();
@@ -95,6 +95,7 @@ public class AuthController {
 
         Date now = new Date();
         AuthToken newAccessToken = tokenProvider.createAuthToken(
+                id,
                 userId,
                 roleType.getCode(),
                 new Date(now.getTime() + appProperties.getAuth().getTokenExpiry())
