@@ -31,3 +31,4 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
     @Query("select l from Beer l where l.name like %:keyword%")
     List<Beer> findByKeyword(@Param("keyword") String keyword);
 }
+
