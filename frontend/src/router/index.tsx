@@ -91,7 +91,8 @@ const router = createBrowserRouter([
             ],
           },
           {
-            path: "guide/:drinktype?",
+            path: "guide",
+            // path: "guide/:drinktype?",
             element: <Guide></Guide>,
             children: [
               {
@@ -170,7 +171,7 @@ const router = createBrowserRouter([
             path: "intro",
             element: <Intro></Intro>,
           },
-        ]
+        ],
       },
     ],
   },

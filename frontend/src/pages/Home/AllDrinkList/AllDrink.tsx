@@ -7,6 +7,8 @@ import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
 const AllDrink = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  // const [selectedButton, setSelectedButton] = useState<string | null>("cocktail");
+  const [selectedButton, setSelectedButton] = useState<string | null>(location.pathname.split("/")[2] || "cocktail");
   const tabNumber =
     location.pathname === "/drinklist/cocktail"
       ? 1
@@ -17,6 +19,7 @@ const AllDrink = () => {
       : location.pathname === "/drinklist/korean"
       ? 4
       : 5;
+
   const dummyList = [
     {
       id: 1,
@@ -97,7 +100,7 @@ const AllDrink = () => {
       {tabNumber === 1 && (
         <div>
           <h3>칵테일</h3>
-          <Link to={`/playground/guide/cocktail`}>
+          <Link to={`/playground/guide`} onClick={() => setSelectedButton("cocktail")}>
             <a>칵테일 입문가이드 바로가기 ▶ </a>
           </Link>
           <ul className={`${styles["drink-list"]}`}>
@@ -123,7 +126,7 @@ const AllDrink = () => {
       {tabNumber === 2 && (
         <div>
           <h3>위스키</h3>
-          <Link to={`/playground/guide/whiskey`}>
+          <Link to={`/playground/guide`}>
             <a>위스키 입문가이드 바로가기 ▶ </a>
           </Link>
           <ul className={`${styles["drink-list"]}`}>
@@ -149,7 +152,7 @@ const AllDrink = () => {
       {tabNumber === 3 && (
         <div>
           <h3>와인</h3>
-          <Link to={`/playground/guide/wine`}>
+          <Link to={`/playground/guide`}>
             <a>와인 입문가이드 바로가기 ▶ </a>
           </Link>
           <ul className={`${styles["drink-list"]}`}>
@@ -175,7 +178,7 @@ const AllDrink = () => {
       {tabNumber === 4 && (
         <div>
           <h3>전통주</h3>
-          <Link to={`/playground/guide/korean`}>
+          <Link to={`/playground/guide`}>
             <a>전통주 입문가이드 바로가기 ▶ </a>
           </Link>
           <ul className={`${styles["drink-list"]}`}>
@@ -201,7 +204,7 @@ const AllDrink = () => {
       {tabNumber === 5 && (
         <div>
           <h3>맥주</h3>
-          <Link to={`/playground/guide/beer`}>
+          <Link to={`/playground/guide`}>
             <a>맥주 입문가이드 바로가기 ▶ </a>
           </Link>
           <ul className={`${styles["drink-list"]}`}>
