@@ -19,6 +19,6 @@ public interface WhiskyRepository extends JpaRepository<Whisky, Long> {
      */
     @Query("select c from Whisky c order by c.ratingAvg desc")
     Page<Whisky> findByRatingAvg(Pageable pageable);
-    @Query("select l from Whisky l where l.name like %:keyword%")
+    @Query("select l from Whisky l where l.name like :keyword%")
     Optional<List<Whisky>> findByKeyword(@Param("keyword") String keyword);
 }
