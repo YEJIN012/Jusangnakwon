@@ -3,7 +3,7 @@ package com.osakak.jusangnakwon.domain.liquor.api;
 import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
-import com.osakak.jusangnakwon.domain.liquor.application.LiquorCommonService;
+import com.osakak.jusangnakwon.domain.liquor.application.LiquorService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("api")
 public class LiquorController {
-    private final LiquorCommonService liquorCommonService;
+    private final LiquorService liquorCommonService;
 
     /**
      * 홈텐더 랜덤 추천

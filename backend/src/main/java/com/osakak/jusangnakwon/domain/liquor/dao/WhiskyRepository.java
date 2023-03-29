@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface WhiskyRepository extends JpaRepository<Whisky, Long> {
     /**
@@ -19,5 +20,5 @@ public interface WhiskyRepository extends JpaRepository<Whisky, Long> {
     @Query("select c from Whisky c order by c.ratingAvg desc")
     Page<Whisky> findByRatingAvg(Pageable pageable);
     @Query("select l from Whisky l where l.name like %:keyword%")
-    List<Whisky> findByKeyword(@Param("keyword") String keyword);
+    Optional<List<Whisky>> findByKeyword(@Param("keyword") String keyword);
 }
