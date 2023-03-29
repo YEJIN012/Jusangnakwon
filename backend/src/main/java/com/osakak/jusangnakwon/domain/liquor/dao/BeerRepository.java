@@ -29,6 +29,6 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
      * @param keyword 사용자 입력 키워드
      * @return 술 객체 리스트
      */
-    @Query("select l from Beer l where l.name like %:keyword%")
+    @Query("select l from Beer l where l.name like :keyword%")
     Optional<List<Beer>> findByKeyword(@Param("keyword") String keyword);
 }

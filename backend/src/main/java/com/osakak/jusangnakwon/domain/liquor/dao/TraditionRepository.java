@@ -19,6 +19,6 @@ public interface TraditionRepository extends JpaRepository<Tradition, Long> {
      */
     @Query("select c from Tradition c order by c.ratingAvg desc")
     Page<Tradition> findByRatingAvg(Pageable pageable);
-    @Query("select l from Tradition l where l.name like %:keyword%")
+    @Query("select l from Tradition l where l.name like :keyword%")
     Optional<List<Tradition>> findByKeyword(@Param("keyword") String keyword);
 }
