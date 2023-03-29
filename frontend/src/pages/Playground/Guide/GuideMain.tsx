@@ -11,8 +11,12 @@ import { useParams } from "react-router-dom";
 
 const GuideMain: React.FC = () => {
   const { pathname } = useLocation();
-  const [selectedButton, setSelectedButton] = useState<string>("cocktail");
+  // const [selectedButton, setSelectedButton] = useState<string>("cocktail");
   // (pathname.split("/")[3] || "cocktail");
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const selectedButton = searchParams.get("selectedButton") || "cocktail";
 
   // useEffect(() => {
   //   setSelectedButton("cocktail");
@@ -27,7 +31,8 @@ const GuideMain: React.FC = () => {
 
   const handleButtonClick = (drinktype: string) => {
     // navigate(`/playground/guide`);
-    setSelectedButton(drinktype);
+    // setSelectedButton(drinktype);
+    navigate(`/playground/guide?selectedButton=${drinktype}`, { replace: true });
   };
   return (
     <div className={`${styles[`container`]}`}>

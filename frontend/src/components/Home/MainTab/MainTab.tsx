@@ -314,7 +314,7 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/cocktail`}>
-                  <a className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[0]} 보기 ▶ </a>
+                  <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[0]} 보기 ▶ </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -358,10 +358,10 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/whiskey`}>
-                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                  <span className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 {drinktype[1]} 보기 ▶{" "}
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -405,10 +405,10 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/wine`}>
-                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                  <span className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 {drinktype[2]} 보기 ▶{" "}
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -452,10 +452,10 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/korean`}>
-                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                  <span className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 {drinktype[3]} 보기 ▶{" "}
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -499,10 +499,10 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/beer`}>
-                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                  <span className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 {drinktype[4]} 보기 ▶{" "}
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
