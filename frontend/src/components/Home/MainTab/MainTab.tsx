@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
+import { apiGetNotLoginRecommendedByType } from "@/api/home";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -23,6 +24,16 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
+
+  // api 요청 테스트
+  // const [recommendedList, setRecommendedList] = useState([]);
+
+  // const rs = "l2";
+  // useEffect(() => {
+  //   apiGetNotLoginRecommendedByType(rs, 1).then((r) => {
+  //     console.log(r);
+  //   });
+  // }, []);
 
   return (
     <div
@@ -232,9 +243,10 @@ export default function MainTab() {
               }}
               {...a11yProps(1)}
               sx={{
-                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                // bgcolor: value === 1 ? "#06031A" : "#06031A",
+                bgcolor: value === 1 ? "#997D7B" : "#06031A",
                 fontSize: { xs: 12, md: 16 },
-                "&:hover": { bgcolor: "#997D7B" },
+                // "&:hover": { bgcolor: "#997D7B" },
               }}
               disableRipple
             />
@@ -246,9 +258,10 @@ export default function MainTab() {
               }}
               {...a11yProps(2)}
               sx={{
-                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                // bgcolor: value === 0 ? "#06031A" : "#06031A",
+                bgcolor: value === 2 ? "#421F3C" : "#06031A",
                 fontSize: { xs: 12, md: 16 },
-                "&:hover": { bgcolor: "#421F3C" },
+                // "&:hover": { bgcolor: "#421F3C" },
               }}
               disableRipple
             />
@@ -260,9 +273,10 @@ export default function MainTab() {
               }}
               {...a11yProps(3)}
               sx={{
-                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                // bgcolor: value === 0 ? "#06031A" : "#06031A",
+                bgcolor: value === 3 ? "#4E3415" : "#06031A",
                 fontSize: { xs: 12, md: 16 },
-                "&:hover": { bgcolor: "#4E3415" },
+                // "&:hover": { bgcolor: "#4E3415" },
               }}
               disableRipple
             />
@@ -274,9 +288,10 @@ export default function MainTab() {
               }}
               {...a11yProps(4)}
               sx={{
-                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                // bgcolor: value === 0 ? "#06031A" : "#06031A",
+                bgcolor: value === 4 ? "#9D615F" : "#06031A",
                 fontSize: { xs: 12, md: 16 },
-                "&:hover": { bgcolor: "#9D615F" },
+                // "&:hover": { bgcolor: "#9D615F" },
               }}
               disableRipple
             />
@@ -299,7 +314,7 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/cocktail`}>
-                  <a className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[0]} 보기 ▶ </a>
+                  <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[0]} 보기 ▶ </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -343,10 +358,10 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/whiskey`}>
-                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                  <span className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 {drinktype[1]} 보기 ▶{" "}
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -390,10 +405,10 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/wine`}>
-                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                  <span className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 {drinktype[2]} 보기 ▶{" "}
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -437,10 +452,10 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/korean`}>
-                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                  <span className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 {drinktype[3]} 보기 ▶{" "}
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -484,10 +499,10 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/beer`}>
-                  <a href="#none" className={`${styles[`all-drink-list`]}`}>
+                  <span className={`${styles[`all-drink-list`]}`}>
                     {" "}
                     전체 {drinktype[4]} 보기 ▶{" "}
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>

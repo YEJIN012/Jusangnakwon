@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TraditionRepository extends JpaRepository<Tradition, Long> {
     /**
@@ -18,6 +19,6 @@ public interface TraditionRepository extends JpaRepository<Tradition, Long> {
      */
     @Query("select c from Tradition c order by c.ratingAvg desc")
     Page<Tradition> findByRatingAvg(Pageable pageable);
-    @Query("select l from Tradition l where l.name like %:keyword%")
-    List<Tradition> findByKeyword(@Param("keyword") String keyword);
+    @Query("select l from Tradition l where l.name like :keyword%")
+    Optional<List<Tradition>> findByKeyword(@Param("keyword") String keyword);
 }

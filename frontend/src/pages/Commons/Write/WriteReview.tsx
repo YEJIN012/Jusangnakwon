@@ -83,7 +83,7 @@ const WriteReview = () => {
   });
 
   useEffect(() => {
-    location.state ? setFormData({ ...formData, type: location.state.type, name: location.state.name }) : {};
+    location.state ? setFormData({ ...formData, type: location.state.type, name: location.state.name, date: location.state.date }) : {};
   }, []);
 
   // 모달 오픈 변수

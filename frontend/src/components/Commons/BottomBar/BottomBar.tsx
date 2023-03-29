@@ -17,63 +17,70 @@ const BottomBar = () => {
   const dispatch = useDispatch();
   const focusedTab = useSelector((state: RootState) => state.tab);
   const [value, setValue] = useState(focusedTab);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     dispatch(updateTabActions.updateTab(value));
   }, [value]);
 
   return (
-    <Box className={`${styles[`bottom-bar-container`]}`}>
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        sx={{
-          backgroundColor: "black",
-          "& .Mui-selected > svg": {
-            backgroundColor: "#363636",
-            borderRadius: "10px",
-            paddingX: "20px",
-            paddingY: "2px",
-          },
-        }}
-      >
-        <BottomNavigationAction
-          component={Link}
-          to={"/"}
-          value={"/"}
-          icon={<HomeIcon />}
-          style={{ color: "white" }}
-          disableRipple
-        />
-        <BottomNavigationAction
-          component={Link}
-          to={"/feed"}
-          value={"/feed"}
-          icon={<LanguageIcon />}
-          style={{ color: "white" }}
-          disableRipple
-        />
-        <BottomNavigationAction
-          component={Link}
-          to={"/playground"}
-          value={"/playground"}
-          icon={<LocalBarIcon />}
-          style={{ color: "white" }}
-          disableRipple
-        />
-        <BottomNavigationAction
-          component={Link}
-          to={"/mypage"}
-          value={"/mypage"}
-          icon={<AccountCircleIcon />}
-          style={{ color: "white" }}
-          disableRipple
-        />
-      </BottomNavigation>
-    </Box>
+    <>
+      {pathname.includes("write") || pathname.includes("loading") ? (
+        <></>
+      ) : (
+        <Box className={`${styles[`bottom-bar-container`]}`}>
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            sx={{
+              backgroundColor: "black",
+              "& .Mui-selected > svg": {
+                backgroundColor: "#363636",
+                borderRadius: "10px",
+                paddingX: "20px",
+                paddingY: "2px",
+              },
+            }}
+          >
+            <BottomNavigationAction
+              component={Link}
+              to={"/"}
+              value={"/"}
+              icon={<HomeIcon />}
+              style={{ color: "white" }}
+              disableRipple
+            />
+            <BottomNavigationAction
+              component={Link}
+              to={"/feed"}
+              value={"/feed"}
+              icon={<LanguageIcon />}
+              style={{ color: "white" }}
+              disableRipple
+            />
+            <BottomNavigationAction
+              component={Link}
+              to={"/playground"}
+              value={"/playground"}
+              icon={<LocalBarIcon />}
+              style={{ color: "white" }}
+              disableRipple
+            />
+            <BottomNavigationAction
+              component={Link}
+              to={"/mypage"}
+              value={"/mypage"}
+              icon={<AccountCircleIcon />}
+              style={{ color: "white" }}
+              disableRipple
+            />
+          </BottomNavigation>
+        </Box>
+      )}
+    </>
   );
 };
 

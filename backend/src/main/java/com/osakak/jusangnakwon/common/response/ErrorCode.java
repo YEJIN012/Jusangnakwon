@@ -14,6 +14,7 @@ public enum ErrorCode {
     , UNAVAILABLE(401, "Unavailable", "회원가입이 완료되지 않은 사용자입니다.")
     , NOT_FOUND(404, "NotFound", "존재하지 않는 데이터입니다.")
     , CONFLICT(409, "Conflict", "데이터가 충돌되었습니다.")
+    , NO_LIQUOR(400, "Not Exist", "찾으신 술이 존재하지 않습니다")
     ;
     //@formatter:on
     ErrorCode(int status, String code, String message) {

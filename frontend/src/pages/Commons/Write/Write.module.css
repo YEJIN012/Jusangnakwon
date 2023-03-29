@@ -110,6 +110,9 @@ textarea:focus {
   outline: none;
   font-size: 1rem;
   max-width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   /* padding-right: 15px; */
 }
 

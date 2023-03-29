@@ -5,12 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 @Getter
 @Setter
 @ToString
 public class LiquorListItemDto {
     private Long id;
     private String name;
+    @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
 
     @Builder
