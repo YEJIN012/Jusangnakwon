@@ -1,6 +1,7 @@
 import DrinkingAni from "@/components/Commons/DrinkingAni/DrinkingAni";
 import styles from "./Loading.module.css";
-
+import img from "/assets/neon-beer.png"
+import img2 from "/assets/neon-welcome.png"
 const NeonTitle = () => {
   return (
     <>
@@ -15,11 +16,17 @@ const NeonTitle = () => {
 
 const Intro = () => {
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", marginTop: "20vh" , width:""}}>
-      <NeonTitle></NeonTitle>
-      {/* <div style={{scale:"0.5"}}> */}
+    <div style={{ display: "flex", justifyContent: "start",alignItems:"center", height: "100vh-114px", width:""}}>
+      <div style={{ display: "flex", flexDirection:"column"}}>
 
-      {/* <DrinkingAni></DrinkingAni> */}
+      <div className={`${styles[`cantilever`]}`}></div>
+      </div>
+      <NeonTitle></NeonTitle>
+
+      {/* <div style={{ position: "absolute"}}> */}
+        {/* <DrinkingAni></DrinkingAni> */}
+        <img className={`${styles[`img-ani`]}`} src={img} style={{position:"absolute",bottom:"45px",right:"45px",width:"180px"}} alt="" />
+        <img className={`${styles[`img-ani2`]}`} src={img2} style={{position:"absolute",bottom:"100px",right:"1px",width:"300px"}} alt="" />
       {/* </div> */}
     </div>
   );

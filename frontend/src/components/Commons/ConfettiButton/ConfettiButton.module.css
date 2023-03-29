@@ -3,6 +3,7 @@
   /* min-block-size: 100vh; */
   display: grid;
   place-items: center;
+  margin-bottom: 5vh;
 }
 
 .confetti-button {

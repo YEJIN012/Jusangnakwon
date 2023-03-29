@@ -13,7 +13,7 @@ const ConfettiButton = () => {
       origin: {
         x: 0.5,
         // since they fall down, start a bit higher than random
-        y: 0.9
+        y: 0.85
       }
     });
   }
