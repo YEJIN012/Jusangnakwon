@@ -9,6 +9,7 @@ import Header from "@/components/Commons/Header/Header";
 import styles from "./App.module.css";
 import ScrollToTop from "./components/Commons/ScrollToTop/ScrollToTop";
 import TopButton from "./components/Commons/ScrollToTop/TopButton";
+import getApiInstance from "./api/http";
 
 const persistor = persistStore(store);
 
@@ -20,7 +21,7 @@ const App = () => {
         <CookiesProvider>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-              <Header />
+              {/* <Header /> */}
               <div className={`${styles[`content-wrapper`]}`}>
                 <Outlet></Outlet>
               </div>

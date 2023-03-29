@@ -1,14 +1,16 @@
 import { Outlet } from "react-router-dom";
 import styles from "@/pages/User/Login.module.css";
-import logo from "/assets/logo.png";
 import kakao from "/assets/kakaosocial.png";
 import google from "/assets/googlesocial.png";
 import socialLogin from "@/utils/socialLogin";
+import NeonTitle from "@/components/Commons/NeonTitle/NeonTitle";
 
 const Login = () => {
   return (
     <div className={`${styles["container"]}`}>
-      <img src={logo} className={`${styles["logo-img"]}`} width="130px" alt="" />
+      <div style={{ scale: "2.2", marginBottom:"70px" }}>
+        <NeonTitle></NeonTitle>
+      </div>
       {/* <hr className={`${styles["line"]}`} /> */}
       <p className={`${styles["introduce-text"]}`}>
         와인부터 칵테일 전통주,

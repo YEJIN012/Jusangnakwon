@@ -3,7 +3,7 @@ import styles from "@/pages/Commons/FeedDetail/FeedDetail.module.css";
 const UserImgName = () => {
   const dummyUser = {
     userName: "banabana",
-    userImg: "https://picsum.photos/30/30/?random",
+    userImg: "https://picsum.photos/80/80/?random",
   };
 
   return (

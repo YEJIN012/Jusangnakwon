@@ -1,0 +1,33 @@
+.container {
+  line-height: 1.5;
+  /* min-block-size: 100vh; */
+  display: grid;
+  place-items: center;
+  margin-bottom: 5vh;
+}
+
+.confetti-button {
+  cursor: pointer;
+  font: inherit;
+  background-color: #6273c6;
+  color: #fff;
+  border: 0;
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding: 0.3em 1em;
+  border-radius: 0.5em;
+  z-index: 0;
+  position: relative;
+  display: flex;
+  gap: 0.5em;
+  box-shadow:
+    0px 1.7px 2.2px rgb(70, 70, 70),
+    0px 4px 5.3px rgb(70, 70, 70),
+    0px 7.5px 10px rgb(70, 70, 70),
+    0px 25.1px 33.4px rgb(70, 70, 70),
+    0px 60px 80px rgb(70, 70, 70);
+}
+
+.confetti-button:active {
+  transform: scale(1.1);
+}

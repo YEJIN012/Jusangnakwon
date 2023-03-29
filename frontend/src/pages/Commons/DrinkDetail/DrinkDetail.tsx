@@ -6,6 +6,7 @@ import Ingredients from "@/components/Commons/Ingredients/Ingredients";
 import ReviewList from "@/components/Commons/ReviewList/ReviewList";
 import RecommendInDetail from "@/components/Commons/RecommendInDetail/RecommendInDetail";
 import ReadMore from "@/components/Commons/ReadMore/ReadMore";
+import HeaderBack from "@/components/Commons/Header/HeaderBack";
 
 const DrinkDetail = () => {
   const params = useParams();
@@ -60,6 +61,7 @@ const DrinkDetail = () => {
 
   return (
     <>
+      <HeaderBack></HeaderBack>
       <div className={`${styles[`drink-img-box`]}`}>
         <img src={drink.img} className={`${styles[`drink-img`]}`}></img>
         {/* 일반 술이랑 공통 컴포로 쓰려면 업로드유저(user_id) 있는지 판별  */}

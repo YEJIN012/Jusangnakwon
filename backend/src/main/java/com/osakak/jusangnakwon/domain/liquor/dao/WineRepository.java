@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface WineRepository extends JpaRepository<Wine, Long> {
@@ -23,6 +24,6 @@ public interface WineRepository extends JpaRepository<Wine, Long> {
     @Query("select w from Wine w order by w.ratingAvg desc")
     Page<Wine> findByRatingAvg(Pageable pageable);
 
-    @Query("select l from Wine l where l.name like %:keyword%")
-    List<Wine> findByKeyword(@Param("keyword") String keyword);
+    @Query("select l from Wine l where l.name like :keyword%")
+    Optional<List<Wine>> findByKeyword(@Param("keyword") String keyword);
 }
