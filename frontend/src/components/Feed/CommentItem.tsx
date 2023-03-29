@@ -18,8 +18,13 @@ const CommentItem = ({ comment }: Comment) => {
     <>
       <div className={`${styles[`comment-item`]}`}>
         <div className={`${styles[`row-container`]}`}>
-          <UserImgName />
-          <div className={`${styles[`comment-content`]}`}>{comment.content}</div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img src={comment.userImg} style={{ height: "30px", width: "30px", borderRadius: "50%" }}></img>
+            <div className={`${styles[`comment-content`]}`} style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ fontSize: "0.8rem" }}>{comment.userName}</div>
+              <div>{comment.content}</div>
+            </div>
+          </div>
         </div>
         <div className={`${styles[`date`]}`}>{comment.date}</div>
       </div>
