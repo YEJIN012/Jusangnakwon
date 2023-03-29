@@ -71,6 +71,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .username(userInfo.getName())
                 .profileImageUrl(userInfo.getImageUrl())
                 .providerType(providerType)
+                .survey(Byte.parseByte("0"))
                 .build();
         return userRepository.saveAndFlush(user);
     }
