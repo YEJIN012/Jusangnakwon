@@ -17,10 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -46,7 +43,13 @@ public class LiquorService {
         List<LiquorListItemDto> liquorByKeyword = getLiquorByKeyword(keyword);
         if (liquorByKeyword.isEmpty())
             throw new NoLiquorNameExistException();
-        int pageSize = liquorByKeyword.size() % 5;
+        int pageSize = liquorByKeyword.size() % 20;
+        liquorByKeyword.sort(new Comparator<LiquorListItemDto>() {
+            @Override
+            public int compare(LiquorListItemDto o1, LiquorListItemDto o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
         Page<LiquorListItemDto> pageList = convert(liquorByKeyword, page, pageSize);
         return liquorCustomMapper.toMainPageResponse(pageList.getContent(), pageList.getTotalPages(), pageList.getPageable().getPageNumber());
     }
