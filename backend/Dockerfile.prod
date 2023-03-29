@@ -49,3 +49,4 @@ ENTRYPOINT ["java", "-jar", \
     "-Dport=${SERVER_PORT}", \
     "-Ddomain=${DOMAIN}", \
     "/app.jar"]
+
