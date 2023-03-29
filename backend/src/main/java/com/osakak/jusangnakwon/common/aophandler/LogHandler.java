@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class LogHandler {
     private static final Logger logger = LoggerFactory.getLogger(LogHandler.class);
 
-    @Around("within(com.agora.server..*)")
+    @Around("within(com.osakak.jusangnakwon..*)")
     public Object logging(ProceedingJoinPoint pjp) throws Throwable {
 
         String params = getRequestParams();
