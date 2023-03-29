@@ -9,6 +9,7 @@ import CommentList from "@/components/Feed/CommentList";
 import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 import CommentIcon from "@mui/icons-material/Comment";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import LikeButton from "@/components/Feed/LikeButton/LikeButton";
 const FeedDetail = () => {
   const { id } = useParams();
   const [dummyFeedList, setDummyFeedList] = useState([
@@ -142,7 +143,7 @@ const FeedDetail = () => {
 
             <div className={`${styles[`feed-content-container`]}`}>
               <ReadMore content={feed.content}></ReadMore>
-              <div className={`${styles[`feed-stars-like`]}`}>
+              {/* <div className={`${styles[`feed-stars-like`]}`}>
                 {feed.liked ? (
                   <button
                     style={{
@@ -186,7 +187,8 @@ const FeedDetail = () => {
                     <FavoriteBorderIcon />
                   </button>
                 )}
-              </div>
+              </div> */}
+              <LikeButton></LikeButton>
             </div>
             {feed.classification === "게시글" ? (
               <div className={`${styles[`feed-alcohol-info-container`]}`}>

@@ -60,7 +60,7 @@ const Header = () => {
   };
 
   const rootPathList = ["/", "/feed", "/playground", "/mypage"];
-  const noneHeader = ["write", "loading"]
+  const noneHeader = ["write", "loading"];
   const navigate = useNavigate();
   return (
     <>
@@ -84,7 +84,9 @@ const Header = () => {
           ) : (
             <>
               {/* <img src={logo} height="20vw" alt="" /> */}
-              <NeonTitle></NeonTitle>
+              <Link to="/">
+                <NeonTitle></NeonTitle>
+              </Link>
               <Link to="search" className={`${styles[`search-button`]}`}>
                 <SearchIcon />
               </Link>

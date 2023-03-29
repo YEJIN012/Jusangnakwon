@@ -24,8 +24,11 @@
 }
 
 .feed-content-container {
-  padding: 3%;
+  padding: 0% 2%;
   margin: 0% 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .feed-detail-content-btn {
@@ -33,11 +36,6 @@
   color: rgb(160, 160, 160);
   border: none;
   margin-top: 2%;
-}
-
-.feed-content-container {
-  display: flex;
-  justify-content: space-between;
 }
 
 .feed-alcohol-info-container {

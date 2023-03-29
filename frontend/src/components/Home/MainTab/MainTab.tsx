@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
+import { apiGetNotLoginRecommendedByType } from "@/api/home";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -23,6 +24,16 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
+
+  // api 요청 테스트
+  // const [recommendedList, setRecommendedList] = useState([]);
+
+  // const rs = "l2";
+  // useEffect(() => {
+  //   apiGetNotLoginRecommendedByType(rs, 1).then((r) => {
+  //     console.log(r);
+  //   });
+  // }, []);
 
   return (
     <div
