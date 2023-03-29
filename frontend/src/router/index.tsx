@@ -48,10 +48,6 @@ const router = createBrowserRouter([
             path: "drinklist/:drinktype",
             element: <AllDrink></AllDrink>,
           },
-          {
-            path: "search",
-            element: <SearchPage></SearchPage>,
-          },
         ],
       },
       {
@@ -172,6 +168,10 @@ const router = createBrowserRouter([
             element: <Intro></Intro>,
           },
         ],
+      },
+      {
+        path: "search",
+        element: <SearchPage></SearchPage>,
       },
     ],
   },

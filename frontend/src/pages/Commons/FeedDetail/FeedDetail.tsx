@@ -10,6 +10,7 @@ import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 import CommentIcon from "@mui/icons-material/Comment";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import LikeButton from "@/components/Feed/LikeButton/LikeButton";
+import HeaderBack from "@/components/Commons/Header/HeaderBack";
 const FeedDetail = () => {
   const { id } = useParams();
   const [dummyFeedList, setDummyFeedList] = useState([
@@ -89,6 +90,7 @@ const FeedDetail = () => {
 
   return (
     <div>
+      <HeaderBack></HeaderBack>
       {dummyFeedList
         .filter((feed) => feed.id === Number(id))
         .map((feed) => (
