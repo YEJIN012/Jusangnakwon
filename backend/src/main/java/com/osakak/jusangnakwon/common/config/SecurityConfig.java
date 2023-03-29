@@ -79,16 +79,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .antMatchers("/t1/api/rank/**").permitAll()
                 .antMatchers("/api/rank/**").permitAll()
                 .antMatchers("/api/v1/auth/refresh").permitAll()
                 .antMatchers("/api/v1/**").hasAnyAuthority(RoleType.USER.getCode())
 //                .anyRequest().authenticated()
+<<<<<<< HEAD
                 .and()
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
                 .invalidateHttpSession(true)
                 .deleteCookies("refresh_token")
+=======
+>>>>>>> develop/back
                 .and()
                 .oauth2Login()
                 .authorizationEndpoint()

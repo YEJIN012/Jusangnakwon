@@ -28,4 +28,15 @@ public class LiquorMapperImpl implements LiquorCustomMapper {
                 .content(content)
                 .build();
     }
+
+//    @Override
+//    public RandomHometenderResponse toRandomHometender(Hometender hometender) {
+//        String[] split = hometender.getMaterials().split("\\s*,\\s*");
+//        List<String> list = new ArrayList<>(Arrays.asList(split));
+//        return RandomHometenderResponse.builder()
+//                .id(hometender.getId())
+//                .img(hometender.getImg())
+//                .materials(list)
+//                .build();
+//    }
 }

@@ -1,15 +1,21 @@
 package com.osakak.jusangnakwon.domain.liquor.mapper;
 
+import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import java.util.Arrays;
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", imports = Arrays.class)
 public interface LiquorMapper {
+    @Mapping(target = "materials", expression = "java(Arrays.asList(hometender.getMaterials().split(\",\")))")
+    RandomHometenderResponse toRandHometender(Hometender hometender);
+
     /**
      * 술 객체 하나를 메인에 보여줄 리스트 아이템 하나로 만들어준다
      * - 모든 술 동일하게 동작

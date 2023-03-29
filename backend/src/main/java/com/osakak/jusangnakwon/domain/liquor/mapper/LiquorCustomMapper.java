@@ -1,7 +1,9 @@
 package com.osakak.jusangnakwon.domain.liquor.mapper;
 
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
+import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Hometender;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -17,4 +19,13 @@ public interface LiquorCustomMapper {
      * @return 페이징 처리된 응답
      */
     LiquorListMainResponse toMainPageResponse(List<LiquorListItemDto> content, int totalPage, int curPageNumber);
+
+    /**
+     * 랜덤 홈텐더 dto 변환 mapper
+     *
+     * @param hometender 랜덤 조회 된 홈텐더
+     * @return RandomHometenderResponse
+     */
+//    RandomHometenderResponse toRandomHometender(Hometender hometender);
 }
+
