@@ -1,58 +1,3 @@
-<<<<<<< HEAD
-FROM adoptopenjdk:11-hotspot AS builder
-ENV USE_PROFILE prod
-# mysql
-ENV HOSTNAME H
-ENV SCHEMA S
-ENV USERNAME username
-ENV PASSWORD pwd
-ENV DOMAIN D
-
-# security
-ENV GCLIENTID e
-ENV GSECRET e
-ENV KCLIENTID e
-ENV KSECRET e
-ENV KREDIRECT e
-
-# client origin
-ENV ORIGIN e
-
-# cors
-ENV JWTSECRET e
-ENV APP_AUTH_SECRET e
-
-ENV SERVER_PORT 0
-
-COPY backend/gradlew .
-COPY backend/gradle gradle
-COPY backend/build.gradle .
-COPY backend/settings.gradle .
-COPY backend/src src
-RUN chmod +x ./gradlew
-RUN ./gradlew clean bootJar
-
-FROM adoptopenjdk:11-hotspot
-COPY --from=builder build/libs/*.jar app.jar
-
-ENTRYPOINT ["java", "-jar", \
-    "-Dspring.profiles.active=${USE_PROFILE}", \
-    "-Ddatabase.hostname=${HOSTNAME}", \
-    "-Ddatabase.schema=${SCHEMA}", \
-    "-Ddatabase.username=${USERNAME}", \
-    "-Ddatabase.password=${PASSWORD}", \
-    "-Dgclient.id=${GCLIENTID}", \
-    "-Dgclient.secret=${GSECRET}", \
-    "-Dkclient.id=${KCLIENTID}", \
-    "-Dkclient.secret=${KSECRET}", \
-    "-Dkredirecturl=${KREDIRECT}", \
-    "-Dclient.origin=${ORIGIN}", \
-    "-Djwt.secret=${JWTSECRET}", \
-    "-Dapp.auth.secret=${APP_AUTH_SECRET}", \
-    "-Dport=${SERVER_PORT}", \
-    "-Ddomain=${DOMAIN}", \
-    "/app.jar"]
-=======
 FROM adoptopenjdk:11-hotspot AS builder
 ENV USE_PROFILE prod
 # mysql
@@ -104,4 +49,4 @@ ENTRYPOINT ["java", "-jar", \
     "-Dport=${SERVER_PORT}", \
     "-Ddomain=${DOMAIN}", \
     "/app.jar"]
->>>>>>> develop/back
+
