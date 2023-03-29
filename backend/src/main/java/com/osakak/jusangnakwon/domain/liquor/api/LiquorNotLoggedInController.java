@@ -2,14 +2,10 @@ package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
-import com.osakak.jusangnakwon.domain.liquor.application.LiquorService;
+import com.osakak.jusangnakwon.domain.liquor.application.LiquorNotLoggedInService;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.dto.SearchType;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -28,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("api")
 public class LiquorNotLoggedInController {
-    private final LiquorService liquorService;
+    private final LiquorNotLoggedInService liquorService;
 
     /**
      * 주종별 랭킹순 추천 페이징 처리

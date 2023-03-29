@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class LiquorService {
+public class LiquorNotLoggedInService {
     private final WineRepository wineRepository;
     private final BeerRepository beerRepository;
     private final WhiskyRepository whiskyRepository;
@@ -40,26 +40,7 @@ public class LiquorService {
      * @return 페이징 포함 주종 id, name 정보
      */
     public LiquorListMainResponse getLiquorList(LiquorType liquorType, SearchType searchType, Pageable pageable) {
-        return getLiquorListBySearchType(liquorType, searchType, pageable);
-    }
-
-    /**
-     * 검색 타입 나누기
-     *
-     * @param liquorType 주종 타입
-     * @param searchType 검색 타입
-     * @param pageable   페이징
-     * @return 페이징 포함 주종 id, name 정보
-     */
-    private LiquorListMainResponse getLiquorListBySearchType(LiquorType liquorType, SearchType searchType, Pageable pageable) {
-        switch (searchType) {
-            case RANK:
-                return getLiquorListByRank(liquorType, pageable);
-            case RECOMM:
-                System.out.println("recomm");
-                return null;
-        }
-        return null;
+        return getLiquorListByRank(liquorType, pageable);
     }
 
     /**
