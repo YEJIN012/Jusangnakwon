@@ -1,4 +1,5 @@
 import styles from "@/components/Home/Banner/DrinkBtiBanner.module.css";
+import { Link } from "react-router-dom";
 
 const dummyList = [
   {
@@ -29,9 +30,15 @@ const dummyList = [
 
 export default function DrinkBtiBanner() {
   return (
-    <div className={`${styles[`container`]}`}>
-      <p>간단한 테스트를 통해<br/>나를 표현한 술을 알아보세요!</p>
-      <h1>술BTI</h1>
-    </div>
+    <Link to={`/playground/abti`}>
+      <div className={`${styles[`container`]}`}>
+        <p>
+          간단한 테스트를 통해
+          <br />
+          나를 표현한 술을 알아보세요!
+        </p>
+        <h1>술BTI</h1>
+      </div>
+    </Link>
   );
 }

@@ -4,6 +4,8 @@ import Rating from "@mui/material/Rating";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Ingredients from "@/components/Commons/Ingredients/Ingredients";
 import ReviewList from "@/components/Commons/ReviewList/ReviewList";
+import RecommendInDetail from "@/components/Commons/RecommendInDetail/RecommendInDetail";
+import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 
 const DrinkDetail = () => {
   const params = useParams();
@@ -22,6 +24,39 @@ const DrinkDetail = () => {
     taste: ["단맛", "신맛", "쓴맛", "짠맛"],
     explan: "크렌베리 + 딸기향, 상큼달콤하지만 도수가 높음",
   };
+
+  const dummyList = [
+    {
+      id: 1,
+      img: "https://picsum.photos/300/300/?random",
+      name: "콥케",
+      drinktype: "l6",
+    },
+    {
+      id: 2,
+      img: "https://picsum.photos/300/300/?random",
+      name: "샌드맨",
+      drinktype: "l6",
+    },
+    {
+      id: 3,
+      img: "https://picsum.photos/300/300/?random",
+      name: "맛있는와인",
+      drinktype: "l6",
+    },
+    {
+      id: 4,
+      img: "https://picsum.photos/300/300/?random",
+      name: "달콤한와인",
+      drinktype: "l6",
+    },
+    {
+      id: 5,
+      img: "https://picsum.photos/300/300/?random",
+      name: "새콤한와인",
+      drinktype: "l6",
+    },
+  ]
 
   return (
     <>
@@ -45,12 +80,11 @@ const DrinkDetail = () => {
           </div>
           <BookmarkBorderIcon />
         </div>
-        <Ingredients ingredients={drink.ingredients}></Ingredients>
-        <Ingredients ingredients={drink.taste}></Ingredients>
-
-        <p>{drink.explan}</p>
-        <button className={`${styles[`drink-detail-content-btn`]}`}>더보기</button>
-        <ReviewList></ReviewList>
+        <Ingredients ingredients={drink.ingredients} delete={null}></Ingredients>
+        <Ingredients ingredients={drink.taste} delete={null}></Ingredients>
+        <ReadMore content={drink.explan}></ReadMore>
+        <ReviewList type={drink.type} name={drink.name}></ReviewList>
+        <RecommendInDetail dummyList={dummyList}></RecommendInDetail>
       </div>
     </>
   );

@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
 import styles from "@/pages/User/Login.module.css";
 import logo from "/assets/logo.png";
-import kakao from "/assets/kakao-icon.png";
-import google from "/assets/google-icon.png";
+import kakao from "/assets/kakaosocial.png";
+import google from "/assets/googlesocial.png";
+import socialLogin from "@/utils/socialLogin";
 
 const Login = () => {
   return (
@@ -17,13 +18,23 @@ const Login = () => {
         세상의 모든 술 어쩌구
       </p>
       <p className={`${styles["nineteen-text"]}`}>19세 이상 이용 가능한 서비스입니다.</p>
-      <div className={`${styles["kakao"]}`}>
-        <img src={kakao} />
-        <span>카카오톡으로 시작하기</span>
-      </div>
-      <div className={`${styles["google"]}`}>
+      <div
+        className={`${styles["google"]}`}
+        onClick={() => {
+          socialLogin({ provider_id: "google" });
+        }}
+      >
         <img src={google} />
-        <span>구글계정으로 시작하기</span>
+        <span>Google 계정으로 로그인</span>
+      </div>
+      <div
+        className={`${styles["kakao"]}`}
+        onClick={() => {
+          socialLogin({ provider_id: "kakao" });
+        }}
+      >
+        <img src={kakao} />
+        <span>카카오 로그인</span>
       </div>
     </div>
   );

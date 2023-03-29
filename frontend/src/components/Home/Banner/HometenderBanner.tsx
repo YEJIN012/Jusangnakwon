@@ -1,5 +1,5 @@
 import styles from "@/components/Home/Banner/HometenderBanner.module.css";
-import cocktailimg from "../../../../public/assets/stcocktail.png";
+import cocktailimg from "/assets/stcocktail.png";
 import { Link } from "react-router-dom";
 
 const dummyList = [
@@ -31,9 +31,10 @@ const dummyList = [
 
 export default function HometenderBanner() {
   return (
-    <div className={`${styles[`container`]}`}>
-      <ul>
-        {dummyList.map(({ id, img, name }) => (
+    <Link to={`/playground/hometender`}>
+      <div className={`${styles[`container`]}`}>
+        <ul>
+          {dummyList.map(({ id, img, name }) => (
             <li key={id} className={`${styles[`content-wrap`]}`}>
               <img src={img} style={{ maxWidth: "30%", height: "auto" }} />
               <div className={`${styles[`text-wrap`]}`}>
@@ -42,8 +43,9 @@ export default function HometenderBanner() {
                 <p className={`${styles[`drink-ingre`]}`}>재료: 햄버거, 소주, 토닉워터</p>
               </div>
             </li>
-        ))}
-      </ul>
-    </div>
+          ))}
+        </ul>
+      </div>
+    </Link>
   );
 }

@@ -39,3 +39,6 @@ src/main/resources/environment/env.yml!/.idea/
 !/.gitignore
 # init data
 src/main/resources/data.sql
+
+
+/src/main/generated
