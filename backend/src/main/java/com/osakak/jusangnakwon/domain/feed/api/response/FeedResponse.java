@@ -1,16 +1,15 @@
-package com.osakak.jusangnakwon.domain.feed.dto;
+package com.osakak.jusangnakwon.domain.feed.api.response;
 
-import com.querydsl.core.annotations.QueryProjection;
+import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
+import com.osakak.jusangnakwon.domain.feed.dto.WriterDto;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
-import lombok.Setter;
 
 @Getter
-@Setter
-public class FeedDto {
+public class FeedResponse {
 
     private final Long id;
     private final String type;
@@ -19,20 +18,19 @@ public class FeedDto {
     private final String liquorType;
     private final String liquorName;
     private final String content;
-    private Double ratingScore;
+    private final Double ratingScore;
     private final Boolean isPublic;
     private final LocalDateTime dateCreated;
     private final WriterDto writer;
-    private Long likeCnt;
-    private Boolean liked;
-    private List<CommentDto> comments;
+    private final Integer likeCnt;
+    private final Boolean liked;
+    private final List<CommentDto> comments;
 
     @Builder
-    @QueryProjection
-    public FeedDto(Long id, String type, String img, String title, String liquorType,
-            String liquorName,
-            String content, Double ratingScore, Boolean isPublic, LocalDateTime dateCreated,
-            WriterDto writer, Long likeCnt, Boolean liked, List<CommentDto> comments) {
+    public FeedResponse(Long id, String type, String img, String title, String liquorType,
+            String liquorName, String content, Double ratingScore, Boolean isPublic,
+            LocalDateTime dateCreated, WriterDto writer, Integer likeCnt, Boolean liked,
+            List<CommentDto> comments) {
         this.id = id;
         this.type = type;
         this.img = img;

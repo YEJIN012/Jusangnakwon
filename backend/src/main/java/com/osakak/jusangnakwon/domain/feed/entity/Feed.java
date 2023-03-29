@@ -1,7 +1,7 @@
 package com.osakak.jusangnakwon.domain.feed.entity;
 
-import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
 import com.osakak.jusangnakwon.domain.user.entity.User;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,10 +18,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Entity
@@ -56,12 +53,16 @@ public class Feed {
     @Column(name = "is_public", nullable = false)
     private Boolean isPublic;
 
+    @Column(name = "date_created", nullable = false)
+    private LocalDateTime dateCreated;
+
     @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Feed(Long id, User user, String type, String img, String title, String liquorType,
-            String liquorName, String content, Boolean isPublic) {
+            String liquorName, String content, Boolean isPublic, LocalDateTime dateCreated,
+            List<Comment> comments) {
         this.id = id;
         this.user = user;
         this.type = type;
@@ -71,8 +72,7 @@ public class Feed {
         this.liquorName = liquorName;
         this.content = content;
         this.isPublic = isPublic;
-        this.comments = new ArrayList<>();
+        this.dateCreated = dateCreated;
+        this.comments = comments;
     }
-
-
 }

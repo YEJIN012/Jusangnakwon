@@ -10,8 +10,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<?> NullPointerException(NullPointerException nullPointerException) {
         return ResponseEntity.ok("");
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.osakak.jusangnakwon.domain.feed.api.request;
 
-import lombok.AccessLevel;
+import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
-public class WriteFeedRequest {
+public class CreateFeedRequest {
 
     @NotBlank
     private String type;
@@ -18,7 +19,8 @@ public class WriteFeedRequest {
     private String liquorName;
     private String content;
     private Double ratingScore;
-    @NotBlank
+    @NotNull
     private Boolean isPublic;
-
+    @NotNull
+    private LocalDateTime dateCreated;
 }
