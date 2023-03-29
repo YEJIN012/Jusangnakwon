@@ -11,7 +11,7 @@ const ReadMore = (props: Content) => {
   const toggleContent = () => setShowContent((prev) => !prev);
 
   return (
-    <div>
+    <>
       {content.length <= 10 ? (
         <>{content}</>
       ) : (
@@ -28,7 +28,7 @@ const ReadMore = (props: Content) => {
           )}
         </>
       )}
-    </div>
+    </>
   );
 };
 
