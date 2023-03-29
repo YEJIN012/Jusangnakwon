@@ -75,11 +75,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .antMatchers("/api/rank/**").permitAll()
                 .antMatchers("/api/v1/auth/refresh").permitAll()
-                //내가 끼워넣은 부분 시작
-                .antMatchers("/api/feed/**").permitAll()
-                //내가 끼워넣은 부분 끝
-                .antMatchers("/api/**").hasAnyAuthority(RoleType.USER.getCode())
+                .antMatchers("/api/v1/**").hasAnyAuthority(RoleType.USER.getCode())
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login()
