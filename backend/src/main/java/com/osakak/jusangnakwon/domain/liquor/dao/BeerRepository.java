@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -29,6 +30,5 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
      * @return 술 객체 리스트
      */
     @Query("select l from Beer l where l.name like %:keyword%")
-    List<Beer> findByKeyword(@Param("keyword") String keyword);
+    Optional<List<Beer>> findByKeyword(@Param("keyword") String keyword);
 }
-
