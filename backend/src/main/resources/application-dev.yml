@@ -43,7 +43,7 @@ spring:
           clientSecret: ${kclient.secret}
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
-          redirectUri: ${kredirecturl}
+          redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
           scope:
             - profile_nickname
             - profile_image

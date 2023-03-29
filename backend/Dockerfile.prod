@@ -12,7 +12,6 @@ ENV GCLIENTID e
 ENV GSECRET e
 ENV KCLIENTID e
 ENV KSECRET e
-ENV KREDIRECT e
 
 # client origin
 ENV ORIGIN e
@@ -44,7 +43,6 @@ ENTRYPOINT ["java", "-jar", \
     "-Dgclient.secret=${GSECRET}", \
     "-Dkclient.id=${KCLIENTID}", \
     "-Dkclient.secret=${KSECRET}", \
-    "-Dkredirecturl=${KREDIRECT}", \
     "-Dclient.origin=${ORIGIN}", \
     "-Djwt.secret=${JWTSECRET}", \
     "-Dapp.auth.secret=${APP_AUTH_SECRET}", \
