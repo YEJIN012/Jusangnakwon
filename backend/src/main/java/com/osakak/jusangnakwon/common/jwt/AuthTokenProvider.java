@@ -1,6 +1,7 @@
 package com.osakak.jusangnakwon.common.jwt;
 
 import com.osakak.jusangnakwon.common.oauth.exception.TokenValidFailedException;
+import com.osakak.jusangnakwon.domain.user.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +9,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 
 import java.security.Key;
 import java.util.Arrays;
@@ -30,8 +30,8 @@ public class AuthTokenProvider {
         return new AuthToken(id, expiry, key);
     }
 
-    public AuthToken createAuthToken(String id, String role, Date expiry) {
-        return new AuthToken(id, role, expiry, key);
+    public AuthToken createAuthToken(Long id,String userId, String role, Date expiry) {
+        return new AuthToken(id,userId, role, expiry, key);
     }
 
     public AuthToken convertAuthToken(String token) {
@@ -49,9 +49,8 @@ public class AuthTokenProvider {
                             .collect(Collectors.toList());
 
             log.debug("claims subject := [{}]", claims.getSubject());
-            User principal = new User(claims.getSubject(), "", authorities);
 
-            return new UsernamePasswordAuthenticationToken(principal, authToken, authorities);
+            return new UsernamePasswordAuthenticationToken(new User(claims.get("id", Long.class),claims.getSubject()), authToken, authorities);
         } else {
             throw new TokenValidFailedException();
         }
