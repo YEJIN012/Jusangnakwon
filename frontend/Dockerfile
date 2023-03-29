@@ -12,8 +12,7 @@ COPY frontend/. .
 RUN npm run build
 
 FROM nginx:alpine
-RUN mkdir /usr/share/nginx/html/prod
-COPY --from=0 /app/dist /usr/share/nginx/html/prod
+COPY --from=0 /app/dist /usr/share/nginx/html
 # Copy the Nginx configuration file to the appropriate location
 COPY frontend/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 # Start Nginx
