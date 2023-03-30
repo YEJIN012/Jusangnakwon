@@ -68,23 +68,16 @@ const WriteReview = () => {
   // 술상세페이지(type, name)나 마이페이지(date) 에서 넘어오는 경우에는
   // state와 함께 넘어와서 폼에 미리 작성되어 있는다.
   const state = location.state ? (location.state as StateType) : null;
-  const type = state ? state.type : null;
-  const name = state ? state.name : null;
-  const date = state ? state.date : null;
 
   const [formData, setFormData] = useState<FormData>({
     img: null,
-    type: "",
-    name: "",
-    date: new Date(),
+    type: state && state.type ? state.type : "",
+    name: state && state.name ? state.name : "",
+    date: state && state.date ? state.date : new Date(),
     content: "",
     ratings: 0,
     isPrivate: false,
   });
-
-  useEffect(() => {
-    location.state ? setFormData({ ...formData, type: location.state.type, name: location.state.name, date: location.state.date }) : {};
-  }, []);
 
   // 모달 오픈 변수
   const [open, setOpen] = useState(false);
