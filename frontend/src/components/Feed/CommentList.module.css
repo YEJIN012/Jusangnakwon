@@ -1,0 +1,31 @@
+.comment-list-container {
+  padding: 4%;
+}
+
+.row-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+}
+
+.date {
+  font-size: 0.9rem;
+  color: rgb(149, 149, 149);
+  position: absolute;
+  bottom: 2px;
+  right: 0;
+}
+
+.comment-item {
+  margin-bottom: 2%;
+  padding-bottom: 1px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  border-bottom: 1px solid rgb(65, 65, 65);
+}
+
+.comment-content {
+  margin-left: 3%;
+}

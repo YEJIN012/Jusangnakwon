@@ -1,0 +1,85 @@
+/* .MuiTabs-flexContainer {
+  display: flex;
+  justify-content: space-around;
+} */
+
+.all-drink-list-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10%;
+  margin-right: 3%;
+}
+
+.all-drink-list {
+  display: inline-block;
+  font-size: smaller;
+  color: rgb(245, 245, 245);
+  /* margin: 1%; */
+  /* border: 1px solid #ffffff; */
+}
+
+.drink-list-wrap {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-drink-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* overflow-x: auto; */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  /* border: 1px solid #ffffff; */
+}
+
+.tab-drink-list li {
+  /* margin-right: 3%; */
+  margin-bottom: 5%;
+  /* width: 50%; */
+  display: flex;
+  justify-content: center;
+}
+
+.img-container {
+  width: 90%;
+}
+
+@media only screen and (max-width: 820px) {
+  .img-container {
+    width: 90%;
+  }
+  .tab-drink-list li {
+    /* margin-right: 3%; */
+    margin-bottom: 5%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* .tab-drink-list li:last-child {
+  margin-right: 0;
+} */
+.css-np9o25-MuiButtonBase-root-MuiTab-root {
+  min-width: 20px;
+}
+
+.more-drink-btn {
+  margin-bottom: 20px;
+  color: white;
+  /* margin-top: 0; */
+}
+
+.drink-name {
+  color: white;
+}
+
+.drink-label-wrap{
+  display: flex;
+  justify-content: space-between;
+}

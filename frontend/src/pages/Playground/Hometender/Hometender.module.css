@@ -1,0 +1,28 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recommend-title{
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.recommend-carousel{
+}
+
+.recipe-title{
+  margin-top :4vh;
+  margin-bottom :4vh;
+  padding: 2vh;
+  background-color: antiquewhite;
+  background: linear-gradient(268.16deg, #C9B9F7 0%, #F5CA8A 100%);
+  border-radius: 50px;
+}
+
+.recipe-grid{
+  
+}

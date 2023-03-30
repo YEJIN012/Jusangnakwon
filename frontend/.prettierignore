@@ -1,0 +1,4 @@
+dist/
+.prettierrc
+vite.config.js
+jsconfig.js

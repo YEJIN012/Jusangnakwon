@@ -1,0 +1,92 @@
+.user-profile-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3%;
+}
+.user-profile-container-abs {
+  position: absolute;
+  z-index: 100;
+  right: 2px;
+  bottom: 2px;
+  margin: 3%;
+  z-index: 10;
+}
+
+.user-profile {
+  display: flex;
+  width: 70%;
+  align-items: center;
+}
+
+.user-img {
+  border-radius: 50%;
+  margin-right: 8px;
+  height: 20px;
+  width: 20px;
+}
+
+.drink-img-box {
+  position: relative;
+}
+
+.drink-img {
+  width: 100vw;
+}
+
+.drink-title-box {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drink-title {
+  display: flex;
+}
+
+.drink-content-container {
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.drink-detail-content-btn {
+  background-color: inherit;
+  color: rgb(160, 160, 160);
+  border: none;
+  margin-top: 2%;
+}
+
+.drink-content-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.drink-alcohol-info-container {
+  padding-left: 3%;
+  padding-right: 3%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.drink-alcohol-tag {
+  width: 20%;
+  text-align: center;
+  padding: 1% 3%;
+  background-color: blueviolet;
+  border-radius: 30px;
+  font-size: 0.9rem;
+}
+
+.drink-alcohol-type-tag {
+  width: 20%;
+  text-align: center;
+  padding: 1% 3%;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  background-color: rgb(43, 189, 226);
+}
