@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  /* -ms-overflow-style:none;
+  scrollbar-width:none ; */
+}
+
+body {
+  background-color: #06031a;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a:focus {
+  text-decoration: none;
+}
+a:hover,
+a:active {
+  text-decoration: none;
+}
+
+:root {
+  --main-bg-color: #06031a;
+}

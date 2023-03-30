@@ -1,0 +1,52 @@
+.myfeed-title {
+  display: flex;
+  justify-content: space-between;
+  margin: 0% 5%;
+}
+
+.myfeed-item-container {
+  box-sizing: border-box;
+  padding: 3%;
+  border-bottom: solid 0.5px rgb(149, 149, 149);
+
+  /* Inside auto layout */
+  display: flex;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+  justify-content: space-between;
+}
+
+.myfeed-item-left-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-box {
+  width: 10vh;
+  height: 10vh;
+  border-radius: 10px;
+  margin-right: 8px;
+}
+
+.date {
+  font-size: 0.8rem;
+  color: rgb(149, 149, 149);
+}
+
+.myfeed-item-right-container {
+  display: flex;
+  align-items: center;
+}
+
+.myfeed-item-tag {
+  background-color: pink;
+  text-align: center;
+  height: 20px;
+  width: 50px;
+  padding: 5px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+}

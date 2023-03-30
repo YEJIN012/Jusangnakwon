@@ -1,0 +1,12 @@
+.top-button-container {
+  border-radius: 80%;
+  background-color: #0000008a;
+  justify-content: center;
+  color: #ffffff;
+  position: fixed;
+  bottom: 7%;
+  left: 50%;
+  z-index: 2;
+  /* button너비가 28px이라서 */
+  margin-left: -14px;
+}
