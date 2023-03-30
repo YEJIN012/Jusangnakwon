@@ -1,0 +1,32 @@
+.container {
+  width: 90%;
+  height: 20vh;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  /* margin-top: 50px;
+  margin-bottom: 50px; */
+  margin: 0 auto;
+  background: linear-gradient(180deg, #ff9e80 0%, #fff6e3 100%);
+}
+
+.content-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-wrap {
+  color: black;
+  margin-left: 10px;
+}
+
+.drink-name{
+  /* font-size: 1rem; */
+}
+
+.drink-ingre{
+
+}
