@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 9%;
 }
 
 .card-frame {
@@ -24,6 +25,7 @@
 .card-frame-abti {
   padding: 8px 0px;
   background: url("/assets/abti-bg.png") no-repeat center center;
+  background-size: cover;
   width: 80vw;
   height: 20vh;
   margin: 2vh;
@@ -54,4 +56,78 @@
 .card-frame-abti-info {
   text-align: center;
   font-size: 0.9rem;
+}
+
+.card-frame-hometender {
+  width: 80vw;
+  height: 20vh;
+  margin: 2vh;
+  border-radius: 20px;
+  position: relative;
+  background: linear-gradient(180deg, #f2a6aa 0%, #fbd786 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.card-hometender-png-1 {
+  height: 70px;
+  width: 70px;
+  transform: rotate(25deg);
+  position: absolute;
+  top: 10px;
+  left: 8px;
+}
+
+.card-hometender-png-2 {
+  height: 60px;
+  width: 60px;
+  transform: rotate(-20deg);
+  position: absolute;
+  top: 15px;
+  right: 8px;
+}
+
+.card-frame-guide {
+  width: 80vw;
+  height: 20vh;
+  margin: 2vh;
+  border-radius: 20px;
+  position: relative;
+  /* background-color: rgba(246, 178, 131, 0.8); */
+  background-color: #f4a5aa;
+  /* background: linear-gradient(180deg, #f2a6aa 0%, #fbd786 100%); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.card-guide-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -15%;
+  height: 50px;
+}
+
+.card-guide-info {
+  font-size: 0.9rem;
+  color: white;
+  text-align: center;
+  font-weight: 400;
+}
+
+.card-hometender-info {
+  font-size: 0.9rem;
+  color: black;
+  text-align: center;
+  font-weight: 500;
 }
