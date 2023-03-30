@@ -14,13 +14,15 @@ import javax.persistence.Enumerated;
 public class LiquorListItemDto {
     private Long id;
     private String name;
+    private String img;
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
 
     @Builder
-    public LiquorListItemDto(Long id, String name, LiquorType liquorType) {
+    public LiquorListItemDto(Long id, String name, String img, LiquorType liquorType) {
         this.id = id;
         this.name = name;
+        this.img = img;
         this.liquorType = liquorType;
     }
 }
