@@ -61,8 +61,8 @@ const TasteForm = () => {
 
   return (
     <div className={`${styles[`container`]}`}>
-      <h4 className={`${styles[`head-text`]}`}>선호하는 맛의 취향을 선택해보세요</h4>
-      <p className={`${styles[`info-text`]}`}>선택한 맛울 기반으로 주종별 추천을 해드립니다.</p>
+      <h3 className={`${styles[`head-text`]}`}>선호하는 맛의 취향을 선택해보세요</h3>
+      <div className={`${styles[`info-text`]}`}>선택한 맛울 기반으로 주종별 추천을 해드립니다.</div>
 
       <div className={`${styles[`taste-wrap`]}`}>
         <div className={`${styles[`classes.root`]}`}>
@@ -245,7 +245,7 @@ const TasteForm = () => {
             </RadioGroup>
           </FormControl>
         </div>
-      <ConfettiButton></ConfettiButton>
+        <ConfettiButton></ConfettiButton>
       </div>
     </div>
   );

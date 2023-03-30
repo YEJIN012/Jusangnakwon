@@ -110,11 +110,11 @@ const AllDrink = () => {
           <Link to={`/playground/guide?selectedButton=cocktail`} 
           // onClick={() => setSelectedButton("cocktail")}
           >
-            <a>칵테일 입문가이드 바로가기 ▶ </a>
+            <span>칵테일 입문가이드 바로가기 ▶ </span>
           </Link>
-          <ul className={`${styles["drink-list"]}`}>
+          <div className={`${styles["drink-list"]}`}>
             {dummyList.map((wine) => (
-              <li key={wine.id} className={`${styles["drink-list-item"]}`}>
+              <div key={wine.id} className={`${styles["drink-list-item"]}`}>
                 <div className={`${styles["item-wrap"]}`}>
                   <img
                     src={wine.img}
@@ -127,20 +127,20 @@ const AllDrink = () => {
                     <BookmarkBorder fontSize="small" />
                   </div>
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
       {tabNumber === 2 && (
         <div>
           <h3>위스키</h3>
           <Link to={`/playground/guide?selectedButton=whiskey`}>
-            <a>위스키 입문가이드 바로가기 ▶ </a>
+            <span>위스키 입문가이드 바로가기 ▶ </span>
           </Link>
-          <ul className={`${styles["drink-list"]}`}>
+          <div className={`${styles["drink-list"]}`}>
             {dummyList.map((wine) => (
-              <li key={wine.id} className={`${styles["drink-list-item"]}`}>
+              <div key={wine.id} className={`${styles["drink-list-item"]}`}>
                 <div className={`${styles["item-wrap"]}`}>
                   <img
                     src={wine.img}
@@ -153,20 +153,20 @@ const AllDrink = () => {
                     <BookmarkBorder fontSize="small" />
                   </div>
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
       {tabNumber === 3 && (
         <div>
           <h3>와인</h3>
           <Link to={`/playground/guide?selectedButton=wine`}>
-            <a>와인 입문가이드 바로가기 ▶ </a>
+            <span>와인 입문가이드 바로가기 ▶ </span>
           </Link>
-          <ul className={`${styles["drink-list"]}`}>
+          <div className={`${styles["drink-list"]}`}>
             {dummyList.map((wine) => (
-              <li key={wine.id} className={`${styles["drink-list-item"]}`}>
+              <div key={wine.id} className={`${styles["drink-list-item"]}`}>
                 <div className={`${styles["item-wrap"]}`}>
                   <img
                     src={wine.img}
@@ -179,20 +179,20 @@ const AllDrink = () => {
                     <BookmarkBorder fontSize="small" />
                   </div>
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
       {tabNumber === 4 && (
         <div>
           <h3>전통주</h3>
           <Link to={`/playground/guide?selectedButton=korean`}>
-            <a>전통주 입문가이드 바로가기 ▶ </a>
+            <span>전통주 입문가이드 바로가기 ▶ </span>
           </Link>
-          <ul className={`${styles["drink-list"]}`}>
+          <div className={`${styles["drink-list"]}`}>
             {dummyList.map((wine) => (
-              <li key={wine.id} className={`${styles["drink-list-item"]}`}>
+              <div key={wine.id} className={`${styles["drink-list-item"]}`}>
                 <div className={`${styles["item-wrap"]}`}>
                   <img
                     src={wine.img}
@@ -205,20 +205,20 @@ const AllDrink = () => {
                     <BookmarkBorder fontSize="small" />
                   </div>
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
       {tabNumber === 5 && (
         <div>
           <h3>맥주</h3>
           <Link to={`/playground/guide?selectedButton=beer`}>
-            <a>맥주 입문가이드 바로가기 ▶ </a>
+            <span>맥주 입문가이드 바로가기 ▶ </span>
           </Link>
-          <ul className={`${styles["drink-list"]}`}>
+          <div className={`${styles["drink-list"]}`}>
             {dummyList.map((wine) => (
-              <li key={wine.id} className={`${styles["drink-list-item"]}`}>
+              <div key={wine.id} className={`${styles["drink-list-item"]}`}>
                 <div className={`${styles["item-wrap"]}`}>
                   <img
                     src={wine.img}
@@ -231,9 +231,9 @@ const AllDrink = () => {
                     <BookmarkBorder fontSize="small" />
                   </div>
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
     </div>

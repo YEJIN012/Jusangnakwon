@@ -41,16 +41,16 @@
 .feed-alcohol-info-container {
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: 3%;
 }
 
 .feed-alcohol-tag {
-  width: 80px;
+  /* width: 80px; */
   text-align: center;
   padding: 1% 3%;
-  background-color: blueviolet;
+  background-color: rgb(140, 95, 182);
   border-radius: 30px;
   font-size: 0.9rem;
   /* margin-right: 20px; */
@@ -58,15 +58,20 @@
 }
 
 .feed-alcohol-type-tag {
-  width: 80px;
+  /* width: 80px; */
   text-align: center;
   padding: 1% 3%;
   border-radius: 30px;
   font-size: 0.9rem;
-  background-color: rgb(43, 189, 226);
-  margin-right: 20px;
+  background-color: rgb(63, 143, 175);
+  /* margin-right: 20px; */
 }
 
+.feed-alcohol-name {
+  /* border-bottom: 3px solid rgba(94, 191, 212, 0.785); */
+  padding: 1%;
+  /* background-color: rgba(94, 191, 212, 0.785); */
+}
 .feed-alcohol-info-box {
   display: flex;
   flex-wrap: wrap;
