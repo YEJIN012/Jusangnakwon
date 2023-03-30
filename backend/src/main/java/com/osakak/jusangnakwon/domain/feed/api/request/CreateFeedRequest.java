@@ -15,6 +15,7 @@ public class CreateFeedRequest {
     private String type;
     private String img;
     private String title;
+    private Long liquorId;
     private String liquorType;
     private String liquorName;
     private String content;

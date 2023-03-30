@@ -25,6 +25,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "feeds", description = "피드 API")
 public class FeedController {
 
     private final FeedService feedService;
@@ -35,16 +36,12 @@ public class FeedController {
     /**
      * [POST] /api/feed : 피드 생성
      *
-     * @param user 유저 로그인 정보
+     * @param user              유저 로그인 정보
      * @param createFeedRequest 피드 생성 요청
-     *
      * @return FeedResponse : 작성된 피드 상세내용
      */
     @Tag(name = "feeds", description = "피드 API")
-    @Operation(
-            summary = "피드 생성",
-            description = "피드를 생성하고 작성된 피드 상세내용을 리턴"
-    )
+    @Operation(summary = "피드 생성", description = "피드를 생성하고 작성된 피드 상세내용을 리턴")
     @PostMapping("/api/feed")
     public ResponseEntity<ResponseDto> createFeed(@AuthenticationPrincipal User user,
             @RequestBody @Valid CreateFeedRequest createFeedRequest) {
@@ -59,14 +56,10 @@ public class FeedController {
      * [GET] /api/feed/list : 최신 피드 목록 조회 - 리뷰글과 질문글 모두
      *
      * @param user 유저 로그인 정보
-     *
      * @return 조회한 피드 목록
      */
     @Tag(name = "feeds", description = "피드 API")
-    @Operation(
-            summary = "피드 목록 조회",
-            description = "피드 목록을 최신순으로 리턴"
-    )
+    @Operation(summary = "피드 목록 조회", description = "피드 목록을 최신순으로 리턴")
     @GetMapping("/api/feed/list")
     public ResponseEntity<ResponseDto> getFeedList(@AuthenticationPrincipal User user) {
         List<FeedDto> feeds = feedService.getFeedList(user.getId());
@@ -80,14 +73,10 @@ public class FeedController {
      *
      * @param user 유저 로그인 정보
      * @param type 피드 타입 (리뷰글 / 질문글)
-     *
      * @return 조회한 피드 목록
      */
     @Tag(name = "feeds", description = "피드 API")
-    @Operation(
-            summary = "피드 목록 타입 필터링 조회 - 리뷰글, 질문글",
-            description = "피드 목록을 타입으로 필터링하여 리턴"
-    )
+    @Operation(summary = "피드 목록 타입 필터링 조회 - 리뷰글, 질문글", description = "피드 목록을 타입으로 필터링하여 리턴")
     @GetMapping("/api/feed/list/{type}")
     public ResponseEntity<ResponseDto> getFeedListByType(@AuthenticationPrincipal User user,
             @PathVariable String type) {
@@ -100,16 +89,12 @@ public class FeedController {
     /**
      * [GET] /api/feed/list/{type} : 피드 상세내용 조회
      *
-     * @param user 유저 로그인 정보
+     * @param user   유저 로그인 정보
      * @param feedId 피드 id
-     *
      * @return FeedResponse : 조회한 피드 상세내용
      */
     @Tag(name = "feeds", description = "피드 API")
-    @Operation(
-            summary = "피드 상세내용 조회",
-            description = "피드의 상세내용을 리턴"
-    )
+    @Operation(summary = "피드 상세내용 조회", description = "피드의 상세내용을 리턴")
     @GetMapping("/api/feed/{feedId}")
     public ResponseEntity<ResponseDto> getFeedDetail(@AuthenticationPrincipal User user,
             @PathVariable Long feedId) {
@@ -121,16 +106,12 @@ public class FeedController {
     /**
      * [POST] /api/comment : 댓글 생성
      *
-     * @param user 유저 로그인 정보
+     * @param user                 유저 로그인 정보
      * @param createCommentRequest 댓글 생성 요청
-     *
      * @return 댓글이 작성된 피드의 전체 댓글목록
      */
     @Tag(name = "feeds", description = "피드 API")
-    @Operation(
-            summary = "댓글 생성",
-            description = "댓글을 생성하고 댓글이 작성된 피드의 전체 댓글목록을 리턴"
-    )
+    @Operation(summary = "댓글 생성", description = "댓글을 생성하고 댓글이 작성된 피드의 전체 댓글목록을 리턴")
     @PostMapping("/api/comment")
     public ResponseEntity<ResponseDto> createComment(@AuthenticationPrincipal User user,
             @RequestBody @Valid CreateCommentRequest createCommentRequest) {
@@ -145,20 +126,85 @@ public class FeedController {
     /**
      * [POST] /api/feed/like/{feed_id} : 좋아요 업데이트
      *
-     * @param user 유저 로그인 정보
-     * @param feedId 피드 id
+     * @param user              유저 로그인 정보
+     * @param feedId            피드 id
      * @param updateLikeRequest 좋아요 업데이트 요청
      */
     @Tag(name = "feeds", description = "피드 API")
-    @Operation(
-            summary = "좋아요 업데이트",
-            description = "좋아요 상태를 업데이트"
-    )
+    @Operation(summary = "좋아요 업데이트", description = "좋아요 상태를 업데이트")
     @PutMapping("/api/feed/like/{feedId}")
     public void updateLike(@AuthenticationPrincipal User user, @PathVariable Long feedId,
             @RequestBody @Valid UpdateLikeRequest updateLikeRequest) {
         feedService.updateLike(user.getId(), feedId, updateLikeRequest.getIsLiked());
     }
 
+    /**
+     * [GET] /api/calendar/{year}/{month} : 캘린더 한달분량 조회
+     *
+     * @param user 유저 로그인 정보
+     * @param feedId 피드 id
+     *
+     * @return FeedResponse : 조회한 피드 상세내용
+     */
+    /*
+    @Tag(name = "feeds", description = "피드 API")
+    @Operation(
+            summary = "피드 상세내용 조회",
+            description = "피드의 상세내용을 리턴"
+    )
+    @GetMapping("/api/calendar/{year}/{month}")
+    public ResponseEntity<ResponseDto> getCalendarByMonth(@AuthenticationPrincipal User user,
+            @PathVariable Long feedId) {
+        FeedDto feedDto = feedService.getFeedDetail(user.getId(), feedId);
+        return ResponseEntity.ok(ResponseDto.builder().success(true)
+                .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
+    }
+     */
+
+    /**
+     * [GET] /api/mypage/record : 내가 쓴 글 목록 조회
+     *
+     * @param user 유저 로그인 정보
+     * @param feedId 피드 id
+     *
+     * @return FeedResponse : 조회한 피드 상세내용
+     */
+    /*
+    @Tag(name = "feeds", description = "피드 API")
+    @Operation(
+            summary = "피드 상세내용 조회",
+            description = "피드의 상세내용을 리턴"
+    )
+    @GetMapping("/api/feed/{feedId}")
+    public ResponseEntity<ResponseDto> getFeedDetail(@AuthenticationPrincipal User user,
+            @PathVariable Long feedId) {
+        FeedDto feedDto = feedService.getFeedDetail(user.getId(), feedId);
+        return ResponseEntity.ok(ResponseDto.builder().success(true)
+                .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
+    }
+     */
+
+    /**
+     * [GET] /api/feed/list/{type} : 피드 상세내용 조회
+     *
+     * @param user 유저 로그인 정보
+     * @param feedId 피드 id
+     *
+     * @return FeedResponse : 조회한 피드 상세내용
+     */
+    /*
+    @Tag(name = "feeds", description = "피드 API")
+    @Operation(
+            summary = "피드 상세내용 조회",
+            description = "피드의 상세내용을 리턴"
+    )
+    @GetMapping("/api/feed/{feedId}")
+    public ResponseEntity<ResponseDto> getFeedDetail(@AuthenticationPrincipal User user,
+            @PathVariable Long feedId) {
+        FeedDto feedDto = feedService.getFeedDetail(user.getId(), feedId);
+        return ResponseEntity.ok(ResponseDto.builder().success(true)
+                .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
+    }
+     */
 
 }
