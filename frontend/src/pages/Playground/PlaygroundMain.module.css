@@ -11,9 +11,47 @@
   justify-content: center;
   align-items: center;
   background-color: white;
+  /* background-image: url("/assets/abti_banner_background.png"); */
   color: black;
+  font-size: 1.7rem;
+  font-weight: 800;
   width: 80vw;
   height: 20vh;
   margin: 2vh;
   border-radius: 20px;
+}
+
+.card-frame-abti {
+  padding: 8px 0px;
+  background: url("/assets/abti-bg.png") no-repeat center center;
+  width: 80vw;
+  height: 20vh;
+  margin: 2vh;
+  border-radius: 20px;
+  position: relative;
+}
+
+.card-frame-abti-colorbg {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 208, 248, 0.7);
+  color: black;
+  font-size: 1.7rem;
+  font-weight: 800;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  white-space: pre-wrap;
+}
+
+.card-frame-abti-info {
+  text-align: center;
+  font-size: 0.9rem;
 }
