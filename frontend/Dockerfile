@@ -5,7 +5,7 @@ WORKDIR /app
 # Copy the package.json and package-lock.json files to the working directory
 COPY frontend/package*.json ./
 # Install the dependencies
-ENV VITE_API_BASE_URL url
+ENV VITE_API_BASE_URL https://jusangnakwon.duckdns.org/
 RUN npm install --force
 # Copy the rest of the source code to the working directory
 COPY frontend/. .
