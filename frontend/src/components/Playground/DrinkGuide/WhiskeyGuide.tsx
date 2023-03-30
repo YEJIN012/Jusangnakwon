@@ -6,12 +6,12 @@ const WhiskeyGuide = () => {
       <h1 className={`${styles[`drinktype`]}`}> WHISKEY</h1>
       <div className={`${styles[`content-wrap`]}`}>
         <h3 className={`${styles[`small-title`]}`}>위스키의 맛과 향</h3>
-        <p>
+        <div>
           위스키는 크게 세가지 맛으로 자주 표현되곤 하는데
           <br />
           스모키 / 과실향 / 바닐라향 이렇게 세가지로 구분된다.
-        </p>
-        <p>
+        </div>
+        <div>
           <h3 className={`${styles[`small-title`]}`}>각 향 별 특징 및 입문자를 위한 위스키 추천</h3>
           <h3 className={`${styles[`whiskey-taste`]}`}>스모키</h3>
           - 훈제 향을 말하는 표현으로 오크 나무를 태우는 듯한 향 <br />
@@ -46,10 +46,10 @@ const WhiskeyGuide = () => {
           <br />
           3. 잭다니엘
           <br />
-        </p>
+        </div>
 
         <h3 className={`${styles[`small-title`]}`}>위스키 본연의 맛을 느끼며 먹는 법</h3>
-        <p>
+        <div>
           위스키를 시원하고 빠르게 마시려면 온더락 잔에,
           <br />
           위스키 본연의 향과 맛을 좋아한다면 글렌케런잔에!
@@ -74,10 +74,10 @@ const WhiskeyGuide = () => {
           향을 퍼뜨리며 입을 적응시켜주면
           <br />
           위스키의 본연의 향과 맛을 더 잘 즐길 수 있습니다.
-        </p>
+        </div>
 
         <h3 className={`${styles[`small-title`]}`}>위스키의 종류 알기</h3>
-        <p>
+        <div>
           위스키를 크게 나누자면,
           <br />
           싱글몰트, 블랜디드, 버번, 럼, 꼬냑 등으로 나눌 수 있습니다.
@@ -91,7 +91,7 @@ const WhiskeyGuide = () => {
           싱글몰트는 한 증류소에서 생산한 100% 보리로 만든 위스키, 블랜디드는 다양한 원액을 섞어 풍부한 맛을 내는
           위스키, 미국 영화에서 자주 등장하는 버번은 미국에서 증류한 위스키, 럼은 사탕수수로 제작한 위스키, 꼬냑은
           블랜디드 위스키 안에 들어 있는 하나의 종류로써 다른 종류의 위스키와는 다르게 원료가 포도인 과실주 입니다.
-        </p>
+        </div>
       </div>
     </div>
   );
