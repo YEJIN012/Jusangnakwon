@@ -97,7 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
                 .and()
                 .redirectionEndpoint()
-                .baseUri("/*/oauth2/code/*")
+                .baseUri("/login/oauth2/code/*")
                 .and()
                 .userInfoEndpoint()
                 .userService(oAuth2UserService)
@@ -105,8 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(oAuth2AuthenticationSuccessHandler())
                 .failureHandler(oAuth2AuthenticationFailureHandler());
 
-        http.addFilterBefore(tokenAuthenticationFilter(),
-                UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     /*
@@ -162,8 +161,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * */
     @Bean
     public OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler() {
-        return new OAuth2AuthenticationFailureHandler(
-                oAuth2AuthorizationRequestBasedOnCookieRepository());
+        return new OAuth2AuthenticationFailureHandler(oAuth2AuthorizationRequestBasedOnCookieRepository());
     }
 
     /*
