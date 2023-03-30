@@ -6,6 +6,7 @@ WORKDIR /app
 COPY frontend/package*.json ./
 # Install the dependencies
 ENV VITE_API_BASE_URL https://j8a504.p.ssafy.io/api
+ENV VITE_API_REDIRECT_URL http://localhost:3000
 RUN npm install --force
 # Copy the rest of the source code to the working directory
 COPY frontend/. .
