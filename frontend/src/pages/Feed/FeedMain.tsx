@@ -73,7 +73,7 @@ const FeedMain = () => {
     },
   ]);
 
-  const container = useRef<HTMLDivElement>(null);
+  // const container = useRef<HTMLDivElement>(null);
 
   // useEffect(() => {
   //   let animation: any;
@@ -107,7 +107,7 @@ const FeedMain = () => {
 
   return (
     <>
-      <div ref={container}></div>
+      {/* <div ref={container}></div> */}
       <FloatingButton></FloatingButton>
       <div className={`${styles[`feed-main-container`]}`}>
         <div className={`${styles[`feed-classify-btn-container`]}`}>

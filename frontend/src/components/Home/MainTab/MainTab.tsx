@@ -4,7 +4,6 @@ import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-// import { Tabs, Tab, Box, SwipeableViews } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import styles from "@/components/Home/MainTab/MainTab.module.css";
@@ -22,18 +21,15 @@ interface TabPanelProps {
   value: number;
 }
 
+interface WineItem {
+  id: string;
+  name: string;
+  img: string;
+  drinktype: string;
+}
+
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
-  // api 요청 테스트
-  // const [recommendedList, setRecommendedList] = useState([]);
-
-  // const rs = "l2";
-  // useEffect(() => {
-  //   apiGetNotLoginRecommendedByType(rs, 1).then((r) => {
-  //     console.log(r);
-  //   });
-  // }, []);
 
   return (
     <div
@@ -45,7 +41,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box>
-          <Typography>{children}</Typography>
+          <Typography component="div">{children}</Typography>
         </Box>
       )}
     </div>
@@ -80,12 +76,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// api 요청 테스트
+// const [recommendedList, setRecommendedList] = useState([]);
+
+// const rs = "l2";
+// useEffect(() => {
+//   apiGetNotLoginRecommendedByType(rs, 1).then((r) => {
+//     console.log(r);
+//   });
+// }, []);
+
 export default function MainTab() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const [cocktailItemsToShow, setCocktailItemsToShow] = useState(4);
+  const [cocktailItemsToShow, setCocktailItemsToShow] = useState(6);
   const [whiskeyItemsToShow, setwhiskeyItemsToShow] = useState(4);
-  const [wineItemsToShow, setwineItemsToShow] = useState(4);
+
+  const [wineItemsToShow, setwineItemsToShow] = useState(6);
+  const [wineList, setWineList] = useState<{ id: string; name: string; img: string; drinktype: string }[]>([]);
+
   const [koreanItemsToShow, setkoreanItemsToShow] = useState(4);
   const [beerItemsToShow, setbeerItemsToShow] = useState(4);
   const navigate = useNavigate();
@@ -100,6 +109,51 @@ export default function MainTab() {
   const handleChangeIndex = (index: number) => {
     setValue(index);
   };
+
+  useEffect(() => {
+    apiGetNotLoginRecommendedByType("l1", 1)
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.success) {
+          const wineList = res.data.body.content.filter((item: any) => item.drinktype === "와인");
+          setWineList(wineList);
+          setWineListToShow(wineList.slice(0, 6));
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  // const cocktailListToShow = cocktailList.slice(0, cocktailItemsToShow);
+  const [wineListToShow, setWineListToShow] = useState<WineItem[]>([]);
+  const [isLoadingMoreWines, setIsLoadingMoreWines] = useState(false);
+
+  const loadMoreWines = () => {
+    setIsLoadingMoreWines(true);
+
+    const nextPageNumber = Math.floor((wineList.length + 6) / 6);
+
+    apiGetNotLoginRecommendedByType("l1", nextPageNumber)
+      .then((res: any) => {
+        if (res.data.success) {
+          const nextWineList = res.data.body.content.filter((item: any) => item.drinktype === "와인");
+          // setWineList((prevList) => [...prevList, ...nextWineList]);
+          setWineListToShow((prevList) => [...prevList, ...nextWineList.slice(-6)]);
+          // setWineList([...wineList, ...nextWineList]);
+          // setwineItemsToShow((prevItemsToShow) => prevItemsToShow + 6);
+          // setWineListToShow((prevListToShow) => [...prevListToShow, ...nextWineList.slice(-6)]);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setIsLoadingMoreWines(false);
+      });
+  };
+
+  const isShowMoreWineButton = wineListToShow.length > 0 && wineListToShow.length < wineList.length;
 
   const dummyList = [
     {
@@ -318,31 +372,54 @@ export default function MainTab() {
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
-                <ul className={`${styles[`tab-drink-list`]}`}>
+                <div className={`${styles[`tab-drink-list`]}`}>
                   {dummyList.slice(0, cocktailItemsToShow).map(({ id, img, name, drinktype }) => (
-                    <li key={id}>
+                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
-                          <p className={styles["drink-name"]}>{name}</p>
+                          <div className={styles["drink-name"]}>{name}</div>
                           <BookmarkBorder fontSize="small" />
                         </div>
                       </div>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                  {/* {cocktailListToShow.map(({ id, img, name }) => (
+                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
+                      <div className={styles["img-container"]}>
+                        <Link to={`/details/${drinktype}/${id}`}>
+                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        </Link>
+                        <div className={styles["drink-label-wrap"]}>
+                          <div className={styles["drink-name"]}>{name}</div>
+                          <BookmarkBorder fontSize="small" />
+                        </div>
+                      </div>
+                    </div>
+                  ))} */}
+                </div>
                 <a
                   onClick={() => {
-                    if (value === 0) {
-                      setCocktailItemsToShow(cocktailItemsToShow + 2);
+                    if (value === 1) {
+                      setwhiskeyItemsToShow(whiskeyItemsToShow + 2);
                     }
                   }}
                   className={`${styles["more-drink-btn"]}`}
                 >
                   더보기
                 </a>
+
+                {/* {isShowMoreWineutton && (
+                  <a
+                    onClick={loadMoreWines}
+                    className={`${styles["more-drink-btn"]}`}
+                    style={{ opacity: isLoadingMoreWines ? 0.5 : 1 }}
+                  >
+                    {isLoadingMoreWines ? "로딩중..." : "더보기"}
+                  </a>
+                )} */}
               </div>
             </div>
           </TabPanel>
@@ -358,28 +435,25 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/whiskey`}>
-                  <span className={`${styles[`all-drink-list`]}`}>
-                    {" "}
-                    전체 {drinktype[1]} 보기 ▶{" "}
-                  </span>
+                  <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[1]} 보기 ▶ </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
-                <ul className={`${styles[`tab-drink-list`]}`}>
+                <div className={`${styles[`tab-drink-list`]}`}>
                   {dummyList.slice(0, whiskeyItemsToShow).map(({ id, img, name, drinktype }) => (
-                    <li key={id}>
+                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
-                          <p className={styles["drink-name"]}>{name}</p>
+                          <div className={styles["drink-name"]}>{name}</div>
                           <BookmarkBorder fontSize="small" />
                         </div>
                       </div>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
                 <a
                   onClick={() => {
                     if (value === 1) {
@@ -405,29 +479,48 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/wine`}>
-                  <span className={`${styles[`all-drink-list`]}`}>
-                    {" "}
-                    전체 {drinktype[2]} 보기 ▶{" "}
-                  </span>
+                  <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[2]} 보기 ▶ </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
-                <ul className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, wineItemsToShow).map(({ id, img, name, drinktype }) => (
-                    <li key={id}>
+                <div className={`${styles[`tab-drink-list`]}`}>
+                  {wineListToShow.map(({ id, img, name }) => (
+                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
-                          <p className={styles["drink-name"]}>{name}</p>
+                          <div className={styles["drink-name"]}>{name}</div>
                           <BookmarkBorder fontSize="small" />
                         </div>
                       </div>
-                    </li>
+                    </div>
                   ))}
-                </ul>
-                <a
+                  {/* {dummyList.slice(0, wineItemsToShow).map(({ id, img, name, drinktype }) => (
+                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
+                      <div className={styles["img-container"]}>
+                        <Link to={`/details/${drinktype}/${id}`}>
+                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                        </Link>
+                        <div className={styles["drink-label-wrap"]}>
+                          <div className={styles["drink-name"]}>{name}</div>
+                          <BookmarkBorder fontSize="small" />
+                        </div>
+                      </div>
+                    </div>
+                  ))} */}
+                </div>
+                {isShowMoreWineButton && (
+                  <a
+                    onClick={loadMoreWines}
+                    className={`${styles["more-drink-btn"]}`}
+                    style={{ opacity: isLoadingMoreWines ? 0.5 : 1 }}
+                  >
+                    {isLoadingMoreWines ? "로딩중..." : "더보기"}
+                  </a>
+                )}
+                {/* <a
                   onClick={() => {
                     if (value === 2) {
                       setwineItemsToShow(wineItemsToShow + 2);
@@ -436,7 +529,7 @@ export default function MainTab() {
                   className={`${styles["more-drink-btn"]}`}
                 >
                   더보기
-                </a>
+                </a> */}
               </div>
             </div>
           </TabPanel>
@@ -452,28 +545,25 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/korean`}>
-                  <span className={`${styles[`all-drink-list`]}`}>
-                    {" "}
-                    전체 {drinktype[3]} 보기 ▶{" "}
-                  </span>
+                  <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[3]} 보기 ▶ </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
-                <ul className={`${styles[`tab-drink-list`]}`}>
+                <div className={`${styles[`tab-drink-list`]}`}>
                   {dummyList.slice(0, koreanItemsToShow).map(({ id, img, name, drinktype }) => (
-                    <li key={id}>
+                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
-                          <p className={styles["drink-name"]}>{name}</p>
+                          <div className={styles["drink-name"]}>{name}</div>
                           <BookmarkBorder fontSize="small" />
                         </div>
                       </div>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
                 <a
                   onClick={() => {
                     if (value === 3) {
@@ -499,28 +589,25 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/drinklist/beer`}>
-                  <span className={`${styles[`all-drink-list`]}`}>
-                    {" "}
-                    전체 {drinktype[4]} 보기 ▶{" "}
-                  </span>
+                  <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[4]} 보기 ▶ </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
-                <ul className={`${styles[`tab-drink-list`]}`}>
+                <div className={`${styles[`tab-drink-list`]}`}>
                   {dummyList.slice(0, beerItemsToShow).map(({ id, img, name, drinktype }) => (
-                    <li key={id}>
+                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
-                          <p className={styles["drink-name"]}>{name}</p>
+                          <div className={styles["drink-name"]}>{name}</div>
                           <BookmarkBorder fontSize="small" />
                         </div>
                       </div>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
                 <a
                   onClick={() => {
                     if (value === 4) {

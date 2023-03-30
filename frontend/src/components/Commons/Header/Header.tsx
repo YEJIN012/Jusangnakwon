@@ -2,6 +2,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
 import NeonTitle from "@/components/Commons/NeonTitle/NeonTitle";
+import { apiSearchDrink } from "@/api/home";
 
 const Header = () => {
   return (
