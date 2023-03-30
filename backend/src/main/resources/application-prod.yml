@@ -33,7 +33,6 @@ spring:
         google:
           clientId: ${gclient.id}
           clientSecret: ${gclient.secret}
-          redirectUri: https://j8a504.p.ssafy.io/api/login/oauth2/code/google
           scope:
             - email
             - profile
