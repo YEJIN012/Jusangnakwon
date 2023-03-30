@@ -16,6 +16,7 @@ public class FeedDto {
     private final String type;
     private final String img;
     private final String title;
+    private final Long liquorId;
     private final String liquorType;
     private final String liquorName;
     private final String content;
@@ -28,14 +29,14 @@ public class FeedDto {
     private List<CommentDto> comments;
 
     @QueryProjection
-    public FeedDto(Long id, String type, String img, String title, String liquorType,
-            String liquorName,
-            String content, Double ratingScore, Boolean isPublic, LocalDateTime dateCreated,
-            WriterDto writer, Long likeCnt, Boolean liked) {
+    public FeedDto(Long id, String type, String img, String title, Long liquorId, String liquorType,
+            String liquorName, String content, Double ratingScore, Boolean isPublic,
+            LocalDateTime dateCreated, WriterDto writer, Long likeCnt, Boolean liked) {
         this.id = id;
         this.type = type;
         this.img = img;
         this.title = title;
+        this.liquorId = liquorId;
         this.liquorType = liquorType;
         this.liquorName = liquorName;
         this.content = content;
@@ -48,14 +49,15 @@ public class FeedDto {
     }
 
     @Builder
-    public FeedDto(Long id, String type, String img, String title, String liquorType,
-            String liquorName,
-            String content, Double ratingScore, Boolean isPublic, LocalDateTime dateCreated,
-            WriterDto writer, Long likeCnt, Boolean liked, List<CommentDto> comments) {
+    public FeedDto(Long id, String type, String img, String title, Long liquorId, String liquorType,
+            String liquorName, String content, Double ratingScore, Boolean isPublic,
+            LocalDateTime dateCreated, WriterDto writer, Long likeCnt, Boolean liked,
+            List<CommentDto> comments) {
         this.id = id;
         this.type = type;
         this.img = img;
         this.title = title;
+        this.liquorId = liquorId;
         this.liquorType = liquorType;
         this.liquorName = liquorName;
         this.content = content;
