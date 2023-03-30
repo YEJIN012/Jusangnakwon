@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface HometenderRepository extends JpaRepository<Hometender, Long> {
     /**
@@ -20,7 +21,7 @@ public interface HometenderRepository extends JpaRepository<Hometender, Long> {
     Page<Hometender> findByRatingAvg(Pageable pageable);
 
     @Query("select l from Hometender l where l.name like %:keyword%")
-    List<Hometender> findByKeyword(@Param("keyword") String keyword);
+    Optional< List<Hometender>> findByKeyword(@Param("keyword") String keyword);
 
     /**
      * 칵테일 랜덤 조회

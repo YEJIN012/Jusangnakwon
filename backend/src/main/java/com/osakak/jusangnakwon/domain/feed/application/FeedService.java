@@ -55,8 +55,6 @@ public class FeedService {
     public List<FeedDto> getFeedList(Long id) {
         User user = findUser(id);
         List<FeedDto> feeds = feedRepository.findFeedListWithRatingAndLike(user.getId());
-        System.out.println("DDDDD");
-        System.out.println(feeds.size());
         return feeds;
     }
 
@@ -85,6 +83,7 @@ public class FeedService {
         return feedRepository.findCommentListByFeedId(feedId);
     }
 
+    @Transactional
     public void updateLike(Long id, Long feedId, Boolean isLiked) {
         User user = findUser(id);
         Feed feed = findFeed(feedId);

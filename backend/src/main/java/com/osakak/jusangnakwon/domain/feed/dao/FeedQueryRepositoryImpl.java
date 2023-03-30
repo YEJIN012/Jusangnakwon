@@ -26,77 +26,63 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
 
     @Override
     public List<FeedDto> findFeedListWithRatingAndLike(Long userId) {
-        /*ExpressionUtils.as(
-                                JPAExpressions.select(rating.score).from(rating)
-                                        .where(rating.liquorName.eq(feed.liquorName),
-                                                rating.liquorType.eq(feed.liquorType),
-                                                rating.user.id.eq(feed.user.id)), "ratingScore")*/
-
-        /*
         return queryFactory.select(
                         new QFeedDto(feed.id, feed.type, feed.img, feed.title, feed.liquorType,
-                                feed.liquorName, feed.content,
-                                rating.score,
-                                feed.isPublic, feed.dateCreated,
+                                feed.liquorName, feed.content, rating.score, feed.isPublic,
+                                feed.dateCreated,
                                 new QWriterDto(feed.user.username, feed.user.profileImageUrl),
                                 ExpressionUtils.as(JPAExpressions.select(like.id.count()).from(like)
                                         .where(like.feed.id.eq(feed.id), like.isLiked.isTrue()), "likeCnt"),
                                 ExpressionUtils.as(JPAExpressions.selectFrom(like)
                                         .where(like.user.id.eq(userId), like.feed.id.eq(feed.id),
-                                                like.isLiked.isTrue()).exists(), "liked"), null))
-                .from(feed, rating)
-                .where(rating.liquorName.eq(feed.liquorName),
-                        rating.liquorType.eq(feed.liquorType),
-                        rating.user.id.eq(feed.user.id))
-                .orderBy(feed.dateCreated.desc()).fetch();
-         */
-        return queryFactory.select(
-                        new QFeedDto(feed.id, feed.type, feed.img, feed.title, feed.liquorType,
-                                feed.liquorName
-                                , feed.content, null, feed.isPublic, feed.dateCreated, null, null,
-                                null, null))
+                                                like.isLiked.isTrue()).exists(), "liked")))
                 .from(feed)
+                .leftJoin(rating)
+                .on(feed.user.id.eq(rating.user.id), feed.liquorName.eq(rating.liquorName),
+                        feed.liquorType.eq(rating.liquorType))
+                .orderBy(feed.dateCreated.desc())
                 .fetch();
-
     }
 
     @Override
     public List<FeedDto> findFeedListWithRatingAndLikeByType(Long userId, String type) {
         return queryFactory.select(
                         new QFeedDto(feed.id, feed.type, feed.img, feed.title, feed.liquorType,
-                                feed.liquorName, feed.content, ExpressionUtils.as(
-                                JPAExpressions.select(rating.score).from(rating)
-                                        .where(rating.liquorName.eq(feed.liquorName),
-                                                rating.liquorType.eq(feed.liquorType),
-                                                rating.user.id.eq(feed.user.id)), "ratingScore"),
-                                feed.isPublic, feed.dateCreated,
+                                feed.liquorName, feed.content, rating.score, feed.isPublic,
+                                feed.dateCreated,
                                 new QWriterDto(feed.user.username, feed.user.profileImageUrl),
                                 ExpressionUtils.as(JPAExpressions.select(like.id.count()).from(like)
                                         .where(like.feed.id.eq(feed.id), like.isLiked.isTrue()), "likeCnt"),
                                 ExpressionUtils.as(JPAExpressions.selectFrom(like)
                                         .where(like.user.id.eq(userId), like.feed.id.eq(feed.id),
-                                                like.isLiked.isTrue()).exists(), "liked"), null)).from(feed)
-                .where(feed.type.eq(type)).orderBy(feed.dateCreated.desc()).fetch();
+                                                like.isLiked.isTrue()).exists(), "liked")))
+                .from(feed)
+                .leftJoin(rating)
+                .on(feed.user.id.eq(rating.user.id), feed.liquorName.eq(rating.liquorName),
+                        feed.liquorType.eq(rating.liquorType))
+                .where(feed.type.eq(type))
+                .orderBy(feed.dateCreated.desc())
+                .fetch();
+
     }
 
     @Override
     public FeedDto findFeedWithRatingAndLike(Long userId, Long feedId) {
-
         return queryFactory.select(
                         new QFeedDto(feed.id, feed.type, feed.img, feed.title, feed.liquorType,
-                                feed.liquorName, feed.content, ExpressionUtils.as(
-                                JPAExpressions.select(rating.score).from(rating)
-                                        .where(rating.liquorName.eq(feed.liquorName),
-                                                rating.liquorType.eq(feed.liquorType),
-                                                rating.user.id.eq(feed.user.id)), "ratingScore"),
-                                feed.isPublic, feed.dateCreated,
+                                feed.liquorName, feed.content, rating.score, feed.isPublic,
+                                feed.dateCreated,
                                 new QWriterDto(feed.user.username, feed.user.profileImageUrl),
                                 ExpressionUtils.as(JPAExpressions.select(like.id.count()).from(like)
                                         .where(like.feed.id.eq(feed.id), like.isLiked.isTrue()), "likeCnt"),
                                 ExpressionUtils.as(JPAExpressions.selectFrom(like)
                                         .where(like.user.id.eq(userId), like.feed.id.eq(feed.id),
-                                                like.isLiked.isTrue()).exists(), "liked"), null)).from(feed)
-                .where(feed.id.eq(feedId)).fetchOne();
+                                                like.isLiked.isTrue()).exists(), "liked")))
+                .from(feed)
+                .leftJoin(rating)
+                .on(feed.user.id.eq(rating.user.id), feed.liquorName.eq(rating.liquorName),
+                        feed.liquorType.eq(rating.liquorType))
+        .where(feed.id.eq(feedId)).fetchOne();
     }
 
     @Override

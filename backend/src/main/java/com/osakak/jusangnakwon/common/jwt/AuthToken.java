@@ -23,9 +23,9 @@ public class AuthToken {
         this.token = createAuthToken(id, expiry);
     }
 
-    AuthToken(String id, String role, Date expiry, Key key) {
+    AuthToken(Long id,String userId, String role, Date expiry, Key key) {
         this.key = key;
-        this.token = createAuthToken(id, role, expiry);
+        this.token = createAuthToken(id,userId, role, expiry);
     }
 
     private String createAuthToken(String id, Date expiry) {
@@ -36,9 +36,10 @@ public class AuthToken {
                 .compact();
     }
 
-    private String createAuthToken(String id, String role, Date expiry) {
+    private String createAuthToken(Long id,String userId, String role, Date expiry) {
         return Jwts.builder()
-                .setSubject(id)
+                .claim("id",id)
+                .setSubject(userId)
                 .claim(AUTHORITIES_KEY, role)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .setExpiration(expiry)

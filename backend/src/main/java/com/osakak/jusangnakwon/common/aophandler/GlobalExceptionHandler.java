@@ -1,6 +1,8 @@
 package com.osakak.jusangnakwon.common.aophandler;
 
+import com.osakak.jusangnakwon.common.errors.NoLiquorNameExistException;
 import com.osakak.jusangnakwon.common.response.ErrorCode;
+import com.osakak.jusangnakwon.common.response.ErrorDto;
 import com.osakak.jusangnakwon.common.response.ResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -16,5 +18,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.ok("");
     }
 
-
+    @ExceptionHandler(NoLiquorNameExistException.class)
+    public ResponseEntity<ResponseDto> noLiquorException(NoLiquorNameExistException e) {
+        return ResponseEntity.ok(ResponseDto.builder()
+                .success(false)
+                .error(new ErrorDto(ErrorCode.NO_LIQUOR))
+                .build());
+    }
 }

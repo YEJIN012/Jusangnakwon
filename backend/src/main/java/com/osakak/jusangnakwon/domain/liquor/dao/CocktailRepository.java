@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
     /**
@@ -19,5 +20,5 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
     @Query("select c from Cocktail c order by c.ratingAvg desc")
     Page<Cocktail> findByRatingAvg(Pageable pageable);
     @Query("select l from Cocktail l where l.name like %:keyword%")
-    List<Cocktail> findByKeyword(@Param("keyword") String keyword);
+    Optional<List<Cocktail>> findByKeyword(@Param("keyword") String keyword);
 }

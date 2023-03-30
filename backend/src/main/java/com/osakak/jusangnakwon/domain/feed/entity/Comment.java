@@ -15,6 +15,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 @Getter
@@ -38,7 +39,7 @@ public class Comment {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "date_created")
     private LocalDateTime dateCreated;
 

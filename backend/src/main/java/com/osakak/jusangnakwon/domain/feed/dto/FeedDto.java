@@ -27,8 +27,27 @@ public class FeedDto {
     private Boolean liked;
     private List<CommentDto> comments;
 
-    @Builder
     @QueryProjection
+    public FeedDto(Long id, String type, String img, String title, String liquorType,
+            String liquorName,
+            String content, Double ratingScore, Boolean isPublic, LocalDateTime dateCreated,
+            WriterDto writer, Long likeCnt, Boolean liked) {
+        this.id = id;
+        this.type = type;
+        this.img = img;
+        this.title = title;
+        this.liquorType = liquorType;
+        this.liquorName = liquorName;
+        this.content = content;
+        this.ratingScore = ratingScore;
+        this.isPublic = isPublic;
+        this.dateCreated = dateCreated;
+        this.writer = writer;
+        this.likeCnt = likeCnt;
+        this.liked = liked;
+    }
+
+    @Builder
     public FeedDto(Long id, String type, String img, String title, String liquorType,
             String liquorName,
             String content, Double ratingScore, Boolean isPublic, LocalDateTime dateCreated,

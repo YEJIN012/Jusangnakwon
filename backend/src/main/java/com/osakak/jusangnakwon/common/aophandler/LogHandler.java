@@ -21,7 +21,7 @@ public class LogHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(LogHandler.class);
 
-    @Around("within(com.osakak.jusangnakwon..*)")
+    @Around("within(com.osakak.jusangnakwon.domain..*)")
     public Object logging(ProceedingJoinPoint pjp) throws Throwable {
 
         String params = getRequestParams();
