@@ -35,6 +35,9 @@ public class FeedController {
     /**
      * [POST] /api/feed : 피드 생성
      *
+     * @param user 유저 로그인 정보
+     * @param createFeedRequest 피드 생성 요청
+     *
      * @return FeedResponse : 작성된 피드 상세내용
      */
     @Tag(name = "feeds", description = "피드 API")
@@ -55,6 +58,8 @@ public class FeedController {
     /**
      * [GET] /api/feed/list : 최신 피드 목록 조회 - 리뷰글과 질문글 모두
      *
+     * @param user 유저 로그인 정보
+     *
      * @return 조회한 피드 목록
      */
     @Tag(name = "feeds", description = "피드 API")
@@ -72,6 +77,9 @@ public class FeedController {
 
     /**
      * [GET] /api/feed/list/{type} : 최신 피드 목록 필터링 조회 - 리뷰글만 or 질문글만
+     *
+     * @param user 유저 로그인 정보
+     * @param type 피드 타입 (리뷰글 / 질문글)
      *
      * @return 조회한 피드 목록
      */
@@ -92,6 +100,9 @@ public class FeedController {
     /**
      * [GET] /api/feed/list/{type} : 피드 상세내용 조회
      *
+     * @param user 유저 로그인 정보
+     * @param feedId 피드 id
+     *
      * @return FeedResponse : 조회한 피드 상세내용
      */
     @Tag(name = "feeds", description = "피드 API")
@@ -109,6 +120,9 @@ public class FeedController {
 
     /**
      * [POST] /api/comment : 댓글 생성
+     *
+     * @param user 유저 로그인 정보
+     * @param createCommentRequest 댓글 생성 요청
      *
      * @return 댓글이 작성된 피드의 전체 댓글목록
      */
@@ -130,6 +144,10 @@ public class FeedController {
 
     /**
      * [POST] /api/feed/like/{feed_id} : 좋아요 업데이트
+     *
+     * @param user 유저 로그인 정보
+     * @param feedId 피드 id
+     * @param updateLikeRequest 좋아요 업데이트 요청
      */
     @Tag(name = "feeds", description = "피드 API")
     @Operation(
