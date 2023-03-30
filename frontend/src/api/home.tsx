@@ -33,9 +33,9 @@ export const apiGetLoginRecommendedByType = async (type: string) => {
 };
 
 // 술 추천 - 비로그인 - 주종별 추천
-export const apiGetNotLoginRecommendedByType = async (type: string) => {
+export const apiGetNotLoginRecommendedByType = async (type: string, page: number) => {
   try {
-    const response = await api.get(`/rs/rank/${type}`);
+    const response = await api.get(`/rank/${type}?page=${page}`);
     return response;
   } catch (e) {
     console.log(e);
@@ -45,7 +45,7 @@ export const apiGetNotLoginRecommendedByType = async (type: string) => {
 // 술 검색
 export const apiSearchDrink = async (keyword: string) => {
   try {
-    const response = await api.get(`/search/${keyword}`);
+    const response = await api.get(`/search/${keyword}/0`);
     return response;
   } catch (e) {
     console.log(e);

@@ -28,6 +28,8 @@ import MyFeed from "@/pages/MyPage/MyFeed";
 import BookmarkList from "@/pages/MyPage/BookmarkList";
 import SearchPage from "@/pages/Commons/SearchPage";
 import SocialRedirect from "@/pages/User/SocialRedirect";
+import Loading from "@/pages/Loading/Loading";
+import Intro from "@/pages/Loading/Intro";
 
 const router = createBrowserRouter([
   {
@@ -45,10 +47,6 @@ const router = createBrowserRouter([
           {
             path: "drinklist/:drinktype",
             element: <AllDrink></AllDrink>,
-          },
-          {
-            path: "search",
-            element: <SearchPage></SearchPage>,
           },
         ],
       },
@@ -89,7 +87,8 @@ const router = createBrowserRouter([
             ],
           },
           {
-            path: "guide/:drinktype?",
+            path: "guide",
+            // path: "guide/:drinktype?",
             element: <Guide></Guide>,
             children: [
               {
@@ -159,6 +158,20 @@ const router = createBrowserRouter([
       {
         path: "oauth/redirect",
         element: <SocialRedirect></SocialRedirect>,
+      },
+      {
+        path: "loading",
+        element: <Loading></Loading>,
+        children: [
+          {
+            path: "intro",
+            element: <Intro></Intro>,
+          },
+        ],
+      },
+      {
+        path: "search",
+        element: <SearchPage></SearchPage>,
       },
     ],
   },
