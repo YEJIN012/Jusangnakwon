@@ -199,7 +199,7 @@ const FeedDetail = () => {
                   와인
                 </p>
                 {/* <p>술 이름</p> */}
-                <p>소비뇽</p>
+                <p className={`${styles[`feed-alcohol-name`]}`}>소비뇽</p>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "50%" }}>
                   {feed.classification === "게시글" ? <Rating name="read-only" value={5} readOnly /> : null}
                   <p style={{ fontSize: "0.7rem", color: "gray" }}>{feed.userName}님의 평점</p>
