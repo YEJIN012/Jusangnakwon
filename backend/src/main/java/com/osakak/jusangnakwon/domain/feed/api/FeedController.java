@@ -25,6 +25,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "feeds", description = "피드 API")
 public class FeedController {
 
     private final FeedService feedService;
