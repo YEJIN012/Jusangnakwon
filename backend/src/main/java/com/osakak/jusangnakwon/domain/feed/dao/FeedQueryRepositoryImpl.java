@@ -27,7 +27,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
     @Override
     public List<FeedDto> findFeedListWithRatingAndLike(Long userId) {
         return queryFactory.select(
-                        new QFeedDto(feed.id, feed.type, feed.img, feed.title, feed.liquorType,
+                        new QFeedDto(feed.id, feed.type, feed.img, feed.title, feed.liquorId, feed.liquorType,
                                 feed.liquorName, feed.content, rating.score, feed.isPublic,
                                 feed.dateCreated,
                                 new QWriterDto(feed.user.username, feed.user.profileImageUrl),
@@ -38,7 +38,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
                                                 like.isLiked.isTrue()).exists(), "liked")))
                 .from(feed)
                 .leftJoin(rating)
-                .on(feed.user.id.eq(rating.user.id), feed.liquorName.eq(rating.liquorName),
+                .on(feed.user.id.eq(rating.user.id), feed.liquorId.eq(rating.liquorId),
                         feed.liquorType.eq(rating.liquorType))
                 .orderBy(feed.dateCreated.desc())
                 .fetch();
@@ -47,7 +47,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
     @Override
     public List<FeedDto> findFeedListWithRatingAndLikeByType(Long userId, String type) {
         return queryFactory.select(
-                        new QFeedDto(feed.id, feed.type, feed.img, feed.title, feed.liquorType,
+                        new QFeedDto(feed.id, feed.type, feed.img, feed.title, feed.liquorId, feed.liquorType,
                                 feed.liquorName, feed.content, rating.score, feed.isPublic,
                                 feed.dateCreated,
                                 new QWriterDto(feed.user.username, feed.user.profileImageUrl),
@@ -58,7 +58,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
                                                 like.isLiked.isTrue()).exists(), "liked")))
                 .from(feed)
                 .leftJoin(rating)
-                .on(feed.user.id.eq(rating.user.id), feed.liquorName.eq(rating.liquorName),
+                .on(feed.user.id.eq(rating.user.id), feed.liquorId.eq(rating.liquorId),
                         feed.liquorType.eq(rating.liquorType))
                 .where(feed.type.eq(type))
                 .orderBy(feed.dateCreated.desc())
@@ -69,7 +69,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
     @Override
     public FeedDto findFeedWithRatingAndLike(Long userId, Long feedId) {
         return queryFactory.select(
-                        new QFeedDto(feed.id, feed.type, feed.img, feed.title, feed.liquorType,
+                        new QFeedDto(feed.id, feed.type, feed.img, feed.title, feed.liquorId, feed.liquorType,
                                 feed.liquorName, feed.content, rating.score, feed.isPublic,
                                 feed.dateCreated,
                                 new QWriterDto(feed.user.username, feed.user.profileImageUrl),
@@ -80,7 +80,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
                                                 like.isLiked.isTrue()).exists(), "liked")))
                 .from(feed)
                 .leftJoin(rating)
-                .on(feed.user.id.eq(rating.user.id), feed.liquorName.eq(rating.liquorName),
+                .on(feed.user.id.eq(rating.user.id), feed.liquorId.eq(rating.liquorId),
                         feed.liquorType.eq(rating.liquorType))
         .where(feed.id.eq(feedId)).fetchOne();
     }
