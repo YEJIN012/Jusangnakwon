@@ -18,10 +18,21 @@ const BottomBar = () => {
   const focusedTab = useSelector((state: RootState) => state.tab);
   const [value, setValue] = useState(focusedTab);
   const { pathname } = useLocation();
+  const rootPathList = ["/", "/feed", "/playground", "/mypage"];
+  const rootPathName =`/${pathname.split("/")[1]}`
 
   useEffect(() => {
     dispatch(updateTabActions.updateTab(value));
   }, [value]);
+
+  // url 직접 입력을 고려해, rootpath가 탭과 연결된 main rootpathlist 들 중 하나로 변경되면 활성화tab값 변경
+  useEffect(() => {
+    if (rootPathList.includes(rootPathName)) {
+    setValue(rootPathName)
+    }
+  }, [rootPathName]);
+
+
 
   return (
     <>

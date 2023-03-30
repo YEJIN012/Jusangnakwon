@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import styles from "@/pages/Home/HomeMain.module.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import WeatherAniBanner from "@/components/Home/Banner/WeatherAniBanner";
 
 
 const banner = [<HometenderBanner />, <WeatherBanner />, <DrinkBtiBanner />];
@@ -33,6 +34,7 @@ const HomeMain = () => {
       <Link to={`/login`}>
         <span>로그인</span>
       </Link>
+      <WeatherAniBanner></WeatherAniBanner>
       <div className={`${styles[`banner-box`]}`}>
         <Slider {...settings} className={`${styles[`slider`]}`}>
           {banner.map((item, index) => (

@@ -20,6 +20,8 @@
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.9rem;
+  color: black;
+  font-family: "NeoOne";
 }
 
 .focused-feed-classify-btn {
@@ -31,5 +33,12 @@
   font-weight: 600;
   font-size: 0.9rem;
   color: black;
+  font-family: "NeoOne";
 }
 
+@font-face {
+  font-family: "NeonOne";
+  src: url("assets/NeonOne.otf") format("woff"), url("./fonts/noto-sans-kr.ttf") format("woff2");
+  /* 이런식으로 weight를 지정해서 사용할 수도 있다!*/
+  font-weight: 400;
+}
