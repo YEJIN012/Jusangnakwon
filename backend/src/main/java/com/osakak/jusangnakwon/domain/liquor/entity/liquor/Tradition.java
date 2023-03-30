@@ -41,13 +41,13 @@ public class Tradition {
     private Double freshness;
     @Column(length = 30)
     private Integer body;
-    @Column(name = "liquor_type", nullable = false)
+    @Column(name = "liquor_type", columnDefinition = "VARCHAR(10) DEFAULT 'TRADITION'")
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
     @OneToOne(mappedBy = "tradition")
     private SimilarTraditionItem similarTraditionalLiquorItem;
 
-    @Column(name = "rating_avg", length = 20)
+    @Column(name = "rating_avg", columnDefinition = "double DEFAULT 0")
     private double ratingAvg;
 
     @Builder
