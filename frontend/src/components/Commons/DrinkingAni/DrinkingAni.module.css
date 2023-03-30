@@ -1,0 +1,481 @@
+* {
+  --beer: #674d06;
+  --beer-glass: #e29121;
+  --beer-foam: #f9e1b6;
+  --beer-bubble: #e29121;
+  --beer-glass-detail: #e2c165;
+  --cocktail1: #ee3636;
+  --cocktail2: #c61414;
+  --cocktail3: #b50505;
+  --cocktail-glass: #ffd4bf;
+  --straw: #ffffff;
+  --straw-stripe: #0d5ec6;
+  --whisky-glass: #a1c1c1;
+  --whisky: #b56a06;
+  --ice: #9ef6ff;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 5vh;
+  /* position: relative; */
+}
+
+.beer{
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  scale: 0.5;
+  top:150px;
+}
+.cocktail{
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  scale: 0.5;
+  top:130px;
+  left:0px;
+}
+.whisky {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  scale: 0.5;
+  top:280px;
+  left: 12px;
+  z-index: 2;
+}
+
+/*BEER*/
+.glass {
+  width: 50%;
+  height: 60%;
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--beer);
+  border-radius: 0.2em 0.2em 2em 2em;
+  border-style: solid;
+  border-color: var(--beer-glass);
+  border-width: 0.6em 0.5em 1.1em 0.5em;
+}
+.drip {
+  background-color: var(--beer-foam);
+  position: absolute;
+  border-radius: 50%;
+  z-index: 1;
+  animation-name: beerDrip;
+  animation-fill-mode: forwards;
+}
+.drip:nth-child(1) {
+  top: -0.8em;
+  left: -1em;
+  width: 0.7em;
+  height: 0em;
+  border-radius: 0.6em;
+  animation-duration: 10s;
+}
+.drip:nth-child(2) {
+  top: 0.4em;
+  left: 0.5em;
+  width: 1.2em;
+  height: 0em;
+  border-radius: 0.6em;
+  animation-duration: 7s;
+}
+
+.foam {
+  background-color: var(--beer-foam);
+  position: absolute;
+  border-radius: 50%;
+  z-index: 1;
+}
+.foam:nth-child(1) {
+  top: -1.8em;
+  left: -1em;
+  width: 3em;
+  height: 3em;
+}
+.foam:nth-child(2) {
+  top: -2em;
+  left: 1.4em;
+  width: 3.7em;
+  height: 3.7em;
+}
+.foam:nth-child(3) {
+  top: -1.8em;
+  left: 4.4em;
+  width: 3em;
+  height: 3em;
+}
+
+.foam:nth-child(4) {
+  top: -2.7em;
+  width: 3em;
+  height: 3em;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--beer-bubble);
+  animation-name: beerBubble;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  opacity: 0;
+  transform: translateY(0em);
+  top: 6.6em;}
+  .bubble:nth-child(1) {
+    animation-duration: 1s;
+    left: 4em;
+    width: 0.4em;
+    height: 0.4em;
+  }
+  .bubble:nth-child(2) {
+    animation-duration: 1.2s;
+    left: 2em;
+    width: 0.5em;
+    height: 0.5em;
+  }
+  .bubble:nth-child(3) {
+    animation-duration: 1.4s;
+    left: 3.2em;
+    width: 0.5em;
+    height: 0.5em;
+  }
+  .bubble:nth-child(4) {
+    animation-duration: 0.8s;
+    left: 5.1em;
+    width: 0.3em;
+    height: 0.3em;
+  }
+
+  .glass:after {
+  content: "";
+  display: block;
+  width: 1.4em;
+  height: 4em;
+  background-color: transparent;
+  border: 0.7em solid #e29121;
+  border-radius: 0 1.3em 1.3em 0;
+  position: absolute;
+  top: 12%;
+  left: 100%;
+}
+
+
+.glassEffect {
+  position: absolute;
+  background-color: var(--beer-glass-detail);
+}
+.glassEffect:nth-child(1) {
+  width: 0.4em;
+  height: 1.1em;
+  top: 5.9em;
+  left: 8.4em;
+  border-radius: 0.6em;
+}
+.glassEffect:nth-child(2) {
+  width: 0.4em;
+  height: 3.2em;
+  top: 7.4em;
+  left: 8.4em;
+  border-radius: 0.6em;
+}
+
+@keyframes beerDrip {
+  0% {
+    height: 0em;
+  }
+  100% {
+    height: 5em;
+  }
+}
+
+@keyframes beerBubble {
+  0% {
+    transform: translateY(0em);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-6.5em);
+    opacity: 1;
+  }
+}
+/*END OF BEER*/
+/*COKTAIL*/
+.cocktailglass {
+  position: absolute;
+  width: 5.5em;
+  height: 11em;
+  bottom: -5px;
+  left: 50%;
+  transform: translate3d(-50%, -0.2em, 0em) perspective(20em) rotateX(45deg);
+  border-style: solid;
+  border-color: var(--cocktail-glass);
+  border-width: 0.2em 0.2em 0.8em 0.2em;
+  border-radius: 0.1em 0.1em 3em 3em;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 30%,
+    var(--cocktail1) 30%,
+    var(--cocktail1) 50%,
+    var(--cocktail2) 50%,
+    var(--cocktail2) 80%,
+    var(--cocktail3) 80%,
+    var(--cocktail3) 100%
+  );
+  box-shadow: 0em 0em 0.1em var(--cocktail-glass);
+  opacity: 0.9;
+}
+
+.glassfoot {
+  position: absolute;
+  bottom: 0;
+  transform: translate3d(-50%, 0em, 0em);
+  background-color: var(--cocktail-glass);
+  width: 3em;
+  height: 0.5em;
+  left: 50%;
+  border-radius: 1em 1em 0em 0em;
+}
+
+.straw {
+  position: absolute;
+  top: 0;
+  transform: rotate(-15deg);
+  background-color: var(--straw);
+  width: 0.4em;
+  height: 11em;
+  left: 40%;
+}
+.straw:before,
+.straw:after {
+  display: block;
+  content: "";
+  height: 100%;
+  width: 0.1em;
+  background-color: var(--straw-stripe);
+  position: absolute;
+  top: 0;
+}
+.straw:before {
+  left: 0.03em;
+}
+.straw:after {
+  left: 0.24em;
+}
+
+.cocktailbubble div {
+  position: absolute;
+  background-color: var(--cocktail1);
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 50%;
+  bottom: 7.3em;
+  -webkit-animation-name: cocktailbubble;
+  animation-name: cocktailbubble;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.cocktailbubble div:nth-child(1) {
+  left: 4.3em;
+  -webkit-animation-duration: 0.28s;
+  animation-duration: 0.28s;
+}
+.cocktailbubble div:nth-child(2) {
+  left: 4.9em;
+  -webkit-animation-duration: 0.32s;
+  animation-duration: 0.32s;
+}
+.cocktailbubble div:nth-child(3) {
+  left: 5.3em;
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+}
+.cocktailbubble div:nth-child(4) {
+  left: 6.6em;
+  -webkit-animation-duration: 0.37s;
+  animation-duration: 0.37s;
+}
+.cocktailbubble div:nth-child(5) {
+  left: 7em;
+  -webkit-animation-duration: 0.28s;
+  animation-duration: 0.28s;
+}
+.cocktailbubble div:nth-child(6) {
+  left: 8em;
+  -webkit-animation-duration: 0.35s;
+  animation-duration: 0.35s;
+}
+.cocktailbubble div:nth-child(7) {
+  left: 6em;
+  -webkit-animation-duration: 0.25s;
+  animation-duration: 0.25s;
+}
+.cocktailbubble div:nth-child(8) {
+  left: 6.3em;
+  -webkit-animation-duration: 0.38s;
+  animation-duration: 0.38s;
+}
+
+.cocktaildetail div {
+  position: absolute;
+  left: 8.5em;
+  width: 0.2em;
+  background-color: var(--cocktail-glass);
+  border-radius: 3em;
+  transform: rotate(-8deg);
+}
+.cocktaildetail div:nth-child(1) {
+  height: 0.6em;
+  bottom: 8em;
+  left: 8.2em;
+}
+.cocktaildetail div:nth-child(2) {
+  height: 4.3em;
+  bottom: 3.4em;
+  left: 8.6em;
+}
+
+@keyframes cocktailbubble {
+  0% {
+    bottom: 7.3em;
+    opacity: 0.8;
+  }
+  100% {
+    bottom: 9.3em;
+    opacity: 0;
+  }
+}
+/*END OF COKTAIL*/
+/*WHISKY*/
+.whisky:after {
+  /* content: " do not put ice in your Whisky..."; */
+  display: block;
+  width: 100%;
+  height: 3em;
+  color: 0.4d4d4d;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  position: absolute;
+  top: 2em;
+  opacity: 0;
+  transition-duration: 0.3s;
+  font-size: 0.8em;
+}
+.whisky:hover:after {
+  opacity: 1;
+}
+
+.whiskyglass {
+  position: absolute;
+  width: 7em;
+  height: 6.3em;
+  bottom: 0.5em;
+  left: 50%;
+  transform: translate3d(-50%, 0em, 0em);
+  border-color: var(--whisky-glass);
+  border-style: solid;
+  border-width: 0.2em 0.3em 1em 0.3em;
+  border-radius: 0em 0em 1.9em 1.9em;
+  z-index: 1;
+}
+
+.whiskycontent {
+  position: absolute;
+  width: 7.2em;
+  height: 3em;
+  bottom: 1.2em;
+  left: 50%;
+  transform: translate3d(-50%, 0em, 0em);
+  background-color: var(--whisky);
+  z-index: 0;
+  border-radius: 0 0 1em 1em;
+}
+
+.ice {
+  position: absolute;
+  border-radius: 0.3em;
+  background-color: var(--ice);
+  opacity: 0.5;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+}
+.ice:nth-child(1) {
+  
+  -webkit-animation-duration: 8s;
+  animation-duration: 8s;
+  top: 0em;
+  left: 0em;
+  width: 2.5em;
+  height: 2.5em;
+  transform: translate3d(0.6em, -0.7em, 0em) rotate(19deg);
+}
+.ice:nth-child(2) {
+  -webkit-animation-name: ice2;
+  animation-name: ice2;
+  -webkit-animation-duration: 7s;
+  animation-duration: 7s;
+  top: 0em;
+  left: 0em;
+  width: 1.8em;
+  height: 1.8em;
+  transform: translate3d(3.1em, -0.4em, 0em) rotate(-29deg);
+}
+
+.whiskydetail {
+  position: absolute;
+  width: 0.3em;
+  background-color: var(--whisky-glass);
+  border-radius: 3em;
+  left: 6.2em;
+}
+.whiskydetail:nth-child(1) {
+  height: 0.7em;
+  top: -3em;
+}
+.whiskydetail:nth-child(2) {
+  height: 3.7em;
+  top: -1.8em;
+}
+
+@keyframes ice1 {
+  0% {
+    transform: translate3d(0.6em, -0.7em, 0em) rotate(19deg);
+  }
+  50% {
+    transform: translate3d(0.75em, -1em, 0em) rotate(37deg);
+  }
+  100% {
+    transform: translate3d(0.9em, -1.3em, 0em) rotate(45deg);
+  }
+}
+
+@keyframes ice2 {
+  0% {
+    transform: translate3d(3.1em, -0.4em, 0em) rotate(-29deg);
+  }
+  50% {
+    transform: translate3d(2.8em, 0em, 0em) rotate(-50deg);
+  }
+  100% {
+    transform: translate3d(2.5em, 0.4em, 0em) rotate(-55deg);
+  }
+}
+@keyframes OMGmelt {
+}
+/*END OF WHISKY*/

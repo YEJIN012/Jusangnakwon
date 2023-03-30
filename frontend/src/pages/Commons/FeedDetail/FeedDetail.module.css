@@ -24,8 +24,11 @@
 }
 
 .feed-content-container {
-  padding: 3%;
+  padding: 0% 2%;
   margin: 0% 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .feed-detail-content-btn {
@@ -33,11 +36,6 @@
   color: rgb(160, 160, 160);
   border: none;
   margin-top: 2%;
-}
-
-.feed-content-container {
-  display: flex;
-  justify-content: space-between;
 }
 
 .feed-alcohol-info-container {
@@ -77,22 +75,29 @@
 .comment-input-container {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .comment-input {
   width: 80%;
   height: 20px;
   background-color: inherit;
-  border: none;
-  padding: 1%;
-  border-bottom: 0.1px solid white;
+  /* border: none; */
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 2%;
+  /* border-bottom: 0.1px solid white; */
   color: white;
+  margin-left: 2%;
 }
 
 .comment-input:focus {
   width: 80%;
+  border: 1px solid gray;
+  border-radius: 20px;
   height: 20px;
-  padding: 1%;
+  padding: 2%;
   outline: none;
   caret-color: white;
+  margin-left: 2%;
 }

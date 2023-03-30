@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { apiSearchDrink } from "@/api/home";
 
 interface Content {
   id: number;
@@ -16,14 +17,10 @@ interface Data {
 const SearchPage = () => {
   const [searchedData, setSearchedData] = useState<Data | null>();
 
-  useEffect(() => {
-    const apiSearchDrink = async () => {
-      const response = await axios.get(`https://0dec3265-a4d1-4697-a3b9-00c72b5942bc.mock.pstmn.io/api/search/lee/1`);
-      setSearchedData(response.data.body);
-    };
-    apiSearchDrink();
-  }, []);
-
+  apiSearchDrink('1').then((r) => {
+    // console.log(r);
+    setSearchedData(r?.data.body);
+  });
   return (
     <div style={{ padding: "50%" }}>
       {searchedData &&
