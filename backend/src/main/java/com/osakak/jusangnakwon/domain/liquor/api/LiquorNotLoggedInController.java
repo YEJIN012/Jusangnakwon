@@ -34,7 +34,7 @@ public class LiquorNotLoggedInController {
      * @return 페이지 정보 포함 술 id, name 정보
      */
     private LiquorListMainResponse getLiquorListWithPaging(int page, LiquorType liquorType) {
-        Pageable pageable = PageRequest.of(page, 4);
+        Pageable pageable = PageRequest.of(page, 6);
         return liquorService.getLiquorList(liquorType, SearchType.RANK, pageable);
     }
 
