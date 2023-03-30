@@ -16,11 +16,13 @@ public class FeedListResponse {
     private final Boolean isPublic;
     private final LocalDateTime dateCreated;
     private final WriterDto writer;
+    private final Long likeCnt;
     private final Boolean liked;
 
     @Builder
     public FeedListResponse(Long id, String type, String img, String title, String content,
-            Boolean isPublic, LocalDateTime dateCreated, WriterDto writer, Boolean liked) {
+            Boolean isPublic, LocalDateTime dateCreated, WriterDto writer, Long likeCnt,
+            Boolean liked) {
         this.id = id;
         this.type = type;
         this.img = img;
@@ -29,6 +31,7 @@ public class FeedListResponse {
         this.isPublic = isPublic;
         this.dateCreated = dateCreated;
         this.writer = writer;
+        this.likeCnt = likeCnt;
         this.liked = liked;
     }
 }
