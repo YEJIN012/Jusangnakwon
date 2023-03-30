@@ -24,6 +24,6 @@ public interface WineRepository extends JpaRepository<Wine, Long> {
     @Query("select w from Wine w order by w.ratingAvg desc")
     Page<Wine> findByRatingAvg(Pageable pageable);
 
-    @Query("select l from Wine l where l.name like %:keyword%")
+    @Query("select l from Wine l where l.name like :keyword%")
     Optional<List<Wine>> findByKeyword(@Param("keyword") String keyword);
 }

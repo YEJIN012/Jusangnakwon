@@ -20,7 +20,7 @@ public interface HometenderRepository extends JpaRepository<Hometender, Long> {
     @Query("select c from Hometender c order by c.ratingAvg desc")
     Page<Hometender> findByRatingAvg(Pageable pageable);
 
-    @Query("select l from Hometender l where l.name like %:keyword%")
+    @Query("select l from Hometender l where l.name like :keyword%")
     Optional< List<Hometender>> findByKeyword(@Param("keyword") String keyword);
 
     /**
