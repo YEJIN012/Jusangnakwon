@@ -41,6 +41,9 @@ public class Feed {
     @Column(length = 150)
     private String title;
 
+    @Column(name = "liquor_id")
+    private Long liquorId;
+
     @Column(name = "liquor_type", length = 10)
     private String liquorType;
 
@@ -60,14 +63,15 @@ public class Feed {
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Feed(Long id, User user, String type, String img, String title, String liquorType,
-            String liquorName, String content, Boolean isPublic, LocalDateTime dateCreated,
-            List<Comment> comments) {
+    public Feed(Long id, User user, String type, String img, String title, Long liquorId,
+            String liquorType, String liquorName, String content, Boolean isPublic,
+            LocalDateTime dateCreated, List<Comment> comments) {
         this.id = id;
         this.user = user;
         this.type = type;
         this.img = img;
         this.title = title;
+        this.liquorId = liquorId;
         this.liquorType = liquorType;
         this.liquorName = liquorName;
         this.content = content;

@@ -88,14 +88,10 @@ public class FeedService {
         User user = findUser(id);
         Feed feed = findFeed(feedId);
         likeRepository.findByUserIdAndFeedId(id, feedId)
-                .ifPresentOrElse(
-                        like -> like.setLiked(isLiked),
-                        () -> {
-                            Like like = Like.builder().user(user).feed(feed).isLiked(isLiked)
-                                    .build();
-                            likeRepository.save(like);
-                        }
-                );
+                .ifPresentOrElse(like -> like.setLiked(isLiked), () -> {
+                    Like like = Like.builder().user(user).feed(feed).isLiked(isLiked).build();
+                    likeRepository.save(like);
+                });
     }
 
     private User findUser(Long id) {
