@@ -8,6 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import { ChangeEvent } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { RadioGroup, FormControlLabel, Radio, Typography } from "@material-ui/core";
+import ConfettiButton from "../ConfettiButton/ConfettiButton";
 
 const useStyles = makeStyles((theme) => ({
   radioGroup: {
@@ -244,6 +245,7 @@ const TasteForm = () => {
             </RadioGroup>
           </FormControl>
         </div>
+      <ConfettiButton></ConfettiButton>
       </div>
     </div>
   );

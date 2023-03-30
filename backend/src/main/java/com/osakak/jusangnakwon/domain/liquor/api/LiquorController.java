@@ -10,10 +10,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "liquor", description = "공통 술 api")
 @RestController
@@ -44,16 +41,16 @@ public class LiquorController {
     }
 
     /**
-     * 키워드 기반 술 이름 조회
+     * 술 키워드 검색
      *
      * @param keyword 사용자 입력 키워드
-     * @param curPage 현재 페이지
-     * @return 키워드 포함한 술 이름 데이터 리스트
+     * @param page    현재 페이지
+     * @return 키워드로 검색된 술 리스트
      */
-    @GetMapping("search/{keyword}/{curpage}")
+    @GetMapping("search/{keyword}")
     @Tag(name = "liquor")
-    public ResponseEntity<ResponseDto> searchLiquor(@PathVariable String keyword, @PathVariable(value = "curpage") int curPage) {
-        LiquorListMainResponse liquorSearchResponse = liquorCommonService.searchLiquorByKeyword(curPage, keyword);
+    public ResponseEntity<ResponseDto> searchLiquor(@PathVariable String keyword, @RequestParam int page) {
+        LiquorListMainResponse liquorSearchResponse = liquorCommonService.searchLiquorByKeyword(page, keyword);
 
         ResponseDto responseDto = ResponseDto.builder()
                 .body(liquorSearchResponse)

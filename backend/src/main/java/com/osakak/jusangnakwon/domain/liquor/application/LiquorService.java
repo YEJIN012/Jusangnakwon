@@ -17,9 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -42,10 +40,16 @@ public class LiquorService {
      */
 
     public LiquorListMainResponse searchLiquorByKeyword(int page, String keyword) {
-        List<LiquorListItemDto> liquorByKeyword = getLiquorByKeyword(keyword, LiquorType.BEER);
+        List<LiquorListItemDto> liquorByKeyword = getLiquorByKeyword(keyword);
         if (liquorByKeyword.isEmpty())
             throw new NoLiquorNameExistException();
-        int pageSize = liquorByKeyword.size() % 5;
+        int pageSize = liquorByKeyword.size() % 20;
+        liquorByKeyword.sort(new Comparator<LiquorListItemDto>() {
+            @Override
+            public int compare(LiquorListItemDto o1, LiquorListItemDto o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
         Page<LiquorListItemDto> pageList = convert(liquorByKeyword, page, pageSize);
         return liquorCustomMapper.toMainPageResponse(pageList.getContent(), pageList.getTotalPages(), pageList.getPageable().getPageNumber());
     }
@@ -53,33 +57,24 @@ public class LiquorService {
     /**
      * 주종별 키워드 검색 데이터 조회
      *
-     * @param keyword    사용자 입력 키워드
-     * @param liquorType 주종 타입
+     * @param keyword 사용자 입력 키워드
      * @return 키워드를 포함한 술 이름 리스트
      */
-    private List<LiquorListItemDto> getLiquorByKeyword(String keyword, LiquorType liquorType) {
+    private List<LiquorListItemDto> getLiquorByKeyword(String keyword) {
         List<LiquorListItemDto> list = new ArrayList<>();
 
-        switch (liquorType) {
-            case BEER:
-                Optional<List<Beer>> byKeyword = beerRepository.findByKeyword(keyword);
-                byKeyword.ifPresent(beers -> list.addAll(liquorMapper.toLiquorListDtoBeer(beers)));
-            case WINE:
-                Optional<List<Wine>> byKeyword1 = wineRepository.findByKeyword(keyword);
-                byKeyword1.ifPresent(wines -> list.addAll(liquorMapper.toLiquorListDtoWine(wines)));
-            case WHISKY:
-                Optional<List<Whisky>> byKeyword2 = whiskyRepository.findByKeyword(keyword);
-                byKeyword2.ifPresent(whiskies -> list.addAll(liquorMapper.toLiquorListDtoWhisky(whiskies)));
-            case COCKTAIL:
-                Optional<List<Cocktail>> byKeyword3 = cocktailRepository.findByKeyword(keyword);
-                byKeyword3.ifPresent(cocktails -> list.addAll(liquorMapper.toLiquorListDtoCocktail(cocktails)));
-            case TRADITION:
-                Optional<List<Tradition>> byKeyword4 = traditionRepository.findByKeyword(keyword);
-                byKeyword4.ifPresent(traditions -> list.addAll(liquorMapper.toLiquorListDtoTradition(traditions)));
-            case HOMETENDER:
-                Optional<List<Hometender>> byKeyword5 = hometenderRepository.findByKeyword(keyword);
-                byKeyword5.ifPresent(hometenders -> list.addAll(liquorMapper.toLiquorListDtoHometender(hometenders)));
-        }
+        Optional<List<Beer>> byKeyword = beerRepository.findByKeyword(keyword);
+        byKeyword.ifPresent(beers -> list.addAll(liquorMapper.toLiquorListDtoBeer(beers)));
+        Optional<List<Wine>> byKeyword1 = wineRepository.findByKeyword(keyword);
+        byKeyword1.ifPresent(wines -> list.addAll(liquorMapper.toLiquorListDtoWine(wines)));
+        Optional<List<Whisky>> byKeyword2 = whiskyRepository.findByKeyword(keyword);
+        byKeyword2.ifPresent(whiskies -> list.addAll(liquorMapper.toLiquorListDtoWhisky(whiskies)));
+        Optional<List<Cocktail>> byKeyword3 = cocktailRepository.findByKeyword(keyword);
+        byKeyword3.ifPresent(cocktails -> list.addAll(liquorMapper.toLiquorListDtoCocktail(cocktails)));
+        Optional<List<Tradition>> byKeyword4 = traditionRepository.findByKeyword(keyword);
+        byKeyword4.ifPresent(traditions -> list.addAll(liquorMapper.toLiquorListDtoTradition(traditions)));
+        Optional<List<Hometender>> byKeyword5 = hometenderRepository.findByKeyword(keyword);
+        byKeyword5.ifPresent(hometenders -> list.addAll(liquorMapper.toLiquorListDtoHometender(hometenders)));
         return list;
     }
 

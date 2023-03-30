@@ -25,7 +25,7 @@ export const apiGetDrinkDetail = async (type: string, drinkId: number) => {
 };
 
 // 술 상세 페이지에서 스크랩
-export const apiGetLoginRecommendedByType = async (type: string, drinkId: number, data: any[]) => {
+export const apiPutBookmark = async (type: string, drinkId: number, data: any[]) => {
   try {
     const response = await api.put(`/scrap/${type}/${drinkId}`, data);
     return response;

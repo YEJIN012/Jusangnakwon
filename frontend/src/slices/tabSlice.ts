@@ -6,7 +6,6 @@ const tabSlice = createSlice({
   initialState,
   reducers: {
     updateTab: (state, action) => {
-      // console.log(action.payload)
       state = action.payload;
       return state
     },
