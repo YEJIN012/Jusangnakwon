@@ -124,8 +124,8 @@ const WriteRecipe = () => {
               <div
                 className={`${styles[`input-ingredient-div`]}`}
                 style={{
-                  minWidth: "5ch",
-                  width: ingredientValue ? `${ingredientValue.length * 2}ch` : "5ch",
+                  minWidth: "4ch",
+                  width: ingredientValue ? `${ingredientValue.length * 2}ch` : "4ch",
                 }}
               >
                 <input

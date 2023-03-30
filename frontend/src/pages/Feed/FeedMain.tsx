@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import FeedComponent from "@/components/Feed/FeedItem";
 import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
 import { Masonry } from "@mui/lab";
-import lottie from "lottie-web";
-import animationData from "./cheers-wine.json";
+// import lottie from "lottie-web";
+// import animationData from "../Commons/cheers-wine.json";
 
 const FeedMain = () => {
   const [dummyFeedList, setDummyFeedList] = useState([
@@ -75,21 +75,21 @@ const FeedMain = () => {
 
   const container = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    let animation: any;
-    if (container.current) {
-      animation = lottie.loadAnimation({
-        container: container.current,
-        animationData: animationData,
-      });
-    }
+  // useEffect(() => {
+  //   let animation: any;
+  //   if (container.current) {
+  //     animation = lottie.loadAnimation({
+  //       container: container.current,
+  //       animationData: animationData,
+  //     });
+  //   }
 
-    return () => {
-      if (animation) {
-        animation.destroy();
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (animation) {
+  //       animation.destroy();
+  //     }
+  //   };
+  // }, []);
   const [focusedPostList, setFocusedPostList] = useState("전체글");
   const allButtonRef = useRef<HTMLButtonElement>(null);
 

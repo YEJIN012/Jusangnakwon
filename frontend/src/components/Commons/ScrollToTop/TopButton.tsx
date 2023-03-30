@@ -28,7 +28,7 @@ const TopButton = () => {
   }, []);
 
   return showButton === true ? (
-      <button id="top" className={`${styles["top-button-container"]}`} onClick={scrollToTop} type="button">
+      <button style={{left: 'calc(50%-12px)'} } id="top" className={`${styles["top-button-container"]}`} onClick={scrollToTop} type="button">
         <KeyboardArrowUpRoundedIcon />
       </button>
   ) : (

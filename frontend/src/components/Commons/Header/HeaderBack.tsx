@@ -1,11 +1,14 @@
 import SearchIcon from "@mui/icons-material/Search";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import styles from "./Header.module.css";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import NeonTitle from "@/components/Commons/NeonTitle/NeonTitle";
 
-const Header = () => {
+const HeaderBack = () => {
+  const navigate = useNavigate();
   return (
     <div className={`${styles[`header-container`]}`}>
+      <ArrowBackIcon onClick={() => navigate(-1)} />
       <Link to="/">
         <NeonTitle></NeonTitle>
       </Link>
@@ -16,4 +19,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderBack;
