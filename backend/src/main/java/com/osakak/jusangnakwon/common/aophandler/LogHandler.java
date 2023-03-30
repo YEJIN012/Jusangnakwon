@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @Aspect
 @Component
 public class LogHandler {
+
     private static final Logger logger = LoggerFactory.getLogger(LogHandler.class);
 
     @Around("within(com.osakak.jusangnakwon.domain..*)")
