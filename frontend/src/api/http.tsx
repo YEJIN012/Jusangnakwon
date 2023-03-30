@@ -1,20 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useCookies } from "react-cookie";
-<<<<<<< Updated upstream
-import { redirect, useNavigate } from 'react-router-dom';
-import { refreshAccessToken } from './auth';
-
-const getApiInstance = () => {
-  axios.defaults.withCredentials = true;  // 쿠키 데이터를 전송받기 위해
-=======
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { refreshAccessToken } from "./auth";
-import { redirect } from "react-router-dom";
 
 const getApiInstance = () => {
-  // const navigate = useNavigate();
   axios.defaults.withCredentials = true; // 쿠키 데이터를 전송받기 위해
->>>>>>> Stashed changes
 
   const instance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -23,102 +13,44 @@ const getApiInstance = () => {
     },
   });
 
-<<<<<<< Updated upstream
   instance.interceptors.response.use(
     (response: AxiosResponse) => {
       console.log("interceptor response 200");
       return response;
     },
-=======
-  // instance.interceptors.request.use((config) => {
-  //   console.log("interceptor request");
-  //   const accessToken = sessionStorage.getItem("accessToken");
 
-  //   if (!accessToken) {
-  //     config.headers.Authorization = null;
-  //     return config;
-  //   }
+    async (error) => {
+      const {
+        config,
+        response: { status },
+      } = error;
 
-  //   if (config.headers && accessToken) {
-  //     config.headers.Authorization = `${accessToken}`;
-  //     return config;
-  //   }
-  // });
+      // statusCode 402 : 만료된 토큰
+      if (error.status === 402) {
+        console.log(error.message);
+        // const [cookies, setCookie] = useCookies(["refreshToken"]);
+        const originalRequest = config;
+        // const refreshToken = cookies;
 
-  // instance.interceptors.response.use(
-  //   (response: AxiosResponse) => {
-  //     console.log("interceptor response 200");
-  //     return response;
-  //   },
->>>>>>> Stashed changes
+        // 토큰 재발급을 위한 요청
+        refreshAccessToken().then((r) => {
+          console.log(r);
 
-  //   async (error) => {
-  //     const {
-  //       config,
-  //       response: { status },
-  //     } = error;
+          const accessToken = r?.data.body;
 
-  //     // statusCode 402 : 만료된 토큰
-  //     if (error.status === 402) {
-  //       console.log(error.message);
-  //       // const [cookies, setCookie] = useCookies(["refreshToken"]);
-  //       const originalRequest = config;
-  //       // const refreshToken = cookies;
-
-  //       // 토큰 재발급을 위한 요청
-  //       refreshAccessToken().then((r) => {
-  //         console.log(r);
-
-  //         const accessToken = r?.data.body;
-
-  //         // 재발급된 토큰을 기존요청에 다시 담아서 ->
-  //         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-  //         // axios 디폴트값에도 갱신해준다.
-  //         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-  //         // -> 재요청
-  //         return axios(originalRequest);
-  //       });
-
-  // if (refreshToken) {
-  // const token = sessionStorage.getItem("accessToken");
-  // const { data } = await axios.post(
-  //   `/api/v1/auth/refresh`,
-  // {
-  // accessToken: `${token}`,
-  // refreshToken: `${refreshToken}`,
-  // },
-  // {
-  // headers: {
-  // "Content-Type": "application/json",
-  // },
-  // },
-  // );
-
-<<<<<<< Updated upstream
+          // 재발급된 토큰을 기존요청에 다시 담아서 ->
+          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+          // axios 디폴트값에도 갱신해준다.
+          axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+          // -> 재요청
+          return axios(originalRequest);
+        });
       }
       console.log("refreshToken 재발급 : ", error);
-      redirect("/login")
+      redirect("/login");
       return Promise.reject(error);
     },
   );
-=======
-  // const accessToken = data?.body;
-  // // await sessionStorage.setItem(["accessToken", accessToken]);
-
-  // // 재발급된 토큰을 기존요청에 다시 담아서 ->
-  // originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-  // // axios 디폴트값에도 갱신해준다.
-  // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-  // // -> 재요청
-  // return axios(originalRequest);
-  // }
-  //     }
-  //     console.log("refreshToken 재발급 : ", error);
-  //     redirect("login");
-  //     return Promise.reject(error);
-  //   },
-  // );
->>>>>>> Stashed changes
   return instance;
 };
 
