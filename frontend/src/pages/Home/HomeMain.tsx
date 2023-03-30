@@ -27,11 +27,11 @@ const HomeMain = () => {
   return (
     <div className={`${styles[`container`]}`}>
       <Link to={`/tasteform`}>
-        <div>취향입력폼</div>
+        <span>취향입력폼</span>
       </Link>
       <br />
       <Link to={`/login`}>
-        <div>로그인</div>
+        <span>로그인</span>
       </Link>
       <div className={`${styles[`banner-box`]}`}>
         <Slider {...settings} className={`${styles[`slider`]}`}>
