@@ -27,6 +27,9 @@ public class Rating {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(nullable = false, name = "liquor_id")
+    private Long liquorId;
+
     @Column(nullable = false, name = "liquor_type", length = 10)
     private String liquorType;
 
@@ -37,9 +40,11 @@ public class Rating {
     private Double score;
 
     @Builder
-    public Rating(Long id, User user, String liquorType, String liquorName, Double score) {
+    public Rating(Long id, User user, Long liquorId, String liquorType, String liquorName,
+            Double score) {
         this.id = id;
         this.user = user;
+        this.liquorId = liquorId;
         this.liquorType = liquorType;
         this.liquorName = liquorName;
         this.score = score;
