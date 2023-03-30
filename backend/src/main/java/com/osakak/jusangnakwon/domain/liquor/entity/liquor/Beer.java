@@ -37,12 +37,12 @@ public class Beer {
     private Double flavor;
     @Column(length = 10)
     private Double mouthfeel;
-    @Column(name = "liquor_type", length = 10, nullable = false)
+    @Column(name = "liquor_type", columnDefinition = "VARCHAR(10) DEFAULT 'BEER'")
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
     @OneToOne(mappedBy = "beer")
     private SimilarBeerItem similarBeerItem;
-    @Column(name = "rating_avg", length = 20)
+    @Column(name = "rating_avg", columnDefinition = "double DEFAULT 0")
     private double ratingAvg;
 
     @Builder
