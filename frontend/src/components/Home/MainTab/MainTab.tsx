@@ -10,7 +10,7 @@ import styles from "@/components/Home/MainTab/MainTab.module.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
 import { apiGetNotLoginRecommendedByType } from "@/api/home";
 
@@ -21,7 +21,7 @@ interface TabPanelProps {
   value: number;
 }
 
-interface WineItem {
+interface DrinkItem {
   id: string;
   name: string;
   img: string;
@@ -55,55 +55,65 @@ function a11yProps(index: number) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  selectedTab: {
-    "&.css-1e884rx-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-      backgroundColor: "#997D7B",
-      color: "white",
-    },
-    "&.css-x31445-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-      backgroundColor: "#421F3C",
-      color: "white",
-    },
-    "&.css-ljmcya-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-      backgroundColor: "#4E3415",
-      color: "white",
-    },
-    "&.css-1qobvqn-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-      backgroundColor: "#9D615F",
-      color: "white",
-    },
-  },
-}));
-
-// api 요청 테스트
-// const [recommendedList, setRecommendedList] = useState([]);
-
-// const rs = "l2";
-// useEffect(() => {
-//   apiGetNotLoginRecommendedByType(rs, 1).then((r) => {
-//     console.log(r);
-//   });
-// }, []);
+// const useStyles = makeStyles((theme) => ({
+//   selectedTab: {
+//     "&.css-1e884rx-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+//       // backgroundColor: "#997D7B",
+//       // color: "white",
+//     },
+//     "&.css-x31445-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+//       // backgroundColor: "#421F3C",
+//       // color: "white",
+//     },
+//     "&.css-ljmcya-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+//       // backgroundColor: "#4E3415",
+//       // color: "white",
+//     },
+//     "&.css-1qobvqn-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+//       // backgroundColor: "#9D615F",
+//       // color: "white",
+//     },
+//   },
+// }));
 
 export default function MainTab() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   console.log(value);
-  const [cocktailItemsToShow, setCocktailItemsToShow] = useState(4);
-  const [whiskeyItemsToShow, setwhiskeyItemsToShow] = useState(4);
+  // 칵테일
+  const [cocktailItemsToShow, setcocktailItemsToShow] = useState(6);
+  const [cocktailList, setCocktailList] = useState<DrinkItem[]>([]);
+  const [cocktailListToShow, setCocktailListToShow] = useState<DrinkItem[]>([]);
+  const [isLoadingMoreCocktails, setIsLoadingMoreCocktails] = useState(false);
 
+  // 위스키
+  const [whiskyItemsToShow, setwhiskyItemsToShow] = useState(6);
+  const [whiskyList, setWhiskyList] = useState<DrinkItem[]>([]);
+  const [whiskyListToShow, setWhiskyListToShow] = useState<DrinkItem[]>([]);
+  const [isLoadingMoreWhiskys, setIsLoadingMoreWhiskys] = useState(false);
+
+  // 와인
   const [wineItemsToShow, setwineItemsToShow] = useState(6);
-  const [wineList, setWineList] = useState<WineItem[]>([]);
-  const [wineListToShow, setWineListToShow] = useState<WineItem[]>([]);
+  const [wineList, setWineList] = useState<DrinkItem[]>([]);
+  const [wineListToShow, setWineListToShow] = useState<DrinkItem[]>([]);
   const [isLoadingMoreWines, setIsLoadingMoreWines] = useState(false);
   const [curPageNumber, setCurPageNumber] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
 
-  const [koreanItemsToShow, setkoreanItemsToShow] = useState(4);
-  const [beerItemsToShow, setbeerItemsToShow] = useState(4);
+  // 전통주
+  const [koreanItemsToShow, setkoreanItemsToShow] = useState(6);
+  const [koreanList, setKoreanList] = useState<DrinkItem[]>([]);
+  const [koreanListToShow, setKoreanListToShow] = useState<DrinkItem[]>([]);
+  const [isLoadingMoreKoreans, setIsLoadingMoreKoreans] = useState(false);
+
+  // 맥주
+  const [beerItemsToShow, setbeerItemsToShow] = useState(6);
+  const [beerList, setBeerList] = useState<DrinkItem[]>([]);
+  const [beerListToShow, setBeerListToShow] = useState<DrinkItem[]>([]);
+  const [isLoadingMoreBeers, setIsLoadingMoreBeers] = useState(false);
+
   const navigate = useNavigate();
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const drinktype = ["칵테일", "위스키", "와인", "전통주", "맥주"];
 
@@ -115,6 +125,7 @@ export default function MainTab() {
     setValue(index);
   };
 
+  // 와인
   useEffect(() => {
     apiGetNotLoginRecommendedByType("l1", 1)
       .then((res: any) => {
@@ -131,111 +142,78 @@ export default function MainTab() {
       });
   }, [value]);
 
-  // const cocktailListToShow = cocktailList.slice(0, cocktailItemsToShow);
+  // 칵테일
+  useEffect(() => {
+    apiGetNotLoginRecommendedByType("l5", 1)
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.success) {
+          const cocktailList = res.data.body.content.filter((item: any) => item.liquorType === "COCKTAIL");
+          setCocktailList(cocktailList);
+          setCocktailListToShow(cocktailList.slice(0, cocktailItemsToShow));
+          setTotalPage(res.data.body.totalPage);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [value]);
+
+  // 위스키
+  useEffect(() => {
+    apiGetNotLoginRecommendedByType("l2", 1)
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.success) {
+          const whiskyList = res.data.body.content.filter((item: any) => item.liquorType === "WHISKY");
+          setWhiskyList(whiskyList);
+          setWhiskyListToShow(whiskyList.slice(0, whiskyItemsToShow));
+          setTotalPage(res.data.body.totalPage);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [value]);
+
+  // 전통주
+  useEffect(() => {
+    apiGetNotLoginRecommendedByType("l4", 1)
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.success) {
+          const koreanList = res.data.body.content.filter((item: any) => item.liquorType === "TRADITION");
+          setKoreanList(koreanList);
+          setKoreanListToShow(koreanList.slice(0, koreanItemsToShow));
+          setTotalPage(res.data.body.totalPage);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [value]);
+
+  // 맥주
+  useEffect(() => {
+    apiGetNotLoginRecommendedByType("l3", 1)
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.success) {
+          const beerList = res.data.body.content.filter((item: any) => item.liquorType === "BEER");
+          setBeerList(beerList);
+          setBeerListToShow(beerList.slice(0, beerItemsToShow));
+          setTotalPage(res.data.body.totalPage);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [value]);
 
   const loadMoreWines = () => {
     setIsLoadingMoreWines(true);
-
     const nextPageNumber = curPageNumber + 1;
-
-    // apiGetNotLoginRecommendedByType("l1", nextPageNumber)
-    //   .then((res: any) => {
-    //     if (res.data.success) {
-    //       // const nextWineList = res.data.body.content.filter((item: any) => item.liquorType === "WINE");
-    //       setWineList((prevList) => [...prevList, ...res.data.body.content]);
-    //       console.log(wineList)
-    //       // setWineListToShow((prevList) => [...prevList, ...nextWineList]);
-    //       setCurPageNumber(res.data.body.curPageNumber);
-    //       setTotalPage(res.data.body.totalPage);
-    //       // setWineList([...wineList, ...nextWineList]);
-    //       // setwineItemsToShow((prevItemsToShow) => prevItemsToShow + 6);
-    //       // setWineListToShow((prevListToShow) => [...prevListToShow, ...nextWineList.slice(-6)]);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   })
-    //   .finally(() => {
-    //     setIsLoadingMoreWines(false);
-    //   });
   };
-
-  // const isShowMoreWineButton = curPageNumber < res.data.body.totalPage;
-
-  const dummyList = [
-    {
-      id: 1,
-      img: "https://picsum.photos/300/300/?random",
-      name: "콥케",
-      drinktype: "l6",
-    },
-    {
-      id: 2,
-      img: "https://picsum.photos/300/300/?random",
-      name: "샌드맨",
-      drinktype: "l6",
-    },
-    {
-      id: 3,
-      img: "https://picsum.photos/300/300/?random",
-      name: "맛있는와인",
-      drinktype: "l6",
-    },
-    {
-      id: 4,
-      img: "https://picsum.photos/300/300/?random",
-      name: "달콤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 5,
-      img: "https://picsum.photos/300/300/?random",
-      name: "새콤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 6,
-      img: "https://picsum.photos/300/300/?random",
-      name: "시큼한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 7,
-      img: "https://picsum.photos/300/300/?random",
-      name: "매콤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 8,
-      img: "https://picsum.photos/300/300/?random",
-      name: "씁쓸한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 9,
-      img: "https://picsum.photos/300/300/?random",
-      name: "텁텁한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 10,
-      img: "https://picsum.photos/300/300/?random",
-      name: "짭짤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 11,
-      img: "https://picsum.photos/300/300/?random",
-      name: "밋밋한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 12,
-      img: "https://picsum.photos/300/300/?random",
-      name: "느끼한와인",
-      drinktype: "l6",
-    },
-  ];
 
   const themes = createTheme({
     components: {
@@ -254,7 +232,6 @@ export default function MainTab() {
       <Box sx={{ bgcolor: "#06031A", width: "100%", color: "white" }}>
         <AppBar position="static">
           <Tabs
-            // sx={{bgcolor: '#06031A', color: 'white' }}
             // 전체 탭 버튼 기본 스타일
             sx={{
               // 탭버튼 전체 bgc
@@ -301,12 +278,10 @@ export default function MainTab() {
                   label={type}
                   {...a11yProps(index)}
                   sx={{
-                    // bgcolor: value === 0 ? "#7B334E" : "#06031A",
                     // 칵테일 버튼 선택됐을 때 스타일
                     bgcolor: value === index ? "#06031A" : "#06031A",
                     border: value === index ? "solid 2px #8DFFFF" : "solid 2px transparent",
                     // boxShadow: value === 0 ? '0 0 10px 5px #8DFFFF':"#06031A",
-
                     // box-shadow: 0 0 10px 5px #8DFFFF
                     fontSize: { xs: 12, md: 16 },
                     whiteSpace: "nowrap",
@@ -316,101 +291,9 @@ export default function MainTab() {
                 />
               );
             })}
-            {/* <Tab
-              label="칵테일"
-              {...a11yProps(0)}
-              sx={{
-                // bgcolor: value === 0 ? "#7B334E" : "#06031A",
-                // 칵테일 버튼 선택됐을 때 스타일
-                bgcolor: value === 0 ? "#06031A" : "#06031A",
-                border: value === 0 ? "solid 2px #8DFFFF" : "solid 2px transparent",
-                // boxShadow: value === 0 ? '0 0 10px 5px #8DFFFF':"#06031A",
-
-                // box-shadow: 0 0 10px 5px #8DFFFF
-                fontSize: { xs: 12, md: 16 },
-                whiteSpace: "nowrap",
-                // "&:hover": { bgcolor: "#7B334E" },
-              }}
-              disableRipple
-            /> */}
-            {/* <Tab
-              label="위스키"
-              classes={{
-                // root: classes.tab,
-                selected: classes.selectedTab,
-              }}
-              {...a11yProps(1)}
-              sx={{
-                // bgcolor: value === 1 ? "#06031A" : "#06031A",
-                bgcolor: value === 1 ? "#06031A" : "#06031A",
-                border: value === 1 ? "solid 2px #8DFFFF" : "solid 2px transparent",
-                // boxShadow: value === 1 ? '0 0 10px 5px #8DFFFF':"#06031A",
-                // border: value === 1 ? "solid 2px #FF9E80" : "solid 2px transparent",
-                fontSize: { xs: 12, md: 16 },
-                whiteSpace: "nowrap",
-                // "&:hover": { bgcolor: "#997D7B" },
-              }}
-              disableRipple
-            />
-            <Tab
-              label="와인"
-              classes={{
-                // root: classes.tab,
-                selected: classes.selectedTab,
-              }}
-              {...a11yProps(2)}
-              sx={{
-                // bgcolor: value === 0 ? "#06031A" : "#06031A",
-                bgcolor: value === 2 ? "#06031A" : "#06031A",
-                border: value === 2 ? "solid 2px #8DFFFF" : "solid 2px transparent",
-                // boxShadow: value === 2 ? '0 0 10px 5px #8DFFFF':"#06031A",
-                // border: value === 2 ? "solid 2px #00ffff" : "solid 2px transparent",
-                fontSize: { xs: 12, md: 16 },
-                whiteSpace: "nowrap",
-                // "&:hover": { bgcolor: "#421F3C" },
-              }}
-              disableRipple
-            />
-            <Tab
-              label="전통주"
-              classes={{
-                // root: classes.tab,
-                selected: classes.selectedTab,
-              }}
-              {...a11yProps(3)}
-              sx={{
-                // bgcolor: value === 0 ? "#06031A" : "#06031A",
-                bgcolor: value === 3 ? "#06031A" : "#06031A",
-                border: value === 3 ? "solid 2px #8DFFFF" : "solid 2px transparent",
-                // boxShadow: value === 3 ? '0 0 10px 5px #8DFFFF':"#06031A",
-                // border: value === 3 ? "solid 2px #00ffff" : "solid 2px transparent",
-                fontSize: { xs: 12, md: 16 },
-                whiteSpace: "nowrap",
-                // "&:hover": { bgcolor: "#4E3415" },
-              }}
-              disableRipple
-            />
-            <Tab
-              label="맥주"
-              classes={{
-                // root: classes.tab,
-                selected: classes.selectedTab,
-              }}
-              {...a11yProps(4)}
-              sx={{
-                // bgcolor: value === 0 ? "#06031A" : "#06031A",
-                bgcolor: value === 4 ? "#06031A" : "#06031A",
-                border: value === 4 ? "solid 2px #8DFFFF" : "solid 2px transparent",
-                // boxShadow: value === 4 ? '0 0 10px 5px #8DFFFF':"#06031A",
-                // border: value === 4 ? "solid 2px #00ffff" : "solid 2px transparent",
-                fontSize: { xs: 12, md: 16 },
-                whiteSpace: "nowrap",
-                // "&:hover": { bgcolor: "#9D615F" },
-              }}
-              disableRipple
-            /> */}
           </Tabs>
         </AppBar>
+
         <SwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={value}
@@ -434,7 +317,7 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, cocktailItemsToShow).map(({ id, img, name, drinktype }) => (
+                  {cocktailList.slice(0, cocktailItemsToShow).map(({ id, img, name }) => (
                     <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
@@ -447,21 +330,8 @@ export default function MainTab() {
                       </div>
                     </div>
                   ))}
-                  {/* {cocktailListToShow.map(({ id, img, name }) => (
-                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
-                      <div className={styles["img-container"]}>
-                        <Link to={`/details/${drinktype}/${id}`}>
-                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
-                        </Link>
-                        <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>{name}</div>
-                          <BookmarkBorder fontSize="small" />
-                        </div>
-                      </div>
-                    </div>
-                  ))} */}
                 </div>
-                <a
+                {/* <a
                   onClick={() => {
                     if (value === 0) {
                       setCocktailItemsToShow(cocktailItemsToShow + 2);
@@ -470,17 +340,7 @@ export default function MainTab() {
                   className={`${styles["more-drink-btn"]}`}
                 >
                   더보기
-                </a>
-
-                {/* {isShowMoreWineutton && (
-                  <a
-                    onClick={loadMoreWines}
-                    className={`${styles["more-drink-btn"]}`}
-                    style={{ opacity: isLoadingMoreWines ? 0.5 : 1 }}
-                  >
-                    {isLoadingMoreWines ? "로딩중..." : "더보기"}
-                  </a>
-                )} */}
+                </a> */}
               </div>
             </div>
           </TabPanel>
@@ -503,7 +363,7 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, whiskeyItemsToShow).map(({ id, img, name, drinktype }) => (
+                  {whiskyList.slice(0, whiskyItemsToShow).map(({ id, img, name }) => (
                     <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
@@ -520,7 +380,7 @@ export default function MainTab() {
                 <a
                   onClick={() => {
                     if (value === 1) {
-                      setwhiskeyItemsToShow(whiskeyItemsToShow + 2);
+                      setwhiskyItemsToShow(whiskyItemsToShow + 2);
                     }
                   }}
                   className={`${styles["more-drink-btn"]}`}
@@ -562,19 +422,6 @@ export default function MainTab() {
                       </div>
                     </div>
                   ))}
-                  {/* {dummyList.slice(0, wineItemsToShow).map(({ id, img, name, drinktype }) => (
-                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
-                      <div className={styles["img-container"]}>
-                        <Link to={`/details/${drinktype}/${id}`}>
-                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
-                        </Link>
-                        <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>{name}</div>
-                          <BookmarkBorder fontSize="small" />
-                        </div>
-                      </div>
-                    </div>
-                  ))} */}
                 </div>
                 {wineList.length > wineItemsToShow && (
                   <a
@@ -584,16 +431,6 @@ export default function MainTab() {
                     더보기
                   </a>
                 )}
-                {/* <a
-                  onClick={() => {
-                    if (value === 2) {
-                      setwineItemsToShow(wineItemsToShow + 2);
-                    }
-                  }}
-                  className={`${styles["more-drink-btn"]}`}
-                >
-                  더보기
-                </a> */}
               </div>
             </div>
           </TabPanel>
@@ -616,7 +453,7 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, koreanItemsToShow).map(({ id, img, name, drinktype }) => (
+                  {koreanList.slice(0, koreanItemsToShow).map(({ id, img, name }) => (
                     <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
@@ -662,11 +499,11 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, beerItemsToShow).map(({ id, img, name, drinktype }) => (
+                  {beerList.slice(0, beerItemsToShow).map(({ id, img, name }) => (
                     <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
-                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                          <img src={img} style={{ maxWidth: "100%", height: "30%" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
                           <div className={styles["drink-name"]}>{name}</div>
