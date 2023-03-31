@@ -6,7 +6,7 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: jdbc:mysql://${database.hostname}:3306/${database.schema}?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://${database.hostname}:3307/${database.schema}?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: ${database.username}
     password: ${database.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -26,7 +26,7 @@ spring:
         max-idle: 5
         min-idle: 2
     host: localhost
-    port: 6379
+    port: 6380
 
   # Security OAuth
   security:
