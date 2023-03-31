@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface WineRepository extends JpaRepository<Wine, Long> {
@@ -26,4 +27,7 @@ public interface WineRepository extends JpaRepository<Wine, Long> {
 
     @Query("select l from Wine l where l.name like :keyword%")
     Optional<List<Wine>> findByKeyword(@Param("keyword") String keyword);
+
+    @Query("select w from Wine w WHERE w.id IN :similarWineUniqueList ")
+    Page<Wine> findById(Set<Long> similarWineUniqueList, Pageable pageable);
 }
