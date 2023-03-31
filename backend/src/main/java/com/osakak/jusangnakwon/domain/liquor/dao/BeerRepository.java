@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @Repository
@@ -32,7 +33,6 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
     @Query("select l from Beer l where l.name like :keyword%")
     Optional<List<Beer>> findByKeyword(@Param("keyword") String keyword);
 
-    Optional<Beer> findById(Long id);
-
-
+    @Query("select w from Beer w WHERE w.id IN :similarBeerUniqueList ")
+    Page<Beer> findById(Set<Long> similarBeerUniqueList, Pageable pageable);
 }
