@@ -16,10 +16,12 @@ import styles from "./Write.module.css";
 import ImageUpload from "@/components/Commons/ImageUpload/ImageUpload";
 
 interface FormData {
+  type: string;
   img: string | null;
   title: string;
-  content: string | null;
-  // isPrivate: boolean;
+  content: string | number | readonly string[] | undefined;
+  isPublic: boolean;
+  dateCreated: Date | null;
 }
 
 const StyleSwitch = styled(Switch)(({ theme }) => ({

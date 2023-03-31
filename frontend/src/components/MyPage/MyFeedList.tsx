@@ -32,7 +32,7 @@ const MyFeedList = ({ myFeedListProps, selectedDate }: MyFeedListProps) => {
       <div className={`${styles[`myfeed-title`]}`}>
         <h2>내가 쓴 게시글</h2>
         {pathname === "/mypage" && (
-          <AddCircleIcon fontSize="large" sx={{ color: "white" }} onClick={() => { navigate("/write/review", { state: { date: selectedDate } })}}></AddCircleIcon>
+          <AddCircleIcon fontSize="large" sx={{ color: "white" }} onClick={() => { navigate("/write/review", { state: { dateCreated: selectedDate } })}}></AddCircleIcon>
         )}
       </div>
       {pathname === "/mypage/feed"

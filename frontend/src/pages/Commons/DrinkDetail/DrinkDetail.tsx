@@ -12,10 +12,10 @@ const DrinkDetail = () => {
   const params = useParams();
 
   const drink = {
-    id: 1,
-    type: "l6",
+    id: 4140,
+    type: "WINE",
     user_id: 3,
-    name: "달콤한와인",
+    name: "리씬 프르미에 메독",
     userName: "hojung",
     ratings: 4,
     userImg: "https://picsum.photos/30/30/?random",
@@ -85,7 +85,7 @@ const DrinkDetail = () => {
         <Ingredients ingredients={drink.ingredients} delete={null}></Ingredients>
         <Ingredients ingredients={drink.taste} delete={null}></Ingredients>
         <ReadMore content={drink.explan}></ReadMore>
-        <ReviewList type={drink.type} name={drink.name}></ReviewList>
+        <ReviewList id={drink.id} type={drink.type} name={drink.name}></ReviewList>
         <RecommendInDetail dummyList={dummyList}></RecommendInDetail>
       </div>
     </>

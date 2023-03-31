@@ -4,19 +4,25 @@ const api = getApiInstance();
 
 // 피드 메인 페이지
 // 피드 리스트 전체 조회
-export const apiGetFeedList = async () => {
-  try {
-    const response = await api.get(`/feed/list`);
-    return response;
-  } catch (e) {
-    console.log(e);
-  }
-};
+// export const apiGetFeedList = async (page: number) => {
+//   try {
+//     const response = await api.get(`/feed/list?page=${page}`);
+//     return response;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 
 // 피드 리스트 타입별 조회 (질문글/게시글)
-export const apiGetFilteredFeedList = async (type: string) => {
+interface Props {
+  type : string,
+  page : number
+}
+
+export const apiGetFilteredFeedList = async (props: Props) => {
+  const filter = props.type === "" ? props.type : `/${props.type}`
   try {
-    const response = await api.get(`/feed/list/${type}`);
+    const response = await api.get(`/feed/list${filter}?page=${props.page}`);
     return response;
   } catch (e) {
     console.log(e);
@@ -24,7 +30,7 @@ export const apiGetFilteredFeedList = async (type: string) => {
 };
 
 // 피드 작성
-export const apiCreateFeed = async (data: any[]) => {
+export const apiCreateFeed = async (data: { [key: string]: any }) => {
   try {
     const response = await api.post(`/feed`, data);
     return response;

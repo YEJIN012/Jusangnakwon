@@ -1,6 +1,8 @@
 import styles from "@/components/Home/Banner/HometenderBanner.module.css";
 import cocktailimg from "/assets/stcocktail.png";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { apiGetRandomlyRecommendedHometender } from "@/api/home";
 
 const dummyList = [
   {
@@ -29,11 +31,51 @@ const dummyList = [
   // },
 ];
 
-export default function HometenderBanner() {
+// interface ApiData {
+//   success: boolean;
+//   error: string | null;
+//   body: {
+//     id: number;
+//     name: number;
+//     img: string;
+//     materials: string[];
+//   } | null;
+// }
+
+interface ApiData {
+  success?: boolean;
+  error?: string | null;
+  body?: {
+    id: number;
+    name: number;
+    img: string;
+    materials: string[];
+  };
+}
+export default function HometenderBanner(props: ApiData | null) {
+  // const [recommendedHometender, setRecommendedHometender] = useState<ApiData | null>(null);
+  // useEffect(() => {
+  //   if (recommendedHometender === null) {
+  //     apiGetRandomlyRecommendedHometender()
+  //       .then((r) => {
+  //         if (r?.data.success) {
+  //           setRecommendedHometender(r?.data);
+  //           console.log(`hometender: ${r?.data}`);
+  //         } else {
+  //           throw new Error(r?.data.error ?? "Failed to fetch data");
+  //         }
+  //       })
+  //       .catch((e) => {
+  //         console.log(e);
+  //       });
+  //   }
+  // }, []);
+  const recommendedHometender = props?.body;
+
   return (
     <Link to={`/playground/hometender`}>
       <div className={`${styles[`container`]}`}>
-        <ul>
+        {/* <ul>
           {dummyList.map(({ id, img, name }) => (
             <li key={id} className={`${styles[`content-wrap`]}`}>
               <img src={img} style={{ maxWidth: "30%", height: "auto" }} />
@@ -44,7 +86,22 @@ export default function HometenderBanner() {
               </div>
             </li>
           ))}
-        </ul>
+        </ul> */}
+        {recommendedHometender ? (
+          <div>
+            <img
+              src={recommendedHometender.img}
+              style={{ height: "70px", width: "70px" }}
+              alt="추천 칵테일 이미지"
+            ></img>
+            {recommendedHometender.name}
+            {recommendedHometender.materials != null && recommendedHometender.materials.length > 1
+              ? recommendedHometender.materials.map((material) => {
+                  return <div>{material}</div>;
+                })
+              : recommendedHometender.materials}
+          </div>
+        ) : null}
       </div>
     </Link>
   );
