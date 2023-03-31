@@ -8,7 +8,9 @@ import com.osakak.jusangnakwon.domain.feed.api.response.FeedListResponse;
 import com.osakak.jusangnakwon.domain.feed.api.response.FeedResponse;
 import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
+import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
 import com.osakak.jusangnakwon.domain.feed.dto.RatingDto;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -31,12 +33,12 @@ public interface FeedDtoMapper {
 
     FeedResponse feedDtoToFeedResponse(FeedDto feedDto);
 
-    FeedListResponse feedDtoToFeedListResponse(FeedDto feedDto);
-
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "writer", ignore = true)
     @Mapping(target = "dateCreated", ignore = true)
     CommentDto createCommentRequestToCommentDto(CreateCommentRequest createCommentRequest);
 
     CommentResponse commentDtoToCommentResponse(CommentDto commentDto);
+
+    FeedListResponse toFeedListResponse(List<FeedListDto> content, int totalPage, int curPageNumber);
 }
