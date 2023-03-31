@@ -9,9 +9,11 @@ import java.util.List;
 
 @Getter
 public class LiquorDetailResponse {
-    private final String id;
+    private final Long id;
     private final String name;
-    private final int scrap;
+    private final Double ratingAvg;
+    private final Long scrapCnt;
+    private final Boolean scrapped;
     private final String description;
     private final List<Feed> feeds;
     private final List<String> tastes;
@@ -19,10 +21,15 @@ public class LiquorDetailResponse {
     private final String image;
 
     @Builder
-    public LiquorDetailResponse(String id, String name, int scrap, String description, List<Feed> feeds, List<String> tastes, List<LiquorListItemDto> similarItem, String image) {
+    public LiquorDetailResponse(Long id, String name, Double ratingAvg, Long scrapCnt,
+            Boolean scrapped,
+            String description, List<Feed> feeds, List<String> tastes,
+            List<LiquorListItemDto> similarItem, String image) {
         this.id = id;
         this.name = name;
-        this.scrap = scrap;
+        this.ratingAvg = ratingAvg;
+        this.scrapCnt = scrapCnt;
+        this.scrapped = scrapped;
         this.description = description;
         this.feeds = feeds;
         this.tastes = tastes;
