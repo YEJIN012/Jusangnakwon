@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface TraditionRepository extends JpaRepository<Tradition, Long> {
     /**
@@ -21,4 +22,7 @@ public interface TraditionRepository extends JpaRepository<Tradition, Long> {
     Page<Tradition> findByRatingAvg(Pageable pageable);
     @Query("select l from Tradition l where l.name like :keyword%")
     Optional<List<Tradition>> findByKeyword(@Param("keyword") String keyword);
+
+    @Query("select w from Tradition w WHERE w.id IN :similarTraditionUniqueList ")
+    Page<Tradition> findById(Set<Long> similarTraditionUniqueList, Pageable pageable);
 }
