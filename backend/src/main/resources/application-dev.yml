@@ -6,7 +6,7 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: jdbc:mysql://${database.hostname}:3307/${database.schema}?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://${database.hostname}:3306/${database.schema}?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: ${database.username}
     password: ${database.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,8 +17,7 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 100
-    # data.sql 보다 hibernate 먼저 실행
-    defer-datasource-initialization: true
+        show_sql: false
   redis:
     lettuce:
       pool:
@@ -26,7 +25,7 @@ spring:
         max-idle: 5
         min-idle: 2
     host: localhost
-    port: 6380
+    port: 6379
 
   # Security OAuth
   security:
@@ -56,11 +55,6 @@ spring:
           tokenUri: https://kauth.kakao.com/oauth/token
           userInfoUri: https://kapi.kakao.com/v2/user/me
           userNameAttribute: id
-
-  # resources/data.sql 을 실행시켜 더미 데이터 생성
-  sql:
-    init:
-      mode: always
 
 # cors 설정
 cors:
