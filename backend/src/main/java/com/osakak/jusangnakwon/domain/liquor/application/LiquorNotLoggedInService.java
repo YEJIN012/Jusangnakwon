@@ -1,7 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
-import com.osakak.jusangnakwon.domain.liquor.dao.*;
+import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.dto.SearchType;

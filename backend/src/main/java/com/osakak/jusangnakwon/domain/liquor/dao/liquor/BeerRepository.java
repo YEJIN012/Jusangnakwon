@@ -1,6 +1,7 @@
-package com.osakak.jusangnakwon.domain.liquor.dao;
+package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Wine;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarBeerItem;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

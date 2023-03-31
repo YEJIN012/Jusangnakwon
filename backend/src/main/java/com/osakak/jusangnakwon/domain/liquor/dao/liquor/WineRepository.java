@@ -1,5 +1,6 @@
-package com.osakak.jusangnakwon.domain.liquor.dao;
+package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Wine;
 
 import org.springframework.data.domain.Page;
@@ -26,4 +27,6 @@ public interface WineRepository extends JpaRepository<Wine, Long> {
 
     @Query("select l from Wine l where l.name like :keyword%")
     Optional<List<Wine>> findByKeyword(@Param("keyword") String keyword);
+    @Query("select l from  Wine l where l.id in (:id)")
+    List<Wine> findByIdList(List<Long> id);
 }
