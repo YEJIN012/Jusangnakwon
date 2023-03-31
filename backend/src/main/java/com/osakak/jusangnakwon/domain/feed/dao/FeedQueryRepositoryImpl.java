@@ -40,11 +40,12 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
                                 ExpressionUtils.as(JPAExpressions.selectFrom(like)
                                         .where(like.user.id.eq(userId), like.feed.id.eq(feed.id),
                                                 like.isLiked.isTrue()).exists(), "liked"))).from(feed)
+                .where(feed.isPublic.eq(true))
                 .offset(pageable.getOffset()).limit(pageable.getPageSize())
                 .orderBy(feed.dateCreated.desc()).fetch();
 
         //카운트 쿼리 최적화
-        Long count = queryFactory.select(feed.count()).from(feed).fetchOne();
+        Long count = queryFactory.select(feed.count()).from(feed).where(feed.isPublic.eq(true)).fetchOne();
 
         return new PageImpl<>(content, pageable, count);
     }
@@ -61,11 +62,11 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
                                 ExpressionUtils.as(JPAExpressions.selectFrom(like)
                                         .where(like.user.id.eq(userId), like.feed.id.eq(feed.id),
                                                 like.isLiked.isTrue()).exists(), "liked"))).from(feed)
-                .where(feed.type.eq(type)).offset(pageable.getOffset())
+                .where(feed.type.eq(type), feed.isPublic.eq(true)).offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).orderBy(feed.dateCreated.desc()).fetch();
 
         //카운트 쿼리 최적화
-        Long count = queryFactory.select(feed.count()).from(feed).where(feed.type.eq(type))
+        Long count = queryFactory.select(feed.count()).from(feed).where(feed.type.eq(type), feed.isPublic.eq(true))
                 .fetchOne();
 
         return new PageImpl<>(content, pageable, count);

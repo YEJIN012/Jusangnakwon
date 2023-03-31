@@ -2,6 +2,7 @@ package com.osakak.jusangnakwon.domain.liquor.entity.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarHometenderItem;
+import com.osakak.jusangnakwon.domain.user.entity.User;
 import io.swagger.annotations.ApiModel;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -19,6 +20,11 @@ public class Hometender {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 100, nullable = false)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Column(length = 30)
     private String name;
     @Column(name = "image", length = 100)
@@ -43,8 +49,11 @@ public class Hometender {
     private double ratingAvg;
 
     @Builder
-    public Hometender(Long id, String name, String img, String materials, Integer salty, Integer sour, Integer bitter, Integer sweet, LiquorType liquorType, SimilarHometenderItem similarHometenderItem, double ratingAvg) {
+    public Hometender(Long id, User user, String name, String img, String materials, Integer salty,
+            Integer sour, Integer bitter, Integer sweet, LiquorType liquorType,
+            SimilarHometenderItem similarHometenderItem, double ratingAvg) {
         this.id = id;
+        this.user = user;
         this.name = name;
         this.img = img;
         this.materials = materials;
