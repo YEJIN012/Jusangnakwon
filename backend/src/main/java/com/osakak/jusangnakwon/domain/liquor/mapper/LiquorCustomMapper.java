@@ -20,12 +20,5 @@ public interface LiquorCustomMapper {
      */
     LiquorListMainResponse toMainPageResponse(List<LiquorListItemDto> content, int totalPage, int curPageNumber);
 
-    /**
-     * 랜덤 홈텐더 dto 변환 mapper
-     *
-     * @param hometender 랜덤 조회 된 홈텐더
-     * @return RandomHometenderResponse
-     */
-//    RandomHometenderResponse toRandomHometender(Hometender hometender);
 }
 

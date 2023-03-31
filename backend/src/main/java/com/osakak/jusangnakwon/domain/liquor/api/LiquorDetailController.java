@@ -1,6 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
+import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorDetailService;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,8 +26,9 @@ public class LiquorDetailController {
      * @return 술 정보
      */
     @GetMapping("l1/{id}")
+    @Tag(name = "liquorDetail")
     public ResponseEntity<ResponseDto> wineDetail(@PathVariable Long id) {
-        liquorDetailService.getLiquorDetail(LiquorType.WINE, id);
+        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.WINE, id);
         return ResponseEntity.ok(ResponseDto.builder().build());
     }
 
@@ -48,8 +50,12 @@ public class LiquorDetailController {
      * @return 술 정보
      */
     @GetMapping("l3/{id}")
-    public ResponseEntity<ResponseDto> beerDetail(@PathVariable String id) {
-        return ResponseEntity.ok(ResponseDto.builder().build());
+    public ResponseEntity<ResponseDto> beerDetail(@PathVariable Long id) {
+        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.BEER, id);
+        return ResponseEntity.ok(ResponseDto.builder()
+                .body(liquorDetail)
+                .success(true)
+                .build());
     }
 
     /**
