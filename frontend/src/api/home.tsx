@@ -43,9 +43,9 @@ export const apiGetNotLoginRecommendedByType = async (type: string, page: number
 };
 
 // 술 검색
-export const apiSearchDrink = async (keyword: string) => {
+export const apiSearchDrink = async (keyword: string, page: number) => {
   try {
-    const response = await api.get(`/search/${keyword}?page=0`);
+    const response = await api.get(`/search/${keyword}?page=${page}`);
     return response;
   } catch (e) {
     console.log(e);
