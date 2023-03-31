@@ -14,6 +14,7 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import StarIcon from "@mui/icons-material/Star";
 import styles from "./Write.module.css";
 import ImageUpload from "@/components/Commons/ImageUpload/ImageUpload";
+import { apiCreateFeed } from "@/api/feed";
 
 interface FormData {
   type: string;
@@ -38,17 +39,28 @@ const StyleSwitch = styled(Switch)(({ theme }) => ({
 
 const WriteQuestion = () => {
   const [formData, setFormData] = useState({
-    img: "",
-    title: "",
-    content: "",
-    // isPrivate: false,
+    type: "질문글",
+  img:null,
+  title: "",
+  content: "",
+  isPublic: true,
+  dateCreated: new Date(),
   });
 
   const navigate = useNavigate();
 
   const handleSubmit = (formData: FormData) => {
     // 제출 api호출
-    navigate(-1);
+    apiCreateFeed(formData)
+      .then((res: any) => {
+        console.log(res);
+        const newFeed = res.data.body;
+        navigate(`/feed/${newFeed.id}`); // 질문글상세페이지로 이동
+      })
+      .catch((error) => {
+        console.error(error);
+        navigate("/");
+      });
   };
 
   const WriteHeader = () => {

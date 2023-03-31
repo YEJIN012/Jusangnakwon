@@ -118,9 +118,8 @@ const WriteReview = () => {
     apiCreateFeed(formData)
       .then((res: any) => {
         console.log(res);
-        console.log(res.data.body.id);
-        // const newFeedId = res.data.body
-        navigate(-1); // 대신 해당 리뷰상세페이지로 이동
+        const newFeed = res.data.body;
+        navigate(`/feed/${newFeed.id}`); // 리뷰상세페이지로 이동
       })
       .catch((error) => {
         console.error(error);
