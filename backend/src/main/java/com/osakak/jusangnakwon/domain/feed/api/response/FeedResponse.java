@@ -2,6 +2,7 @@ package com.osakak.jusangnakwon.domain.feed.api.response;
 
 import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
 import com.osakak.jusangnakwon.domain.feed.dto.WriterDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +17,7 @@ public class FeedResponse {
     private final String img;
     private final String title;
     private final Long liquorId;
-    private final String liquorType;
+    private final LiquorType liquorType;
     private final String liquorName;
     private final String content;
     private final Double ratingScore;
@@ -29,7 +30,7 @@ public class FeedResponse {
 
     @Builder
     public FeedResponse(Long id, String type, String img, String title, Long liquorId,
-            String liquorType, String liquorName, String content, Double ratingScore,
+            LiquorType liquorType, String liquorName, String content, Double ratingScore,
             Boolean isPublic, LocalDateTime dateCreated, WriterDto writer, Integer likeCnt,
             Boolean liked, List<CommentDto> comments) {
         this.id = id;
