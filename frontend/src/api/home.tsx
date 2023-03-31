@@ -1,5 +1,5 @@
 import getApiInstance from "./http";
-import axios from "axios";
+
 const api = getApiInstance();
 
 // 술 추천 - 공통 - 날씨 기반 주종 추천

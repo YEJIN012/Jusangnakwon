@@ -4,45 +4,26 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Dispatch, SetStateAction } from "react";
+import { FeedContent } from "@/pages/Feed/FeedMain";
 
 interface Feed {
-  feed: {
-    id: number;
-    userName: string;
-    userImg: string;
-    classification: string;
-    img: string;
-    content: string;
-    liked: boolean;
-  };
-  setDummyFeedList: Dispatch<
-    SetStateAction<
-      {
-        id: number;
-        userName: string;
-        userImg: string;
-        classification: string;
-        img: string;
-        content: string;
-        liked: boolean;
-      }[]
-    >
-  >;
+  feed: FeedContent;
+  setFeedList: React.Dispatch<React.SetStateAction<FeedContent[]>>
 }
 
-const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
+const FeedItem = ({ feed, setFeedList }: Feed) => {
   return (
     <>
-      {feed.classification === "게시글" ? (
+      {feed.type === "게시글" ? (
         <Card style={{ backgroundColor: "inherit", boxShadow: "0px 0px 2px gray" }}>
           <Link to={`../details/feed/${feed.id}`}>
-            <CardMedia component="img" height="auto" image={feed.img} alt={feed.userName} />
+            <CardMedia component="img" height="auto" image={feed.img} alt={feed.writer.username} />
           </Link>
           <CardContent style={{ backgroundColor: `inherit`, padding: "2%" }}>
             <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.9rem", color: "white" }}>
               <div className={`${styles[`user-profile`]}`}>
-                <img src={feed.userImg} className={`${styles[`user-img`]}`}></img>
-                <p>{feed.userName}</p>
+                <img src={feed.writer.profileImg} className={`${styles[`user-img`]}`}></img>
+                <p>{feed.writer.username}</p>
               </div>
               {feed.liked ? (
                 <button
@@ -52,7 +33,7 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                     border: "none",
                   }}
                   onClick={() => {
-                    setDummyFeedList((prevList) =>
+                    setFeedList((prevList) =>
                       prevList.map((prevFeed) => {
                         if (prevFeed.id === feed.id) {
                           return { ...prevFeed, liked: !prevFeed.liked };
@@ -73,7 +54,7 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                     border: "none",
                   }}
                   onClick={() => {
-                    setDummyFeedList((prevList) =>
+                    setFeedList((prevList) =>
                       prevList.map((prevFeed) => {
                         if (prevFeed.id === feed.id) {
                           return { ...prevFeed, liked: !prevFeed.liked };
@@ -99,8 +80,8 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
             <CardContent style={{ backgroundColor: "rgba(50, 50, 55, 0.9)", padding: "2px" }}>
               <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.8rem", color: "white" }}>
                 <div className={`${styles[`user-profile`]}`}>
-                  <img src={feed.userImg} className={`${styles[`user-img`]}`}></img>
-                  <p>{feed.userName}</p>
+                <img src={feed.writer.profileImg} className={`${styles[`user-img`]}`}></img>
+                <p>{feed.writer.username}</p>
                 </div>
                 {feed.liked ? (
                   <button
@@ -110,7 +91,7 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                       border: "none",
                     }}
                     onClick={() => {
-                      setDummyFeedList((prevList) =>
+                      setFeedList((prevList) =>
                         prevList.map((prevFeed) => {
                           if (prevFeed.id === feed.id) {
                             return { ...prevFeed, liked: !prevFeed.liked };
@@ -132,7 +113,7 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
                       border: "none",
                     }}
                     onClick={() => {
-                      setDummyFeedList((prevList) =>
+                      setFeedList((prevList) =>
                         prevList.map((prevFeed) => {
                           if (prevFeed.id === feed.id) {
                             return { ...prevFeed, liked: !prevFeed.liked };
@@ -159,4 +140,4 @@ const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
   );
 };
 
-export default FeedComponent;
+export default FeedItem;

@@ -17,15 +17,18 @@ import { ko } from "date-fns/esm/locale";
 import styles from "./Write.module.css";
 import ImageUpload from "@/components/Commons/ImageUpload/ImageUpload";
 import moment from "moment";
+import { apiCreateFeed } from "@/api/feed";
 
 interface FormData {
-  img: string | null;
   type: string;
-  name: string;
-  date: Date | null;
+  img: string | null;
+  liquorId: number;
+  liquorType: string;
+  liquorName: string;
   content: string | number | readonly string[] | undefined;
-  ratings: number;
-  isPrivate: boolean;
+  ratingScore: number;
+  isPublic: boolean;
+  dateCreated: Date | null;
 }
 
 // const StyleModal = styled(ModalDialog)(({theme}) => ({
@@ -46,37 +49,57 @@ const StyleSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-// 임의 리스트
-const DrinkTypeList = {
-  와인: "l1",
-  전통주: "l2",
-  맥주: "l3",
-  위스키: "l4",
-  칵테일: "l5",
-  홈테일: "l6",
+const codeToKorean: { [key: string]: string } = {
+  l1: "와인",
+  l2: "위스키",
+  l3: "맥주",
+  l4: "전통주",
+  l5: "칵테일",
+  l6: "홈테일",
+};
+
+const EnglishToKorean: { [key: string]: string } = {
+  WINE: "와인",
+  WHISKY: "위스키",
+  BEER: "맥주",
+  TRADITION: "전통주",
+  COCKTAIL: "칵테일",
+  HOMETENDER: "홈테일",
+};
+
+const EnglishToCode: { [key: string]: string } = {
+  WINE: "l1",
+  WHISKY: "l2",
+  BEER: "l3",
+  TRADITION: "l4",
+  COCKTAIL: "l5",
+  HOMETENDER: "l6",
 };
 
 interface StateType {
-  type: string | null;
-  name: string | null;
-  date: Date | null;
+  liquorId: number | null;
+  liquorType: string | null;
+  liquorName: string | null;
+  dateCreated: Date | null;
 }
 
 const WriteReview = () => {
   const location = useLocation();
 
-  // 술상세페이지(type, name)나 마이페이지(date) 에서 넘어오는 경우에는
+  // 술상세페이지(type, name, id)나 마이페이지(date) 에서 넘어오는 경우에는
   // state와 함께 넘어와서 폼에 미리 작성되어 있는다.
   const state = location.state ? (location.state as StateType) : null;
 
   const [formData, setFormData] = useState<FormData>({
+    type: "리뷰글",
     img: null,
-    type: state && state.type ? state.type : "",
-    name: state && state.name ? state.name : "",
-    date: state && state.date ? state.date : new Date(),
+    liquorId: state && state.liquorId ? state.liquorId : 0,
+    liquorType: state && state.liquorType ? state.liquorType : "",
+    liquorName: state && state.liquorName ? state.liquorName : "",
+    dateCreated: state && state.dateCreated ? state.dateCreated : new Date(),
     content: "",
-    ratings: 0,
-    isPrivate: false,
+    ratingScore: 0,
+    isPublic: true,
   });
 
   // 모달 오픈 변수
@@ -86,13 +109,23 @@ const WriteReview = () => {
 
   const handleRatingChange = (event: React.ChangeEvent<{}>, newValue: number | null) => {
     if (newValue !== null) {
-      setFormData({ ...formData, ratings: newValue });
+      setFormData({ ...formData, ratingScore: newValue });
     }
   };
 
   const handleSubmit = (formData: FormData) => {
     // 제출 api호출
-    navigate(-1); // 대신 해당 리뷰상세페이지로 이동
+    apiCreateFeed(formData)
+      .then((res: any) => {
+        console.log(res);
+        console.log(res.data.body.id);
+        // const newFeedId = res.data.body
+        navigate(-1); // 대신 해당 리뷰상세페이지로 이동
+      })
+      .catch((error) => {
+        console.error(error);
+        navigate("/");
+      });
   };
 
   const WriteHeader = () => {
@@ -122,36 +155,32 @@ const WriteReview = () => {
 
         <div className={`${styles[`row-container`]}`}>
           {/* 술상세페이지에서 리뷰작성으로 넘어오면 */}
-          {/* navigate state로 주종 같이 넘겨줘서 select value에 담아놓기  */}
+          {/* navigate state로 주종/술이름/id 같이 넘겨줘서 미리 담아놈  */}
           <div className={`${styles[`subtitle-container`]}`}>주종</div>
-          <select
-            style={{
-              width: "30vw",
-              fontSize: "100%",
-              backgroundColor: "#06031a",
-              borderColor: "#06031a",
-              color: "white",
-            }}
-            value={formData.type}
-            onChange={(e) => {
-              setFormData({ ...formData, type: e.target.value });
-            }}
+          <input
+            className={`${styles[`input-basic`]}`}
+            type="text"
+            value={EnglishToKorean[formData.liquorType]}
+            readOnly
+            // onChange={(e) => {
+            //   setFormData({ ...formData, liquorType: KoreanToEnglish[e.target.value] });
+            // }}
           >
-            <option value="" disabled>
+            {/* <option value="" disabled>
               선택
             </option>
-            {Object.keys(DrinkTypeList).map((type, index) => (
+            {Object.keys(KoreanToEnglish).map((type, index) => (
               <option key={index} value={type}>
                 {type}
               </option>
-            ))}
-          </select>
+            ))} */}
+          </input>
         </div>
 
         <div className={`${styles[`row-container`]}`}>
           <div className={`${styles[`subtitle-container`]}`}>술 이름</div>
           <div className={`${styles[`end-container`]}`}>
-            <input className={`${styles[`input-basic`]}`} type="text" value={formData.name} readOnly />
+            <input className={`${styles[`input-basic`]}`} type="text" value={formData.liquorName} readOnly />
             <Search onClick={() => setOpen(true)} />
           </div>
         </div>
@@ -164,20 +193,22 @@ const WriteReview = () => {
           />
         </div>
 
+        {/* 달력에서 리뷰작성으로 넘어오면 */}
+        {/* navigate state로 선택된 날짜 같이 넘겨줘서 미리 담아놈  */}
         <div className={`${styles[`row-container`]}`}>
           <DatePicker
-            selected={formData.date}
+            selected={formData.dateCreated}
             dateFormat="yyyy년 MM월 dd일"
             locale={ko}
             className={`${styles[`input-basic`]}`}
-            onChange={(d) => setFormData({ ...formData, date: d })}
+            onChange={(d) => setFormData({ ...formData, dateCreated: d })}
           />
         </div>
 
         <div className={`${styles[`row-container`]}`}>
           <div className={`${styles[`subtitle-container`]}`}>별점</div>
           <Rating
-            value={formData.ratings}
+            value={formData.ratingScore}
             onChange={handleRatingChange}
             emptyIcon={<StarIcon style={{ color: "#6c6c6c" }} fontSize="inherit" />}
           />
@@ -185,9 +216,9 @@ const WriteReview = () => {
 
         <div className={`${styles[`row-container`]}`}>
           <div className={`${styles[`subtitle-container`]}`}>
-            {formData.isPrivate ? <LockIcon sx={{ fontSize: 35 }} /> : <LockOpenIcon sx={{ fontSize: 35 }} />}
+            {formData.isPublic ? <LockOpenIcon sx={{ fontSize: 35 }} /> : <LockIcon sx={{ fontSize: 35 }} />}
           </div>
-          <StyleSwitch onClick={() => setFormData({ ...formData, isPrivate: !formData.isPrivate })} />
+          <StyleSwitch onClick={() => setFormData({ ...formData, isPublic: !formData.isPublic })} />
           {/* <button onClick={() => setPrivate(false)}>공개</button>
           <button onClick={() => setPrivate(true)}>비공개</button> */}
         </div>
@@ -200,12 +231,12 @@ const WriteReview = () => {
       </Modal>
 
       <div>
-        데이터 확인 :{formData.type}
-        {formData.name}
+        데이터 확인 :{formData.liquorType}
+        {formData.liquorName}
         {formData.content}
-        {formData.ratings}
+        {formData.ratingScore}
         {/* {moment(formData.date)} */}
-        {formData.isPrivate}
+        {formData.isPublic}
       </div>
     </div>
   );
