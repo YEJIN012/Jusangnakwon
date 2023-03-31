@@ -16,7 +16,7 @@ import styles from "./Write.module.css";
 import ImageUpload from "@/components/Commons/ImageUpload/ImageUpload";
 import { apiCreateFeed } from "@/api/feed";
 
-interface FormData {
+export interface QuestionFormData {
   type: string;
   img: string | null;
   title: string;
@@ -49,7 +49,7 @@ const WriteQuestion = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = (formData: QuestionFormData) => {
     // 제출 api호출
     apiCreateFeed(formData)
       .then((res: any) => {

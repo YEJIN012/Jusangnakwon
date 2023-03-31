@@ -19,7 +19,8 @@ import ImageUpload from "@/components/Commons/ImageUpload/ImageUpload";
 import moment from "moment";
 import { apiCreateFeed } from "@/api/feed";
 
-interface FormData {
+
+export interface ReviewFormData {
   type: string;
   img: string | null;
   liquorId: number;
@@ -30,6 +31,7 @@ interface FormData {
   isPublic: boolean;
   dateCreated: Date | null;
 }
+
 
 // const StyleModal = styled(ModalDialog)(({theme}) => ({
 //     "& .JoyModal-backdrop": {
@@ -90,7 +92,7 @@ const WriteReview = () => {
   // state와 함께 넘어와서 폼에 미리 작성되어 있는다.
   const state = location.state ? (location.state as StateType) : null;
 
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ReviewFormData>({
     type: "리뷰글",
     img: null,
     liquorId: state && state.liquorId ? state.liquorId : 0,
@@ -113,7 +115,7 @@ const WriteReview = () => {
     }
   };
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = (formData: ReviewFormData) => {
     // 제출 api호출
     apiCreateFeed(formData)
       .then((res: any) => {
