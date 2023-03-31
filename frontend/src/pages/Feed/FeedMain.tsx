@@ -146,11 +146,11 @@ const FeedMain = () => {
             전체글
           </button>
           <button
-            className={focusedPostList === "게시글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
-            value={"게시글"}
+            className={focusedPostList === "리뷰글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
+            value={"리뷰글"}
             onClick={(e) => setFocusedPostList(e.currentTarget.value)}
           >
-            게시글
+            리뷰글
           </button>
           <button
             className={focusedPostList === "질문글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}

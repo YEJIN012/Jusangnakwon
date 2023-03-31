@@ -11,6 +11,14 @@ import CommentIcon from "@mui/icons-material/Comment";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import LikeButton from "@/components/Feed/LikeButton/LikeButton";
 import HeaderBack from "@/components/Commons/Header/HeaderBack";
+import { QuestionFormData } from "@/pages/Commons/Write/WriteQuestion"
+import { ReviewFormData } from "@/pages/Commons/Write/WriteReview";
+
+type FeedAllType = QuestionFormData & ReviewFormData
+// interface FeedDetailType extends FeedAllType {}
+
+
+
 const FeedDetail = () => {
   const { id } = useParams();
   const [dummyFeedList, setDummyFeedList] = useState([

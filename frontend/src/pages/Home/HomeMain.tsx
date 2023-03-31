@@ -16,23 +16,13 @@ const settings = {
   arrows: false,
   infinite: true,
   speed: 2000,
-  autoplay: true,
+  // autoplay: true,
   slidesToShow: 1,
   slidesToScroll: 1,
   autoplaySpeed: 2000,
   // fade: true,
 };
 
-// interface ApiData {
-//   success: boolean;
-//   error: string | null;
-//   body: {
-//     id: number;
-//     name: number;
-//     img: string;
-//     materials: string[];
-//   } | null;
-// }
 interface ApiData {
   success?: boolean;
   error?: string | null;
@@ -73,11 +63,6 @@ const HomeMain = () => {
         <span>로그인</span>
       </Link>
       <div className={`${styles[`banner-box`]}`}>
-        {/* <Slider {...settings} className={`${styles[`slider`]}`}>
-          {banner.map((item, index) => (
-            <div key={index}>{item}</div>
-          ))}
-        </Slider> */}
         <Slider {...settings} className={`${styles[`slider`]}`}>
           {banner.map((item, index) => {
             // HometenderBanner일 때만 props를 전달
