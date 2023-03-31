@@ -25,7 +25,7 @@ interface WineItem {
   id: string;
   name: string;
   img: string;
-  drinktype: string;
+  liquorType: string;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -89,11 +89,16 @@ const useStyles = makeStyles((theme) => ({
 export default function MainTab() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const [cocktailItemsToShow, setCocktailItemsToShow] = useState(6);
+  console.log(value);
+  const [cocktailItemsToShow, setCocktailItemsToShow] = useState(4);
   const [whiskeyItemsToShow, setwhiskeyItemsToShow] = useState(4);
 
   const [wineItemsToShow, setwineItemsToShow] = useState(6);
-  const [wineList, setWineList] = useState<{ id: string; name: string; img: string; drinktype: string }[]>([]);
+  const [wineList, setWineList] = useState<WineItem[]>([]);
+  const [wineListToShow, setWineListToShow] = useState<WineItem[]>([]);
+  const [isLoadingMoreWines, setIsLoadingMoreWines] = useState(false);
+  const [curPageNumber, setCurPageNumber] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
 
   const [koreanItemsToShow, setkoreanItemsToShow] = useState(4);
   const [beerItemsToShow, setbeerItemsToShow] = useState(4);
@@ -115,45 +120,47 @@ export default function MainTab() {
       .then((res: any) => {
         console.log(res);
         if (res.data.success) {
-          const wineList = res.data.body.content.filter((item: any) => item.drinktype === "와인");
+          const wineList = res.data.body.content.filter((item: any) => item.liquorType === "WINE");
           setWineList(wineList);
-          setWineListToShow(wineList.slice(0, 6));
+          setWineListToShow(wineList.slice(0, wineItemsToShow));
+          setTotalPage(res.data.body.totalPage);
         }
       })
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [value]);
 
   // const cocktailListToShow = cocktailList.slice(0, cocktailItemsToShow);
-  const [wineListToShow, setWineListToShow] = useState<WineItem[]>([]);
-  const [isLoadingMoreWines, setIsLoadingMoreWines] = useState(false);
 
   const loadMoreWines = () => {
     setIsLoadingMoreWines(true);
 
-    const nextPageNumber = Math.floor((wineList.length + 6) / 6);
+    const nextPageNumber = curPageNumber + 1;
 
-    apiGetNotLoginRecommendedByType("l1", nextPageNumber)
-      .then((res: any) => {
-        if (res.data.success) {
-          const nextWineList = res.data.body.content.filter((item: any) => item.drinktype === "와인");
-          // setWineList((prevList) => [...prevList, ...nextWineList]);
-          setWineListToShow((prevList) => [...prevList, ...nextWineList.slice(-6)]);
-          // setWineList([...wineList, ...nextWineList]);
-          // setwineItemsToShow((prevItemsToShow) => prevItemsToShow + 6);
-          // setWineListToShow((prevListToShow) => [...prevListToShow, ...nextWineList.slice(-6)]);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        setIsLoadingMoreWines(false);
-      });
+    // apiGetNotLoginRecommendedByType("l1", nextPageNumber)
+    //   .then((res: any) => {
+    //     if (res.data.success) {
+    //       // const nextWineList = res.data.body.content.filter((item: any) => item.liquorType === "WINE");
+    //       setWineList((prevList) => [...prevList, ...res.data.body.content]);
+    //       console.log(wineList)
+    //       // setWineListToShow((prevList) => [...prevList, ...nextWineList]);
+    //       setCurPageNumber(res.data.body.curPageNumber);
+    //       setTotalPage(res.data.body.totalPage);
+    //       // setWineList([...wineList, ...nextWineList]);
+    //       // setwineItemsToShow((prevItemsToShow) => prevItemsToShow + 6);
+    //       // setWineListToShow((prevListToShow) => [...prevListToShow, ...nextWineList.slice(-6)]);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   })
+    //   .finally(() => {
+    //     setIsLoadingMoreWines(false);
+    //   });
   };
 
-  const isShowMoreWineButton = wineListToShow.length > 0 && wineListToShow.length < wineList.length;
+  // const isShowMoreWineButton = curPageNumber < res.data.body.totalPage;
 
   const dummyList = [
     {
@@ -248,21 +255,30 @@ export default function MainTab() {
         <AppBar position="static">
           <Tabs
             // sx={{bgcolor: '#06031A', color: 'white' }}
+            // 전체 탭 버튼 기본 스타일
             sx={{
+              // 탭버튼 전체 bgc
               bgcolor: "#06031A",
               "& .Mui-selected": {
                 color: "white",
-                // bgcolor: "purple",
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
+                // bgcolor: "#EE84FF",
+                // borderTopLeftRadius: 10,
+                // borderTopRightRadius: 10,
+                // borderBottomRightRadius: 10,
+                // borderBottomLeftRadius: 10,
                 // paddingLeft: "20px",
                 // paddingRight: "20px",
               },
               "& .MuiTab-root": {
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
+                // borderTopLeftRadius: 10,
+                // borderTopRightRadius: 10,
+                // borderBottomRightRadius: 10,
+                // borderBottomLeftRadius: 10,
                 // border: "1px solid gray",
-                borderBottom: "none",
+                borderTop: "none",
+                borderRight: "none",
+                borderLeft: "none",
+                // borderBottom: "none",
                 // paddingLeft: "10px",
                 // paddingRight: "10px",
                 // paddingTop: "2px",
@@ -279,17 +295,45 @@ export default function MainTab() {
             variant="fullWidth"
             aria-label="full width tabs example"
           >
-            <Tab
+            {drinktype.map((type, index) => {
+              return (
+                <Tab
+                  label={type}
+                  {...a11yProps(index)}
+                  sx={{
+                    // bgcolor: value === 0 ? "#7B334E" : "#06031A",
+                    // 칵테일 버튼 선택됐을 때 스타일
+                    bgcolor: value === index ? "#06031A" : "#06031A",
+                    border: value === index ? "solid 2px #8DFFFF" : "solid 2px transparent",
+                    // boxShadow: value === 0 ? '0 0 10px 5px #8DFFFF':"#06031A",
+
+                    // box-shadow: 0 0 10px 5px #8DFFFF
+                    fontSize: { xs: 12, md: 16 },
+                    whiteSpace: "nowrap",
+                    // "&:hover": { bgcolor: "#7B334E" },
+                  }}
+                  disableRipple
+                />
+              );
+            })}
+            {/* <Tab
               label="칵테일"
               {...a11yProps(0)}
               sx={{
-                bgcolor: value === 0 ? "#7B334E" : "#06031A",
+                // bgcolor: value === 0 ? "#7B334E" : "#06031A",
+                // 칵테일 버튼 선택됐을 때 스타일
+                bgcolor: value === 0 ? "#06031A" : "#06031A",
+                border: value === 0 ? "solid 2px #8DFFFF" : "solid 2px transparent",
+                // boxShadow: value === 0 ? '0 0 10px 5px #8DFFFF':"#06031A",
+
+                // box-shadow: 0 0 10px 5px #8DFFFF
                 fontSize: { xs: 12, md: 16 },
+                whiteSpace: "nowrap",
                 // "&:hover": { bgcolor: "#7B334E" },
               }}
               disableRipple
-            />
-            <Tab
+            /> */}
+            {/* <Tab
               label="위스키"
               classes={{
                 // root: classes.tab,
@@ -298,8 +342,12 @@ export default function MainTab() {
               {...a11yProps(1)}
               sx={{
                 // bgcolor: value === 1 ? "#06031A" : "#06031A",
-                bgcolor: value === 1 ? "#997D7B" : "#06031A",
+                bgcolor: value === 1 ? "#06031A" : "#06031A",
+                border: value === 1 ? "solid 2px #8DFFFF" : "solid 2px transparent",
+                // boxShadow: value === 1 ? '0 0 10px 5px #8DFFFF':"#06031A",
+                // border: value === 1 ? "solid 2px #FF9E80" : "solid 2px transparent",
                 fontSize: { xs: 12, md: 16 },
+                whiteSpace: "nowrap",
                 // "&:hover": { bgcolor: "#997D7B" },
               }}
               disableRipple
@@ -313,8 +361,12 @@ export default function MainTab() {
               {...a11yProps(2)}
               sx={{
                 // bgcolor: value === 0 ? "#06031A" : "#06031A",
-                bgcolor: value === 2 ? "#421F3C" : "#06031A",
+                bgcolor: value === 2 ? "#06031A" : "#06031A",
+                border: value === 2 ? "solid 2px #8DFFFF" : "solid 2px transparent",
+                // boxShadow: value === 2 ? '0 0 10px 5px #8DFFFF':"#06031A",
+                // border: value === 2 ? "solid 2px #00ffff" : "solid 2px transparent",
                 fontSize: { xs: 12, md: 16 },
+                whiteSpace: "nowrap",
                 // "&:hover": { bgcolor: "#421F3C" },
               }}
               disableRipple
@@ -328,8 +380,12 @@ export default function MainTab() {
               {...a11yProps(3)}
               sx={{
                 // bgcolor: value === 0 ? "#06031A" : "#06031A",
-                bgcolor: value === 3 ? "#4E3415" : "#06031A",
+                bgcolor: value === 3 ? "#06031A" : "#06031A",
+                border: value === 3 ? "solid 2px #8DFFFF" : "solid 2px transparent",
+                // boxShadow: value === 3 ? '0 0 10px 5px #8DFFFF':"#06031A",
+                // border: value === 3 ? "solid 2px #00ffff" : "solid 2px transparent",
                 fontSize: { xs: 12, md: 16 },
+                whiteSpace: "nowrap",
                 // "&:hover": { bgcolor: "#4E3415" },
               }}
               disableRipple
@@ -343,12 +399,16 @@ export default function MainTab() {
               {...a11yProps(4)}
               sx={{
                 // bgcolor: value === 0 ? "#06031A" : "#06031A",
-                bgcolor: value === 4 ? "#9D615F" : "#06031A",
+                bgcolor: value === 4 ? "#06031A" : "#06031A",
+                border: value === 4 ? "solid 2px #8DFFFF" : "solid 2px transparent",
+                // boxShadow: value === 4 ? '0 0 10px 5px #8DFFFF':"#06031A",
+                // border: value === 4 ? "solid 2px #00ffff" : "solid 2px transparent",
                 fontSize: { xs: 12, md: 16 },
+                whiteSpace: "nowrap",
                 // "&:hover": { bgcolor: "#9D615F" },
               }}
               disableRipple
-            />
+            /> */}
           </Tabs>
         </AppBar>
         <SwipeableViews
@@ -359,8 +419,9 @@ export default function MainTab() {
           <TabPanel value={value} index={0} dir={theme.direction}>
             <div
               style={{
-                background:
-                  value === 0 ? "linear-gradient(212.38deg, #A0425F 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                background: value === 0 ? "#06031A" : "black",
+                // border:"solid 2px",
+                // "linear-gradient(212.38deg, #A0425F 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
                 paddingTop: "5%",
                 paddingRight: "3%",
                 paddingLeft: "3%",
@@ -402,8 +463,8 @@ export default function MainTab() {
                 </div>
                 <a
                   onClick={() => {
-                    if (value === 1) {
-                      setwhiskeyItemsToShow(whiskeyItemsToShow + 2);
+                    if (value === 0) {
+                      setCocktailItemsToShow(cocktailItemsToShow + 2);
                     }
                   }}
                   className={`${styles["more-drink-btn"]}`}
@@ -426,7 +487,9 @@ export default function MainTab() {
           <TabPanel value={value} index={1} dir={theme.direction}>
             <div
               style={{
-                background: value === 1 ? "linear-gradient(180deg, #997D7B 0%, rgba(153, 125, 123, 0) 100%)" : "black",
+                background: value === 1 ? "#06031A" : "black",
+                // border:"solid 2px",
+                // "linear-gradient(180deg, #997D7B 0%, rgba(153, 125, 123, 0) 100%)" : "black",
                 paddingTop: "5%",
                 paddingRight: "3%",
                 paddingLeft: "3%",
@@ -470,7 +533,9 @@ export default function MainTab() {
           <TabPanel value={value} index={2} dir={theme.direction}>
             <div
               style={{
-                background: value === 2 ? "linear-gradient(180deg,  #421F3C 0%, rgba(153, 125, 123, 0) 100%)" : "black",
+                background: value === 2 ? "#06031A" : "black",
+                // border:"solid 2px",
+                // "linear-gradient(180deg,  #421F3C 0%, rgba(153, 125, 123, 0) 100%)" : "black",
                 paddingTop: "5%",
                 paddingRight: "3%",
                 paddingLeft: "3%",
@@ -484,7 +549,7 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {wineListToShow.map(({ id, img, name }) => (
+                  {wineList.slice(0, wineItemsToShow).map(({ id, img, name }) => (
                     <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
@@ -511,13 +576,12 @@ export default function MainTab() {
                     </div>
                   ))} */}
                 </div>
-                {isShowMoreWineButton && (
+                {wineList.length > wineItemsToShow && (
                   <a
-                    onClick={loadMoreWines}
+                    onClick={() => setwineItemsToShow((prevCount) => prevCount + 6)}
                     className={`${styles["more-drink-btn"]}`}
-                    style={{ opacity: isLoadingMoreWines ? 0.5 : 1 }}
                   >
-                    {isLoadingMoreWines ? "로딩중..." : "더보기"}
+                    더보기
                   </a>
                 )}
                 {/* <a
@@ -536,7 +600,9 @@ export default function MainTab() {
           <TabPanel value={value} index={3} dir={theme.direction}>
             <div
               style={{
-                background: value === 3 ? "linear-gradient(180deg, #4E3415 0%, rgba(78, 52, 21, 0) 100%)" : "black",
+                background: value === 3 ? "#06031A" : "black",
+                // border:"solid 2px",
+                // "linear-gradient(180deg, #4E3415 0%, rgba(78, 52, 21, 0) 100%)" : "black",
                 paddingTop: "5%",
                 paddingRight: "3%",
                 paddingLeft: "3%",
@@ -580,7 +646,9 @@ export default function MainTab() {
           <TabPanel value={value} index={4} dir={theme.direction}>
             <div
               style={{
-                background: value === 4 ? "linear-gradient(180deg, #9D615F 0%, rgba(157, 97, 95, 0) 100%)" : "black",
+                background: value === 4 ? "#06031A" : "black",
+                // border:"solid 2px",
+                // "linear-gradient(180deg, #9D615F 0%, rgba(157, 97, 95, 0) 100%)" : "black",
                 paddingTop: "5%",
                 paddingRight: "3%",
                 paddingLeft: "3%",

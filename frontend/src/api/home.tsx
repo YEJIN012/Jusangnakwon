@@ -36,6 +36,7 @@ export const apiGetLoginRecommendedByType = async (type: string) => {
 export const apiGetNotLoginRecommendedByType = async (type: string, page: number) => {
   try {
     const response = await api.get(`/rank/${type}?page=${page}`);
+    console.log(response);
     return response;
   } catch (e) {
     console.log(e);
