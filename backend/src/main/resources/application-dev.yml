@@ -17,8 +17,7 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 100
-    # data.sql 보다 hibernate 먼저 실행
-    defer-datasource-initialization: true
+        show_sql: false
   redis:
     lettuce:
       pool:
@@ -56,11 +55,6 @@ spring:
           tokenUri: https://kauth.kakao.com/oauth/token
           userInfoUri: https://kapi.kakao.com/v2/user/me
           userNameAttribute: id
-
-  # resources/data.sql 을 실행시켜 더미 데이터 생성
-  sql:
-    init:
-      mode: always
 
 # cors 설정
 cors:
