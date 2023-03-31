@@ -54,7 +54,7 @@ public class LiquorDetailService {
     public LiquorDetailResponse getLiquorDetail(LiquorType type, Long id) {
         Long liquorId = null;
         String name = null;
-        Integer scrap = null;
+        int scrap = 0;
         String description = null;
         List<Feed> feeds = null;
         List<String> tastes = null;
@@ -79,7 +79,7 @@ public class LiquorDetailService {
 
                     liquorId = id;
                     name = beer.getName();
-                    scrap = scrapRepository.findByLiquorNameAndLiquorType(beer.getName(), beer.getLiquorType().toString());
+                    scrap = scrapRepository.findByLiquorNameAndLiquorType(beer.getName(), String.valueOf(beer.getLiquorType()));
                     feeds = feedRepository.findByIdAndLiquorType(id, String.valueOf(type));
                     similarItem = liquorMapper.toLiquorListDtoBeer(byIdList);
                     description = beer.getDescription();
