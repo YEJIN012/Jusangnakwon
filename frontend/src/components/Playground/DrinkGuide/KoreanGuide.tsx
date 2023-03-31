@@ -6,7 +6,7 @@ const KoreanGuide = () => {
       <h1 className={`${styles[`drinktype`]}`}>TRADITIONAL LIQUOR</h1>
       <div className={`${styles[`content-wrap`]}`}>
         <h3 className={`${styles[`small-title`]}`}>전통주 종류</h3>
-        <p>
+        <div>
           전통주는 크게 발효주류, 증류주류, 기타주류로 나뉨.
           <br />
           <br />
@@ -37,7 +37,7 @@ const KoreanGuide = () => {
           <br />
           <br />
           5. 리큐르: 증류주 치고는 낮은 도수, 증류주에 부재료를 가미해 특징적인 맛이 두드러짐.
-        </p>
+        </div>
       </div>
     </div>
   );
