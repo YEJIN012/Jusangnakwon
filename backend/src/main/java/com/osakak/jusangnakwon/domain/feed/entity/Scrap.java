@@ -1,8 +1,11 @@
 package com.osakak.jusangnakwon.domain.feed.entity;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,14 +30,15 @@ public class Scrap {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(nullable = false, name = "liquor_type", length = 10)
-    private String liquorType;
+    @Column(nullable = false, name = "liquor_type")
+    @Enumerated(EnumType.STRING)
+    private LiquorType liquorType;
 
     @Column(nullable = false, name = "liquor_name", length = 150)
     private String liquorName;
 
     @Builder
-    public Scrap(Long id, User user, String liquorType, String liquorName) {
+    public Scrap(Long id, User user, LiquorType liquorType, String liquorName) {
         this.id = id;
         this.user = user;
         this.liquorType = liquorType;
