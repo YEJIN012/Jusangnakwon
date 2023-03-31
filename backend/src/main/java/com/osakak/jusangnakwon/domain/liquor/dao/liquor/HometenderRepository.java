@@ -1,4 +1,4 @@
-package com.osakak.jusangnakwon.domain.liquor.dao;
+package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Hometender;
 import org.springframework.data.domain.Page;

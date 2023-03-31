@@ -1,5 +1,6 @@
 package com.osakak.jusangnakwon.domain.feed.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class Feed {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
     @Column(nullable = false, length = 20)
