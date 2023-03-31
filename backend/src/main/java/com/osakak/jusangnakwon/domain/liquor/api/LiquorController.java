@@ -1,13 +1,17 @@
 package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
+import com.osakak.jusangnakwon.domain.feed.api.request.CreateFeedRequest;
+import com.osakak.jusangnakwon.domain.liquor.api.request.HometenderRequest;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +60,20 @@ public class LiquorController {
                 .body(liquorSearchResponse)
                 .success(true).build();
         return ResponseEntity.ok(responseDto);
+    }
+
+    /**
+     * [POST] /api/hometender : 홈텐더 레시피 생성
+     *
+     * @return LiquorDetailResponse : 생성된 홈텐더 레시피 상세내용
+     */
+    //@param user 유저 로그인 정보 주석에 추가해야함.
+    @Tag(name = "liquor")
+    @Operation(summary = "홈텐더 레시피 생성", description = "홈텐더 레시피를 생성하고 생성된 홈텐더 레시피 상세내용을 리턴")
+    @PostMapping("hometender/{userId}")
+    public ResponseEntity<ResponseDto> createHometender(@PathVariable Long userId,
+            @RequestBody @Valid HometenderRequest hometenderRequest){
+
+        return null;
     }
 }
