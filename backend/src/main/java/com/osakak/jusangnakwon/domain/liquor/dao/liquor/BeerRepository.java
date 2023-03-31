@@ -1,6 +1,8 @@
-package com.osakak.jusangnakwon.domain.liquor.dao;
+package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Wine;
+import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarBeerItem;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,7 +34,6 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
     @Query("select l from Beer l where l.name like :keyword%")
     Optional<List<Beer>> findByKeyword(@Param("keyword") String keyword);
 
-    Optional<Beer> findById(Long id);
-
-
+    @Query("select l from  Beer l where l.id in (:id)")
+    List<Beer> findByIdList(List<Long> id);
 }

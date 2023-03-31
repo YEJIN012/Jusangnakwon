@@ -1,15 +1,26 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
+import com.osakak.jusangnakwon.common.errors.LiquorNotFoundException;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
+import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
 import com.osakak.jusangnakwon.domain.feed.entity.Feed;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
-import com.osakak.jusangnakwon.domain.liquor.dao.*;
+import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
+import com.osakak.jusangnakwon.domain.liquor.dao.similar.SimilarBeerRepository;
+import com.osakak.jusangnakwon.domain.liquor.dao.similar.SimilarWineRepository;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
+import com.osakak.jusangnakwon.domain.liquor.dto.SimilarItemValueType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Wine;
+import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarBeerItem;
+import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarWineItem;
+import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +35,10 @@ public class LiquorDetailService {
     private final WhiskyRepository whiskyRepository;
     private final WineRepository wineRepository;
     private final FeedRepository feedRepository;
+    private final ScrapRepository scrapRepository;
+    private final LiquorMapper liquorMapper;
+    private final SimilarBeerRepository similarBeerRepository;
+    private final SimilarWineRepository similarWineRepository;
 
     /**
      * - 평점
@@ -40,26 +55,84 @@ public class LiquorDetailService {
      * @return 술 상세 정보
      */
     public LiquorDetailResponse getLiquorDetail(LiquorType type, Long id) {
+        Long liquorId = null;
+        String name = null;
+        int scrap = 0;
+        String description = null;
+        List<Feed> feeds = null;
+        List<String> tastes = null;
+        List<LiquorListItemDto> similarItem = null;
+        String image = null;
+        List<Long> list = new ArrayList<>();
         switch (type) {
             case BEER:
-                Optional<Beer> byId = beerRepository.findById(id);
+                Optional<Beer> byIdBeer = beerRepository.findById(id);
+                if (byIdBeer.isEmpty())
+                    throw new LiquorNotFoundException();
+                Beer beer = byIdBeer.get();
+                Optional<SimilarBeerItem> byId = similarBeerRepository.findById(id);
                 if (byId.isPresent()) {
-                    Beer beer = byId.get();
-                }
-                List<Feed> feeds = feedRepository.findByIdAndLiquorType(id, String.valueOf(type));
+                    SimilarBeerItem similarBeerItem = byId.get();
+                    extracted(list, similarBeerItem.getSimilarLiquor());
+                    List<Beer> byIdList = beerRepository.findByIdList(list);
 
-                return null;
+                    liquorId = id;
+                    name = beer.getName();
+                    scrap = scrapRepository.findByLiquorNameAndLiquorType(
+                            beer.getName(), String.valueOf(beer.getLiquorType()));
+                    feeds = feedRepository.findByIdAndLiquorType(id, String.valueOf(type));
+                    similarItem = liquorMapper.toLiquorListDtoBeer(byIdList);
+                    description = beer.getDescription();
+                    image = beer.getImg();
+                }
+                break;
             case WINE:
-                return null;
+                Optional<Wine> byIdWine = wineRepository.findById(id);
+                if (byIdWine.isEmpty())
+                    throw new LiquorNotFoundException();
+                Wine wine = byIdWine.get();
+                Optional<SimilarWineItem> byIdWineSim = similarWineRepository.findById(id);
+                if (byIdWineSim.isPresent()) {
+                    SimilarWineItem similarWineItem = byIdWineSim.get();
+                    extracted(list, similarWineItem.getSimilarLiquor());
+                    List<Wine> byIdListWine = wineRepository.findByIdList(list);
+
+                    liquorId = id;
+                    name = wine.getName();
+                    scrap = scrapRepository.findByLiquorNameAndLiquorType(
+                            wine.getName(), String.valueOf(wine.getLiquorType()));
+                    feeds = feedRepository.findByIdAndLiquorType(id, String.valueOf(type));
+                    similarItem = liquorMapper.toLiquorListDtoWine(byIdListWine);
+                    description = wine.getDescription();
+                    image = wine.getImg();
+                }
+                break;
             case WHISKY:
-                return null;
+                break;
             case COCKTAIL:
-                return null;
+                break;
             case TRADITION:
-                return null;
+                break;
             case HOMETENDER:
-                return null;
+                break;
         }
-        return null;
+        return LiquorDetailResponse.builder()
+                .similarItem(similarItem)
+                .description(description)
+                .feeds(feeds)
+                .id(liquorId)
+                .image(image)
+                .name(name)
+                .scrap(scrap)
+                .tastes(null)
+                .build();
+    }
+
+    private static void extracted(List<Long> list, SimilarItemValueType similarBeerItem) {
+        list.add(similarBeerItem.getItem1());
+        list.add(similarBeerItem.getItem2());
+        list.add(similarBeerItem.getItem3());
+        list.add(similarBeerItem.getItem4());
+        list.add(similarBeerItem.getItem5());
     }
 }
