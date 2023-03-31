@@ -10,6 +10,8 @@ import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorCustomMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
+import com.osakak.jusangnakwon.domain.user.dao.SurveyRepository;
+import com.osakak.jusangnakwon.domain.user.entity.Survey;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -42,6 +44,7 @@ public class LiquorLoggedInService {
     private final SimilarCocktailItemRepository similarCocktailItemRepository;
     private final SimilarHometenderItemRepository similarHometenderItemRepository;
     private final SimilarTraditionItemRepository similarTraditionItemRepository;
+    private final SurveyRepository surveyRepository;
 
     /**
      * 주종별 추천술 조회
@@ -140,7 +143,15 @@ public class LiquorLoggedInService {
             }
 
         } else { //좋아하는 술이 4개 미만이라면 취향설문을 기반으로 유사한 술을 추천해준다
-
+            Survey survey = surveyRepository.findByUserId(user.getId());
+            switch(liquorType){
+                case BEER:
+                case WINE:
+                case WHISKY:
+                case COCKTAIL:
+                case TRADITION:
+                case HOMETENDER:
+            }
         }
 
         return null;
