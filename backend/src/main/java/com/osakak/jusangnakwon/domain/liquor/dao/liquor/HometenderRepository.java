@@ -18,7 +18,7 @@ public interface HometenderRepository extends JpaRepository<Hometender, Long> {
      * @param pageable 페이징 정보
      * @return 페이징 포함 커스텀 칵테일 리스트
      */
-    @Query("select c from Hometender c order by c.ratingAvg desc")
+    @Query("select c from Hometender c order by c.ratingAvg desc, c.name")
     Page<Hometender> findByRatingAvg(Pageable pageable);
 
     @Query("select l from Hometender l where l.name like :keyword%")

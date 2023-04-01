@@ -20,7 +20,7 @@ public interface WineRepository extends JpaRepository<Wine, Long> {
    * @param pageable 페이징 정보
    * @return 페이징 포함 와인 리스트
    */
-  @Query("select w from Wine w order by w.ratingAvg desc")
+  @Query("select w from Wine w order by w.ratingAvg desc, w.name")
   Page<Wine> findByRatingAvg(Pageable pageable);
 
   @Query("select l from Wine l where l.name like :keyword%")
