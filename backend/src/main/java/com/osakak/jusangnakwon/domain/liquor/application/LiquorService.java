@@ -16,7 +16,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -39,7 +42,7 @@ public class LiquorService {
      */
 
     public LiquorListMainResponse searchLiquorByKeyword(int page, String keyword) {
-        List<LiquorListItemDto> liquorByKeyword = getLiquorByKeyword(keyword);
+        List<LiquorListItemDto> liquorByKeyword = getLiquorByKeyword(keyword.toLowerCase());
         if (liquorByKeyword.isEmpty())
             throw new NoLiquorNameExistException();
         int pageSize = liquorByKeyword.size() % 20;

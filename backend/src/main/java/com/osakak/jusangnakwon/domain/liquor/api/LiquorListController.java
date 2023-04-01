@@ -10,8 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "liquor", description = "공통 술 api")
@@ -31,8 +31,8 @@ public class LiquorListController {
      *
      * @return 인기순(랭킹 순 조회 12개)
      */
-    @GetMapping("l1")
-    public ResponseEntity<ResponseDto> listWine(@RequestParam int page) {
+    @GetMapping("l1/{page}")
+    public ResponseEntity<ResponseDto> listWine(@PathVariable int page) {
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.WINE);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
@@ -47,8 +47,8 @@ public class LiquorListController {
      *
      * @return 인기순(랭킹 순 조회 12개)
      */
-    @GetMapping("l2")
-    public ResponseEntity<ResponseDto> listWhisky(@RequestParam int page) {
+    @GetMapping("l2/{page}")
+    public ResponseEntity<ResponseDto> listWhisky(@PathVariable int page) {
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.WHISKY);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
@@ -63,8 +63,8 @@ public class LiquorListController {
      *
      * @return 인기순(랭킹 순 조회 12개)
      */
-    @GetMapping("l3")
-    public ResponseEntity<ResponseDto> listBeer(@RequestParam int page) {
+    @GetMapping("l3/{page}")
+    public ResponseEntity<ResponseDto> listBeer(@PathVariable int page) {
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.BEER);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
@@ -79,8 +79,8 @@ public class LiquorListController {
      *
      * @return 인기순(랭킹 순 조회 12개)
      */
-    @GetMapping("l4")
-    public ResponseEntity<ResponseDto> traditional(@RequestParam int page) {
+    @GetMapping("l4/{page}")
+    public ResponseEntity<ResponseDto> traditional(@PathVariable int page) {
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.TRADITION);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
@@ -95,8 +95,8 @@ public class LiquorListController {
      *
      * @return 인기순(랭킹 순 조회 12개)
      */
-    @GetMapping("l5")
-    public ResponseEntity<ResponseDto> listCocktail(@RequestParam int page) {
+    @GetMapping("l5/{page}")
+    public ResponseEntity<ResponseDto> listCocktail(@PathVariable int page) {
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.COCKTAIL);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
@@ -111,8 +111,8 @@ public class LiquorListController {
      *
      * @return 인기순(랭킹 순 조회 12개)
      */
-    @GetMapping("l6")
-    public ResponseEntity<ResponseDto> listHometender(@RequestParam int page) {
+    @GetMapping("l6/{page}")
+    public ResponseEntity<ResponseDto> listHometender(@PathVariable int page) {
         LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.HOMETENDER);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
