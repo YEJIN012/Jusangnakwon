@@ -95,6 +95,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
         return queryFactory.select(new QCommentDto(comment.id,
                         new QWriterDto(comment.user.username, comment.user.profileImageUrl),
                         comment.feed.id, comment.content, comment.dateCreated)).from(comment)
+                .where(comment.feed.id.eq(feedId))
                 .orderBy(comment.dateCreated.asc()).fetch();
     }
 }
