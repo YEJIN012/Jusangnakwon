@@ -19,7 +19,7 @@ public interface WhiskyRepository extends JpaRepository<Whisky, Long> {
      * @param pageable 페이징 정보
      * @return 페이징 포함 위스키 칵테일 리스트
      */
-    @Query("select c from Whisky c order by c.ratingAvg desc")
+    @Query("select c from Whisky c order by c.ratingAvg desc, c.name")
     Page<Whisky> findByRatingAvg(Pageable pageable);
     @Query("select l from Whisky l where l.name like :keyword%")
     Optional<List<Whisky>> findByKeyword(@Param("keyword") String keyword);

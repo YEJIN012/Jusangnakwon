@@ -42,6 +42,7 @@ public class LiquorDetailController {
      * @return 술 정보
      */
     @GetMapping("l2/{id}")
+    @Tag(name = "liquorDetail")
     public ResponseEntity<ResponseDto> whiskyDetail(@PathVariable Long id) {
         LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.WHISKY, id);
         return ResponseEntity.ok(ResponseDto.builder()
@@ -57,6 +58,7 @@ public class LiquorDetailController {
      * @return 술 정보
      */
     @GetMapping("l3/{id}")
+    @Tag(name = "liquorDetail")
     public ResponseEntity<ResponseDto> beerDetail(@PathVariable Long id) {
         LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.BEER, id);
         return ResponseEntity.ok(ResponseDto.builder()
@@ -72,6 +74,7 @@ public class LiquorDetailController {
      * @return 술 정보
      */
     @GetMapping("l4/{id}")
+    @Tag(name = "liquorDetail")
     public ResponseEntity<ResponseDto> traditionDetail(@PathVariable Long id) {
         LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.TRADITION, id);
         return ResponseEntity.ok(ResponseDto.builder()
@@ -87,6 +90,7 @@ public class LiquorDetailController {
      * @return 술 정보
      */
     @GetMapping("l5/{id}")
+    @Tag(name = "liquorDetail")
     public ResponseEntity<ResponseDto> cocktailDetail(@PathVariable Long id) {
         LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.COCKTAIL, id);
         return ResponseEntity.ok(ResponseDto.builder()
@@ -102,6 +106,7 @@ public class LiquorDetailController {
      * @return 술 정보
      */
     @GetMapping("l6/{id}")
+    @Tag(name = "liquorDetail")
     public ResponseEntity<ResponseDto> hometenderDetail(@PathVariable Long id) {
         LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.HOMETENDER, id);
         return ResponseEntity.ok(ResponseDto.builder()

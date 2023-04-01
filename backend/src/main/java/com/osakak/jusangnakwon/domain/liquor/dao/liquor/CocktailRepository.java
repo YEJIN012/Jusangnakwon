@@ -19,7 +19,7 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
      * @param pageable 페이징 정보
      * @return 페이징 포함 칵테일 리스트
      */
-    @Query("select c from Cocktail c order by c.ratingAvg desc")
+    @Query("select c from Cocktail c order by c.ratingAvg desc, c.name")
     Page<Cocktail> findByRatingAvg(Pageable pageable);
     @Query("select l from Cocktail l where l.name like :keyword%")
     Optional<List<Cocktail>> findByKeyword(@Param("keyword") String keyword);

@@ -21,7 +21,7 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
    * @param pageable 페이징 정보
    * @return 페이징 포함 맥주 리스트
    */
-  @Query("select b from Beer b order by b.ratingAvg desc")
+  @Query("select b from Beer b order by b.ratingAvg desc, b.name")
   Page<Beer> findByRatingAvg(Pageable pageable);
 
   /**
