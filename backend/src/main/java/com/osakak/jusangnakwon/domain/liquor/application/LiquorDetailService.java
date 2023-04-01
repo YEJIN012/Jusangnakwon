@@ -3,7 +3,7 @@ package com.osakak.jusangnakwon.domain.liquor.application;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
 import com.osakak.jusangnakwon.domain.feed.entity.Feed;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
-import com.osakak.jusangnakwon.domain.liquor.dao.*;
+import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,7 @@ package com.osakak.jusangnakwon.domain.liquor.application;
 
 import com.osakak.jusangnakwon.domain.feed.dao.RatingRepository;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
-import com.osakak.jusangnakwon.domain.liquor.dao.*;
+import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.dao.similar.*;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
@@ -145,12 +145,17 @@ public class LiquorLoggedInService {
         } else { //좋아하는 술이 4개 미만이라면 취향설문을 기반으로 유사한 술을 추천해준다
             Survey survey = surveyRepository.findByUserId(user.getId());
             switch(liquorType){
-                case BEER:
                 case WINE:
+
+                    Page<Wine> wines = wineRepository.findById(similarWineUniqueList, pageable);
+                    list = liquorMapper.toLiquorListDtoWine(wines.getContent());
+                    return getLiquorListMainResponse(wines.getTotalPages(), wines.getPageable(), list);
                 case WHISKY:
+                case BEER:
                 case COCKTAIL:
                 case TRADITION:
                 case HOMETENDER:
+
             }
         }
 
