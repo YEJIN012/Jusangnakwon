@@ -1,8 +1,6 @@
 import styles from "@/components/Home/Banner/HometenderBanner.module.css";
 import cocktailimg from "/assets/stcocktail.png";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { apiGetRandomlyRecommendedHometender } from "@/api/home";
 
 interface ApiData {
   success?: boolean;

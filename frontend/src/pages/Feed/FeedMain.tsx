@@ -22,72 +22,6 @@ export interface FeedContent {
 
 const FeedMain = () => {
   const [feedList, setFeedList] = useState<FeedContent[]>([]);
-  // const [dummyFeedList, setDummyFeedList] = useState([
-  //   {
-  //     id: 1,
-  //     userName: "hojung",
-  //     userImg: "https://picsum.photos/100/100/?random",
-  //     classification: "게시글",
-  //     img: "https://picsum.photos/300/300/?random",
-  //     content: "이야호",
-  //     liked: false,
-  //   },
-  //   {
-  //     id: 2,
-  //     userName: "이담비",
-  //     userImg: "https://picsum.photos/100/100/?random",
-  //     classification: "질문글",
-  //     img: "https://picsum.photos/300/300/?random",
-  //     content: "와인 추천해주세요!!!",
-  //     liked: false,
-  //   },
-  //   {
-  //     id: 3,
-  //     userName: "동동이",
-  //     userImg: "https://picsum.photos/100/100/?random",
-  //     classification: "질문글",
-  //     img: "https://picsum.photos/300/300/?random",
-  //     content: "저는 칵테일 추천해주세요 ~~ !",
-  //     liked: false,
-  //   },
-  //   {
-  //     id: 4,
-  //     userName: "스텝한이",
-  //     userImg: "https://picsum.photos/100/100/?random",
-  //     classification: "게시글",
-  //     img: "https://picsum.photos/300/300/?random",
-  //     content: "부야호",
-  //     liked: false,
-  //   },
-  //   {
-  //     id: 5,
-  //     userName: "스텝한이",
-  //     userImg: "https://picsum.photos/100/100/?random",
-  //     classification: "게시글",
-  //     img: "https://picsum.photos/300/300/?random",
-  //     content: "부야호오오오",
-  //     liked: false,
-  //   },
-  //   {
-  //     id: 6,
-  //     userName: "이랑이",
-  //     userImg: "https://picsum.photos/100/100/?random",
-  //     classification: "게시글",
-  //     img: "https://picsum.photos/300/300/?random",
-  //     content: "냠냠 와인 냠냠",
-  //     liked: false,
-  //   },
-  //   {
-  //     id: 7,
-  //     userName: "주연이",
-  //     userImg: "https://picsum.photos/100/100/?random",
-  //     classification: "질문글",
-  //     img: "https://picsum.photos/300/300/?random",
-  //     content: "위스키랑 같이 먹을 안주 추천해주세요",
-  //     liked: false,
-  //   },
-  // ]);
-
   // const container = useRef<HTMLDivElement>(null);
 
   // useEffect(() => {
@@ -161,9 +95,18 @@ const FeedMain = () => {
           </button>
         </div>
         <Masonry columns={2} spacing={0.5}>
-          {feedList ? feedList.map((feed) => (
-            <FeedItem key={feed.id} feed={feed} setFeedList={setFeedList}></FeedItem>
-          )): <></>}
+          {feedList ? (
+            feedList.map((feed) => (
+              <FeedItem
+                key={feed.id}
+                feed={feed}
+                setFeedList={setFeedList}
+                focusedPostList={focusedPostList}
+              ></FeedItem>
+            ))
+          ) : (
+            <></>
+          )}
         </Masonry>
       </div>
     </>

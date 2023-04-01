@@ -53,7 +53,7 @@ export const apiGetFeedDetail = async (feedId: number) => {
 };
 
 // 댓글 작성
-export const apiCreateComment = async (data: any[]) => {
+export const apiCreateComment = async (data: { feedId: number; content: string }) => {
   try {
     const response = await api.post(`/comment`, data);
     return response;
@@ -63,9 +63,9 @@ export const apiCreateComment = async (data: any[]) => {
 };
 
 // 좋아요
-export const apiCreateLike = async (feedId: number) => {
+export const apiCreateLike = async (feedId: number, data: { [key: string]: string }) => {
   try {
-    const response = await api.post(`/feed/${feedId}`);
+    const response = await api.put(`/feed/like/${feedId}`, data);
     return response;
   } catch (e) {
     console.log(e);
