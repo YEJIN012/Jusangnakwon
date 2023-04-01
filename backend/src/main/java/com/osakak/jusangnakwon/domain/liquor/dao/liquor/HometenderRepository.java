@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface HometenderRepository extends JpaRepository<Hometender, Long> {
     /**
@@ -30,4 +31,7 @@ public interface HometenderRepository extends JpaRepository<Hometender, Long> {
      */
     @Query("select l from Hometender l order by FUNCTION('RAND')")
     Page<Hometender> findByRandom(Pageable pageable);
+
+    @Query("select w from Hometender w WHERE w.id IN :similarHometenderUniqueList ")
+    Page<Hometender> findById(Set<Long> similarHometenderUniqueList, Pageable pageable);
 }

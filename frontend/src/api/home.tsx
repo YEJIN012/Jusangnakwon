@@ -1,5 +1,5 @@
 import getApiInstance from "./http";
-
+import axios from "axios";
 const api = getApiInstance();
 
 // 술 추천 - 공통 - 날씨 기반 주종 추천
@@ -45,7 +45,7 @@ export const apiGetNotLoginRecommendedByType = async (type: string, page: number
 // 술 검색
 export const apiSearchDrink = async (keyword: string) => {
   try {
-    const response = await api.get(`/search/${keyword}/0`);
+    const response = await api.get(`/search/${keyword}?page=0`);
     return response;
   } catch (e) {
     console.log(e);

@@ -1,10 +1,13 @@
-import Header from "@/components/Commons/Header/Header";
 import { Outlet } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import Header from "@/components/Commons/Header/Header";
+import HeaderBack from "@/components/Commons/Header/HeaderBack";
 
 const Home = () => {
+  const { pathname } = useLocation();
   return (
     <div>
-      <Header></Header>
+      {pathname === "/" ? <Header></Header> : <HeaderBack></HeaderBack>}
       <Outlet></Outlet>
     </div>
   );

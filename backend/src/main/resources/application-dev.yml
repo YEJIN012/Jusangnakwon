@@ -17,6 +17,7 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 100
+        show_sql: false
     # data.sql 보다 hibernate 먼저 실행
     defer-datasource-initialization: true
   redis:
@@ -35,6 +36,7 @@ spring:
         google:
           clientId: ${gclient.id}
           clientSecret: ${gclient.secret}
+          redirect-uri: 'https://j8a504.p.ssafy.io/t1/api/login/oauth2/code/google'
           scope:
             - email
             - profile
@@ -43,7 +45,7 @@ spring:
           clientSecret: ${kclient.secret}
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
-          redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+          redirectUri: ${kredirecturl}
           scope:
             - profile_nickname
             - profile_image
