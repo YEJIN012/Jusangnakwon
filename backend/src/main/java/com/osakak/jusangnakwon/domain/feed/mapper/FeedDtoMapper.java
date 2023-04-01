@@ -9,21 +9,26 @@ import com.osakak.jusangnakwon.domain.feed.api.response.FeedResponse;
 import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
+import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
 import com.osakak.jusangnakwon.domain.feed.dto.RatingDto;
+import com.osakak.jusangnakwon.domain.feed.entity.Feed;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 @Mapper
 public interface FeedDtoMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(source = "type", target = "type", qualifiedByName = "stringToFeedType")
     @Mapping(target = "writer", ignore = true)
     @Mapping(target = "likeCnt", ignore = true)
     @Mapping(target = "liked", ignore = true)
     @Mapping(target = "comments", ignore = true)
-    @Mapping(target = "ratingScore", source = "ratingScore")
-    @Mapping(target = "dateCreated", source = "dateCreated")
+    @Mapping(source = "ratingScore", target = "ratingScore")
+    @Mapping(source = "dateCreated", target = "dateCreated")
     FeedDto createFeedRequestToFeedDto(CreateFeedRequest createFeedRequest);
 
     @Mapping(target = "id", ignore = true)
@@ -41,4 +46,9 @@ public interface FeedDtoMapper {
     CommentResponse commentDtoToCommentResponse(CommentDto commentDto);
 
     FeedListResponse toFeedListResponse(List<FeedListDto> content, int totalPage, int curPageNumber);
+
+    @Named("stringToFeedType")
+    default FeedType stringToFeedType(String type) {
+        return FeedType.findFeedType(type);
+    }
 }

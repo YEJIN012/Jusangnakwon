@@ -1,5 +1,6 @@
 package com.osakak.jusangnakwon.domain.feed.api.request;
 
+import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
