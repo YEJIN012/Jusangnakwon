@@ -72,7 +72,7 @@ public class LiquorController {
     @Operation(summary = "홈텐더 레시피 생성", description = "홈텐더 레시피를 생성하고 생성된 홈텐더 레시피 상세내용을 리턴")
     @PostMapping("hometender/{userId}")
     public ResponseEntity<ResponseDto> createHometender(@PathVariable Long userId,
-            @RequestBody @Valid HometenderRequest hometenderRequest){
+            @RequestBody HometenderRequest hometenderRequest){
 
         return null;
     }
