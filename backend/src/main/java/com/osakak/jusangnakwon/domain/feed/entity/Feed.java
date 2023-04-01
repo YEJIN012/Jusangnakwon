@@ -1,11 +1,15 @@
 package com.osakak.jusangnakwon.domain.feed.entity;
 
+import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
+import com.osakak.jusangnakwon.domain.feed.dto.RecordListDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,7 +19,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,7 +43,8 @@ public class Feed {
     private User user;
 
     @Column(nullable = false, length = 20)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private FeedType type;
 
     private String img;
 
@@ -67,7 +74,7 @@ public class Feed {
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Feed(Long id, User user, String type, String img, String title, Long liquorId,
+    public Feed(Long id, User user, FeedType type, String img, String title, Long liquorId,
             LiquorType liquorType, String liquorName, String content, Boolean isPublic,
             LocalDateTime dateCreated, List<Comment> comments) {
         this.id = id;

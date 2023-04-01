@@ -14,7 +14,7 @@ import lombok.Setter;
 public class FeedDto {
 
     private final Long id;
-    private final String type;
+    private final FeedType type;
     private final String img;
     private final String title;
     private final Long liquorId;
@@ -30,7 +30,7 @@ public class FeedDto {
     private List<CommentDto> comments;
 
     @QueryProjection
-    public FeedDto(Long id, String type, String img, String title, Long liquorId,
+    public FeedDto(Long id, FeedType type, String img, String title, Long liquorId,
             LiquorType liquorType, String liquorName, String content, Double ratingScore,
             Boolean isPublic, LocalDateTime dateCreated, WriterDto writer, Long likeCnt,
             Boolean liked) {
@@ -51,7 +51,7 @@ public class FeedDto {
     }
 
     @Builder
-    public FeedDto(Long id, String type, String img, String title, Long liquorId,
+    public FeedDto(Long id, FeedType type, String img, String title, Long liquorId,
             LiquorType liquorType, String liquorName, String content, Double ratingScore,
             Boolean isPublic, LocalDateTime dateCreated, WriterDto writer, Long likeCnt,
             Boolean liked, List<CommentDto> comments) {
