@@ -3,14 +3,13 @@ package com.osakak.jusangnakwon.domain.liquor.application;
 import com.osakak.jusangnakwon.common.errors.LiquorNotFoundException;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
 import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
-import com.osakak.jusangnakwon.domain.feed.entity.Scrap;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.dao.similar.SimilarBeerItemRepository;
 import com.osakak.jusangnakwon.domain.liquor.dao.similar.SimilarWineItemRepository;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.ReviewItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.SimilarItemValueType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarBeerItem;
@@ -63,7 +62,7 @@ public class LiquorDetailService {
         List<String> ingredients = null;
         List<String> tastes = null;
         String description = null;
-        List<ReviewListDto> reviews = null;
+        List<ReviewItemDto> reviews = null;
         List<LiquorListItemDto> similarItem = null;
 
         List<Long> list = new ArrayList<>();
@@ -78,20 +77,13 @@ public class LiquorDetailService {
                     SimilarBeerItem similarBeerItem = byId.get();
                     extracted(list, similarBeerItem.getSimilarLiquor());
                     List<Beer> byIdList = beerRepository.findByIdList(list);
-                    Optional<Scrap> byLiquorIdScrapped = scrapRepository.findByLiquorId(1L, beer.getName());
-                    if (byLiquorIdScrapped.isPresent()) scrapped = true;
-
-                    System.out.println("done");
 
                     liquorId = id;
                     name = beer.getName();
                     ratingAvg = beer.getRatingAvg();
+//                    ratingAvg = ra
 
-                    scrapCnt = scrapRepository.findByLiquorNameAndLiquorType(
-                            beer.getName(), beer.getLiquorType());
-                    System.out.println("done22");
                     reviews = feedRepository.findBeerReviewByLiquorId(id);
-                    System.out.println("done33");
                     similarItem = liquorMapper.toLiquorListDtoBeer(byIdList);
                     description = beer.getDescription();
                     image = beer.getImg();
@@ -115,7 +107,6 @@ public class LiquorDetailService {
                 .ratingAvg(ratingAvg)
                 .scrapCnt(scrapCnt)
                 .scrapped(scrapped)
-                .ingredients(null)
                 .tastes(null)
                 .description(description)
                 .reviews(reviews)
