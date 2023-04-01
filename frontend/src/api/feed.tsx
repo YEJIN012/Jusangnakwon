@@ -15,12 +15,12 @@ const api = getApiInstance();
 
 // 피드 리스트 타입별 조회 (질문글/게시글)
 interface Props {
-  type : string,
-  page : number
+  type: string;
+  page: number;
 }
 
 export const apiGetFilteredFeedList = async (props: Props) => {
-  const filter = props.type === "" ? props.type : `/${props.type}`
+  const filter = props.type === "" ? props.type : `/${props.type}`;
   try {
     const response = await api.get(`/feed/list${filter}?page=${props.page}`);
     return response;
@@ -30,9 +30,11 @@ export const apiGetFilteredFeedList = async (props: Props) => {
 };
 
 // 피드 작성
-export const apiCreateFeed = async (data: { [key: string]: any }) => {
+export const apiCreateFeed = async (data: { [key: string]: any } ) => {
   try {
-    const response = await api.post(`/feed`, data);
+    const response = await api.post(`/feed`, data,
+      // { headers: { "Content-Type": "multipart/form-data" } }
+    );
     return response;
   } catch (e) {
     console.log(e);

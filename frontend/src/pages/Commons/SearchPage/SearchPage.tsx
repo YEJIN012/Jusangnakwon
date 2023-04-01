@@ -7,6 +7,7 @@ import styles from "./SearchPage.module.css";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import SearchItem from "./SearchItem";
+import { SelectedLiquor } from "../Write/WriteReview";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -75,8 +76,11 @@ interface Data {
 //     }>;
 //   };
 // }
+interface Props {
+  handleOpen?: (props: boolean) => void | undefined;
+};
 
-const SearchPage = () => {
+const SearchPage = (props: Props) => {
   const [searchedData, setSearchedData] = useState<Data | null>(null);
   const [searchingWord, setSearchigWord] = useState<string>("");
   const [page, setPage] = useState(0);
@@ -106,8 +110,15 @@ const SearchPage = () => {
   return (
     <div>
       <div className={`${styles[`header-container`]}`}>
-        <ArrowBackIcon onClick={() => navigate(-1)} />
-
+        {props.handleOpen === undefined ? (
+          <ArrowBackIcon onClick={() => navigate(-1)} />
+        ) : (
+          <ArrowBackIcon
+            onClick={() => {
+              props.handleOpen?.(false);
+            }}
+          />
+        )}
         <Search sx={{ marginLeft: "2%" }}>
           <SearchIconWrapper>
             <SearchIcon />

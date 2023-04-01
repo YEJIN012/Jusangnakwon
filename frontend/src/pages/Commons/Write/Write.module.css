@@ -36,8 +36,8 @@
 
 .end-container {
   display: flex;
-  justify-content: end;
-  width: 80%;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .column-container {
@@ -121,4 +121,10 @@ textarea:focus {
   background-color: transparent;
   border: 0px solid;
   border-color: rgba(149, 149, 149, 0);
+}
+
+.alcohol-type {
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 0.9rem;
 }

@@ -40,14 +40,18 @@ const StyleSwitch = styled(Switch)(({ theme }) => ({
 const WriteQuestion = () => {
   const [formData, setFormData] = useState({
     type: "질문글",
-  img:null,
-  title: "",
-  content: "",
-  isPublic: true,
-  dateCreated: new Date(),
+    img: null,
+    title: "",
+    content: "",
+    isPublic: true,
+    dateCreated: new Date(),
   });
 
   const navigate = useNavigate();
+
+  const handleImg = (img: File | null | undefined) => {
+    // setData({ ...data, img: img });
+  };
 
   const handleSubmit = (formData: QuestionFormData) => {
     // 제출 api호출
@@ -55,7 +59,7 @@ const WriteQuestion = () => {
       .then((res: any) => {
         console.log(res);
         const newFeed = res.data.body;
-        navigate(`/feed/${newFeed.id}`); // 질문글상세페이지로 이동
+        navigate(`details/feed/${newFeed.id}`); // 질문글상세페이지로 이동
       })
       .catch((error) => {
         console.error(error);
@@ -84,7 +88,7 @@ const WriteQuestion = () => {
               <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)" }}> (선택)</div>
             </div>
             {/* 이미지 선택, 미리보기, 업로드 로직 컴포넌트 */}
-            <ImageUpload></ImageUpload>
+            <ImageUpload handleImg={handleImg}></ImageUpload>
           </div>
         </div>
 

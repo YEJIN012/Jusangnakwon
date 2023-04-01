@@ -1,9 +1,12 @@
 import "./LikeButton.css";
+import { useState } from 'react';
 
 const LikeButton = () => {
+  const [isLike, setIsLike] = useState(false)
+  console.log(isLike)
   return (
     <>
-      <input type="checkbox" className="checkbox" id="checkbox" />
+      <input type="checkbox" className="checkbox" id="checkbox"/>
       <label htmlFor="checkbox">
         <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
           <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
