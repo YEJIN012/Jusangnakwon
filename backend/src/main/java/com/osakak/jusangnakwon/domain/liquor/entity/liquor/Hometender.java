@@ -18,7 +18,6 @@ import javax.persistence.*;
 public class Hometender {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(length = 100, nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,13 +44,15 @@ public class Hometender {
     @OneToOne(mappedBy = "hometender")
     private SimilarHometenderItem similarHometenderItem;
 
-    @Column(name = "rating_avg", columnDefinition = "double DEFAULT 0")
-    private double ratingAvg;
+    @Column(name = "rating_avg", columnDefinition = "double default 0")
+    private Double ratingAvg;
+
+    private String description;
 
     @Builder
     public Hometender(Long id, User user, String name, String img, String materials, Integer salty,
             Integer sour, Integer bitter, Integer sweet, LiquorType liquorType,
-            SimilarHometenderItem similarHometenderItem, double ratingAvg) {
+            SimilarHometenderItem similarHometenderItem, Double ratingAvg, String description) {
         this.id = id;
         this.user = user;
         this.name = name;
@@ -64,5 +65,6 @@ public class Hometender {
         this.liquorType = liquorType;
         this.similarHometenderItem = similarHometenderItem;
         this.ratingAvg = ratingAvg;
+        this.description = description;
     }
 }

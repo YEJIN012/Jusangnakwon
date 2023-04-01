@@ -1,12 +1,18 @@
 package com.osakak.jusangnakwon.domain.liquor.mapper;
 
+import com.osakak.jusangnakwon.domain.liquor.api.request.HometenderRequest;
+import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
-import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Hometender;
+import com.osakak.jusangnakwon.domain.liquor.dto.TasteDto;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface LiquorCustomMapper {
@@ -27,5 +33,6 @@ public interface LiquorCustomMapper {
      * @return RandomHometenderResponse
      */
 //    RandomHometenderResponse toRandomHometender(Hometender hometender);
+
 }
 

@@ -1,14 +1,17 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
 import com.osakak.jusangnakwon.common.errors.NoLiquorNameExistException;
+import com.osakak.jusangnakwon.common.errors.UserNotFoundException;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.*;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
-import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorCustomMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
+import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
+import com.osakak.jusangnakwon.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,6 +26,8 @@ import java.util.*;
 @Service
 @Transactional(readOnly = true)
 public class LiquorService {
+
+    private final UserRepository userRepository;
     private final BeerRepository beerRepository;
     private final CocktailRepository cocktailRepository;
     private final HometenderRepository hometenderRepository;
@@ -108,5 +113,30 @@ public class LiquorService {
         System.out.println(hometender.getImg());
         System.out.println(hometender.getId());
         return liquorMapper.toRandHometender(hometender);
+    }
+
+    /**
+     * 홈텐더 레시피 생성
+     *
+     * @param id 유저 id
+     * @param hometenderDto 홈텐더 레시피 생성에 필요한 정보
+     *
+     * @return 생성한 홈텐더 레시피
+     */
+    @Transactional
+    public HometenderDto createHometender(Long id, HometenderDto hometenderDto) {
+        User user = findUser(id);
+        Hometender hometender = liquorMapper.hometenderDtoToHometender(hometenderDto, user);
+        hometender = hometenderRepository.save(hometender);
+        hometenderDto = liquorMapper.hometenderToHometenderDto(hometender);
+        hometenderDto.setScrapCnt(Long.valueOf("0"));
+        hometenderDto.setScrapped(false);
+        hometenderDto.setReviews(new ArrayList<>());
+        hometenderDto.setSimilarItems(new ArrayList<>());
+        return hometenderDto;
+    }
+
+    private User findUser(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 }
