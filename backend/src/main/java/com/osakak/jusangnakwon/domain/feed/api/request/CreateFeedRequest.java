@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 public class CreateFeedRequest {
 
     @NotBlank
-    private String type;
+    private FeedType type;
     private String img;
     private String title;
     private Long liquorId;

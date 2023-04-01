@@ -4,12 +4,14 @@ import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarHometenderItem;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import io.swagger.annotations.ApiModel;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 @ApiModel(value = "hometender")
 @Getter
@@ -49,10 +51,15 @@ public class Hometender {
 
     private String description;
 
+    @CreationTimestamp
+    @Column(name = "date_created")
+    private LocalDateTime dateCreated;
+
     @Builder
     public Hometender(Long id, User user, String name, String img, String materials, Integer salty,
             Integer sour, Integer bitter, Integer sweet, LiquorType liquorType,
-            SimilarHometenderItem similarHometenderItem, Double ratingAvg, String description) {
+            SimilarHometenderItem similarHometenderItem, Double ratingAvg, String description,
+            LocalDateTime dateCreated) {
         this.id = id;
         this.user = user;
         this.name = name;
@@ -66,5 +73,6 @@ public class Hometender {
         this.similarHometenderItem = similarHometenderItem;
         this.ratingAvg = ratingAvg;
         this.description = description;
+        this.dateCreated = dateCreated;
     }
 }

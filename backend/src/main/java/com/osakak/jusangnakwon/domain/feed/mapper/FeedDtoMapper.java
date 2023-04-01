@@ -22,7 +22,6 @@ import org.mapstruct.Named;
 public interface FeedDtoMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(source = "type", target = "type", qualifiedByName = "stringToFeedType")
     @Mapping(target = "writer", ignore = true)
     @Mapping(target = "likeCnt", ignore = true)
     @Mapping(target = "liked", ignore = true)
@@ -47,8 +46,4 @@ public interface FeedDtoMapper {
 
     FeedListResponse toFeedListResponse(List<FeedListDto> content, int totalPage, int curPageNumber);
 
-    @Named("stringToFeedType")
-    default FeedType stringToFeedType(String type) {
-        return FeedType.findFeedType(type);
-    }
 }

@@ -58,7 +58,7 @@ public class FeedController {
     /**
      * [GET] /api/feed/list : 최신 피드 목록 조회 - 리뷰글과 질문글 모두
      *
-     * @param user 유저 로그인 정보 붙여야함.
+     * @param user 유저 로그인 정보
      * @param page 현재 페이지
      * @return 조회한 피드 목록
      */
@@ -69,10 +69,7 @@ public class FeedController {
             @RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 20);
         FeedListResponse feeds = feedService.getFeedList(user.getId(), pageable);
-        ResponseDto responseDto = ResponseDto.builder()
-                .success(true)
-                .body(feeds)
-                .build();
+        ResponseDto responseDto = ResponseDto.builder().success(true).body(feeds).build();
         return ResponseEntity.ok(responseDto);
     }
 
@@ -92,10 +89,7 @@ public class FeedController {
             @PathVariable String type, @RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 20);
         FeedListResponse feeds = feedService.getFeedListByType(user.getId(), type, pageable);
-        ResponseDto responseDto = ResponseDto.builder()
-                .success(true)
-                .body(feeds)
-                .build();
+        ResponseDto responseDto = ResponseDto.builder().success(true).body(feeds).build();
         return ResponseEntity.ok(responseDto);
     }
 

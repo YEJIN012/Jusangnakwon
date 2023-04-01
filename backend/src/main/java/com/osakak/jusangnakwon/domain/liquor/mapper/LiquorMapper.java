@@ -77,6 +77,7 @@ public interface LiquorMapper {
     @Mapping(source = "hometenderDto.taste.bitter", target = "bitter")
     @Mapping(source = "hometenderDto.taste.sweet", target = "sweet")
     @Mapping(target = "similarHometenderItem", ignore = true)
+    @Mapping(target = "dateCreated", ignore = true)
     Hometender hometenderDtoToHometender(HometenderDto hometenderDto, User user);
 
     @Mapping(source = "user.username", target = "writer.username")
