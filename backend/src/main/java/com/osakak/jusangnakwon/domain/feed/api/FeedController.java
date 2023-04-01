@@ -60,7 +60,6 @@ public class FeedController {
      *
      * @param user 유저 로그인 정보 붙여야함.
      * @param page 현재 페이지
-     *
      * @return 조회한 피드 목록
      */
     @Tag(name = "feeds", description = "피드 API")
@@ -83,7 +82,6 @@ public class FeedController {
      * @param user 유저 로그인 정보
      * @param type 피드 타입 (리뷰글 / 질문글)
      * @param page 현재 페이지
-     *
      * @return 조회한 피드 목록
      */
     //

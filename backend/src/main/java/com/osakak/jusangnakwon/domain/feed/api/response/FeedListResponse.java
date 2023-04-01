@@ -1,10 +1,7 @@
 package com.osakak.jusangnakwon.domain.feed.api.response;
 
 import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
-import com.osakak.jusangnakwon.domain.feed.dto.WriterDto;
-import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
