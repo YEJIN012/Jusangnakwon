@@ -35,11 +35,10 @@ public class LiquorNotLoggedInService {
      * 주종별, 검색 타입별 메인 페이지 뿌려줄 응답 구성
      *
      * @param liquorType 주종 타입
-     * @param searchType 검색 타입
      * @param pageable   페이징
      * @return 페이징 포함 주종 id, name 정보
      */
-    public LiquorListMainResponse getLiquorList(LiquorType liquorType, SearchType searchType, Pageable pageable) {
+    public LiquorListMainResponse getLiquorList(LiquorType liquorType,   Pageable pageable) {
         return getLiquorListByRank(liquorType, pageable);
     }
 
