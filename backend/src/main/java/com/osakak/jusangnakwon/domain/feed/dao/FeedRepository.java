@@ -20,12 +20,14 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
 //            "on f.liquorId = l.id and f.liquorType=l.liquorType " +
 //            "where l.id=:id and f.type='리뷰글'")
 //    List<ReviewListDto> findBeerReviewByLiquorId(Long id);
-    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.ReviewItemDto(f.dateCreated, f.content, f.img) " +
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto(r.score, f.dateCreated, f.content, f.img) " +
             "from Feed f " +
-            "left join fetch Beer l " +
-            "on f.liquorId = l.id and f.liquorType=l.liquorType " +
-            "where l.id=:id and f.type='리뷰글'")
-    List<ReviewItemDto> findBeerReviewByLiquorId(Long id);
+            "left join fetch Rating r " +
+            "on f.user.id = r.user.id and r.liquorId=f.liquorId " +
+            "left join fetch Beer b " +
+            "on f.liquorId = b.id " +
+            "where f.liquorId=:id and f.type='리뷰글'")
+    List<ReviewListDto> findBeerReviewByLiquorId(Long id);
 
     @Query("select f.content, f.img, f.dateCreated, l.ratingAvg from Feed f " +
             "left join fetch Wine l " +

@@ -9,7 +9,7 @@ import com.osakak.jusangnakwon.domain.liquor.dao.similar.SimilarBeerItemReposito
 import com.osakak.jusangnakwon.domain.liquor.dao.similar.SimilarWineItemRepository;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import com.osakak.jusangnakwon.domain.liquor.dto.ReviewItemDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.SimilarItemValueType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarBeerItem;
@@ -62,7 +62,7 @@ public class LiquorDetailService {
         List<String> ingredients = null;
         List<String> tastes = null;
         String description = null;
-        List<ReviewItemDto> reviews = null;
+        List<ReviewListDto> reviews = null;
         List<LiquorListItemDto> similarItem = null;
 
         List<Long> list = new ArrayList<>();
@@ -81,8 +81,6 @@ public class LiquorDetailService {
                     liquorId = id;
                     name = beer.getName();
                     ratingAvg = beer.getRatingAvg();
-//                    ratingAvg = ra
-
                     reviews = feedRepository.findBeerReviewByLiquorId(id);
                     similarItem = liquorMapper.toLiquorListDtoBeer(byIdList);
                     description = beer.getDescription();
