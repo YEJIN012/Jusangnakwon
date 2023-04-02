@@ -27,30 +27,23 @@ const reviewList = [
   },
 ];
 
-// 해당 술 정보
 interface Props {
-  id: number;
-  type: string;
-  name: string;
+  type: string
+  name: string
 }
 
 const ReviewList = (props: Props) => {
-  const { id, type, name } = props;
-  const navigate = useNavigate();
+  const { type, name } = props
+  const navigate = useNavigate()
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{width:"100%"}}>
       <div className={`${styles[`title`]}`}>
         <h1>리뷰 모아보기</h1>
         {/* 술 상세페이지에서 리뷰작성하러 갈 경우, 술 이름과 술 타입 같이 넘겨주기 */}
-        <button
-          className={`${styles[`write-review-button`]}`}
-          onClick={() => {
-            navigate("/write/review", { state: { liquorId: id, liquorType: type, liquorName: name } });
-          }}
-        >
-          내 리뷰 작성하기
-          <CreateIcon />
-        </button>
+          <button className={`${styles[`write-review-button`]}`} onClick={()=>{navigate("/write/review", {state: {type: type, name: name}})}}>
+            내 리뷰 작성하기
+            <CreateIcon />
+          </button>
       </div>
       {reviewList.map((review, index) => {
         return <ReviewListItem key={index} review={review}></ReviewListItem>;

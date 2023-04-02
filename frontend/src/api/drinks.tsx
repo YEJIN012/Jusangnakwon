@@ -17,7 +17,7 @@ export const apiGetDrinkList = async (type: string) => {
 // 술 상세 페이지 조회 - 홈텐더 포함
 export const apiGetDrinkDetail = async (type: string, drinkId: number) => {
   try {
-    const response = await api.get(`detail/${type}/${drinkId}`);
+    const response = await api.get(`list/${type}/${drinkId}`);
     return response;
   } catch (e) {
     console.log(e);
