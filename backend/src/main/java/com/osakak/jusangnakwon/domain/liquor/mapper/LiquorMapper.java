@@ -1,15 +1,19 @@
 package com.osakak.jusangnakwon.domain.liquor.mapper;
 
 import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
+import com.osakak.jusangnakwon.domain.user.entity.User;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Mapper(componentModel = "spring", imports = Arrays.class)
 public interface LiquorMapper {
@@ -34,7 +38,7 @@ public interface LiquorMapper {
      */
 
     @IterableMapping(qualifiedByName = "BEER")
-    List<LiquorListItemDto> toLiquorListDtoBeer(List<Beer> beers);
+    List<LiquorListItemDto>     toLiquorListDtoBeer(List<Beer> beers);
 
     @Named("COCKTAIL")
     LiquorListItemDto toLiquorItemCocktail(Cocktail cocktail);
@@ -66,4 +70,28 @@ public interface LiquorMapper {
 
     @IterableMapping(qualifiedByName = "WINE")
     List<LiquorListItemDto> toLiquorListDtoWine(List<Wine> wines);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "user", target = "user")
+    @Mapping(source = "hometenderDto.image", target = "img")
+    @Mapping(source = "hometenderDto.taste.salty", target = "salty")
+    @Mapping(source = "hometenderDto.taste.sour", target = "sour")
+    @Mapping(source = "hometenderDto.taste.bitter", target = "bitter")
+    @Mapping(source = "hometenderDto.taste.sweet", target = "sweet")
+    @Mapping(target = "similarHometenderItem", ignore = true)
+    @Mapping(target = "dateCreated", ignore = true)
+    Hometender hometenderDtoToHometender(HometenderDto hometenderDto, User user);
+
+    @Mapping(source = "user.username", target = "writer.username")
+    @Mapping(source = "user.profileImageUrl", target = "writer.profileImg")
+    @Mapping(source = "img", target = "image")
+    @Mapping(target = "scrapCnt", ignore = true)
+    @Mapping(target = "scrapped", ignore = true)
+    @Mapping(source = "salty", target = "taste.salty")
+    @Mapping(source = "sour", target = "taste.sour")
+    @Mapping(source = "bitter", target = "taste.bitter")
+    @Mapping(source = "sweet", target = "taste.sweet")
+    @Mapping(target = "reviews", ignore = true)
+    @Mapping(target = "similarItems", ignore = true)
+    HometenderDto hometenderToHometenderDto(Hometender hometender);
 }
