@@ -6,6 +6,7 @@ import { Masonry } from "@mui/lab";
 // import lottie from "lottie-web";
 // import animationData from "../Commons/cheers-wine.json";
 import { apiGetFilteredFeedList } from "@/api/feed";
+import NeonBtn from "@/components/Commons/NeonBtn/NeonBtn";
 
 export interface FeedContent {
   id: number;
@@ -73,6 +74,7 @@ const FeedMain = () => {
       <FloatingButton></FloatingButton>
       <div className={`${styles[`feed-main-container`]}`}>
         <div className={`${styles[`feed-classify-btn-container`]}`}>
+          {/* <NeonBtn></NeonBtn> */}
           <button
             className={focusedPostList === "" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={""}
