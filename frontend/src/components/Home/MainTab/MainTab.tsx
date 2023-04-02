@@ -345,7 +345,7 @@ export default function MainTab() {
               }}
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/drinklist/cocktail`}>
+                <Link to={`/list/l5`}>
                   <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[0]} 보기 ▶ </span>
                 </Link>
               </div>
@@ -390,7 +390,7 @@ export default function MainTab() {
               }}
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/drinklist/whiskey`}>
+                <Link to={`/list/l2`}>
                   <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[1]} 보기 ▶ </span>
                 </Link>
               </div>
@@ -435,7 +435,7 @@ export default function MainTab() {
               }}
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/drinklist/wine`}>
+                <Link to={`/list/l1`}>
                   <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[2]} 보기 ▶ </span>
                 </Link>
               </div>
@@ -480,7 +480,7 @@ export default function MainTab() {
               }}
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/drinklist/korean`}>
+                <Link to={`/list/l4`}>
                   <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[3]} 보기 ▶ </span>
                 </Link>
               </div>
@@ -525,7 +525,7 @@ export default function MainTab() {
               }}
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/drinklist/beer`}>
+                <Link to={`/list/l3`}>
                   <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[4]} 보기 ▶ </span>
                 </Link>
               </div>
