@@ -79,11 +79,11 @@ public class LiquorDetailService {
                     List<Beer> byIdList = beerRepository.findByIdList(list);
 
                     liquorId = id;
-                    name = beer.getName();
+                    name = beer.getName().trim();
                     ratingAvg = beer.getRatingAvg();
                     reviews = feedRepository.findBeerReviewByLiquorId(id);
                     similarItem = liquorMapper.toLiquorListDtoBeer(byIdList);
-                    description = beer.getDescription();
+                    description = beer.getDescription().trim();
                     image = beer.getImg();
                 }
                 break;
