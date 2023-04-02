@@ -146,10 +146,6 @@ public class LiquorLoggedInService {
             Survey survey = surveyRepository.findByUserId(user.getId());
             switch(liquorType){
                 case WINE:
-
-                    Page<Wine> wines = wineRepository.findById(similarWineUniqueList, pageable);
-                    list = liquorMapper.toLiquorListDtoWine(wines.getContent());
-                    return getLiquorListMainResponse(wines.getTotalPages(), wines.getPageable(), list);
                 case WHISKY:
                 case BEER:
                 case COCKTAIL:
