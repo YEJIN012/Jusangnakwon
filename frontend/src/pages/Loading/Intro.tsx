@@ -21,12 +21,12 @@ const Intro = () => {
   const navigate = useNavigate()
   const [isTimeout, setIsTimeout] = useState(false);
   const delayTime = 3000;
-  // useEffect(() => {
-  //   let timer = setTimeout(async () => {
-  //     setIsTimeout(true);
-  //     navigate("/", { state: { isFirst: false } })
-  //   }, delayTime);
-  // }, []);
+  useEffect(() => {
+    let timer = setTimeout(async () => {
+      setIsTimeout(true);
+      navigate("/", { state: { isFirst: false } })
+    }, delayTime);
+  }, []);
   
 
   return (
