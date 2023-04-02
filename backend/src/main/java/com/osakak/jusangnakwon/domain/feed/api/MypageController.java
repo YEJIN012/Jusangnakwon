@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,21 +29,20 @@ public class MypageController {
     /**
      * [GET] /api/calendar/{year}/{month} : 캘린더 한달분량 조회
      *
-     * @param user 유저 로그인 정보
-     * @param feedId 피드 id
+     * 파라미터 추가해야됨!!!
      *
-     * @return FeedResponse : 조회한 피드 상세내용
+     * @return CalendarResponse : 조회한 피드 상세내용
      */
     /*
     @Tag(name = "mypage", description = "마이페이지 API")
     @Operation(
-            summary = "피드 상세내용 조회",
-            description = "피드의 상세내용을 리턴"
+            summary = "캘린더 한달분량 조회",
+            description = "한달 분량의 캘린더 내용을 리턴"
     )
-    @GetMapping("/api/calendar/{year}/{month}")
-    public ResponseEntity<ResponseDto> getCalendarByMonth(@AuthenticationPrincipal User user,
-            @PathVariable Long feedId) {
-        FeedDto feedDto = feedService.getFeedDetail(user.getId(), feedId);
+    @GetMapping("/api/calendar/{year}/{month}/{userId}")
+    public ResponseEntity<ResponseDto> getCalendarByMonth(@PathVariable Long userId,
+            @PathVariable Integer year, @PathVariable Integer month) {
+        FeedDto feedDto = feedService.getFeedDetail(userId, year, month);
         return ResponseEntity.ok(ResponseDto.builder().success(true)
                 .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
     }
@@ -57,7 +57,7 @@ public class MypageController {
      */
     @Tag(name = "mypage", description = "마이페이지 API")
     @Operation(summary = "내가 쓴 글 목록 조회", description = "내가 쓴 글 목록 리턴")
-    @GetMapping("/api/mypage/record/{userId}")
+    @GetMapping("/api/mypage/record")
     public ResponseEntity<ResponseDto> getRecordList(@AuthenticationPrincipal User user,
             @RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 20);

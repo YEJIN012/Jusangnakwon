@@ -13,8 +13,8 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
     List<Feed> findByIdAndLiquorType(Long id, String liquorType);
 
     @Query(nativeQuery = true,
-            value = "select f.type AS feedType, f.date_created AS dateCreated, f.title AS title, f.content AS content, f.img AS image from feed f where f.user_id = :userId union " +
-                    "select '레시피' AS feedType, h.date_created AS dateCreated, h.name AS title, h.description AS content, h.image AS image from hometender h where h.user_id = :userId " +
+            value = "select f.id AS id, f.type AS feedType, f.date_created AS dateCreated, f.title AS title, f.content AS content, f.img AS image from feed f where f.user_id = :userId union " +
+                    "select h.id AS id, '레시피' AS feedType, h.date_created AS dateCreated, h.name AS title, h.description AS content, h.image AS image from hometender h where h.user_id = :userId " +
                     "order by dateCreated desc",
             countQuery = "select count(*) from (" +
                     "select f.id from feed f where f.user_id = :userId union " +
