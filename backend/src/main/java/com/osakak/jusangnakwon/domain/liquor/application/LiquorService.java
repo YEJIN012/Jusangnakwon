@@ -145,10 +145,6 @@ public class LiquorService {
                 pageable
         );
         Hometender hometender = hometenderPage.getContent().get(0);
-        System.out.println(hometender.getName());
-        System.out.println(hometender.getMaterials());
-        System.out.println(hometender.getImg());
-        System.out.println(hometender.getId());
         return liquorMapper.toRandHometender(hometender);
     }
 

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "liquor", description = "공통 술 api")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/li")
+@RequestMapping("api/list")
 public class LiquorListController {
     private final LiquorNotLoggedInService liquorNotLoggedInService;
 
