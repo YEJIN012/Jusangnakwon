@@ -19,7 +19,7 @@
 
 .comment-item {
   margin-bottom: 2%;
-  padding-bottom: 1px;
+  /* padding-bottom: 1px; */
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -28,4 +28,8 @@
 
 .comment-content {
   margin-left: 3%;
+}
+
+.comment-container {
+  padding: 2%;
 }

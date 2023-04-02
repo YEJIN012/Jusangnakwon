@@ -19,12 +19,12 @@ const ReadMore = (props: Content) => {
           {showContent ? (
             <>{content}</>
           ) : (
-            <>
+            <div>
               {content.slice(0, 10)}...
               <button className={`${styles[`feed-detail-content-btn`]}`} onClick={toggleContent}>
                 더 보기
               </button>
-            </>
+            </div>
           )}
         </>
       )}
