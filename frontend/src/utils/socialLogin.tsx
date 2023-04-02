@@ -9,11 +9,11 @@ const socialLogin = (props: Provider) => {
   const { provider_id } = props;
   const windowPath = window.location.href.replace("/login", "");
   console.log(windowPath);
-  window.location.href = `https://j8a504.p.ssafy.io/t1/api/oauth2/authorization/${provider_id}?redirect_uri=${windowPath}/oauth/redirect`;
+  window.location.href = 
+  // `https://j8a504.p.ssafy.io/t1/api/oauth2/authorization/${provider_id}?redirect_uri=${windowPath}/oauth/redirect`;
+  // `https://j8a504.p.ssafy.io/api/oauth2/authorization/${provider_id}?redirect_uri=${windowPath}/oauth/redirect`;
 
-  // `${baseURL}/oauth2/authorization/${provider_id}?redirect_uri=https://j8a504.p.ssafy.io/oauth/redirect`;
-
-  //`${baseURL}/oauth2/authorization/${provider_id}?redirect_uri=${redirect_uri}/oauth/redirect`;
+  `${baseURL}/oauth2/authorization/${provider_id}?redirect_uri=https://j8a504.p.ssafy.io/oauth/redirect`;
 
   // `https://j8a504.p.ssafy.io/t1/api/oauth2/authorization/${provider_id}?redirect_uri=http://localhost:5173/oauth/redirect`
 };

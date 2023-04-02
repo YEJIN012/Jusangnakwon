@@ -82,8 +82,8 @@ const DrinkDetail = () => {
           </div>
           <BookmarkBorderIcon />
         </div>
-        <Ingredients ingredients={drink.ingredients} delete={null}></Ingredients>
-        <Ingredients ingredients={drink.taste} delete={null}></Ingredients>
+        <Ingredients ingredients={drink.ingredients}></Ingredients>
+        <Ingredients ingredients={drink.taste}></Ingredients>
         <ReadMore content={drink.explan}></ReadMore>
         <ReviewList id={drink.id} type={drink.type} name={drink.name}></ReviewList>
         <RecommendInDetail dummyList={dummyList}></RecommendInDetail>

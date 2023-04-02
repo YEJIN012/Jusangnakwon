@@ -99,11 +99,11 @@ export interface SelectedLiquor {
 const WriteReview = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // 술상세페이지(type, name, id)나 마이페이지(date) 에서 넘어오는 경우에는
   // state와 함께 넘어와서 폼에 미리 작성되어 있는다.
-  console.log(location?.state)
+  console.log(location?.state);
   const state = location.state ? (location.state as StateType) : null;
 
   const [data, setData] = useState<ReviewFormData>({
@@ -141,7 +141,7 @@ const WriteReview = () => {
         liquorId: selectedDrink?.id,
         liquorType: selectedDrink?.liquorType,
       });
-      handleOpen(false)
+      handleOpen(false);
     }
   }, [selectedDrink]);
 
@@ -202,8 +202,11 @@ const WriteReview = () => {
               {/* 술상세페이지에서 리뷰작성으로 넘어오면 */}
               {/* navigate state로 주종/술이름/id 같이 넘겨줘서 미리 담아놈  */}
 
-              <div className={`${styles[`end-container`]}`}>
-                <div className={styles["alcohol-type"]} style={{ backgroundColor: alcoholTypeStyle[EnglishToCode[data.liquorType]] }}>
+              <div className={`${styles[`search-container`]}`}>
+                <div
+                  className={styles["alcohol-type"]}
+                  style={{ backgroundColor: alcoholTypeStyle[EnglishToCode[data.liquorType]] }}
+                >
                   {EnglishToKorean[data.liquorType]}
                 </div>
                 <input className={`${styles[`input-basic`]}`} type="text" value={data.liquorName} readOnly />
@@ -260,9 +263,9 @@ const WriteReview = () => {
       </form>
 
       <Modal open={open} onClose={() => setOpen(false)}>
-        {/* <ModalDialog color="neutral" variant="plain"> */}
-        <SearchPage handleOpen={handleOpen}></SearchPage>
-        {/* </ModalDialog> */}
+        <div style={{ paddingTop: "54px" }}>
+          <SearchPage handleOpen={handleOpen}></SearchPage>
+        </div>
       </Modal>
 
       <div>

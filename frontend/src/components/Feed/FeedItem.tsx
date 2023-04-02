@@ -48,7 +48,7 @@ const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
                     );
                   }}
                 >
-                  <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
+                  <FavoriteIcon sx={{ color: "red" }}/>
                 </button>
               ) : (
                 <button

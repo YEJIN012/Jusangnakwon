@@ -36,6 +36,12 @@
 
 .end-container {
   display: flex;
+  justify-content: end;
+  width: 80%;
+}
+
+.search-container {
+  display: flex;
   justify-content: space-between;
   width: 100%;
 }

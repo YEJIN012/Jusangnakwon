@@ -7,7 +7,6 @@ import styles from "./SearchPage.module.css";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import SearchItem from "./SearchItem";
-import { SelectedLiquor } from "../Write/WriteReview";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -108,7 +107,7 @@ const SearchPage = (props: Props) => {
   };
 
   return (
-    <div>
+    <>
       <div className={`${styles[`header-container`]}`}>
         {props.handleOpen === undefined ? (
           <ArrowBackIcon onClick={() => navigate(-1)} />
@@ -130,7 +129,7 @@ const SearchPage = (props: Props) => {
           />
         </Search>
       </div>
-      <div className={`${styles[`search-list-container`]}`}>
+      <div>
         {searchedData === null ? <div className={`${styles[`search-no-drink`]}`}>찾으시는 술이 없습니다.</div> : null}
         {searchedData != null
           ? searchedData.content?.map((content: Content) => (
@@ -138,7 +137,7 @@ const SearchPage = (props: Props) => {
             ))
           : null}
       </div>
-    </div>
+    </>
   );
 };
 export default SearchPage;
