@@ -165,8 +165,8 @@ h6:focus {
 /* TEXT Ani */
 .content {
   position: absolute;
-  bottom: 40px;
-  left: 45%;
+  bottom: 30px;
+  left: 40%;
   transform: translate(-50%, -50%);
   /* height: 160px; */
   overflow: hidden;
@@ -220,7 +220,7 @@ h6:focus {
 
 .content__container__list {
   margin-top: 0;
-  padding-left: 75px;
+  padding-left: 60px;
   text-align: left;
   list-style: none;
   animation-name: change;

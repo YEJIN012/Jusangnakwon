@@ -21,12 +21,12 @@ const Intro = () => {
   const navigate = useNavigate()
   const [isTimeout, setIsTimeout] = useState(false);
   const delayTime = 3000;
-  useEffect(() => {
-    let timer = setTimeout(async () => {
-      setIsTimeout(true);
-      navigate("/", { state: { isFirst: false } })
-    }, delayTime);
-  }, []);
+  // useEffect(() => {
+  //   let timer = setTimeout(async () => {
+  //     setIsTimeout(true);
+  //     navigate("/", { state: { isFirst: false } })
+  //   }, delayTime);
+  // }, []);
   
 
   return (
@@ -51,7 +51,7 @@ const Intro = () => {
         className={`${styles[`img-ani`]}`}
         src={img}
         // style={{ position: "absolute", bottom: "45px", right: "45px", width: "180px" }}
-        style={{ position: "absolute", bottom: "25px", right: "25px", width: "110px" }}
+        style={{ position: "absolute", bottom: "25px", right: "30px", width: "110px" }}
         alt=""
       />
       {/* <img

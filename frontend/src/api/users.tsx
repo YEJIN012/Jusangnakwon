@@ -14,9 +14,9 @@ export const apiGetUserInfo = async () => {
 };
 
 // 회원가입 후 취향설문 제출
-export const apiPostSurvey = async () => {
+export const apiSubmitSurvey = async (data : object) => {
     try {
-        const response = await api.post("v1/users/survey")
+        const response = await api.post("v1/users/survey", data)
         return response
     } catch (e) {
         console.log(e)
