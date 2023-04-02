@@ -1,14 +1,21 @@
 package com.osakak.jusangnakwon.domain.feed.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
+import com.osakak.jusangnakwon.domain.feed.api.response.CalendarResponse;
 import com.osakak.jusangnakwon.domain.feed.api.response.RecordListResponse;
 import com.osakak.jusangnakwon.domain.feed.api.response.ScrapListResponse;
 import com.osakak.jusangnakwon.domain.feed.application.MypageService;
+import com.osakak.jusangnakwon.domain.feed.dto.CalendarDto;
+import com.osakak.jusangnakwon.domain.feed.dto.CalendarWithReviewsDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
+import com.osakak.jusangnakwon.domain.feed.mapper.MypageDtoMapper;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -25,28 +32,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class MypageController {
 
     private final MypageService mypageService;
+    private final MypageDtoMapper mypageDtoMapper = Mappers.getMapper(MypageDtoMapper.class);
 
     /**
      * [GET] /api/calendar/{year}/{month} : 캘린더 한달분량 조회
      *
-     * 파라미터 추가해야됨!!!
-     *
-     * @return CalendarResponse : 조회한 피드 상세내용
+     * @param user  유저 로그인 정보
+     * @param year  검색 년도
+     * @param month 검색 월
+     * @return CalendarResponse : 조회한 캘린더 한달분량
      */
-    /*
     @Tag(name = "mypage", description = "마이페이지 API")
-    @Operation(
-            summary = "캘린더 한달분량 조회",
-            description = "한달 분량의 캘린더 내용을 리턴"
-    )
-    @GetMapping("/api/calendar/{year}/{month}/{userId}")
-    public ResponseEntity<ResponseDto> getCalendarByMonth(@PathVariable Long userId,
+    @Operation(summary = "캘린더 한달분량 조회", description = "한달 분량의 캘린더 내용을 리턴")
+    @GetMapping("/api/calendar/{year}/{month}")
+    public ResponseEntity<ResponseDto> getCalendarByMonth(@AuthenticationPrincipal User user,
             @PathVariable Integer year, @PathVariable Integer month) {
-        FeedDto feedDto = feedService.getFeedDetail(userId, year, month);
+        List<CalendarWithReviewsDto> calendarWithReviewsDtoList = mypageService.getCalendarByMonth(
+                user.getId(), year, month);
         return ResponseEntity.ok(ResponseDto.builder().success(true)
-                .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
+                .body(calendarWithReviewsDtoList.stream()
+                        .map(mypageDtoMapper::calendarWithReviewsDtoToCalendarResponse)
+                        .collect(Collectors.toList())).build());
     }
-     */
 
     /**
      * [GET] /api/mypage/record : 내가 쓴 글 목록 조회
