@@ -58,7 +58,7 @@ public class FeedController {
     /**
      * [GET] /api/feed/list : 최신 피드 목록 조회 - 리뷰글과 질문글 모두
      *
-     * @param user 유저 로그인 정보 붙여야함.
+     * @param user 유저 로그인 정보
      * @param page 현재 페이지
      * @return 조회한 피드 목록
      */
@@ -69,10 +69,7 @@ public class FeedController {
             @RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 20);
         FeedListResponse feeds = feedService.getFeedList(user.getId(), pageable);
-        ResponseDto responseDto = ResponseDto.builder()
-                .success(true)
-                .body(feeds)
-                .build();
+        ResponseDto responseDto = ResponseDto.builder().success(true).body(feeds).build();
         return ResponseEntity.ok(responseDto);
     }
 
@@ -92,10 +89,7 @@ public class FeedController {
             @PathVariable String type, @RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 20);
         FeedListResponse feeds = feedService.getFeedListByType(user.getId(), type, pageable);
-        ResponseDto responseDto = ResponseDto.builder()
-                .success(true)
-                .body(feeds)
-                .build();
+        ResponseDto responseDto = ResponseDto.builder().success(true).body(feeds).build();
         return ResponseEntity.ok(responseDto);
     }
 
@@ -150,74 +144,5 @@ public class FeedController {
             @RequestBody @Valid UpdateLikeRequest updateLikeRequest) {
         feedService.updateLike(user.getId(), feedId, updateLikeRequest.getIsLiked());
     }
-
-    /**
-     * [GET] /api/calendar/{year}/{month} : 캘린더 한달분량 조회
-     *
-     * @param user 유저 로그인 정보
-     * @param feedId 피드 id
-     *
-     * @return FeedResponse : 조회한 피드 상세내용
-     */
-    /*
-    @Tag(name = "feeds", description = "피드 API")
-    @Operation(
-            summary = "피드 상세내용 조회",
-            description = "피드의 상세내용을 리턴"
-    )
-    @GetMapping("/api/calendar/{year}/{month}")
-    public ResponseEntity<ResponseDto> getCalendarByMonth(@AuthenticationPrincipal User user,
-            @PathVariable Long feedId) {
-        FeedDto feedDto = feedService.getFeedDetail(user.getId(), feedId);
-        return ResponseEntity.ok(ResponseDto.builder().success(true)
-                .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
-    }
-     */
-
-    /**
-     * [GET] /api/mypage/record : 내가 쓴 글 목록 조회
-     *
-     * @param user 유저 로그인 정보
-     * @param feedId 피드 id
-     *
-     * @return FeedResponse : 조회한 피드 상세내용
-     */
-    /*
-    @Tag(name = "feeds", description = "피드 API")
-    @Operation(
-            summary = "피드 상세내용 조회",
-            description = "피드의 상세내용을 리턴"
-    )
-    @GetMapping("/api/feed/{feedId}")
-    public ResponseEntity<ResponseDto> getFeedDetail(@AuthenticationPrincipal User user,
-            @PathVariable Long feedId) {
-        FeedDto feedDto = feedService.getFeedDetail(user.getId(), feedId);
-        return ResponseEntity.ok(ResponseDto.builder().success(true)
-                .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
-    }
-     */
-
-    /**
-     * [GET] /api/feed/list/{type} : 피드 상세내용 조회
-     *
-     * @param user 유저 로그인 정보
-     * @param feedId 피드 id
-     *
-     * @return FeedResponse : 조회한 피드 상세내용
-     */
-    /*
-    @Tag(name = "feeds", description = "피드 API")
-    @Operation(
-            summary = "피드 상세내용 조회",
-            description = "피드의 상세내용을 리턴"
-    )
-    @GetMapping("/api/feed/{feedId}")
-    public ResponseEntity<ResponseDto> getFeedDetail(@AuthenticationPrincipal User user,
-            @PathVariable Long feedId) {
-        FeedDto feedDto = feedService.getFeedDetail(user.getId(), feedId);
-        return ResponseEntity.ok(ResponseDto.builder().success(true)
-                .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
-    }
-     */
 
 }

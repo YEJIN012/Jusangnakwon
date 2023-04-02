@@ -10,6 +10,7 @@ import com.osakak.jusangnakwon.domain.feed.dao.RatingRepository;
 import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
+import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
 import com.osakak.jusangnakwon.domain.feed.dto.RatingDto;
 import com.osakak.jusangnakwon.domain.feed.entity.Comment;
 import com.osakak.jusangnakwon.domain.feed.entity.Feed;
@@ -48,7 +49,7 @@ public class FeedService {
         Feed feed = feedMapper.feedDtoToFeed(feedDto, user);
         Double ratingScore = feedDto.getRatingScore();
         feed = feedRepository.save(feed);
-        if ("리뷰글".equals(feed.getType())) {
+        if (FeedType.리뷰글.equals(feed.getType())) {
             Rating rating = feedMapper.ratingDtoToRating(ratingDto, user);
             ratingRepository.save(rating);
         }
@@ -67,7 +68,7 @@ public class FeedService {
 
     public FeedListResponse getFeedListByType(Long id, String type, Pageable pageable) {
         User user = findUser(id);
-        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithRatingAndLikeByType(user.getId(), type, pageable);
+        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithRatingAndLikeByType(user.getId(), FeedType.findFeedType(type), pageable);
         return getFeedListResponse(feedPage.getTotalPages(), feedPage.getPageable(), feedPage.getContent());
     }
 
