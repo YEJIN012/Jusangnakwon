@@ -57,7 +57,6 @@ public class MypageService {
         for (CalendarDto c : calendars) {
             List<ReviewListItemDto> reviews = feedRepository.findReviewsByUserIdAndDate(
                     user.getId(), c.getDate());
-            System.out.println(reviews.get(0).getRatingScore());
             calendarWithReviewsDtoList.add(
                     CalendarWithReviewsDto.builder().date(c.getDate()).liquorType(c.getLiquorType())
                             .reviews(reviews).build());
