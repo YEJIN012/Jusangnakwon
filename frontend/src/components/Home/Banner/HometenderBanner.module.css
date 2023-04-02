@@ -10,8 +10,8 @@
   /* margin-top: 50px;
   margin-bottom: 50px; */
   margin: 0 auto;
-  /* background: linear-gradient(180deg, #ff9e80 0%, #fff6e3 100%); */
-  background-color: black;
+  background: linear-gradient(180deg, #ff9e80 0%, #fff6e3 100%);
+  /* background-color: black; */
   text-align: center;
 }
 .hometender-banner-container {
@@ -50,18 +50,18 @@
   font-weight: bold;
 }
 
-.hometender-banner-contents {
-  /* display: flex; */
-}
+/* .hometender-banner-contents { */
+/* display: flex; */
+/* } */
 
 .hometender-banner-mini-title {
-  /* color: blueviolet; */
-  color: black;
+  color: blueviolet;
+  /* color: black; */
   font-weight: 900;
   font-size: 1.1rem;
 }
 
 .hometender-banner-materials {
-  /* color: plum; */
-  color: black;
+  color: plum;
+  /* color: black; */
 }

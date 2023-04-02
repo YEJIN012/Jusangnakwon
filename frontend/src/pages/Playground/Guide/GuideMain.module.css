@@ -46,11 +46,12 @@
 
 .guide-select-btn {
   padding: 1% 7%;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border: none;
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.9rem;
+  box-shadow: 1px 1px 1px 1px rgb(150, 150, 150);
 }
 
 .guide-select-btn-active {

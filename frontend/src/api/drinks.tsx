@@ -4,9 +4,9 @@ const api = getApiInstance();
 
 // 주종별 전체 술 목록 페이지
 // 주종별 전체 술 리스트 조회
-export const apiGetDrinkList = async (type: string) => {
+export const apiGetDrinkList = async (type: string, page: number) => {
   try {
-    const response = await api.get(`/list/${type}`);
+    const response = await api.get(`/list/${type}/${page}`);
     return response;
   } catch (e) {
     console.log(e);

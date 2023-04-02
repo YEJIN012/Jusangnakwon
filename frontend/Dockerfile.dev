@@ -1,4 +1,6 @@
 FROM node:18-alpine
+ENV VITE_API_BASE_URL https://j8a504.p.ssafy.io/t1/api
+ENV VITE_API_REDIRECT_URL https://j8a504.p.ssafy.io/t1
 WORKDIR /usr/src/app
 COPY frontend/package.json ./
 RUN npm install --force
