@@ -100,7 +100,6 @@ const WriteReview = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const dispatch = useDispatch();
 
   // 술상세페이지(type, name, id)나 마이페이지(date) 에서 넘어오는 경우에는
   // state와 함께 넘어와서 폼에 미리 작성되어 있는다.
