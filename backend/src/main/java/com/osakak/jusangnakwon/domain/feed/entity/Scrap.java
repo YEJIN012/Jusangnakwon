@@ -30,6 +30,9 @@ public class Scrap {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "liquor_id")
+    private Long liquorId;
+
     @Column(nullable = false, name = "liquor_type")
     @Enumerated(EnumType.STRING)
     private LiquorType liquorType;
@@ -38,9 +41,10 @@ public class Scrap {
     private String liquorName;
 
     @Builder
-    public Scrap(Long id, User user, LiquorType liquorType, String liquorName) {
+    public Scrap(Long id, User user, Long liquorId, LiquorType liquorType, String liquorName) {
         this.id = id;
         this.user = user;
+        this.liquorId = liquorId;
         this.liquorType = liquorType;
         this.liquorName = liquorName;
     }

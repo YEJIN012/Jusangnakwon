@@ -20,4 +20,5 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
                     "select f.id from feed f where f.user_id = :userId union " +
                     "select h.id from hometender h where h.user_id = :userId) AS record")
     Page<RecordListDto> findRecordPageByUserId(Long userId, Pageable pageable);
+
 }

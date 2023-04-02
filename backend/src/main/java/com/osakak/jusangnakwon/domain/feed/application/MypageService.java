@@ -2,9 +2,11 @@ package com.osakak.jusangnakwon.domain.feed.application;
 
 import com.osakak.jusangnakwon.common.errors.UserNotFoundException;
 import com.osakak.jusangnakwon.domain.feed.api.response.RecordListResponse;
+import com.osakak.jusangnakwon.domain.feed.api.response.ScrapListResponse;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
 import com.osakak.jusangnakwon.domain.feed.dto.RecordListDto;
 import com.osakak.jusangnakwon.domain.feed.mapper.MypageDtoMapper;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import java.util.List;
@@ -31,6 +33,12 @@ public class MypageService {
         return getRecordListResponse(recordPage.getTotalPages(), recordPage.getPageable(), recordPage.getContent());
     }
 
+    public ScrapListResponse getScrapList(Long id, Pageable pageable) {
+        User user = findUser(id);
+        Page<LiquorListItemDto> scrapPage =  feedRepository.findScrapPageByUserId(user.getId(), pageable);
+        return getScrapListResponse(scrapPage.getTotalPages(), scrapPage.getPageable(), scrapPage.getContent());
+    }
+
     private User findUser(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
@@ -38,5 +46,10 @@ public class MypageService {
     private RecordListResponse getRecordListResponse(int totalPage, Pageable pageable, List<RecordListDto> list) {
         pageNumber = pageable.getPageNumber();
         return mypageDtoMapper.toRecordListResponse(list, totalPage, pageNumber);
+    }
+
+    private ScrapListResponse getScrapListResponse(int totalPage, Pageable pageable, List<LiquorListItemDto> list) {
+        pageNumber = pageable.getPageNumber();
+        return mypageDtoMapper.toScrapListResponse(list, totalPage, pageNumber);
     }
 }

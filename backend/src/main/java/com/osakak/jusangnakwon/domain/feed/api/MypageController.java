@@ -2,6 +2,7 @@ package com.osakak.jusangnakwon.domain.feed.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.domain.feed.api.response.RecordListResponse;
+import com.osakak.jusangnakwon.domain.feed.api.response.ScrapListResponse;
 import com.osakak.jusangnakwon.domain.feed.application.MypageService;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
 import com.osakak.jusangnakwon.domain.user.entity.User;
@@ -60,32 +61,27 @@ public class MypageController {
     public ResponseEntity<ResponseDto> getRecordList(@AuthenticationPrincipal User user,
             @RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 20);
-        RecordListResponse recordLists = mypageService.getRecordList(user.getId(), pageable);
-        ResponseDto responseDto = ResponseDto.builder().success(true).body(recordLists).build();
+        RecordListResponse recordList = mypageService.getRecordList(user.getId(), pageable);
+        ResponseDto responseDto = ResponseDto.builder().success(true).body(recordList).build();
         return ResponseEntity.ok(responseDto);
     }
 
     /**
-     * [GET] /api/feed/list/{type} : 피드 상세내용 조회
+     * [GET] /api/mypage/scrap : 내 스크랩 목록 조회
      *
      * @param user 유저 로그인 정보
-     * @param feedId 피드 id
-     *
-     * @return FeedResponse : 조회한 피드 상세내용
+     * @param page 현재 페이지
+     * @return 내 스크랩 목록
      */
-    /*
     @Tag(name = "mypage", description = "마이페이지 API")
-    @Operation(
-            summary = "피드 상세내용 조회",
-            description = "피드의 상세내용을 리턴"
-    )
-    @GetMapping("/api/feed/{feedId}")
-    public ResponseEntity<ResponseDto> getFeedDetail(@AuthenticationPrincipal User user,
-            @PathVariable Long feedId) {
-        FeedDto feedDto = feedService.getFeedDetail(user.getId(), feedId);
-        return ResponseEntity.ok(ResponseDto.builder().success(true)
-                .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
+    @Operation(summary = "내 스크랩 목록 조회", description = "내 스크랩 목록 리턴")
+    @GetMapping("/api/mypage/scrap")
+    public ResponseEntity<ResponseDto> getScrapList(@AuthenticationPrincipal User user,
+            @RequestParam int page) {
+        Pageable pageable = PageRequest.of(page, 20);
+        ScrapListResponse scrapList = mypageService.getScrapList(user.getId(), pageable);
+        ResponseDto responseDto = ResponseDto.builder().success(true).body(scrapList).build();
+        return ResponseEntity.ok(responseDto);
     }
-     */
 
 }
