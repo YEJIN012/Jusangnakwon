@@ -16,6 +16,16 @@ interface Feed {
 }
 
 const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
+  const updateLike = () => {
+    apiCreateLike(Number(feed.id), { isLiked: String(!feed.liked) }).then((r) => {
+      apiGetFilteredFeedList({ type: focusedPostList, page: 0 })
+        .then((r) => {
+          // console.log(r);
+          setFeedList(r?.data.body.content);
+        })
+        .catch((e) => console.log(e));
+    });
+  };
   return (
     <>
       {feed.type === "리뷰글" ? (
@@ -73,31 +83,11 @@ const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
                 </button>
               )} */}
               {feed.liked ? (
-                <button
-                  onClick={() => {
-                    apiCreateLike(Number(feed.id), { isLiked: "false" }).then((r) => {
-                      apiGetFilteredFeedList({ type: focusedPostList, page: 0 }).then((r) => {
-                        // console.log(r);
-                        setFeedList(r?.data.body.content);
-                      });
-                    });
-                  }}
-                  style={{ background: "none", border: "none" }}
-                >
+                <button onClick={updateLike} style={{ background: "none", border: "none" }}>
                   <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
                 </button>
               ) : (
-                <button
-                  onClick={() => {
-                    apiCreateLike(Number(feed.id), { isLiked: "true" }).then((r) => {
-                      apiGetFilteredFeedList({ type: focusedPostList, page: 0 }).then((r) => {
-                        // console.log(r);
-                        setFeedList(r?.data.body.content);
-                      });
-                    });
-                  }}
-                  style={{ background: "none", border: "none" }}
-                >
+                <button onClick={updateLike} style={{ background: "none", border: "none" }}>
                   <FavoriteBorderIcon sx={{ color: "white" }} />
                 </button>
               )}
@@ -118,31 +108,11 @@ const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
                 <p>{feed.writer.username}</p>
               </div>
               {feed.liked ? (
-                <button
-                  onClick={() => {
-                    apiCreateLike(Number(feed.id), { isLiked: "false" }).then((r) => {
-                      apiGetFilteredFeedList({ type: focusedPostList, page: 0 }).then((r) => {
-                        // console.log(r);
-                        setFeedList(r?.data.body.content);
-                      });
-                    });
-                  }}
-                  style={{ background: "none", border: "none" }}
-                >
+                <button onClick={updateLike} style={{ background: "none", border: "none" }}>
                   <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
                 </button>
               ) : (
-                <button
-                  onClick={() => {
-                    apiCreateLike(Number(feed.id), { isLiked: "true" }).then((r) => {
-                      apiGetFilteredFeedList({ type: focusedPostList, page: 0 }).then((r) => {
-                        // console.log(r);
-                        setFeedList(r?.data.body.content);
-                      });
-                    });
-                  }}
-                  style={{ background: "none", border: "none" }}
-                >
+                <button onClick={updateLike} style={{ background: "none", border: "none" }}>
                   <FavoriteBorderIcon sx={{ color: "white" }} />
                 </button>
               )}
