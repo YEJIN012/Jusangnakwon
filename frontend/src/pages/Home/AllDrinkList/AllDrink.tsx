@@ -80,7 +80,7 @@ const AllDrink = () => {
           <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
             <Pagination
               className={`${styles["pagination"]}`}
-              count={totalPage}
+              count={totalPage - 1}
               page={curPageNumber}
               variant="outlined"
               onChange={handlePageChange}
@@ -119,7 +119,7 @@ const AllDrink = () => {
           <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
             <Pagination
               className={`${styles["pagination"]}`}
-              count={totalPage}
+              count={totalPage - 1}
               page={curPageNumber}
               variant="outlined"
               onChange={handlePageChange}
@@ -158,7 +158,7 @@ const AllDrink = () => {
           <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
             <Pagination
               className={`${styles["pagination"]}`}
-              count={totalPage}
+              count={totalPage - 1}
               page={curPageNumber}
               variant="outlined"
               onChange={handlePageChange}
@@ -197,7 +197,7 @@ const AllDrink = () => {
           <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
             <Pagination
               className={`${styles["pagination"]}`}
-              count={totalPage}
+              count={totalPage - 1}
               page={curPageNumber}
               variant="outlined"
               onChange={handlePageChange}
@@ -236,7 +236,7 @@ const AllDrink = () => {
           <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
             <Pagination
               className={`${styles["pagination"]}`}
-              count={totalPage}
+              count={totalPage - 1}
               page={curPageNumber}
               variant="outlined"
               onChange={handlePageChange}
