@@ -10,7 +10,8 @@
   /* margin-top: 50px;
   margin-bottom: 50px; */
   margin: 0 auto;
-  background: linear-gradient(180deg, #ff9e80 0%, #fff6e3 100%);
+  /* background: linear-gradient(180deg, #ff9e80 0%, #fff6e3 100%); */
+  background-color: black;
   text-align: center;
 }
 .hometender-banner-container {
@@ -54,11 +55,13 @@
 }
 
 .hometender-banner-mini-title {
-  color: blueviolet;
+  /* color: blueviolet; */
+  color: black;
   font-weight: 900;
   font-size: 1.1rem;
 }
 
 .hometender-banner-materials {
-  color: plum;
+  /* color: plum; */
+  color: black;
 }

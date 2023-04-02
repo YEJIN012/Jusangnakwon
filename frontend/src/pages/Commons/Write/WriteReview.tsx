@@ -65,7 +65,7 @@ const codeToKorean: { [key: string]: string } = {
   l6: "홈테일",
 };
 
-const EnglishToKorean: { [key: string]: string } = {
+export const EnglishToKorean: { [key: string]: string } = {
   WINE: "와인",
   WHISKY: "위스키",
   BEER: "맥주",
@@ -74,7 +74,7 @@ const EnglishToKorean: { [key: string]: string } = {
   HOMETENDER: "홈테일",
 };
 
-const EnglishToCode: { [key: string]: string } = {
+export const EnglishToCode: { [key: string]: string } = {
   WINE: "l1",
   WHISKY: "l2",
   BEER: "l3",
@@ -100,9 +100,11 @@ const WriteReview = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // 술상세페이지(type, name, id)나 마이페이지(date) 에서 넘어오는 경우에는
   // state와 함께 넘어와서 폼에 미리 작성되어 있는다.
+  console.log(location?.state);
   console.log(location?.state);
   const state = location.state ? (location.state as StateType) : null;
 
@@ -141,6 +143,7 @@ const WriteReview = () => {
         liquorId: selectedDrink?.id,
         liquorType: selectedDrink?.liquorType,
       });
+      handleOpen(false);
       handleOpen(false);
     }
   }, [selectedDrink]);

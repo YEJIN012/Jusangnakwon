@@ -1,5 +1,6 @@
 import styles from "./DrinkDetail.module.css";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import Rating from "@mui/material/Rating";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Ingredients from "@/components/Commons/Ingredients/Ingredients";
@@ -7,6 +8,7 @@ import ReviewList from "@/components/Commons/ReviewList/ReviewList";
 import RecommendInDetail from "@/components/Commons/RecommendInDetail/RecommendInDetail";
 import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 import HeaderBack from "@/components/Commons/Header/HeaderBack";
+import { apiGetDrinkDetail } from "@/api/drinks";
 
 const DrinkDetail = () => {
   const params = useParams();
@@ -57,7 +59,13 @@ const DrinkDetail = () => {
       name: "새콤한와인",
       drinktype: "l6",
     },
-  ]
+  ];
+
+  useEffect(() => {
+    apiGetDrinkDetail("l3", 8).then((r) => {
+      console.log(r);
+    });
+  });
 
   return (
     <>
