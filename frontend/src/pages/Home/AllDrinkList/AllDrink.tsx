@@ -1,135 +1,93 @@
 import styles from "@/pages/Home/AllDrinkList/AllDrink.module.css";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
+import { apiGetDrinkList } from "@/api/drinks";
+import { makeStyles } from "@material-ui/core/styles";
 
-
-
-// const { search } = useLocation();
-// const searchParams = new URLSearchParams(search);
-// const initialSelectedButton = searchParams.get("selectedButton") || "cocktail";
-// const [selectedButton, setSelectedButton] = useState<string>(initialSelectedButton);
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiPaginationItem-root:not(.Mui-selected)": {
+      color: "white",
+    },
+  },
+}));
 
 const AllDrink = () => {
+  const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
-  // const [selectedButton, setSelectedButton] = useState<string | null>("cocktail");
-  // const [selectedButton, setSelectedButton] = useState<string | null>(location.pathname.split("/")[2] || "cocktail");
+  const [curPageNumber, setCurPageNumber] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const [drinkList, setDrinkList] = useState([]);
   const tabNumber =
-    location.pathname === "/drinklist/cocktail"
+    location.pathname === "/list/l1"
       ? 1
-      : location.pathname === "/drinklist/whiskey"
+      : location.pathname === "/list/l2"
       ? 2
-      : location.pathname === "/drinklist/wine"
+      : location.pathname === "/list/l3"
       ? 3
-      : location.pathname === "/drinklist/korean"
+      : location.pathname === "/list/l4"
       ? 4
       : 5;
 
-  const dummyList = [
-    {
-      id: 1,
-      img: "https://picsum.photos/300/300/?random",
-      name: "콥케",
-      drinktype: "l6",
-    },
-    {
-      id: 2,
-      img: "https://picsum.photos/300/300/?random",
-      name: "샌드맨",
-      drinktype: "l6",
-    },
-    {
-      id: 3,
-      img: "https://picsum.photos/300/300/?random",
-      name: "맛있는와인",
-      drinktype: "l6",
-    },
-    {
-      id: 4,
-      img: "https://picsum.photos/300/300/?random",
-      name: "달콤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 5,
-      img: "https://picsum.photos/300/300/?random",
-      name: "새콤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 6,
-      img: "https://picsum.photos/300/300/?random",
-      name: "시큼한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 7,
-      img: "https://picsum.photos/300/300/?random",
-      name: "매콤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 8,
-      img: "https://picsum.photos/300/300/?random",
-      name: "씁쓸한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 9,
-      img: "https://picsum.photos/300/300/?random",
-      name: "텁텁한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 10,
-      img: "https://picsum.photos/300/300/?random",
-      name: "짭짤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 11,
-      img: "https://picsum.photos/300/300/?random",
-      name: "밋밋한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 12,
-      img: "https://picsum.photos/300/300/?random",
-      name: "느끼한와인",
-      drinktype: "l6",
-    },
-  ];
+  useEffect(() => {
+    const getDrinkList = async () => {
+      const response = await apiGetDrinkList(`l${tabNumber}`, curPageNumber);
+      if (response && response.data.success) {
+        setDrinkList(response.data.body.content);
+        setTotalPage(response.data.body.totalPage);
+      }
+    };
+    getDrinkList();
+  }, [curPageNumber, tabNumber]);
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurPageNumber(value);
+  };
 
   return (
     <div className={`${styles["container"]}`}>
-      {tabNumber === 1 && (
+      {tabNumber === 5 && (
         <div>
           <h3>칵테일</h3>
-          <Link to={`/playground/guide?selectedButton=cocktail`} 
-          // onClick={() => setSelectedButton("cocktail")}
-          >
+          <Link to={`/playground/guide?selectedButton=cocktail`}>
             <span>칵테일 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {dummyList.map((wine) => (
-              <div key={wine.id} className={`${styles["drink-list-item"]}`}>
-                <div className={`${styles["item-wrap"]}`}>
+            {drinkList.map((drink: any) => (
+              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+                <div className={`${styles["drink-img"]}`}>
                   <img
-                    src={wine.img}
-                    style={{ maxWidth: "100%", height: "auto" }}
-                    onClick={() => navigate(`/details/${wine.drinktype}/${wine.id}`)}
-                  ></img>
-                  {/* <p className={`${styles["drink-name"]}`}>{wine.name}</p> */}
-                  <div className={styles["drink-label-wrap"]}>
-                    <p className={`${styles["drink-name"]}`}>{wine.name}</p>
-                    <BookmarkBorder fontSize="small" />
-                  </div>
+                    className={`${styles["drink-item"]}`}
+                    src={drink.img}
+                    alt={drink.name}
+                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                  />
+                </div>
+                <div className={styles["drink-label-wrap"]}>
+                  <p className={`${styles["drink-name"]}`}>
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                  </p>
+                  <BookmarkBorder fontSize="small" />
                 </div>
               </div>
             ))}
           </div>
+          <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
+            <Pagination
+              className={`${styles["pagination"]}`}
+              count={totalPage}
+              page={curPageNumber}
+              variant="outlined"
+              onChange={handlePageChange}
+              color="secondary"
+              classes={{ root: classes.root }}
+            />
+          </Stack>
         </div>
       )}
       {tabNumber === 2 && (
@@ -139,49 +97,75 @@ const AllDrink = () => {
             <span>위스키 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {dummyList.map((wine) => (
-              <div key={wine.id} className={`${styles["drink-list-item"]}`}>
-                <div className={`${styles["item-wrap"]}`}>
+            {drinkList.map((drink: any) => (
+              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+                <div className={`${styles["drink-img"]}`}>
                   <img
-                    src={wine.img}
-                    style={{ maxWidth: "100%", height: "auto" }}
-                    onClick={() => navigate(`/details/${wine.drinktype}/${wine.id}`)}
-                  ></img>
-                  {/* <p className={`${styles["drink-name"]}`}>{wine.name}</p> */}
-                  <div className={styles["drink-label-wrap"]}>
-                    <p className={`${styles["drink-name"]}`}>{wine.name}</p>
-                    <BookmarkBorder fontSize="small" />
-                  </div>
+                    className={`${styles["drink-item"]}`}
+                    src={drink.img}
+                    alt={drink.name}
+                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                  />
+                </div>
+                <div className={styles["drink-label-wrap"]}>
+                  <p className={`${styles["drink-name"]}`}>
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                  </p>
+                  <BookmarkBorder fontSize="small" />
                 </div>
               </div>
             ))}
           </div>
+          <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
+            <Pagination
+              className={`${styles["pagination"]}`}
+              count={totalPage}
+              page={curPageNumber}
+              variant="outlined"
+              onChange={handlePageChange}
+              color="secondary"
+              classes={{ root: classes.root }}
+            />
+          </Stack>
         </div>
       )}
-      {tabNumber === 3 && (
+      {tabNumber === 1 && (
         <div>
           <h3>와인</h3>
           <Link to={`/playground/guide?selectedButton=wine`}>
             <span>와인 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {dummyList.map((wine) => (
-              <div key={wine.id} className={`${styles["drink-list-item"]}`}>
-                <div className={`${styles["item-wrap"]}`}>
+            {drinkList.map((drink: any) => (
+              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+                <div className={`${styles["drink-img"]}`}>
                   <img
-                    src={wine.img}
-                    style={{ maxWidth: "100%", height: "auto" }}
-                    onClick={() => navigate(`/details/${wine.drinktype}/${wine.id}`)}
-                  ></img>
-                  {/* <p className={`${styles["drink-name"]}`}>{wine.name}</p> */}
-                  <div className={styles["drink-label-wrap"]}>
-                    <p className={`${styles["drink-name"]}`}>{wine.name}</p>
-                    <BookmarkBorder fontSize="small" />
-                  </div>
+                    className={`${styles["drink-item"]}`}
+                    src={drink.img}
+                    alt={drink.name}
+                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                  />
+                </div>
+                <div className={styles["drink-label-wrap"]}>
+                  <p className={`${styles["drink-name"]}`}>
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                  </p>
+                  <BookmarkBorder fontSize="small" />
                 </div>
               </div>
             ))}
           </div>
+          <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
+            <Pagination
+              className={`${styles["pagination"]}`}
+              count={totalPage}
+              page={curPageNumber}
+              variant="outlined"
+              onChange={handlePageChange}
+              color="secondary"
+              classes={{ root: classes.root }}
+            />
+          </Stack>
         </div>
       )}
       {tabNumber === 4 && (
@@ -191,49 +175,75 @@ const AllDrink = () => {
             <span>전통주 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {dummyList.map((wine) => (
-              <div key={wine.id} className={`${styles["drink-list-item"]}`}>
-                <div className={`${styles["item-wrap"]}`}>
+            {drinkList.map((drink: any) => (
+              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+                <div className={`${styles["drink-img"]}`}>
                   <img
-                    src={wine.img}
-                    style={{ maxWidth: "100%", height: "auto" }}
-                    onClick={() => navigate(`/details/${wine.drinktype}/${wine.id}`)}
-                  ></img>
-                  {/* <p className={`${styles["drink-name"]}`}>{wine.name}</p> */}
-                  <div className={styles["drink-label-wrap"]}>
-                    <p className={`${styles["drink-name"]}`}>{wine.name}</p>
-                    <BookmarkBorder fontSize="small" />
-                  </div>
+                    className={`${styles["drink-item"]}`}
+                    src={drink.img}
+                    alt={drink.name}
+                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                  />
+                </div>
+                <div className={styles["drink-label-wrap"]}>
+                  <p className={`${styles["drink-name"]}`}>
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                  </p>
+                  <BookmarkBorder fontSize="small" />
                 </div>
               </div>
             ))}
           </div>
+          <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
+            <Pagination
+              className={`${styles["pagination"]}`}
+              count={totalPage}
+              page={curPageNumber}
+              variant="outlined"
+              onChange={handlePageChange}
+              color="secondary"
+              classes={{ root: classes.root }}
+            />
+          </Stack>
         </div>
       )}
-      {tabNumber === 5 && (
+      {tabNumber === 3 && (
         <div>
           <h3>맥주</h3>
           <Link to={`/playground/guide?selectedButton=beer`}>
             <span>맥주 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {dummyList.map((wine) => (
-              <div key={wine.id} className={`${styles["drink-list-item"]}`}>
-                <div className={`${styles["item-wrap"]}`}>
+            {drinkList.map((drink: any) => (
+              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+                <div className={`${styles["drink-img"]}`}>
                   <img
-                    src={wine.img}
-                    style={{ maxWidth: "100%", height: "auto" }}
-                    onClick={() => navigate(`/details/${wine.drinktype}/${wine.id}`)}
-                  ></img>
-                  {/* <p className={`${styles["drink-name"]}`}>{wine.name}</p> */}
-                  <div className={styles["drink-label-wrap"]}>
-                    <p className={`${styles["drink-name"]}`}>{wine.name}</p>
-                    <BookmarkBorder fontSize="small" />
-                  </div>
+                    className={`${styles["drink-item"]}`}
+                    src={drink.img}
+                    alt={drink.name}
+                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                  />
+                </div>
+                <div className={styles["drink-label-wrap"]}>
+                  <p className={`${styles["drink-name"]}`}>
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                  </p>
+                  <BookmarkBorder fontSize="small" />
                 </div>
               </div>
             ))}
           </div>
+          <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
+            <Pagination
+              className={`${styles["pagination"]}`}
+              count={totalPage}
+              page={curPageNumber}
+              variant="outlined"
+              onChange={handlePageChange}
+              color="secondary"
+              classes={{ root: classes.root }}
+            />
+          </Stack>
         </div>
       )}
     </div>

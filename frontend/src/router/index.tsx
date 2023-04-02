@@ -44,7 +44,7 @@ const router = createBrowserRouter([
             element: <HomeMain></HomeMain>,
           },
           {
-            path: "drinklist/:drinktype",
+            path: "list/:drinktype",
             element: <AllDrink></AllDrink>,
           },
         ],
