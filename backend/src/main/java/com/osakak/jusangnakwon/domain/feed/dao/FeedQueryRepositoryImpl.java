@@ -8,6 +8,7 @@ import static com.osakak.jusangnakwon.domain.feed.entity.QRating.rating;
 import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
+import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
 import com.osakak.jusangnakwon.domain.feed.dto.QCommentDto;
 import com.osakak.jusangnakwon.domain.feed.dto.QFeedDto;
 import com.osakak.jusangnakwon.domain.feed.dto.QFeedListDto;
@@ -51,7 +52,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
     }
 
     @Override
-    public Page<FeedListDto> findFeedPageWithRatingAndLikeByType(Long userId, String type,
+    public Page<FeedListDto> findFeedPageWithRatingAndLikeByType(Long userId, FeedType type,
             Pageable pageable) {
         List<FeedListDto> content = queryFactory.select(
                         new QFeedListDto(feed.id, feed.type, feed.img, feed.title, feed.content,
@@ -95,6 +96,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
         return queryFactory.select(new QCommentDto(comment.id,
                         new QWriterDto(comment.user.username, comment.user.profileImageUrl),
                         comment.feed.id, comment.content, comment.dateCreated)).from(comment)
+                .where(comment.feed.id.eq(feedId))
                 .orderBy(comment.dateCreated.asc()).fetch();
     }
 }

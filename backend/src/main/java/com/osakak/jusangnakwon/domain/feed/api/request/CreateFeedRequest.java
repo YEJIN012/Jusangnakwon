@@ -1,5 +1,6 @@
 package com.osakak.jusangnakwon.domain.feed.api.request;
 
+import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 public class CreateFeedRequest {
 
     @NotBlank
-    private String type;
+    private FeedType type;
     private String img;
     private String title;
     private Long liquorId;
