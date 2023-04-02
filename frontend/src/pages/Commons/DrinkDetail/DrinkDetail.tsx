@@ -1,5 +1,6 @@
 import styles from "./DrinkDetail.module.css";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import Rating from "@mui/material/Rating";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Ingredients from "@/components/Commons/Ingredients/Ingredients";
@@ -7,15 +8,16 @@ import ReviewList from "@/components/Commons/ReviewList/ReviewList";
 import RecommendInDetail from "@/components/Commons/RecommendInDetail/RecommendInDetail";
 import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 import HeaderBack from "@/components/Commons/Header/HeaderBack";
+import { apiGetDrinkDetail } from "@/api/drinks";
 
 const DrinkDetail = () => {
   const params = useParams();
 
   const drink = {
-    id: 1,
-    type: "l6",
+    id: 4140,
+    type: "WINE",
     user_id: 3,
-    name: "달콤한와인",
+    name: "리씬 프르미에 메독",
     userName: "hojung",
     ratings: 4,
     userImg: "https://picsum.photos/30/30/?random",
@@ -57,7 +59,13 @@ const DrinkDetail = () => {
       name: "새콤한와인",
       drinktype: "l6",
     },
-  ]
+  ];
+
+  useEffect(() => {
+    apiGetDrinkDetail("l3", 8).then((r) => {
+      console.log(r);
+    });
+  });
 
   return (
     <>
@@ -82,10 +90,10 @@ const DrinkDetail = () => {
           </div>
           <BookmarkBorderIcon />
         </div>
-        <Ingredients ingredients={drink.ingredients} delete={null}></Ingredients>
-        <Ingredients ingredients={drink.taste} delete={null}></Ingredients>
+        <Ingredients ingredients={drink.ingredients}></Ingredients>
+        <Ingredients ingredients={drink.taste}></Ingredients>
         <ReadMore content={drink.explan}></ReadMore>
-        <ReviewList type={drink.type} name={drink.name}></ReviewList>
+        <ReviewList id={drink.id} type={drink.type} name={drink.name}></ReviewList>
         <RecommendInDetail dummyList={dummyList}></RecommendInDetail>
       </div>
     </>

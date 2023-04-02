@@ -2,23 +2,30 @@ package com.osakak.jusangnakwon.domain.feed.application;
 
 import com.osakak.jusangnakwon.common.errors.FeedNotFoundException;
 import com.osakak.jusangnakwon.common.errors.UserNotFoundException;
+import com.osakak.jusangnakwon.domain.feed.api.response.FeedListResponse;
 import com.osakak.jusangnakwon.domain.feed.dao.CommentRepository;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
 import com.osakak.jusangnakwon.domain.feed.dao.LikeRepository;
 import com.osakak.jusangnakwon.domain.feed.dao.RatingRepository;
 import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
+import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
+import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
 import com.osakak.jusangnakwon.domain.feed.dto.RatingDto;
 import com.osakak.jusangnakwon.domain.feed.entity.Comment;
 import com.osakak.jusangnakwon.domain.feed.entity.Feed;
 import com.osakak.jusangnakwon.domain.feed.entity.Like;
 import com.osakak.jusangnakwon.domain.feed.entity.Rating;
+import com.osakak.jusangnakwon.domain.feed.mapper.FeedDtoMapper;
 import com.osakak.jusangnakwon.domain.feed.mapper.FeedMapper;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import com.osakak.jusangnakwon.domain.user.entity.User;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +39,9 @@ public class FeedService {
     private final RatingRepository ratingRepository;
     private final CommentRepository commentRepository;
     private final LikeRepository likeRepository;
-
+    private final FeedDtoMapper feedDtoMapper = Mappers.getMapper(FeedDtoMapper.class);
     private final FeedMapper feedMapper = Mappers.getMapper(FeedMapper.class);
+    static int pageNumber = 0;
 
     @Transactional
     public FeedDto createFeed(Long id, FeedDto feedDto, RatingDto ratingDto) {
@@ -41,7 +49,7 @@ public class FeedService {
         Feed feed = feedMapper.feedDtoToFeed(feedDto, user);
         Double ratingScore = feedDto.getRatingScore();
         feed = feedRepository.save(feed);
-        if ("리뷰글".equals(feed.getType())) {
+        if (FeedType.리뷰글.equals(feed.getType())) {
             Rating rating = feedMapper.ratingDtoToRating(ratingDto, user);
             ratingRepository.save(rating);
         }
@@ -52,17 +60,16 @@ public class FeedService {
         return feedDto;
     }
 
-    public List<FeedDto> getFeedList(Long id) {
+    public FeedListResponse getFeedList(Long id, Pageable pageable) {
         User user = findUser(id);
-        List<FeedDto> feeds = feedRepository.findFeedListWithRatingAndLike(user.getId());
-        return feeds;
+        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithRatingAndLike(user.getId(), pageable);
+        return getFeedListResponse(feedPage.getTotalPages(), feedPage.getPageable(), feedPage.getContent());
     }
 
-    public List<FeedDto> getFeedListByType(Long id, String type) {
+    public FeedListResponse getFeedListByType(Long id, String type, Pageable pageable) {
         User user = findUser(id);
-        List<FeedDto> feeds = feedRepository.findFeedListWithRatingAndLikeByType(user.getId(),
-                type);
-        return feeds;
+        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithRatingAndLikeByType(user.getId(), FeedType.findFeedType(type), pageable);
+        return getFeedListResponse(feedPage.getTotalPages(), feedPage.getPageable(), feedPage.getContent());
     }
 
     public FeedDto getFeedDetail(Long id, Long feedId) {
@@ -94,6 +101,11 @@ public class FeedService {
                 });
     }
 
+    private FeedListResponse getFeedListResponse(int totalPage, Pageable pageable, List<FeedListDto> list) {
+        pageNumber = pageable.getPageNumber();
+        return feedDtoMapper.toFeedListResponse(list, totalPage, pageNumber);
+    }
+
     private User findUser(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
@@ -101,4 +113,5 @@ public class FeedService {
     private Feed findFeed(Long id) {
         return feedRepository.findById(id).orElseThrow(() -> new FeedNotFoundException(id));
     }
+
 }

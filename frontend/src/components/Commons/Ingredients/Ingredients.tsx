@@ -3,7 +3,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 
 interface Ingredients {
   ingredients: string[];
-  delete: ((x: number) => void) | null;
+  delete?: ((x: number) => void);
 }
 
 const RandomColor = [

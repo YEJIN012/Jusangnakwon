@@ -14,12 +14,15 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import StarIcon from "@mui/icons-material/Star";
 import styles from "./Write.module.css";
 import ImageUpload from "@/components/Commons/ImageUpload/ImageUpload";
+import { apiCreateFeed } from "@/api/feed";
 
-interface FormData {
+export interface QuestionFormData {
+  type: string;
   img: string | null;
   title: string;
-  content: string | null;
-  // isPrivate: boolean;
+  content: string | number | readonly string[] | undefined;
+  isPublic: boolean;
+  dateCreated: Date | null;
 }
 
 const StyleSwitch = styled(Switch)(({ theme }) => ({
@@ -36,17 +39,32 @@ const StyleSwitch = styled(Switch)(({ theme }) => ({
 
 const WriteQuestion = () => {
   const [formData, setFormData] = useState({
-    img: "",
+    type: "질문글",
+    img: null,
     title: "",
     content: "",
-    // isPrivate: false,
+    isPublic: true,
+    dateCreated: new Date(),
   });
 
   const navigate = useNavigate();
 
-  const handleSubmit = (formData: FormData) => {
+  const handleImg = (img: File | null | undefined) => {
+    // setData({ ...data, img: img });
+  };
+
+  const handleSubmit = (formData: QuestionFormData) => {
     // 제출 api호출
-    navigate(-1);
+    apiCreateFeed(formData)
+      .then((res: any) => {
+        console.log(res);
+        const newFeed = res.data.body;
+        navigate(`details/feed/${newFeed.id}`); // 질문글상세페이지로 이동
+      })
+      .catch((error) => {
+        console.error(error);
+        navigate("/");
+      });
   };
 
   const WriteHeader = () => {
@@ -70,7 +88,7 @@ const WriteQuestion = () => {
               <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)" }}> (선택)</div>
             </div>
             {/* 이미지 선택, 미리보기, 업로드 로직 컴포넌트 */}
-            <ImageUpload></ImageUpload>
+            <ImageUpload handleImg={handleImg}></ImageUpload>
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 import styles from "@/components/Commons/TasteForm/TasteForm.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Radio from "@mui/material/Radio";
 // import RadioGroup from "@mui/material/RadioGroup";
 // import FormControlLabel from "@mui/material/FormControlLabel";
@@ -9,6 +9,8 @@ import { ChangeEvent } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { RadioGroup, FormControlLabel, Radio, Typography } from "@material-ui/core";
 import ConfettiButton from "../ConfettiButton/ConfettiButton";
+import { apiSubmitSurvey } from "@/api/users";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   radioGroup: {
@@ -42,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TasteForm = () => {
+  const navigate = useNavigate()
   const [selectedValue, setSelectedValue] = useState({
     sweetness: null,
     bitter: null,
@@ -59,6 +62,26 @@ const TasteForm = () => {
     });
   };
 
+  useEffect(() => {
+    console.log(selectedValue);
+  }, [selectedValue]);
+
+  const handleSubmitSurvey = () => {
+    // e.preventDefault();
+    if (Object.values(selectedValue).includes(null)) {
+      alert("취향을 모두 입력해주세요");
+    } else {
+      apiSubmitSurvey(selectedValue)
+        .then((r) => {
+          console.log(r);
+          navigate('/')
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  };
+
   return (
     <div className={`${styles[`container`]}`}>
       <h3 className={`${styles[`head-text`]}`}>선호하는 맛의 취향을 선택해보세요</h3>
@@ -73,27 +96,27 @@ const TasteForm = () => {
               row
               aria-labelledby="demo-form-control-label-placement"
               name="sweetness"
-              defaultValue="top"
+              // defaultValue="3"
               value={selectedValue.sweetness}
               onChange={handleChange}
             >
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="top"
+                value="3"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>상</Typography>}
                 labelPlacement="top"
               />
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="middle"
+                value="2"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>중</Typography>}
                 labelPlacement="top"
               />
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="bottom"
+                value="1"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>하</Typography>}
                 labelPlacement="top"
@@ -109,27 +132,27 @@ const TasteForm = () => {
               row
               aria-labelledby="demo-form-control-label-placement"
               name="bitter"
-              defaultValue="top"
+              // defaultValue="3"
               value={selectedValue.bitter}
               onChange={handleChange}
             >
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="top"
+                value="3"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>상</Typography>}
                 labelPlacement="top"
               />
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="middle"
+                value="2"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>중</Typography>}
                 labelPlacement="top"
               />
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="bottom"
+                value="1"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>하</Typography>}
                 labelPlacement="top"
@@ -145,27 +168,27 @@ const TasteForm = () => {
               row
               aria-labelledby="demo-form-control-label-placement"
               name="body"
-              defaultValue="top"
+              // defaultValue="3"
               value={selectedValue.body}
               onChange={handleChange}
             >
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="top"
+                value="3"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>상</Typography>}
                 labelPlacement="top"
               />
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="middle"
+                value="2"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>중</Typography>}
                 labelPlacement="top"
               />
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="bottom"
+                value="1"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>하</Typography>}
                 labelPlacement="top"
@@ -181,27 +204,27 @@ const TasteForm = () => {
               row
               aria-labelledby="demo-form-control-label-placement"
               name="aroma"
-              defaultValue="top"
+              // defaultValue="3"
               value={selectedValue.aroma}
               onChange={handleChange}
             >
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="top"
+                value="3"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>상</Typography>}
                 labelPlacement="top"
               />
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="middle"
+                value="2"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>중</Typography>}
                 labelPlacement="top"
               />
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="bottom"
+                value="1"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>하</Typography>}
                 labelPlacement="top"
@@ -217,27 +240,27 @@ const TasteForm = () => {
               row
               aria-labelledby="demo-form-control-label-placement"
               name="sour"
-              defaultValue="top"
+              // defaultValue="3"
               value={selectedValue.sour}
               onChange={handleChange}
             >
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="top"
+                value="3"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>상</Typography>}
                 labelPlacement="top"
               />
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="middle"
+                value="2"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>중</Typography>}
                 labelPlacement="top"
               />
               <FormControlLabel
                 className={classes.formControlLabel}
-                value="bottom"
+                value="1"
                 control={<Radio className={classes.radio} />}
                 label={<Typography className={classes.label}>하</Typography>}
                 labelPlacement="top"
@@ -245,7 +268,9 @@ const TasteForm = () => {
             </RadioGroup>
           </FormControl>
         </div>
-        <ConfettiButton></ConfettiButton>
+        <div onClick={handleSubmitSurvey}>
+          <ConfettiButton filledForm={!Object.values(selectedValue).includes(null)}></ConfettiButton>
+        </div>
       </div>
     </div>
   );

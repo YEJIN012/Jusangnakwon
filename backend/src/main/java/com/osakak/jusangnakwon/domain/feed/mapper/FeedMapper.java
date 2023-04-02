@@ -2,14 +2,17 @@ package com.osakak.jusangnakwon.domain.feed.mapper;
 
 import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
+import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
 import com.osakak.jusangnakwon.domain.feed.dto.RatingDto;
 import com.osakak.jusangnakwon.domain.feed.entity.Comment;
 import com.osakak.jusangnakwon.domain.feed.entity.Feed;
 import com.osakak.jusangnakwon.domain.feed.entity.Rating;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import java.util.List;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 @Mapper
 public interface FeedMapper {
@@ -39,4 +42,5 @@ public interface FeedMapper {
     @Mapping(source = "commentDto.content", target = "content")
     @Mapping(target = "dateCreated", ignore = true)
     Comment commentDtoToComment(CommentDto commentDto, User user, Feed feed);
+
 }

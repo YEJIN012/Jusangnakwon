@@ -5,6 +5,7 @@ import { refreshAccessToken } from "./auth";
 
 const getApiInstance = () => {
   axios.defaults.withCredentials = true; // 쿠키 데이터를 전송받기 위해
+  // axios.defaults.headers.common['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoiMTAxMTgzNDQ5MDgzNDUwNDQwOTA2Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTY4MDgzMDI2Mn0.TvyHCGKPZrGLE7NdVey-OSoQeks_9uKvjkQDhzmJdYk";
 
   const instance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
