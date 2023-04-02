@@ -22,6 +22,8 @@ export interface FeedContent {
 
 const FeedMain = () => {
   const [feedList, setFeedList] = useState<FeedContent[]>([]);
+  const [curPageNumber, setCurPageNumber] = useState<number>(0);
+  const [totalPage, setTotalPage] = useState<number>(0);
   // const container = useRef<HTMLDivElement>(null);
 
   // useEffect(() => {
@@ -55,7 +57,7 @@ const FeedMain = () => {
   // }, []);
 
   useEffect(() => {
-    apiGetFilteredFeedList({ type: focusedPostList, page: 0 })
+    apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
       .then((res: any) => {
         console.log(res);
         setFeedList(res.data.body.content);
