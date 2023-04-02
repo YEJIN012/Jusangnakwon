@@ -1,10 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,500;1,300;1,500&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Hahmlet:wght@300;400;500;600&family=Nanum+Pen+Script&family=Poor+Story&display=swap");
 
-/* @font-face {
-  font-family: "gmarketMedium";
-  src: url("assets/fonts/GmarketSansTTFMedium.ttf");
-} */
-
 .content-wrapper {
   /* padding: 2% 8%; */
   /*하단바가 56px*/
@@ -15,6 +10,5 @@
   font-family: "Hahmlet", serif;
   /* font-family: 'Nanum Pen Script', cursive; */
   /* font-family: 'Poor Story', cursive; */
-  /* font-family: "gmarketMedium"; */
   /* font-weight: 700 */
 }

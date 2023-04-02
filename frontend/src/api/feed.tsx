@@ -4,25 +4,19 @@ const api = getApiInstance();
 
 // 피드 메인 페이지
 // 피드 리스트 전체 조회
-// export const apiGetFeedList = async (page: number) => {
-//   try {
-//     const response = await api.get(`/feed/list?page=${page}`);
-//     return response;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
+export const apiGetFeedList = async () => {
+  try {
+    const response = await api.get(`/feed/list`);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 // 피드 리스트 타입별 조회 (질문글/게시글)
-interface Props {
-  type: string;
-  page: number;
-}
-
-export const apiGetFilteredFeedList = async (props: Props) => {
-  const filter = props.type === "" ? props.type : `/${props.type}`;
+export const apiGetFilteredFeedList = async (type: string) => {
   try {
-    const response = await api.get(`/feed/list${filter}?page=${props.page}`);
+    const response = await api.get(`/feed/list/${type}`);
     return response;
   } catch (e) {
     console.log(e);
@@ -30,11 +24,9 @@ export const apiGetFilteredFeedList = async (props: Props) => {
 };
 
 // 피드 작성
-export const apiCreateFeed = async (data: { [key: string]: any } ) => {
+export const apiCreateFeed = async (data: any[]) => {
   try {
-    const response = await api.post(`/feed`, data,
-      // { headers: { "Content-Type": "multipart/form-data" } }
-    );
+    const response = await api.post(`/feed`, data);
     return response;
   } catch (e) {
     console.log(e);
@@ -53,7 +45,7 @@ export const apiGetFeedDetail = async (feedId: number) => {
 };
 
 // 댓글 작성
-export const apiCreateComment = async (data: { feedId: number; content: string }) => {
+export const apiCreateComment = async (data: any[]) => {
   try {
     const response = await api.post(`/comment`, data);
     return response;
@@ -63,9 +55,9 @@ export const apiCreateComment = async (data: { feedId: number; content: string }
 };
 
 // 좋아요
-export const apiCreateLike = async (feedId: number, data: { [key: string]: string }) => {
+export const apiCreateLike = async (feedId: number) => {
   try {
-    const response = await api.put(`/feed/like/${feedId}`, data);
+    const response = await api.post(`/feed/${feedId}`);
     return response;
   } catch (e) {
     console.log(e);

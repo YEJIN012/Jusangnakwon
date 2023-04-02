@@ -1,7 +1,6 @@
 import CreateIcon from "@mui/icons-material/Create";
 import CommentItem from "./CommentItem";
 import styles from "./CommentList.module.css";
-import { Comment } from "@/pages/Commons/FeedDetail/FeedDetail";
 
 const commentList = [
   {
@@ -27,13 +26,13 @@ const commentList = [
   },
 ];
 
-const CommentList = (comment: Comment) => {
+const CommentList = () => {
   return (
     <>
       <div className={`${styles[`comment-list-container`]}`}>
-        {/* {commentList.map((comment) => {
+        {commentList.map((comment) => {
           return <CommentItem key={comment.id} comment={comment}></CommentItem>;
-        })} */}
+        })}
       </div>
     </>
   );

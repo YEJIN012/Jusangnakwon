@@ -3,65 +3,30 @@
   height: 20vh;
   border-radius: 20px;
   display: flex;
-  /* flex-direction: column; */
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
-  /* color: gray; */
+  color: gray;
   /* margin-top: 50px;
   margin-bottom: 50px; */
   margin: 0 auto;
-  /* background: linear-gradient(180deg, #ff9e80 0%, #fff6e3 100%); */
-  background-color: black;
-  text-align: center;
-}
-.hometender-banner-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  white-space: nowrap;
-  box-sizing: border-box;
+  background: linear-gradient(180deg, #ff9e80 0%, #fff6e3 100%);
 }
 
-.hometender-banner-box {
+.content-wrap {
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.hometender-banner-contents {
-  display: flex;
-  flex-direction: column;
-}
-
-.hometender-banner-item {
-  display: flex;
-  align-items: center;
-}
-.hometender-banner-img {
-  height: 120px;
-  width: 120px;
-  margin-right: 3%;
-}
-
-.hometender-banner-title {
-  font-size: 1.4rem;
+.text-wrap {
   color: black;
-  font-weight: bold;
+  margin-left: 10px;
 }
 
-.hometender-banner-contents {
-  /* display: flex; */
+.drink-name{
+  /* font-size: 1rem; */
 }
 
-.hometender-banner-mini-title {
-  /* color: blueviolet; */
-  color: black;
-  font-weight: 900;
-  font-size: 1.1rem;
-}
+.drink-ingre{
 
-.hometender-banner-materials {
-  /* color: plum; */
-  color: black;
 }

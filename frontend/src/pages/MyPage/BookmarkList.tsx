@@ -53,7 +53,7 @@ const dummyBookmarkList = [
   },
 ];
 
-export const alcoholTypeStyle: { [key: string]: string } = {
+const alcoholTypeStyle: { [key: string]: string } = {
   l1: "var(--tag-color-purple)",
   l2: "var(--tag-color-red)",
   l3: "var(--tag-color-orange)",

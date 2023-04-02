@@ -53,10 +53,6 @@ const WriteRecipe = () => {
 
   const navigate = useNavigate();
 
-  const handleImg = (img: File | null | undefined) => {
-    // setData({ ...data, img: img });
-  };
-
   const handleSubmit = (formData: FormData) => {
     // 제출 api호출
     navigate(-1);
@@ -107,7 +103,7 @@ const WriteRecipe = () => {
               {/* <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)" }}> (선택)</div> */}
             </div>
             {/* 이미지 선택, 미리보기, 업로드 로직 컴포넌트 */}
-            <ImageUpload handleImg={handleImg}></ImageUpload>
+            <ImageUpload></ImageUpload>
           </div>
         </div>
 
