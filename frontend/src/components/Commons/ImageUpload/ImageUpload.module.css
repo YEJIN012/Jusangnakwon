@@ -24,15 +24,3 @@
 .row-container {
   display: flex;
 }
-
-.relative {
-  position: relative;
-  margin-right: 3vw;
-}
-
-.delete {
-  position: absolute;
-  z-index: 100;  
-  top: -5px;
-  right: -10px;
-}

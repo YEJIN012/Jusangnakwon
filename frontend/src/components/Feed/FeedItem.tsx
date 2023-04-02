@@ -4,32 +4,47 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Dispatch, SetStateAction } from "react";
-import { FeedContent } from "@/pages/Feed/FeedMain";
-import { apiCreateLike } from "@/api/feed";
-import LikeButton from "./LikeButton/LikeButton";
-import { apiGetFilteredFeedList } from "@/api/feed";
 
 interface Feed {
-  feed: FeedContent;
-  setFeedList: React.Dispatch<React.SetStateAction<FeedContent[]>>;
-  focusedPostList: string;
+  feed: {
+    id: number;
+    userName: string;
+    userImg: string;
+    classification: string;
+    img: string;
+    content: string;
+    liked: boolean;
+  };
+  setDummyFeedList: Dispatch<
+    SetStateAction<
+      {
+        id: number;
+        userName: string;
+        userImg: string;
+        classification: string;
+        img: string;
+        content: string;
+        liked: boolean;
+      }[]
+    >
+  >;
 }
 
-const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
+const FeedComponent = ({ feed, setDummyFeedList }: Feed) => {
   return (
     <>
-      {feed.type === "리뷰글" ? (
+      {feed.classification === "게시글" ? (
         <Card style={{ backgroundColor: "inherit", boxShadow: "0px 0px 2px gray" }}>
           <Link to={`../details/feed/${feed.id}`}>
-            <CardMedia component="img" height="auto" image={feed.img} alt={feed.writer.username} />
+            <CardMedia component="img" height="auto" image={feed.img} alt={feed.userName} />
           </Link>
           <CardContent style={{ backgroundColor: `inherit`, padding: "2%" }}>
             <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.9rem", color: "white" }}>
               <div className={`${styles[`user-profile`]}`}>
-                <img src={feed.writer.profileImg} className={`${styles[`user-img`]}`}></img>
-                <p>{feed.writer.username}</p>
+                <img src={feed.userImg} className={`${styles[`user-img`]}`}></img>
+                <p>{feed.userName}</p>
               </div>
-              {/* {feed.liked ? (
+              {feed.liked ? (
                 <button
                   style={{
                     color: "white",
@@ -37,7 +52,7 @@ const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
                     border: "none",
                   }}
                   onClick={() => {
-                    setFeedList((prevList) =>
+                    setDummyFeedList((prevList) =>
                       prevList.map((prevFeed) => {
                         if (prevFeed.id === feed.id) {
                           return { ...prevFeed, liked: !prevFeed.liked };
@@ -48,7 +63,7 @@ const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
                     );
                   }}
                 >
-                  <FavoriteIcon sx={{ color: "red" }}/>
+                  <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
                 </button>
               ) : (
                 <button
@@ -58,7 +73,7 @@ const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
                     border: "none",
                   }}
                   onClick={() => {
-                    setFeedList((prevList) =>
+                    setDummyFeedList((prevList) =>
                       prevList.map((prevFeed) => {
                         if (prevFeed.id === feed.id) {
                           return { ...prevFeed, liked: !prevFeed.liked };
@@ -71,92 +86,77 @@ const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
                 >
                   <FavoriteBorderIcon />
                 </button>
-              )} */}
-              {feed.liked ? (
-                <button
-                  onClick={() => {
-                    apiCreateLike(Number(feed.id), { isLiked: "false" }).then((r) => {
-                      apiGetFilteredFeedList({ type: focusedPostList, page: 0 }).then((r) => {
-                        // console.log(r);
-                        setFeedList(r?.data.body.content);
-                      });
-                    });
-                  }}
-                  style={{ background: "none", border: "none" }}
-                >
-                  <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    apiCreateLike(Number(feed.id), { isLiked: "true" }).then((r) => {
-                      apiGetFilteredFeedList({ type: focusedPostList, page: 0 }).then((r) => {
-                        // console.log(r);
-                        setFeedList(r?.data.body.content);
-                      });
-                    });
-                  }}
-                  style={{ background: "none", border: "none" }}
-                >
-                  <FavoriteBorderIcon sx={{ color: "white" }} />
-                </button>
               )}
             </div>
-            <Link to={`../details/feed/${feed.id}`}>
-              <Typography variant="body2" color="white" style={{ padding: "3% 5%" }}>
-                {feed.content}
-              </Typography>
-            </Link>
+            <Typography variant="body2" color="white" style={{ padding: "3% 5%" }}>
+              {feed.content}
+            </Typography>
           </CardContent>
         </Card>
       ) : (
         <Card style={{ backgroundColor: "inherit" }}>
-          <CardContent style={{ backgroundColor: "rgba(50, 50, 55, 0.9)", padding: "2px" }}>
-            <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.8rem", color: "white" }}>
-              <div className={`${styles[`user-profile`]}`}>
-                <img src={feed.writer.profileImg} className={`${styles[`user-img`]}`}></img>
-                <p>{feed.writer.username}</p>
+          <Link to={`../details/feed/${feed.id}`}>
+            <CardContent style={{ backgroundColor: "rgba(50, 50, 55, 0.9)", padding: "2px" }}>
+              <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.8rem", color: "white" }}>
+                <div className={`${styles[`user-profile`]}`}>
+                  <img src={feed.userImg} className={`${styles[`user-img`]}`}></img>
+                  <p>{feed.userName}</p>
+                </div>
+                {feed.liked ? (
+                  <button
+                    style={{
+                      color: "white",
+                      background: "none",
+                      border: "none",
+                    }}
+                    onClick={() => {
+                      setDummyFeedList((prevList) =>
+                        prevList.map((prevFeed) => {
+                          if (prevFeed.id === feed.id) {
+                            return { ...prevFeed, liked: !prevFeed.liked };
+                          } else {
+                            return prevFeed;
+                          }
+                        }),
+                      );
+                      // console.log(feed.liked);
+                    }}
+                  >
+                    <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
+                  </button>
+                ) : (
+                  <button
+                    style={{
+                      color: "white",
+                      background: "none",
+                      border: "none",
+                    }}
+                    onClick={() => {
+                      setDummyFeedList((prevList) =>
+                        prevList.map((prevFeed) => {
+                          if (prevFeed.id === feed.id) {
+                            return { ...prevFeed, liked: !prevFeed.liked };
+                          } else {
+                            return prevFeed;
+                          }
+                        }),
+                      );
+                      // console.log(feed.liked);
+                    }}
+                  >
+                    <FavoriteBorderIcon />
+                  </button>
+                )}
               </div>
-              {feed.liked ? (
-                <button
-                  onClick={() => {
-                    apiCreateLike(Number(feed.id), { isLiked: "false" }).then((r) => {
-                      apiGetFilteredFeedList({ type: focusedPostList, page: 0 }).then((r) => {
-                        // console.log(r);
-                        setFeedList(r?.data.body.content);
-                      });
-                    });
-                  }}
-                  style={{ background: "none", border: "none" }}
-                >
-                  <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    apiCreateLike(Number(feed.id), { isLiked: "true" }).then((r) => {
-                      apiGetFilteredFeedList({ type: focusedPostList, page: 0 }).then((r) => {
-                        // console.log(r);
-                        setFeedList(r?.data.body.content);
-                      });
-                    });
-                  }}
-                  style={{ background: "none", border: "none" }}
-                >
-                  <FavoriteBorderIcon sx={{ color: "white" }} />
-                </button>
-              )}
-            </div>
-            <Link to={`../details/feed/${feed.id}`}>
               <Typography variant="body2" color="white" style={{ padding: "3% 5%" }}>
-                {feed.title}
+                {feed.content}
               </Typography>
-            </Link>
-          </CardContent>
+            </CardContent>
+          </Link>
         </Card>
       )}
     </>
   );
 };
 
-export default FeedItem;
+export default FeedComponent;
