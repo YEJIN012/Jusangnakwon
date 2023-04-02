@@ -6,6 +6,7 @@ import { Masonry } from "@mui/lab";
 // import lottie from "lottie-web";
 // import animationData from "../Commons/cheers-wine.json";
 import { apiGetFilteredFeedList } from "@/api/feed";
+import NeonBtn from "@/components/Commons/NeonBtn/NeonBtn";
 
 export interface FeedContent {
   id: number;
@@ -22,6 +23,8 @@ export interface FeedContent {
 
 const FeedMain = () => {
   const [feedList, setFeedList] = useState<FeedContent[]>([]);
+  const [curPageNumber, setCurPageNumber] = useState<number>(0);
+  const [totalPage, setTotalPage] = useState<number>(0);
   // const container = useRef<HTMLDivElement>(null);
 
   // useEffect(() => {
@@ -55,7 +58,7 @@ const FeedMain = () => {
   // }, []);
 
   useEffect(() => {
-    apiGetFilteredFeedList({ type: focusedPostList, page: 0 })
+    apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
       .then((res: any) => {
         console.log(res);
         setFeedList(res.data.body.content);
@@ -71,6 +74,7 @@ const FeedMain = () => {
       <FloatingButton></FloatingButton>
       <div className={`${styles[`feed-main-container`]}`}>
         <div className={`${styles[`feed-classify-btn-container`]}`}>
+          {/* <NeonBtn></NeonBtn> */}
           <button
             className={focusedPostList === "" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={""}
