@@ -37,7 +37,7 @@ const Intro = () => {
         alignItems: "center",
         height: "100vh-114px",
         width: "",
-        zIndex: "1000",
+        zIndex:1000,
       }}
     >
       <div style={{ display: "flex", flexDirection: "column" }}>
