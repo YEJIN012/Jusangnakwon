@@ -10,7 +10,7 @@ import styles from "@/components/Home/MainTab/MainTab.module.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
 import { apiGetNotLoginRecommendedByType } from "@/api/home";
 
@@ -21,11 +21,11 @@ interface TabPanelProps {
   value: number;
 }
 
-interface WineItem {
+interface DrinkItem {
   id: string;
   name: string;
   img: string;
-  drinktype: string;
+  liquorType: string;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -55,50 +55,46 @@ function a11yProps(index: number) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  selectedTab: {
-    "&.css-1e884rx-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-      backgroundColor: "#997D7B",
-      color: "white",
-    },
-    "&.css-x31445-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-      backgroundColor: "#421F3C",
-      color: "white",
-    },
-    "&.css-ljmcya-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-      backgroundColor: "#4E3415",
-      color: "white",
-    },
-    "&.css-1qobvqn-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-      backgroundColor: "#9D615F",
-      color: "white",
-    },
-  },
-}));
-
-// api 요청 테스트
-// const [recommendedList, setRecommendedList] = useState([]);
-
-// const rs = "l2";
-// useEffect(() => {
-//   apiGetNotLoginRecommendedByType(rs, 1).then((r) => {
-//     console.log(r);
-//   });
-// }, []);
-
 export default function MainTab() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const [cocktailItemsToShow, setCocktailItemsToShow] = useState(6);
-  const [whiskeyItemsToShow, setwhiskeyItemsToShow] = useState(4);
+  const [curPageNumber, setCurPageNumber] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(0);
+  console.log(value);
+  // 칵테일
+  const [cocktailItemsToShow, setcocktailItemsToShow] = useState(6);
+  const [cocktailList, setCocktailList] = useState<DrinkItem[]>([]);
+  const [cocktailListToShow, setCocktailListToShow] = useState<DrinkItem[]>([]);
+  const [isLoadingMoreCocktails, setIsLoadingMoreCocktails] = useState(false);
 
+  // 위스키
+  const [whiskyItemsToShow, setwhiskyItemsToShow] = useState(6);
+  const [whiskyList, setWhiskyList] = useState<DrinkItem[]>([]);
+  const [whiskyListToShow, setWhiskyListToShow] = useState<DrinkItem[]>([]);
+  const [isLoadingMoreWhiskys, setIsLoadingMoreWhiskys] = useState(false);
+
+  // 와인
   const [wineItemsToShow, setwineItemsToShow] = useState(6);
-  const [wineList, setWineList] = useState<{ id: string; name: string; img: string; drinktype: string }[]>([]);
+  const [wineList, setWineList] = useState<DrinkItem[]>([]);
+  const [wineListToShow, setWineListToShow] = useState<DrinkItem[]>([]);
+  const [isLoadingMoreWines, setIsLoadingMoreWines] = useState(false);
+  // const [curPageNumber, setCurPageNumber] = useState(1);
+  // const [totalPage, setTotalPage] = useState(0);
 
-  const [koreanItemsToShow, setkoreanItemsToShow] = useState(4);
-  const [beerItemsToShow, setbeerItemsToShow] = useState(4);
+  // 전통주
+  const [koreanItemsToShow, setkoreanItemsToShow] = useState(6);
+  const [koreanList, setKoreanList] = useState<DrinkItem[]>([]);
+  const [koreanListToShow, setKoreanListToShow] = useState<DrinkItem[]>([]);
+  const [isLoadingMoreKoreans, setIsLoadingMoreKoreans] = useState(false);
+
+  // 맥주
+  const [beerItemsToShow, setbeerItemsToShow] = useState(6);
+  const [beerList, setBeerList] = useState<DrinkItem[]>([]);
+  const [beerListToShow, setBeerListToShow] = useState<DrinkItem[]>([]);
+  const [isLoadingMoreBeers, setIsLoadingMoreBeers] = useState(false);
+
   const navigate = useNavigate();
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const drinktype = ["칵테일", "위스키", "와인", "전통주", "맥주"];
 
@@ -110,125 +106,145 @@ export default function MainTab() {
     setValue(index);
   };
 
+  // 와인
   useEffect(() => {
-    apiGetNotLoginRecommendedByType("l1", 1)
+    apiGetNotLoginRecommendedByType("l1", curPageNumber)
       .then((res: any) => {
         console.log(res);
         if (res.data.success) {
-          const wineList = res.data.body.content.filter((item: any) => item.drinktype === "와인");
-          setWineList(wineList);
-          setWineListToShow(wineList.slice(0, 6));
+          const wineList = res.data.body.content.filter((item: any) => item.liquorType === "WINE");
+          setWineList((prevWineList) => [...prevWineList, ...wineList]);
+          setWineListToShow((prevWineListToShow) => [...prevWineListToShow, ...wineList.slice(0, wineItemsToShow)]);
+          setTotalPage(res.data.body.totalPage);
         }
       })
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [curPageNumber]);
 
-  // const cocktailListToShow = cocktailList.slice(0, cocktailItemsToShow);
-  const [wineListToShow, setWineListToShow] = useState<WineItem[]>([]);
-  const [isLoadingMoreWines, setIsLoadingMoreWines] = useState(false);
-
-  const loadMoreWines = () => {
-    setIsLoadingMoreWines(true);
-
-    const nextPageNumber = Math.floor((wineList.length + 6) / 6);
-
-    apiGetNotLoginRecommendedByType("l1", nextPageNumber)
-      .then((res: any) => {
-        if (res.data.success) {
-          const nextWineList = res.data.body.content.filter((item: any) => item.drinktype === "와인");
-          // setWineList((prevList) => [...prevList, ...nextWineList]);
-          setWineListToShow((prevList) => [...prevList, ...nextWineList.slice(-6)]);
-          // setWineList([...wineList, ...nextWineList]);
-          // setwineItemsToShow((prevItemsToShow) => prevItemsToShow + 6);
-          // setWineListToShow((prevListToShow) => [...prevListToShow, ...nextWineList.slice(-6)]);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        setIsLoadingMoreWines(false);
-      });
+  const handleShowMoreWineItems = () => {
+    if (!isLoadingMoreWines && curPageNumber < totalPage) {
+      setIsLoadingMoreWines(true);
+      setCurPageNumber(curPageNumber + 1);
+      setwineItemsToShow(wineItemsToShow + 6);
+      setIsLoadingMoreWines(false);
+    }
   };
 
-  const isShowMoreWineButton = wineListToShow.length > 0 && wineListToShow.length < wineList.length;
+  // 칵테일
+  useEffect(() => {
+    apiGetNotLoginRecommendedByType("l5", curPageNumber)
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.success) {
+          const cocktailList = res.data.body.content.filter((item: any) => item.liquorType === "COCKTAIL");
+          setCocktailList((prevCocktailList) => [...prevCocktailList, ...cocktailList]);
+          setCocktailListToShow((prevCocktailListToShow) => [
+            ...prevCocktailListToShow,
+            ...cocktailList.slice(0, cocktailItemsToShow),
+          ]);
+          setTotalPage(res.data.body.totalPage);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [curPageNumber, cocktailItemsToShow]);
 
-  const dummyList = [
-    {
-      id: 1,
-      img: "https://picsum.photos/300/300/?random",
-      name: "콥케",
-      drinktype: "l6",
-    },
-    {
-      id: 2,
-      img: "https://picsum.photos/300/300/?random",
-      name: "샌드맨",
-      drinktype: "l6",
-    },
-    {
-      id: 3,
-      img: "https://picsum.photos/300/300/?random",
-      name: "맛있는와인",
-      drinktype: "l6",
-    },
-    {
-      id: 4,
-      img: "https://picsum.photos/300/300/?random",
-      name: "달콤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 5,
-      img: "https://picsum.photos/300/300/?random",
-      name: "새콤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 6,
-      img: "https://picsum.photos/300/300/?random",
-      name: "시큼한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 7,
-      img: "https://picsum.photos/300/300/?random",
-      name: "매콤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 8,
-      img: "https://picsum.photos/300/300/?random",
-      name: "씁쓸한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 9,
-      img: "https://picsum.photos/300/300/?random",
-      name: "텁텁한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 10,
-      img: "https://picsum.photos/300/300/?random",
-      name: "짭짤한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 11,
-      img: "https://picsum.photos/300/300/?random",
-      name: "밋밋한와인",
-      drinktype: "l6",
-    },
-    {
-      id: 12,
-      img: "https://picsum.photos/300/300/?random",
-      name: "느끼한와인",
-      drinktype: "l6",
-    },
-  ];
+  const handleShowMoreCocktailItems = () => {
+    if (!isLoadingMoreCocktails && curPageNumber < totalPage) {
+      setIsLoadingMoreCocktails(true);
+      setCurPageNumber(curPageNumber + 1);
+      // setcocktailItemsToShow(cocktailItemsToShow + 6);
+      setcocktailItemsToShow((prev) => prev + 6);
+      setIsLoadingMoreCocktails(false);
+    }
+  };
+
+  // 위스키
+  useEffect(() => {
+    apiGetNotLoginRecommendedByType("l2", curPageNumber)
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.success) {
+          const whiskyList = res.data.body.content.filter((item: any) => item.liquorType === "WHISKY");
+          setWhiskyList((prevWhiskyList) => [...prevWhiskyList, ...whiskyList]);
+          setWhiskyListToShow((prevWhiskyListToShow) => [
+            ...prevWhiskyListToShow,
+            ...whiskyList.slice(0, whiskyItemsToShow),
+          ]);
+          setTotalPage(res.data.body.totalPage);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [curPageNumber]);
+
+  const handleShowMoreWhiskyItems = () => {
+    if (!isLoadingMoreWhiskys && curPageNumber < totalPage) {
+      setIsLoadingMoreWhiskys(true);
+      setCurPageNumber(curPageNumber + 1);
+      setwhiskyItemsToShow(whiskyItemsToShow + 6);
+      setIsLoadingMoreWhiskys(false);
+    }
+  };
+
+  // 전통주
+  useEffect(() => {
+    apiGetNotLoginRecommendedByType("l4", curPageNumber)
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.success) {
+          const koreanList = res.data.body.content.filter((item: any) => item.liquorType === "TRADITION");
+          setKoreanList((prevKoreanList) => [...prevKoreanList, ...koreanList]);
+          setKoreanListToShow((prevKoreanListToShow) => [
+            ...prevKoreanListToShow,
+            ...koreanList.slice(0, koreanItemsToShow),
+          ]);
+          setTotalPage(res.data.body.totalPage);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [curPageNumber]);
+
+  const handleShowMoreKoreanItems = () => {
+    if (!isLoadingMoreKoreans && curPageNumber < totalPage) {
+      setIsLoadingMoreKoreans(true);
+      setCurPageNumber(curPageNumber + 1);
+      setkoreanItemsToShow(koreanItemsToShow + 6);
+      setIsLoadingMoreKoreans(false);
+    }
+  };
+
+  // 맥주
+  useEffect(() => {
+    apiGetNotLoginRecommendedByType("l3", curPageNumber)
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.success) {
+          const beerList = res.data.body.content.filter((item: any) => item.liquorType === "BEER");
+          setBeerList((prevBeerList) => [...prevBeerList, ...beerList]);
+          setBeerListToShow((prevBeerListToShow) => [...prevBeerListToShow, ...beerList.slice(0, beerItemsToShow)]);
+          setTotalPage(res.data.body.totalPage);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [curPageNumber]);
+
+  const handleShowMoreBeerItems = () => {
+    if (!isLoadingMoreBeers && curPageNumber < totalPage) {
+      setIsLoadingMoreBeers(true);
+      setCurPageNumber(curPageNumber + 1);
+      setbeerItemsToShow(beerItemsToShow + 6);
+      setIsLoadingMoreBeers(false);
+    }
+  };
 
   const themes = createTheme({
     components: {
@@ -247,22 +263,30 @@ export default function MainTab() {
       <Box sx={{ bgcolor: "#06031A", width: "100%", color: "white" }}>
         <AppBar position="static">
           <Tabs
-            // sx={{bgcolor: '#06031A', color: 'white' }}
+            // 전체 탭 버튼 기본 스타일
             sx={{
+              // 탭버튼 전체 bgc
               bgcolor: "#06031A",
               "& .Mui-selected": {
                 color: "white",
-                // bgcolor: "purple",
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
+                // bgcolor: "#EE84FF",
+                // borderTopLeftRadius: 10,
+                // borderTopRightRadius: 10,
+                // borderBottomRightRadius: 10,
+                // borderBottomLeftRadius: 10,
                 // paddingLeft: "20px",
                 // paddingRight: "20px",
               },
               "& .MuiTab-root": {
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
+                // borderTopLeftRadius: 10,
+                // borderTopRightRadius: 10,
+                // borderBottomRightRadius: 10,
+                // borderBottomLeftRadius: 10,
                 // border: "1px solid gray",
-                borderBottom: "none",
+                borderTop: "none",
+                borderRight: "none",
+                borderLeft: "none",
+                // borderBottom: "none",
                 // paddingLeft: "10px",
                 // paddingRight: "10px",
                 // paddingTop: "2px",
@@ -279,78 +303,29 @@ export default function MainTab() {
             variant="fullWidth"
             aria-label="full width tabs example"
           >
-            <Tab
-              label="칵테일"
-              {...a11yProps(0)}
-              sx={{
-                bgcolor: value === 0 ? "#7B334E" : "#06031A",
-                fontSize: { xs: 12, md: 16 },
-                // "&:hover": { bgcolor: "#7B334E" },
-              }}
-              disableRipple
-            />
-            <Tab
-              label="위스키"
-              classes={{
-                // root: classes.tab,
-                selected: classes.selectedTab,
-              }}
-              {...a11yProps(1)}
-              sx={{
-                // bgcolor: value === 1 ? "#06031A" : "#06031A",
-                bgcolor: value === 1 ? "#997D7B" : "#06031A",
-                fontSize: { xs: 12, md: 16 },
-                // "&:hover": { bgcolor: "#997D7B" },
-              }}
-              disableRipple
-            />
-            <Tab
-              label="와인"
-              classes={{
-                // root: classes.tab,
-                selected: classes.selectedTab,
-              }}
-              {...a11yProps(2)}
-              sx={{
-                // bgcolor: value === 0 ? "#06031A" : "#06031A",
-                bgcolor: value === 2 ? "#421F3C" : "#06031A",
-                fontSize: { xs: 12, md: 16 },
-                // "&:hover": { bgcolor: "#421F3C" },
-              }}
-              disableRipple
-            />
-            <Tab
-              label="전통주"
-              classes={{
-                // root: classes.tab,
-                selected: classes.selectedTab,
-              }}
-              {...a11yProps(3)}
-              sx={{
-                // bgcolor: value === 0 ? "#06031A" : "#06031A",
-                bgcolor: value === 3 ? "#4E3415" : "#06031A",
-                fontSize: { xs: 12, md: 16 },
-                // "&:hover": { bgcolor: "#4E3415" },
-              }}
-              disableRipple
-            />
-            <Tab
-              label="맥주"
-              classes={{
-                // root: classes.tab,
-                selected: classes.selectedTab,
-              }}
-              {...a11yProps(4)}
-              sx={{
-                // bgcolor: value === 0 ? "#06031A" : "#06031A",
-                bgcolor: value === 4 ? "#9D615F" : "#06031A",
-                fontSize: { xs: 12, md: 16 },
-                // "&:hover": { bgcolor: "#9D615F" },
-              }}
-              disableRipple
-            />
+            {drinktype.map((type, index) => {
+              return (
+                <Tab
+                  label={type}
+                  key={index}
+                  {...a11yProps(index)}
+                  sx={{
+                    // 칵테일 버튼 선택됐을 때 스타일
+                    bgcolor: value === index ? "#06031A" : "#06031A",
+                    border: value === index ? "solid 2px #E1D1FF" : "solid 2px transparent",
+                    // boxShadow: value === 0 ? '0 0 10px 5px #8DFFFF':"#06031A",
+                    // box-shadow: 0 0 10px 5px #8DFFFF
+                    fontSize: { xs: 12, md: 16 },
+                    whiteSpace: "nowrap",
+                    // "&:hover": { bgcolor: "#7B334E" },
+                  }}
+                  disableRipple
+                />
+              );
+            })}
           </Tabs>
         </AppBar>
+
         <SwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={value}
@@ -360,7 +335,10 @@ export default function MainTab() {
             <div
               style={{
                 background:
-                  value === 0 ? "linear-gradient(212.38deg, #A0425F 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                  value === 0 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                // "#06031A"
+                // border:"solid 2px",
+                // "linear-gradient(212.38deg, #A0425F 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
                 paddingTop: "5%",
                 paddingRight: "3%",
                 paddingLeft: "3%",
@@ -373,60 +351,38 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, cocktailItemsToShow).map(({ id, img, name, drinktype }) => (
-                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
+                  {cocktailListToShow.map(({ id, img, name }, index) => (
+                    <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
-                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                          <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>{name}</div>
+                          <div className={styles["drink-name"]}>
+                            {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                          </div>
                           <BookmarkBorder fontSize="small" />
                         </div>
                       </div>
                     </div>
                   ))}
-                  {/* {cocktailListToShow.map(({ id, img, name }) => (
-                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
-                      <div className={styles["img-container"]}>
-                        <Link to={`/details/${drinktype}/${id}`}>
-                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
-                        </Link>
-                        <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>{name}</div>
-                          <BookmarkBorder fontSize="small" />
-                        </div>
-                      </div>
-                    </div>
-                  ))} */}
+                  {isLoadingMoreCocktails && <div>Loading...</div>}
+                  {!isLoadingMoreCocktails && curPageNumber < totalPage && (
+                    <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreCocktailItems}>
+                      더보기
+                    </a>
+                  )}
                 </div>
-                <a
-                  onClick={() => {
-                    if (value === 1) {
-                      setwhiskeyItemsToShow(whiskeyItemsToShow + 2);
-                    }
-                  }}
-                  className={`${styles["more-drink-btn"]}`}
-                >
-                  더보기
-                </a>
-
-                {/* {isShowMoreWineutton && (
-                  <a
-                    onClick={loadMoreWines}
-                    className={`${styles["more-drink-btn"]}`}
-                    style={{ opacity: isLoadingMoreWines ? 0.5 : 1 }}
-                  >
-                    {isLoadingMoreWines ? "로딩중..." : "더보기"}
-                  </a>
-                )} */}
               </div>
             </div>
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
             <div
               style={{
-                background: value === 1 ? "linear-gradient(180deg, #997D7B 0%, rgba(153, 125, 123, 0) 100%)" : "black",
+                background:
+                  value === 1 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                // border:"solid 2px",
+                // "linear-gradient(180deg, #997D7B 0%, rgba(153, 125, 123, 0) 100%)" : "black",
                 paddingTop: "5%",
                 paddingRight: "3%",
                 paddingLeft: "3%",
@@ -440,37 +396,38 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, whiskeyItemsToShow).map(({ id, img, name, drinktype }) => (
-                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
+                  {whiskyList.slice(0, whiskyItemsToShow).map(({ id, img, name }, index) => (
+                    <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
-                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                          <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>{name}</div>
+                          <div className={styles["drink-name"]}>
+                            {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                          </div>
                           <BookmarkBorder fontSize="small" />
                         </div>
                       </div>
                     </div>
                   ))}
+                  {isLoadingMoreWhiskys && <div>Loading...</div>}
+                  {!isLoadingMoreWhiskys && curPageNumber < totalPage && (
+                    <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreWhiskyItems}>
+                      더보기
+                    </a>
+                  )}
                 </div>
-                <a
-                  onClick={() => {
-                    if (value === 1) {
-                      setwhiskeyItemsToShow(whiskeyItemsToShow + 2);
-                    }
-                  }}
-                  className={`${styles["more-drink-btn"]}`}
-                >
-                  더보기
-                </a>
               </div>
             </div>
           </TabPanel>
           <TabPanel value={value} index={2} dir={theme.direction}>
             <div
               style={{
-                background: value === 2 ? "linear-gradient(180deg,  #421F3C 0%, rgba(153, 125, 123, 0) 100%)" : "black",
+                background:
+                  value === 2 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                // border:"solid 2px",
+                // "linear-gradient(180deg,  #421F3C 0%, rgba(153, 125, 123, 0) 100%)" : "black",
                 paddingTop: "5%",
                 paddingRight: "3%",
                 paddingLeft: "3%",
@@ -484,59 +441,38 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {wineListToShow.map(({ id, img, name }) => (
-                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
+                  {wineList.slice(0, wineItemsToShow).map(({ id, img, name }, index) => (
+                    <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
-                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                          <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>{name}</div>
+                          <div className={styles["drink-name"]}>
+                            {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                          </div>
                           <BookmarkBorder fontSize="small" />
                         </div>
                       </div>
                     </div>
                   ))}
-                  {/* {dummyList.slice(0, wineItemsToShow).map(({ id, img, name, drinktype }) => (
-                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
-                      <div className={styles["img-container"]}>
-                        <Link to={`/details/${drinktype}/${id}`}>
-                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
-                        </Link>
-                        <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>{name}</div>
-                          <BookmarkBorder fontSize="small" />
-                        </div>
-                      </div>
-                    </div>
-                  ))} */}
+                  {isLoadingMoreWines && <div>Loading...</div>}
+                  {!isLoadingMoreWines && curPageNumber < totalPage && (
+                    <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreWineItems}>
+                      더보기
+                    </a>
+                  )}
                 </div>
-                {isShowMoreWineButton && (
-                  <a
-                    onClick={loadMoreWines}
-                    className={`${styles["more-drink-btn"]}`}
-                    style={{ opacity: isLoadingMoreWines ? 0.5 : 1 }}
-                  >
-                    {isLoadingMoreWines ? "로딩중..." : "더보기"}
-                  </a>
-                )}
-                {/* <a
-                  onClick={() => {
-                    if (value === 2) {
-                      setwineItemsToShow(wineItemsToShow + 2);
-                    }
-                  }}
-                  className={`${styles["more-drink-btn"]}`}
-                >
-                  더보기
-                </a> */}
               </div>
             </div>
           </TabPanel>
           <TabPanel value={value} index={3} dir={theme.direction}>
             <div
               style={{
-                background: value === 3 ? "linear-gradient(180deg, #4E3415 0%, rgba(78, 52, 21, 0) 100%)" : "black",
+                background:
+                  value === 3 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                // border:"solid 2px",
+                // "linear-gradient(180deg, #4E3415 0%, rgba(78, 52, 21, 0) 100%)" : "black",
                 paddingTop: "5%",
                 paddingRight: "3%",
                 paddingLeft: "3%",
@@ -550,37 +486,38 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, koreanItemsToShow).map(({ id, img, name, drinktype }) => (
-                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
+                  {koreanList.slice(0, koreanItemsToShow).map(({ id, img, name }, index) => (
+                    <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
-                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                          <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>{name}</div>
+                          <div className={styles["drink-name"]}>
+                            {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                          </div>
                           <BookmarkBorder fontSize="small" />
                         </div>
                       </div>
                     </div>
                   ))}
+                  {isLoadingMoreKoreans && <div>Loading...</div>}
+                  {!isLoadingMoreKoreans && curPageNumber < totalPage && (
+                    <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreKoreanItems}>
+                      더보기
+                    </a>
+                  )}
                 </div>
-                <a
-                  onClick={() => {
-                    if (value === 3) {
-                      setkoreanItemsToShow(koreanItemsToShow + 2);
-                    }
-                  }}
-                  className={`${styles["more-drink-btn"]}`}
-                >
-                  더보기
-                </a>
               </div>
             </div>
           </TabPanel>
           <TabPanel value={value} index={4} dir={theme.direction}>
             <div
               style={{
-                background: value === 4 ? "linear-gradient(180deg, #9D615F 0%, rgba(157, 97, 95, 0) 100%)" : "black",
+                background:
+                  value === 4 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                // border:"solid 2px",
+                // "linear-gradient(180deg, #9D615F 0%, rgba(157, 97, 95, 0) 100%)" : "black",
                 paddingTop: "5%",
                 paddingRight: "3%",
                 paddingLeft: "3%",
@@ -594,30 +531,28 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {dummyList.slice(0, beerItemsToShow).map(({ id, img, name, drinktype }) => (
-                    <div key={id} className={`${styles[`tab-drink-list-item`]}`}>
+                  {beerList.slice(0, beerItemsToShow).map(({ id, img, name }, index) => (
+                    <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/${drinktype}/${id}`}>
-                          <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                          <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>{name}</div>
+                          <div className={styles["drink-name"]}>
+                            {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                          </div>
                           <BookmarkBorder fontSize="small" />
                         </div>
                       </div>
                     </div>
                   ))}
+                  {isLoadingMoreBeers && <div>Loading...</div>}
+                  {!isLoadingMoreBeers && curPageNumber < totalPage && (
+                    <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreBeerItems}>
+                      더보기
+                    </a>
+                  )}
                 </div>
-                <a
-                  onClick={() => {
-                    if (value === 4) {
-                      setbeerItemsToShow(beerItemsToShow + 2);
-                    }
-                  }}
-                  className={`${styles["more-drink-btn"]}`}
-                >
-                  더보기
-                </a>
               </div>
             </div>
           </TabPanel>
