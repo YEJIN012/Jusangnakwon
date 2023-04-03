@@ -4,9 +4,9 @@ const api = getApiInstance();
 
 // 주종별 전체 술 목록 페이지
 // 주종별 전체 술 리스트 조회
-export const apiGetDrinkList = async (type: string) => {
+export const apiGetDrinkList = async (type: string, page: number) => {
   try {
-    const response = await api.get(`/list/${type}`);
+    const response = await api.get(`/list/${type}/${page}`);
     return response;
   } catch (e) {
     console.log(e);
@@ -17,7 +17,7 @@ export const apiGetDrinkList = async (type: string) => {
 // 술 상세 페이지 조회 - 홈텐더 포함
 export const apiGetDrinkDetail = async (type: string, drinkId: number) => {
   try {
-    const response = await api.get(`list/${type}/${drinkId}`);
+    const response = await api.get(`detail/${type}/${drinkId}`);
     return response;
   } catch (e) {
     console.log(e);

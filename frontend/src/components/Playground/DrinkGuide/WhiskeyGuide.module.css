@@ -1,47 +1,71 @@
 .container {
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-bottom: 5%;
-  }
-  
-  .drinktype {
-    text-align: center;
-    margin-bottom: 15%;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 3rem;
-    line-height: 24px;
-    /* identical to box height */
-  
-    color: #dc83ff;
-    text-shadow: /* White glow */ 0 0 7px #dc83ff, 0 0 10px #dc83ff, 0 0 21px #dc83ff;
-    white-space: nowrap;
-  }
-  
-  .content-wrap p{
-      font-size: 0.8rem;
-  }
-  
-  .small-title{
-      width:fit-content;
-      /* border: 1px solid #ffffff; */
-      background-color: #3d3d3d;
-      /* border-radius: 50px; */
-      padding: 1%;
-      margin-bottom: 2%;
-      margin-top: 10%;
-  }
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;
+}
 
-  .whiskey-taste{
-    margin-bottom: 2%;
-  }
-  
-  .img-box{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 3%;
-      margin-top: 3%;
-  }
-  
-  .img-box img{width: 90%;}
+.drinktype {
+  text-align: center;
+  margin-bottom: 15%;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 24px;
+  /* identical to box height */
+
+  color: #dc83ff;
+  text-shadow: /* White glow */ 0 0 7px #dc83ff, 0 0 10px #dc83ff, 0 0 21px #dc83ff;
+  white-space: nowrap;
+}
+
+.content-wrap p {
+  font-size: 0.8rem;
+}
+
+.glass-img-wrap {
+  width: 90%;
+  padding-top: 5%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* border: 1px solid #ffffff; */
+}
+
+.glass-img {
+  width: 100%;
+  height: 150px;
+}
+
+.small-title {
+  width: fit-content;
+  /* border: 1px solid #ffffff; */
+  background-color: #3d3d3d;
+  /* border-radius: 50px; */
+  padding: 1%;
+  margin-bottom: 2%;
+  margin-top: 10%;
+}
+
+.whiskey-taste {
+  margin-bottom: 2%;
+}
+
+.drink-info-text {
+  margin-bottom: 7px;
+}
+
+.whisky-master-text {
+  margin-top: 7px;
+}
+
+.img-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3%;
+  margin-top: 3%;
+}
+
+.img-box img {
+  width: 90%;
+}
