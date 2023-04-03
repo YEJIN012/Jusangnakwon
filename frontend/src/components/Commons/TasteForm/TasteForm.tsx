@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TasteForm = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState({
     sweetness: null,
     bitter: null,
@@ -74,7 +74,7 @@ const TasteForm = () => {
       apiSubmitSurvey(selectedValue)
         .then((r) => {
           console.log(r);
-          navigate('/')
+          navigate("/");
         })
         .catch((e) => {
           console.log(e);

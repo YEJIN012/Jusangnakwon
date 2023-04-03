@@ -354,7 +354,7 @@ export default function MainTab() {
                   {cocktailListToShow.map(({ id, img, name }, index) => (
                     <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
-                        <Link to={`/details/${drinktype}/${id}`}>
+                        <Link to={`/details/l5/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
@@ -399,7 +399,7 @@ export default function MainTab() {
                   {whiskyList.slice(0, whiskyItemsToShow).map(({ id, img, name }, index) => (
                     <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
-                        <Link to={`/details/${drinktype}/${id}`}>
+                        <Link to={`/details/l2/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
@@ -444,7 +444,7 @@ export default function MainTab() {
                   {wineList.slice(0, wineItemsToShow).map(({ id, img, name }, index) => (
                     <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
-                        <Link to={`/details/${drinktype}/${id}`}>
+                        <Link to={`/details/l1/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
@@ -489,7 +489,7 @@ export default function MainTab() {
                   {koreanList.slice(0, koreanItemsToShow).map(({ id, img, name }, index) => (
                     <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
-                        <Link to={`/details/${drinktype}/${id}`}>
+                        <Link to={`/details/l4/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>
@@ -534,7 +534,7 @@ export default function MainTab() {
                   {beerList.slice(0, beerItemsToShow).map(({ id, img, name }, index) => (
                     <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
-                        <Link to={`/details/${drinktype}/${id}`}>
+                        <Link to={`/details/l3/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
                         <div className={styles["drink-label-wrap"]}>

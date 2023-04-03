@@ -23,9 +23,9 @@ export const apiGetRandomlyRecommendedHometender = async () => {
 };
 
 // 술 추천 - 로그인 - 주종별 추천
-export const apiGetLoginRecommendedByType = async (type: string) => {
+export const apiGetLoginRecommendedByType = async (type: string, page: number) => {
   try {
-    const response = await api.get(`/rs/${type}`);
+    const response = await api.get(`/rs/${type}?page=${page}`);
     return response;
   } catch (e) {
     console.log(e);

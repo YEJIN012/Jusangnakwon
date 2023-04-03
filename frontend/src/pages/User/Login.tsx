@@ -8,16 +8,16 @@ import NeonTitle from "@/components/Commons/NeonTitle/NeonTitle";
 const Login = () => {
   return (
     <div className={`${styles["container"]}`}>
-      <div style={{ scale: "2.2", marginBottom:"70px" }}>
+      <div style={{ scale: "2.2", marginBottom: "70px" }}>
         <NeonTitle></NeonTitle>
       </div>
       {/* <hr className={`${styles["line"]}`} /> */}
       <p className={`${styles["introduce-text"]}`}>
-        와인부터 칵테일 전통주,
+        칵테일부터 위스키, 와인, 전통주
         <br />
-        그리고 홈텐더들을 위한 레시피까지,
+        그리고 홈텐더들을 위한 특별 레시피까지.
         <br />
-        세상의 모든 술 어쩌구
+        세상의 모든 술, 주상낙원🍸
       </p>
       <p className={`${styles["nineteen-text"]}`}>19세 이상 이용 가능한 서비스입니다.</p>
       <div

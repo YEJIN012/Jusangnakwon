@@ -15,9 +15,9 @@ export const apiCreateRecipe = async (data: any[]) => {
 };
 
 // 랭킹 추천 홈텐더(레시피)
-export const apiGetRankedHometender = async () => {
+export const apiGetRankedHometender = async (type: string, page: number) => {
   try {
-    const response = await api.get(`/api/rank/l6?page=1`);
+    const response = await api.get(`/rank/${type}?page=${page}`);
     return response;
   } catch (e) {
     console.log(e);

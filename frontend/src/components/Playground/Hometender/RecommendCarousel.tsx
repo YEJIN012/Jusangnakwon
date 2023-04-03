@@ -51,14 +51,14 @@ const RecommendCarousel = (props: RecommendList) => {
       {props.recommendList.map((item) => (
         <div key={item.id}>
           <Link to={`/details/${item.type}/${item.id}`}>
-          <div className={`${styles[`box`]}`}>
-            <img className={`${styles[`img-box`]}`} src={item.img} />
-            <div className={`${styles[`info`]}`}>
-              {item.name}
-              <Ingredients ingredients={item.ingredients}></Ingredients>
-              <div>{item.explan.substring(0, 15)}</div>
+            <div className={`${styles[`box`]}`}>
+              <img className={`${styles[`img-box`]}`} src={item.img} />
+              <div className={`${styles[`info`]}`}>
+                {item.name}
+                <Ingredients ingredients={item.ingredients}></Ingredients>
+                <div>{item.explan.substring(0, 15)}</div>
+              </div>
             </div>
-          </div>
           </Link>
         </div>
       ))}

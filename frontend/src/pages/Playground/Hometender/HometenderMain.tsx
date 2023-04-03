@@ -1,55 +1,65 @@
 import RecommendCarousel from "@/components/Playground/Hometender/RecommendCarousel";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import styles from "./Hometender.module.css";
 import RecipeFeed from "@/components/Playground/Hometender/RecipeFeed";
 import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { apiGetRankedHometender } from "@/api/hometender";
 import { apiGetLoginRecommendedByType } from "@/api/home";
+import { apiGetDrinkList } from "@/api/drinks";
 
-const recommendDummy = [
-  {
-    id: 1,
-    type: "l6",
-    img: "https://picsum.photos/300/300/?random",
-    name: "콥케",
-    ingredients: ["딸기", "소주", "사이다"],
-    explan: "크렌베리 + 딸기향, 상큼달콤하지만 도수가 높음",
-  },
-  {
-    id: 2,
-    type: "l6",
-    img: "https://picsum.photos/300/300/?random",
-    name: "샌드맨",
-    ingredients: ["딸기", "소주", "사이다", "메로나"],
-    explan:
-      "메로나 한개 다 넣어야합니다. 무조건이에요. 너무 달 것 같으면 사이다 비율을 줄이시면 됩니다. 달달하고 청량감있는거 좋아하시는 분들께 강추해요!",
-  },
-  {
-    id: 3,
-    type: "l6",
-    img: "https://picsum.photos/300/300/?random",
-    name: "맛있는와인",
-    ingredients: ["딸기", "소주", "사이다"],
-    explan: "크렌베리 + 딸기향, 상큼달콤하지만 도수가 높음",
-  },
-  {
-    id: 4,
-    type: "l6",
-    img: "https://picsum.photos/300/300/?random",
-    name: "달콤한와인",
-    ingredients: ["딸기", "소주", "사이다", "메로나"],
-    explan:
-      "메로나 한개 다 넣어야합니다. 무조건이에요. 너무 달 것 같으면 사이다 비율을 줄이시면 됩니다. 달달하고 청량감있는거 좋아하시는 분들께 강추해요!",
-  },
-  {
-    id: 5,
-    type: "l6",
-    img: "https://picsum.photos/300/300/?random",
-    name: "달콤한와인",
-    ingredients: ["딸기", "소주", "사이다"],
-    explan: "크렌베리 + 딸기향, 상큼달콤하지만 도수가 높음",
-  },
-];
+interface ApiItem {
+  id: number;
+  name: string;
+  img: string;
+  liquorType: string;
+}
+
+// const recommendDummy = [
+//   {
+//     id: 1,
+//     type: "l6",
+//     img: "https://picsum.photos/300/300/?random",
+//     name: "콥케",
+//     ingredients: ["딸기", "소주", "사이다"],
+//     explan: "크렌베리 + 딸기향, 상큼달콤하지만 도수가 높음",
+//   },
+//   {
+//     id: 2,
+//     type: "l6",
+//     img: "https://picsum.photos/300/300/?random",
+//     name: "샌드맨",
+//     ingredients: ["딸기", "소주", "사이다", "메로나"],
+//     explan:
+//       "메로나 한개 다 넣어야합니다. 무조건이에요. 너무 달 것 같으면 사이다 비율을 줄이시면 됩니다. 달달하고 청량감있는거 좋아하시는 분들께 강추해요!",
+//   },
+//   {
+//     id: 3,
+//     type: "l6",
+//     img: "https://picsum.photos/300/300/?random",
+//     name: "맛있는와인",
+//     ingredients: ["딸기", "소주", "사이다"],
+//     explan: "크렌베리 + 딸기향, 상큼달콤하지만 도수가 높음",
+//   },
+//   {
+//     id: 4,
+//     type: "l6",
+//     img: "https://picsum.photos/300/300/?random",
+//     name: "달콤한와인",
+//     ingredients: ["딸기", "소주", "사이다", "메로나"],
+//     explan:
+//       "메로나 한개 다 넣어야합니다. 무조건이에요. 너무 달 것 같으면 사이다 비율을 줄이시면 됩니다. 달달하고 청량감있는거 좋아하시는 분들께 강추해요!",
+//   },
+//   {
+//     id: 5,
+//     type: "l6",
+//     img: "https://picsum.photos/300/300/?random",
+//     name: "달콤한와인",
+//     ingredients: ["딸기", "소주", "사이다"],
+//     explan: "크렌베리 + 딸기향, 상큼달콤하지만 도수가 높음",
+//   },
+// ];
 
 const recipeDummy = [
   {
@@ -125,33 +135,63 @@ const recipeDummy = [
 ];
 
 const HometenderMain = () => {
-  const [ rankRecommendList, setrankRecommendList ] = useState([])
-  const [ loginRecommendList, setLoginRecommendList ] = useState([])
-  useEffect(()=> {
-    apiGetRankedHometender().then((r) => {
-      setrankRecommendList(r?.data.body.content)
-    }).catch((e)=> {
-      console.log(e)
-    })
+  const [rankRecommendList, setrankRecommendList] = useState([]);
+  const [loginRecommendList, setLoginRecommendList] = useState([]);
+  useEffect(() => {
+    // 주상낙원 BEST 레시피
+    apiGetRankedHometender("l6", 1)
+      .then((r) => {
+        setrankRecommendList(
+          r?.data.body.content.map((item: ApiItem) => ({
+            ...item,
+            type: item.liquorType,
+            ingredients: [],
+            explan: "",
+          })),
+        );
+      })
+      .catch((e) => {
+        console.log(e);
+      });
 
-    // apiGetLoginRecommendedByType(type: 'HOMETENDER').then((r) => {
-    //   setLoginRecommendList(r?.data.body.content)
-    // }).catch((e)=> {
-    //   console.log(e)
-    // })
-  }, [])
+    // 당신을 위한 홈텐딩 레시피
+    apiGetLoginRecommendedByType("l6", 1)
+      .then((r) => {
+        setLoginRecommendList(
+          r?.data.body.content.map((item: ApiItem) => ({
+            ...item,
+            type: item.liquorType,
+            ingredients: [],
+            explan: "",
+          })),
+        );
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   return (
     <>
       <FloatingButton></FloatingButton>
       <div className={`${styles[`container`]}`}>
-        { loginRecommendList ? <>
-          <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
-        {/* <RecommendCarousel recommendList={setLoginRecommendList}></RecommendCarousel> */}
-        </> : <></>
-        }
-        <div className={`${styles[`recommend-title`]}`}>주상낙원 Best 레시피</div>
-        <RecommendCarousel recommendList={rankRecommendList}></RecommendCarousel>
+        {loginRecommendList ? (
+          <>
+            <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
+            <RecommendCarousel recommendList={loginRecommendList}></RecommendCarousel>
+          </>
+        ) : (
+          <></>
+        )}
+
+        {rankRecommendList ? (
+          <>
+            <div className={`${styles[`recommend-title`]}`}>주상낙원 Best 레시피</div>
+            <RecommendCarousel recommendList={rankRecommendList}></RecommendCarousel>
+          </>
+        ) : (
+          <></>
+        )}
         <div className={`${styles[`recipe-title`]}`}>
           <div>주상낙원의 홈텐더들을 위한 레시피</div>
         </div>
@@ -159,5 +199,5 @@ const HometenderMain = () => {
       </div>
     </>
   );
-}
+};
 export default HometenderMain;
