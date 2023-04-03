@@ -1,7 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.QBeer;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.QWhisky;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Whisky;
 import com.osakak.jusangnakwon.domain.user.entity.Survey;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -10,40 +10,39 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
+
 import java.util.List;
 
-import static com.osakak.jusangnakwon.domain.liquor.entity.liquor.QBeer.beer;
+import static com.osakak.jusangnakwon.domain.liquor.entity.liquor.QWhisky.whisky;
 
-public class BeerQueryRepositoryImpl implements BeerQueryRepository {
+public class WhiskyQueryRepositoryImpl implements WhiskyQueryRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public BeerQueryRepositoryImpl(EntityManager em) {
+    public WhiskyQueryRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
     @Override
-    public Page<Beer> findByTaste(Survey survey, Pageable pageable) {
-        List<Beer> content = queryFactory
-                .select(new QBeer(beer))
-                .from(beer)
+    public Page<Whisky> findByTaste(Survey survey, Pageable pageable) {
+        List<Whisky> content = queryFactory
+                .select(new QWhisky(whisky))
+                .from(whisky)
                 .where(surveyBody(survey.getBody()))
                 .offset(pageable.getOffset()).limit(pageable.getPageSize())
                 .fetch();
         //카운트 쿼리 최적화
-        Long count = queryFactory.select(beer.id.count()).from(beer).where(surveyBody(survey.getBody())).fetchOne();
+        Long count = queryFactory.select(whisky.count()).from(whisky).where(surveyBody(survey.getBody())).fetchOne();
         return new PageImpl<>(content, pageable, count);
     }
 
     private Predicate surveyBody(int taste) {
         if (taste == 0) {
-            return beer.mouthfeel.lt(9);
+            return whisky.body.lt(-1);
         } else if (taste == 1) {
-            return beer.mouthfeel.between(9, 12);
+            return whisky.body.between(-1, 0);
         } else {
-            return beer.mouthfeel.gt(12);
+            return whisky.body.gt(0);
         }
     }
-
-
 }
