@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 // import { makeStyles } from "@material-ui/core/styles";
 import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
 import { apiGetNotLoginRecommendedByType } from "@/api/home";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -346,7 +347,9 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/list/l5`}>
-                  <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[0]} 보기 ▶ </span>
+                  <span className={`${styles[`all-drink-list`]}`}>
+                    전체 {drinktype[0]} 보기 <KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -391,7 +394,9 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/list/l2`}>
-                  <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[1]} 보기 ▶ </span>
+                  <span className={`${styles[`all-drink-list`]}`}>
+                    전체 {drinktype[1]} 보기<KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -436,7 +441,9 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/list/l1`}>
-                  <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[2]} 보기 ▶ </span>
+                  <span className={`${styles[`all-drink-list`]}`}>
+                    전체 {drinktype[2]} 보기 <KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -481,7 +488,9 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/list/l4`}>
-                  <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[3]} 보기 ▶ </span>
+                  <span className={`${styles[`all-drink-list`]}`}>
+                    전체 {drinktype[3]} 보기 <KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
@@ -526,7 +535,9 @@ export default function MainTab() {
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/list/l3`}>
-                  <span className={`${styles[`all-drink-list`]}`}> 전체 {drinktype[4]} 보기 ▶ </span>
+                  <span className={`${styles[`all-drink-list`]}`}>
+                    전체 {drinktype[4]} 보기 <KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
+                  </span>
                 </Link>
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>

@@ -7,11 +7,13 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10%;
-  margin-right: 3%;
+  /* margin-right: 3%; */
 }
 
 .all-drink-list {
-  display: inline-block;
+  /* display: inline-block; */
+  display: flex;
+  align-items: center;
   font-size: smaller;
   color: rgb(245, 245, 245);
   /* margin: 1%; */
@@ -89,7 +91,7 @@
   text-align: start;
 }
 
-.drink-label-wrap{
+.drink-label-wrap {
   display: flex;
   justify-content: space-between;
 }

@@ -5,6 +5,7 @@ import { useRef, useEffect } from "react";
 import HometenderBannerAni from "./HometenderAni";
 import lottie from "lottie-web";
 import animationData from "./cocktail.json";
+import Ingredients from "@/components/Commons/Ingredients/Ingredients";
 
 interface ApiData {
   success?: boolean;
@@ -36,33 +37,49 @@ export default function HometenderBanner(props: ApiData | null) {
   }, []);
   const recommendedHometender = props?.body;
 
+  // 정규 표현식 사용해서 숫자 나오기 전까지 자르는 함수
+  function extractStringBeforeNumber(str: string): string {
+    const match = str.match(/^[^\d]*/);
+    if (match) {
+      return match[0];
+    } else {
+      return "";
+    }
+  }
+
   return (
     <Link to={`/playground/hometender`}>
       <div className={`${styles[`container`]}`}>
+        {/* <p className={`${styles[`hometender-banner-title`]}`}>인기 홈텐딩 칵테일</p> */}
         {/* <HometenderBannerAni></HometenderBannerAni> */}
-        <div ref={container} style={{ height: "150px", width: "150px" }}></div>
-        {recommendedHometender ? (
-          <div className={`${styles[`hometender-banner-container`]}`}>
-            <p className={`${styles[`hometender-banner-title`]}`}>인기 홈텐딩 칵테일</p>
-            <div className={`${styles[`hometender-banner-box`]}`}>
-              {/* <img
+        <div style={{ display: "flex" }}>
+          <div ref={container} style={{ height: "150px", width: "150px" }}></div>
+          {recommendedHometender ? (
+            <div className={`${styles[`hometender-banner-container`]}`}>
+              <div className={`${styles[`hometender-banner-box`]}`}>
+                {/* <img
                 src={recommendedHometender.img}
                 className={`${styles[`hometender-banner-img`]}`}
                 alt="추천 칵테일 이미지"
               ></img> */}
-              <div className={`${styles[`hometender-banner-contents`]}`}>
-                <p className={`${styles[`hometender-banner-mini-title`]}`}>{recommendedHometender.name}</p>
-                <div>
-                  {recommendedHometender.materials != null && recommendedHometender.materials.length > 1
-                    ? recommendedHometender.materials.map((material) => {
-                        return <div className={`${styles[`hometender-banner-materials`]}`}>{material}</div>;
-                      })
-                    : recommendedHometender.materials}
+                <div className={`${styles[`hometender-banner-contents`]}`}>
+                  <p className={`${styles[`hometender-banner-mini-title`]}`}>{recommendedHometender.name}</p>
+                  <div className={`${styles[`hometender-banner-materials`]}`}>
+                    {recommendedHometender.materials != null && recommendedHometender.materials.length > 1
+                      ? recommendedHometender.materials.map((material) => {
+                          return (
+                            <p className={`${styles[`hometender-banner-material`]}`}>
+                              {extractStringBeforeNumber(material)}
+                            </p>
+                          );
+                        })
+                      : recommendedHometender.materials}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
       </div>
     </Link>
   );
