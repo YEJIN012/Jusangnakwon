@@ -1,8 +1,11 @@
 package com.osakak.jusangnakwon.domain.feed.entity;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,8 +33,9 @@ public class Rating {
     @Column(nullable = false, name = "liquor_id")
     private Long liquorId;
 
-    @Column(nullable = false, name = "liquor_type", length = 10)
-    private String liquorType;
+    @Column(nullable = false, name = "liquor_type")
+    @Enumerated(EnumType.STRING)
+    private LiquorType liquorType;
 
     @Column(nullable = false, name = "liquor_name", length = 150)
     private String liquorName;
@@ -40,7 +44,7 @@ public class Rating {
     private Double score;
 
     @Builder
-    public Rating(Long id, User user, Long liquorId, String liquorType, String liquorName,
+    public Rating(Long id, User user, Long liquorId, LiquorType liquorType, String liquorName,
             Double score) {
         this.id = id;
         this.user = user;

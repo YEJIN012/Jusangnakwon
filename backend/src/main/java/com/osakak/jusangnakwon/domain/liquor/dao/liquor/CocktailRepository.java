@@ -21,9 +21,11 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
      */
     @Query("select c from Cocktail c order by c.ratingAvg desc")
     Page<Cocktail> findByRatingAvg(Pageable pageable);
+
     @Query("select l from Cocktail l where l.name like :keyword%")
     Optional<List<Cocktail>> findByKeyword(@Param("keyword") String keyword);
 
     @Query("select w from Cocktail w WHERE w.id IN :similarCocktailUniqueList ")
     Page<Cocktail> findById(Set<Long> similarCocktailUniqueList, Pageable pageable);
 }
+

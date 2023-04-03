@@ -57,7 +57,7 @@ public class LiquorLoggedInService {
     public LiquorListMainResponse getLiquorListByUser(LiquorType liquorType, Pageable pageable, User user) {
         List<LiquorListItemDto> list = new ArrayList<>();
         //요청된 주종 중에서 유저가 4.0 이상으로 평가한 술의 개수를 조회함
-        List<Long> ratings = ratingRepository.countByLiquorTypeAndScoreAndUserId(liquorType.toString(), user.getId());
+        List<Long> ratings = ratingRepository.countByLiquorTypeAndScoreAndUserId(liquorType, user.getId());
 
         //좋아하는 술이 4개 이상이라면 CBF추천을 해준다
         if (ratings.size() >= 4) {

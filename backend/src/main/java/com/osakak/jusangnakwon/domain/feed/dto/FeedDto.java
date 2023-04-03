@@ -1,5 +1,6 @@
 package com.osakak.jusangnakwon.domain.feed.dto;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -13,11 +14,11 @@ import lombok.Setter;
 public class FeedDto {
 
     private final Long id;
-    private final String type;
+    private final FeedType type;
     private final String img;
     private final String title;
     private final Long liquorId;
-    private final String liquorType;
+    private final LiquorType liquorType;
     private final String liquorName;
     private final String content;
     private Double ratingScore;
@@ -29,9 +30,10 @@ public class FeedDto {
     private List<CommentDto> comments;
 
     @QueryProjection
-    public FeedDto(Long id, String type, String img, String title, Long liquorId, String liquorType,
-            String liquorName, String content, Double ratingScore, Boolean isPublic,
-            LocalDateTime dateCreated, WriterDto writer, Long likeCnt, Boolean liked) {
+    public FeedDto(Long id, FeedType type, String img, String title, Long liquorId,
+            LiquorType liquorType, String liquorName, String content, Double ratingScore,
+            Boolean isPublic, LocalDateTime dateCreated, WriterDto writer, Long likeCnt,
+            Boolean liked) {
         this.id = id;
         this.type = type;
         this.img = img;
@@ -49,10 +51,10 @@ public class FeedDto {
     }
 
     @Builder
-    public FeedDto(Long id, String type, String img, String title, Long liquorId, String liquorType,
-            String liquorName, String content, Double ratingScore, Boolean isPublic,
-            LocalDateTime dateCreated, WriterDto writer, Long likeCnt, Boolean liked,
-            List<CommentDto> comments) {
+    public FeedDto(Long id, FeedType type, String img, String title, Long liquorId,
+            LiquorType liquorType, String liquorName, String content, Double ratingScore,
+            Boolean isPublic, LocalDateTime dateCreated, WriterDto writer, Long likeCnt,
+            Boolean liked, List<CommentDto> comments) {
         this.id = id;
         this.type = type;
         this.img = img;

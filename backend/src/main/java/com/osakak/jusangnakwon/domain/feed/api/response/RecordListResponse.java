@@ -1,14 +1,14 @@
 package com.osakak.jusangnakwon.domain.feed.api.response;
 
-import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
+import com.osakak.jusangnakwon.domain.feed.dto.RecordListDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Schema(description = "피드 목록 조회")
-public class FeedListResponse {
+@Schema(description = "내가 쓴 글 목록 조회")
+public class RecordListResponse {
 
     @Schema(description = "전체 페이지 수")
     private final int totalPage;
@@ -17,11 +17,10 @@ public class FeedListResponse {
     private final int curPageNumber;
 
     @Schema(description = "피드 목록")
-    private final List<FeedListDto> content;
-
+    private final List<RecordListDto> content;
 
     @Builder
-    public FeedListResponse(int totalPage, int curPageNumber, List<FeedListDto> content) {
+    public RecordListResponse(int totalPage, int curPageNumber, List<RecordListDto> content) {
         this.totalPage = totalPage;
         this.curPageNumber = curPageNumber;
         this.content = content;

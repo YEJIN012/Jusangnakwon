@@ -1,15 +1,24 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
+import com.osakak.jusangnakwon.common.errors.LiquorNotFoundException;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
-import com.osakak.jusangnakwon.domain.feed.entity.Feed;
+import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
+import com.osakak.jusangnakwon.domain.liquor.dao.similar.SimilarBeerItemRepository;
+import com.osakak.jusangnakwon.domain.liquor.dao.similar.SimilarWineItemRepository;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
+import com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.SimilarItemValueType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
+import com.osakak.jusangnakwon.domain.liquor.entity.similar.SimilarBeerItem;
+import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +33,10 @@ public class LiquorDetailService {
     private final WhiskyRepository whiskyRepository;
     private final WineRepository wineRepository;
     private final FeedRepository feedRepository;
+    private final ScrapRepository scrapRepository;
+    private final LiquorMapper liquorMapper;
+    private final SimilarBeerItemRepository similarBeerItemRepository;
+    private final SimilarWineItemRepository similarWineItemRepository;
 
     /**
      * - 평점
@@ -40,26 +53,70 @@ public class LiquorDetailService {
      * @return 술 상세 정보
      */
     public LiquorDetailResponse getLiquorDetail(LiquorType type, Long id) {
+        Long liquorId = null;
+        String name = null;
+        String image = null;
+        Double ratingAvg = null;
+        Long scrapCnt = null;
+        boolean scrapped = false;
+        List<String> ingredients = null;
+        List<String> tastes = null;
+        String description = null;
+        List<ReviewListDto> reviews = null;
+        List<LiquorListItemDto> similarItem = null;
+
+        List<Long> list = new ArrayList<>();
         switch (type) {
             case BEER:
-                Optional<Beer> byId = beerRepository.findById(id);
+                Optional<Beer> byIdBeer = beerRepository.findById(id);
+                if (byIdBeer.isEmpty())
+                    throw new LiquorNotFoundException();
+                Beer beer = byIdBeer.get();
+                Optional<SimilarBeerItem> byId = similarBeerItemRepository.findById(id);
                 if (byId.isPresent()) {
-                    Beer beer = byId.get();
-                }
-                List<Feed> feeds = feedRepository.findByIdAndLiquorType(id, String.valueOf(type));
+                    SimilarBeerItem similarBeerItem = byId.get();
+                    extracted(list, similarBeerItem.getSimilarLiquor());
+                    List<Beer> byIdList = beerRepository.findByIdList(list);
 
-                return null;
+                    liquorId = id;
+                    name = beer.getName().trim();
+                    ratingAvg = beer.getRatingAvg();
+                    reviews = feedRepository.findBeerReviewByLiquorId(id);
+                    similarItem = liquorMapper.toLiquorListDtoBeer(byIdList);
+                    description = beer.getDescription().trim();
+                    image = beer.getImg();
+                }
+                break;
             case WINE:
-                return null;
+                break;
             case WHISKY:
-                return null;
+                break;
             case COCKTAIL:
-                return null;
+                break;
             case TRADITION:
-                return null;
+                break;
             case HOMETENDER:
-                return null;
+                break;
         }
-        return null;
+        return LiquorDetailResponse.builder()
+                .id(liquorId)
+                .name(name)
+                .image(image)
+                .ratingAvg(ratingAvg)
+                .scrapCnt(scrapCnt)
+                .scrapped(scrapped)
+                .tastes(null)
+                .description(description)
+                .reviews(reviews)
+                .similarItems(similarItem)
+                .build();
+    }
+
+    private static void extracted(List<Long> list, SimilarItemValueType similarBeerItem) {
+        list.add(similarBeerItem.getItem1());
+        list.add(similarBeerItem.getItem2());
+        list.add(similarBeerItem.getItem3());
+        list.add(similarBeerItem.getItem4());
+        list.add(similarBeerItem.getItem5());
     }
 }

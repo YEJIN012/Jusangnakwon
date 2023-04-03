@@ -9,7 +9,7 @@ import lombok.Getter;
 public class FeedListDto {
 
     private final Long id;
-    private final String type;
+    private final FeedType type;
     private final String img;
     private final String title;
     private final String content;
@@ -21,7 +21,7 @@ public class FeedListDto {
 
     @Builder
     @QueryProjection
-    public FeedListDto(Long id, String type, String img, String title, String content,
+    public FeedListDto(Long id, FeedType type, String img, String title, String content,
             Boolean isPublic, LocalDateTime dateCreated, WriterDto writer, Long likeCnt,
             Boolean liked) {
         this.id = id;

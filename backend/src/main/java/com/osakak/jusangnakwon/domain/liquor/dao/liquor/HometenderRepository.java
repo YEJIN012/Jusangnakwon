@@ -22,7 +22,7 @@ public interface HometenderRepository extends JpaRepository<Hometender, Long> {
     Page<Hometender> findByRatingAvg(Pageable pageable);
 
     @Query("select l from Hometender l where l.name like :keyword%")
-    Optional< List<Hometender>> findByKeyword(@Param("keyword") String keyword);
+    Optional<List<Hometender>> findByKeyword(@Param("keyword") String keyword);
 
     /**
      * 칵테일 랜덤 조회
