@@ -29,6 +29,7 @@ import SearchPage from "@/pages/Commons/SearchPage/SearchPage";
 import SocialRedirect from "@/pages/User/SocialRedirect";
 import Loading from "@/pages/Loading/Loading";
 import Intro from "@/pages/Loading/Intro";
+import AbtiMain from "@/pages/Playground/ABTI/AbtiMain";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,12 @@ const router = createBrowserRouter([
           {
             path: "abti",
             element: <ABTI></ABTI>,
+            children: [
+              {
+                index: true,
+                element: <AbtiMain></AbtiMain>,
+              },
+            ],
           },
           {
             path: "hometender",

@@ -38,7 +38,7 @@ const MyFeedList = ({ myFeedListProps, selectedDate }: MyFeedListProps) => {
   return (
     <div className={`${styles[`myfeed-container`]}`}>
       <div className={`${styles[`myfeed-title`]}`}>
-        <h2>내가 쓴 게시글</h2>
+        <h2>내가 쓴 리뷰글</h2>
         {pathname === "/mypage" && (
           <AddCircleIcon
             fontSize="large"
