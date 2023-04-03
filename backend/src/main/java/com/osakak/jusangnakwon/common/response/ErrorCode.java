@@ -12,7 +12,8 @@ public enum ErrorCode {
             "리프레시 토큰이 만료되었습니다. 다시 로그인 해주세요"), NOT_EXPIRED_TOKEN(401, "NotExpiredToken",
             "아직 유효한 토큰입니다."), UNAVAILABLE(401, "Unavailable", "회원가입이 완료되지 않은 사용자입니다."), NOT_FOUND(
             404, "NotFound", "존재하지 않는 데이터입니다."), CONFLICT(409, "Conflict",
-            "데이터가 충돌되었습니다."), NO_LIQUOR(400, "Not Exist", "찾으신 술이 존재하지 않습니다");
+            "데이터가 충돌되었습니다."), NO_LIQUOR(400, "Not Exist", "찾으신 술이 존재하지 않습니다"),
+    SURVEY_NOT_FOUND(410, "Survey Not Exist", "유저의 설문 결과가 존재하지 않습니다");
 
     //@formatter:on
     ErrorCode(int status, String code, String message) {

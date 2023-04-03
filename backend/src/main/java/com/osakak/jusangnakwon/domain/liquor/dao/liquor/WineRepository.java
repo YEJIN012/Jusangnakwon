@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Repository
-public interface WineRepository extends JpaRepository<Wine, Long> {
+public interface WineRepository extends JpaRepository<Wine, Long>,WineQueryRepository {
     /**
      * 전체 와인 랭킹순 조회
      *

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public interface WhiskyRepository extends JpaRepository<Whisky, Long> {
+public interface WhiskyRepository extends JpaRepository<Whisky, Long>,WhiskyQueryRepository {
     /**
      * 전체 위스키 칵테일 랭킹순 조회
      *

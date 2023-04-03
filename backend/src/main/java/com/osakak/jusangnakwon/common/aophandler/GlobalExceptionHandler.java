@@ -1,9 +1,6 @@
 package com.osakak.jusangnakwon.common.aophandler;
 
-import com.osakak.jusangnakwon.common.errors.FeedNotFoundException;
-import com.osakak.jusangnakwon.common.errors.LiquorNotFoundException;
-import com.osakak.jusangnakwon.common.errors.NoLiquorNameExistException;
-import com.osakak.jusangnakwon.common.errors.UserNotFoundException;
+import com.osakak.jusangnakwon.common.errors.*;
 import com.osakak.jusangnakwon.common.response.ErrorCode;
 import com.osakak.jusangnakwon.common.response.ErrorDto;
 import com.osakak.jusangnakwon.common.response.ResponseDto;
@@ -30,7 +27,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ResponseDto> userNotFoundException(UserNotFoundException e){
+    public ResponseEntity<ResponseDto> userNotFoundException(UserNotFoundException e) {
         return ResponseEntity.ok(ResponseDto.builder()
                 .success(false)
                 .error(new ErrorDto(ErrorCode.NOT_FOUND))
@@ -38,7 +35,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(FeedNotFoundException.class)
-    public ResponseEntity<ResponseDto> feedNotFoundException(FeedNotFoundException e){
+    public ResponseEntity<ResponseDto> feedNotFoundException(FeedNotFoundException e) {
         return ResponseEntity.ok(ResponseDto.builder()
                 .success(false)
                 .error(new ErrorDto(ErrorCode.NOT_FOUND))
@@ -46,10 +43,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(LiquorNotFoundException.class)
-    public ResponseEntity<ResponseDto> feedNotFoundException(LiquorNotFoundException e){
+    public ResponseEntity<ResponseDto> feedNotFoundException(LiquorNotFoundException e) {
         return ResponseEntity.ok(ResponseDto.builder()
                 .success(false)
                 .error(new ErrorDto(ErrorCode.NO_LIQUOR))
+                .build());
+    }
+
+    @ExceptionHandler(SurveyNotFoundException.class)
+    public ResponseEntity<ResponseDto> surveyNotFoundException(SurveyNotFoundException e) {
+        return ResponseEntity.ok(ResponseDto.builder()
+                .success(false)
+                .error(new ErrorDto(ErrorCode.SURVEY_NOT_FOUND))
                 .build());
     }
 }

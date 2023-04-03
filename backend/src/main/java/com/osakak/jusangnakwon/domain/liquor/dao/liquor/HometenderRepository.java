@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public interface HometenderRepository extends JpaRepository<Hometender, Long> {
+public interface HometenderRepository extends JpaRepository<Hometender, Long>,HometenderQueryRepository {
     /**
      * 전체 커스텀 칵테일 랭킹순 조회
      *

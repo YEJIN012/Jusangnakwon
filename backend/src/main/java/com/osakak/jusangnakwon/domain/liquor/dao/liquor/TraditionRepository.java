@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public interface TraditionRepository extends JpaRepository<Tradition, Long> {
+public interface TraditionRepository extends JpaRepository<Tradition, Long>,TraditionQueryRepository {
     /**
      * 전체 전통주 칵테일 랭킹순 조회
      *
