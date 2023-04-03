@@ -117,7 +117,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
         CookieUtil.addCookie(response, REFRESH_TOKEN, refreshToken, cookieMaxAge);
-        CookieUtil.addCookieTest(response, ACCESS_TOKEN, accessToken.getToken(), cookieMaxAge);
+        CookieUtil.addCookieNoHttpOnly(response, ACCESS_TOKEN, accessToken.getToken(), cookieMaxAge);
 
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("survey", byUserId.getSurvey())

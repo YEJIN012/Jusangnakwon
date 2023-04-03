@@ -32,7 +32,7 @@ public class CookieUtil {
         response.addCookie(cookie);
     }
 
-    public static void addCookieTest(HttpServletResponse response, String name, String value, int maxAge) {
+    public static void addCookieNoHttpOnly(HttpServletResponse response, String name, String value, int maxAge) {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/");
         cookie.setHttpOnly(false);
