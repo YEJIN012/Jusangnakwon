@@ -21,6 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SqlResultSetMapping;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -73,10 +74,14 @@ public class Feed {
     @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name = "rating_id")
+    private Rating rating;
+
     @Builder
     public Feed(Long id, User user, FeedType type, String img, String title, Long liquorId,
             LiquorType liquorType, String liquorName, String content, Boolean isPublic,
-            LocalDateTime dateCreated, List<Comment> comments) {
+            LocalDateTime dateCreated, List<Comment> comments, Rating rating) {
         this.id = id;
         this.user = user;
         this.type = type;
@@ -89,5 +94,6 @@ public class Feed {
         this.isPublic = isPublic;
         this.dateCreated = dateCreated;
         this.comments = comments;
+        this.rating = rating;
     }
 }
