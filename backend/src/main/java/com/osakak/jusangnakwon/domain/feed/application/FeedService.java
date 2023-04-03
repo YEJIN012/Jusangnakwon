@@ -18,6 +18,7 @@ import com.osakak.jusangnakwon.domain.feed.entity.Like;
 import com.osakak.jusangnakwon.domain.feed.entity.Rating;
 import com.osakak.jusangnakwon.domain.feed.mapper.FeedDtoMapper;
 import com.osakak.jusangnakwon.domain.feed.mapper.FeedMapper;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import java.util.List;
@@ -51,12 +52,36 @@ public class FeedService {
         if (FeedType.리뷰글.equals(feed.getType())) {
             Rating rating = feedMapper.ratingDtoToRating(ratingDto, user);
             ratingRepository.save(rating);
+            feed.setRating(rating);
+            updateRatingAvgOfLiquor(rating.getLiquorType(), rating.getLiquorId());
         }
         feedDto = feedMapper.feedToFeedDto(feed);
         feedDto.setLikeCnt(Long.parseLong("0"));
         feedDto.setLiked(false);
         feedDto.setRatingScore(ratingScore);
         return feedDto;
+    }
+
+    private void updateRatingAvgOfLiquor(LiquorType liquorType, Long liquorId) {
+        switch (liquorType){
+            case BEER:
+                feedRepository.updateBeerRatingAvgByLiquorId(liquorId);
+                break;
+            case COCKTAIL:
+                feedRepository.updateCocktailRatingAvgByLiquorId(liquorId);
+                break;
+            case HOMETENDER:
+                feedRepository.updateHometenderRatingAvgByLiquorId(liquorId);
+                break;
+            case TRADITION:
+                feedRepository.updateTraditionRatingAvgByLiquorId(liquorId);
+                break;
+            case WINE:
+                feedRepository.updateWineRatingAvgByLiquorId(liquorId);
+                break;
+            case WHISKY:
+                feedRepository.updateWhiskyRatingAvgByLiquorId(liquorId);
+        }
     }
 
     public FeedListResponse getFeedList(Long id, Pageable pageable) {

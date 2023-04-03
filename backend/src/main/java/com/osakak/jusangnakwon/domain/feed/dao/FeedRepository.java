@@ -8,9 +8,11 @@ import java.time.LocalDate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepository {
 
@@ -43,7 +45,8 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
 //            "on f.liquorId = l.id and f.liquorType=l.liquorType " +
 //            "where l.id=:id and f.type='리뷰글'")
 //    List<ReviewListDto> findBeerReviewByLiquorId(Long id);
-    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto(r.score, f.dateCreated, f.content, f.img) " +
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto(r.score, f.dateCreated, f.content, f.img) "
+            +
             "from Feed f " +
             "left join fetch Rating r " +
             "on f.user.id = r.user.id and r.liquorId=f.liquorId " +
@@ -82,4 +85,45 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "where l.id=:id")
     List<ReviewListDto> findWhiskyReviewByLiquorId(Long id);
 
+    @Modifying
+    @Query("update Beer b set b.ratingAvg = "
+            + "(select avg(r.score) from Rating r where r.liquorId = :id "
+            + "and r.liquorType = 'BEER') "
+            + "where b.id = :id")
+    int updateBeerRatingAvgByLiquorId(Long id);
+
+    @Modifying
+    @Query("update Cocktail c set c.ratingAvg = "
+            + "(select avg(r.score) from Rating r where r.liquorId = :id "
+            + "and r.liquorType = 'COCKTAIL') "
+            + "where c.id = :id")
+    int updateCocktailRatingAvgByLiquorId(Long id);
+
+    @Modifying
+    @Query("update Hometender h set h.ratingAvg = "
+            + "(select avg(r.score) from Rating r where r.liquorId = :id "
+            + "and r.liquorType = 'HOMETENDER') "
+            + "where h.id = :id")
+    int updateHometenderRatingAvgByLiquorId(Long id);
+
+    @Modifying
+    @Query("update Tradition t set t.ratingAvg = "
+            + "(select avg(r.score) from Rating r where r.liquorId = :id "
+            + "and r.liquorType = 'TRADITION') "
+            + "where t.id = :id")
+    int updateTraditionRatingAvgByLiquorId(Long id);
+
+    @Modifying
+    @Query("update Wine w set w.ratingAvg = "
+            + "(select avg(r.score) from Rating r where r.liquorId = :id "
+            + "and r.liquorType = 'WINE') "
+            + "where w.id = :id")
+    int updateWineRatingAvgByLiquorId(Long id);
+
+    @Modifying
+    @Query("update Whisky w set w.ratingAvg = "
+            + "(select avg(r.score) from Rating r where r.liquorId = :id "
+            + "and r.liquorType = 'WHISKY') "
+            + "where w.id = :id")
+    int updateWhiskyRatingAvgByLiquorId(Long id);
 }
