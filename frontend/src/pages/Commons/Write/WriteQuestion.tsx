@@ -59,7 +59,7 @@ const WriteQuestion = () => {
       .then((res: any) => {
         console.log(res);
         const newFeed = res.data.body;
-        navigate(`details/feed/${newFeed.id}`); // 질문글상세페이지로 이동
+        navigate(`../../details/feed/${newFeed.id}`); // 질문글상세페이지로 이동
       })
       .catch((error) => {
         console.error(error);

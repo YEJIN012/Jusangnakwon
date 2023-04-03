@@ -1,5 +1,6 @@
 import MyFeedList from "@/components/MyPage/MyFeedList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 // import "react-calendar/dist/Calendar.css";
 import "@/components/MyPage/MyPageCalendar.css";
@@ -8,105 +9,80 @@ import Logout from "@/components/MyPage/Logout/Logout";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/reducers";
 import UserProfile from "@/components/MyPage/UserProfile";
+import { apiGetMyFeed, apiGetReviewListMonthly } from "@/api/mypage";
 
-const myFeedListProps = [
-  {
-    id: 1,
-    ratings: 5,
-    date: "2023.03.22",
-    classification: "게시글",
-    alcoholType: "whisky",
-    img: "https://picsum.photos/300/300/?random",
-    content: "이야호",
-  },
-  {
-    id: 2,
-    ratings: null,
-    date: "2023.03.07",
-    classification: "질문글",
-    alcoholType: null,
-    img: "https://picsum.photos/300/300/?random",
-    content: "와인 추천해주세요!!!",
-  },
-  {
-    id: 3,
-    ratings: 4,
-    date: "2023.03.21",
-    classification: "게시글",
-    alcoholType: "wine",
-    img: "https://picsum.photos/300/300/?random",
-    content: "부야호",
-  },
-  {
-    id: 4,
-    ratings: 4,
-    date: "2023.03.08",
-    classification: "게시글",
-    alcoholType: "cocktail",
-    img: "https://picsum.photos/300/300/?random",
-    content: "부야호오오오",
-  },
-  {
-    id: 5,
-    ratings: 4,
-    date: "2023.03.24",
-    classification: "게시글",
-    alcoholType: "beer",
-    img: "https://picsum.photos/300/300/?random",
-    content: "냠냠 맥주 냠냠",
-  },
-  {
-    id: 6,
-    ratings: 5,
-    date: "2023.03.05",
-    classification: "게시글",
-    alcoholType: "traditional",
-    img: "https://picsum.photos/300/300/?random",
-    content: "냠냠 와인 냠냠",
-  },
-  {
-    id: 7,
-    ratings: 4,
-    date: "2023.03.15",
-    classification: "레시피",
-    alcoholType: null,
-    img: "https://picsum.photos/300/300/?random",
-    content: "드디어 먹어봄 진짜 레전드 존맛탱 담주에 또 해먹어야지~",
-  },
-  {
-    id: 8,
-    ratings: 1,
-    date: "2023.03.05",
-    classification: "레시피",
-    alcoholType: null,
-    img: "https://picsum.photos/300/300/?random",
-    content: "윽 별로",
-  },
-];
+interface MyMonthlyFeedItem {
+  date: string;
+  liquorType: number;
+  reviews: MyMonthlyReviewItem[];
+}
+
+export interface MyMonthlyReviewItem {
+  content: string | null;
+  dateCreated: Date;
+  id: number;
+  img: string | null;
+  ratingScore: number;
+}
 
 interface UserProfileType {
-    userName: string | null;
-    userImg: string | null;
+  userName: string | null;
+  userImg: string | null;
 }
 
 const MyPageMain = () => {
   const userInfo = useSelector((state: RootState) => state.userInfo);
-  const userProfile: UserProfileType = { userName : userInfo.username, userImg : userInfo.profileImageUrl}
+  const userProfile: UserProfileType = { userName: userInfo.username, userImg: userInfo.profileImageUrl };
   const [date, setDate] = useState(new Date());
   const [value, onChange] = useState(new Date());
   // const selectedDate = moment(date)
 
+  const { pathname } = useLocation();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [myMonthlyFeedList, setMyMonthlyFeedList] = useState<MyMonthlyFeedItem[] | []>([]);
+  const [myMonthlyReview, setMyMonthlyReview] = useState<MyMonthlyReviewItem[] | []>([]);
+  const navigate = useNavigate();
+  // const filteredPosts = myFeedList
+  //   ? myFeedList.filter((feed: MyFeedItem) => {
+  //       return new Date(feed.dateCreated).toDateString() === selectedDate.toDateString();
+  //     })
+  //   : [];
+
+  useEffect(() => {
+    apiGetReviewListMonthly(2023, 4)
+      .then((r) => {
+        if (r?.data.success === true) {
+          setCurrentPage(r?.data.currentPageNumber);
+          setMyMonthlyFeedList(r?.data.body);
+          // 됨
+          // console.log("받음", r?.data.body);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
+
   const tileContent = ({ date }: any) => {
-    const formattedDate = moment(date).format("YYYY.MM.DD");
-    const feed = myFeedListProps.find((feed) => feed.date === formattedDate);
-    if (feed?.alcoholType != null) {
-      const iconUrl = `/assets/${feed.alcoholType}.svg`;
+    const formattedDate = moment(date).format("YYYY-MM-DD");
+    // const feed = myMonthlyFeedList.find((feed) => {
+    //   console.log("날짜뭔데", formattedDate);
+    //   feed.date === formattedDate;
+    //   console.log("비교", feed.date, formattedDate);
+    //   setMyMonthlyReview(feed?.reviews);
+    // });
+    const feed = myMonthlyFeedList.find((feed) => {
+      setMyMonthlyReview(feed?.reviews);
+      return feed.date === formattedDate;
+    });
+    if (feed?.liquorType != null) {
+      const iconUrl = `/assets/${feed.liquorType}.svg`;
       return (
         <div>
           <img style={{ height: "25px", width: "25px" }} src={iconUrl} alt="술사진" />
         </div>
       );
-    } else if (feed && feed.alcoholType == null) {
+    } else if (feed && feed.liquorType == null) {
       return (
         <div
           style={{ marginTop: "10px", height: "7px", width: "7px", borderRadius: "50%", backgroundColor: "hotpink" }}
@@ -117,8 +93,8 @@ const MyPageMain = () => {
   };
   return (
     <div>
-      <UserProfile userProfile = {userProfile}></UserProfile>
-      {/* <MyPageCalendar></MyPageCalendar> */} 
+      <UserProfile userProfile={userProfile}></UserProfile>
+      {/* <MyPageCalendar></MyPageCalendar> */}
       <div className="MyCalendar">
         <div className="calender-container">
           <Calendar
@@ -140,7 +116,7 @@ const MyPageMain = () => {
         </div>
       </div>
       <div style={{ marginTop: "10%" }}>
-        <MyFeedList myFeedListProps={myFeedListProps} selectedDate={date}></MyFeedList>
+        <MyFeedList selectedDate={date} myMonthlyReviewList={myMonthlyReview}></MyFeedList>
       </div>
       <Logout></Logout>
     </div>

@@ -30,6 +30,7 @@ import SocialRedirect from "@/pages/User/SocialRedirect";
 import Loading from "@/pages/Loading/Loading";
 import Intro from "@/pages/Loading/Intro";
 import AbtiMain from "@/pages/Playground/ABTI/AbtiMain";
+import MyFeedList from "@/components/MyPage/MyFeedList";
 
 const router = createBrowserRouter([
   {
