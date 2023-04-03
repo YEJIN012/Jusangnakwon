@@ -2,7 +2,7 @@ import styles from "./Logout.module.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeCookieToken } from "@/utils/cookies";
-import { loginUserActions } from "@/slices/loginUserSlice";
+import { userInfoActions } from "@/slices/userInfoSlice";
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const Logout = () => {
     // refresh token 삭제
     // removeCookieToken();
     // 유저정보 삭제
-    dispatch(loginUserActions.deleteLoginUserInfo(null))
+    dispatch(userInfoActions.deleteUserInfo(null))
 
     alert("로그아웃 성공");
     // logout 시 login 창으로

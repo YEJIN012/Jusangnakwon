@@ -6,6 +6,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 // import { accessToken, findUserInfo } from "../actions/userAction";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import { apiGetUserInfo } from "@/api/users";
+import { userInfoActions } from "@/slices/userInfoSlice";
 
 const SocialRedirect = () => {
   const navigate = useNavigate();
@@ -24,6 +26,11 @@ const SocialRedirect = () => {
     // api콜마다 항상 헤더 authorization에 accessToken을 담도록 설정
     // 보안상 문제로 별도로 storage저장하지않고 변수처리로 header에 넣음
     axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+    apiGetUserInfo().then((r) => {
+      console.log(r)
+      userInfoActions.saveUserInfo(r?.data.body)
+    })
 
     // 취향폼 작성 안되어 있으면,
     // 취향폼으로 보내기

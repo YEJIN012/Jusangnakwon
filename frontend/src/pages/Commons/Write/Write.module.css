@@ -1,7 +1,8 @@
 /* 헤더컴포에서 z-index만 다름 */
 .header-container {
   width: 100%;
-  padding: 15px;
+  height: 56px;
+  padding: 8px 18px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;

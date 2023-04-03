@@ -1,11 +1,13 @@
 import MyFeedList from "@/components/MyPage/MyFeedList";
-import UserProfile from "@/components/MyPage/UserProfile";
 import { useState } from "react";
 import Calendar from "react-calendar";
 // import "react-calendar/dist/Calendar.css";
 import "@/components/MyPage/MyPageCalendar.css";
 import moment from "moment";
 import Logout from "@/components/MyPage/Logout/Logout";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
+import UserProfile from "@/components/MyPage/UserProfile";
 
 const myFeedListProps = [
   {
@@ -82,7 +84,14 @@ const myFeedListProps = [
   },
 ];
 
+interface UserProfileType {
+    userName: string | null;
+    userImg: string | null;
+}
+
 const MyPageMain = () => {
+  const userInfo = useSelector((state: RootState) => state.userInfo);
+  const userProfile: UserProfileType = { userName : userInfo.username, userImg : userInfo.profileImageUrl}
   const [date, setDate] = useState(new Date());
   const [value, onChange] = useState(new Date());
   // const selectedDate = moment(date)
@@ -108,8 +117,8 @@ const MyPageMain = () => {
   };
   return (
     <div>
-      <UserProfile></UserProfile>
-      {/* <MyPageCalendar></MyPageCalendar> */}
+      <UserProfile userProfile = {userProfile}></UserProfile>
+      {/* <MyPageCalendar></MyPageCalendar> */} 
       <div className="MyCalendar">
         <div className="calender-container">
           <Calendar

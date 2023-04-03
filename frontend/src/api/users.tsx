@@ -6,7 +6,7 @@ const api = getApiInstance();
 // 로그인 유저 정보 조회
 export const apiGetUserInfo = async () => {
   try {
-    const response = await api.post("v1/users/info");
+    const response = await api.get("v1/users/info");
     return response;
   } catch (e) {
     console.log(e);

@@ -2,6 +2,9 @@ import RecommendCarousel from "@/components/Playground/Hometender/RecommendCarou
 import styles from "./Hometender.module.css";
 import RecipeFeed from "@/components/Playground/Hometender/RecipeFeed";
 import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
+import { useEffect, useState } from "react";
+import { apiGetRankedHometender } from "@/api/hometender";
+import { apiGetLoginRecommendedByType } from "@/api/home";
 
 const recommendDummy = [
   {
@@ -122,14 +125,33 @@ const recipeDummy = [
 ];
 
 const HometenderMain = () => {
+  const [ rankRecommendList, setrankRecommendList ] = useState([])
+  const [ loginRecommendList, setLoginRecommendList ] = useState([])
+  useEffect(()=> {
+    apiGetRankedHometender().then((r) => {
+      setrankRecommendList(r?.data.body.content)
+    }).catch((e)=> {
+      console.log(e)
+    })
+
+    // apiGetLoginRecommendedByType(type: 'HOMETENDER').then((r) => {
+    //   setLoginRecommendList(r?.data.body.content)
+    // }).catch((e)=> {
+    //   console.log(e)
+    // })
+  }, [])
+
   return (
     <>
       <FloatingButton></FloatingButton>
       <div className={`${styles[`container`]}`}>
-        <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
-        <RecommendCarousel recommendList={recommendDummy}></RecommendCarousel>
+        { loginRecommendList ? <>
+          <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
+        {/* <RecommendCarousel recommendList={setLoginRecommendList}></RecommendCarousel> */}
+        </> : <></>
+        }
         <div className={`${styles[`recommend-title`]}`}>주상낙원 Best 레시피</div>
-        <RecommendCarousel recommendList={recommendDummy}></RecommendCarousel>
+        <RecommendCarousel recommendList={rankRecommendList}></RecommendCarousel>
         <div className={`${styles[`recipe-title`]}`}>
           <div>주상낙원의 홈텐더들을 위한 레시피</div>
         </div>

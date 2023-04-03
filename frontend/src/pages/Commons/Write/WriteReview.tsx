@@ -265,7 +265,7 @@ const WriteReview = () => {
       </form>
 
       <Modal open={open} onClose={() => setOpen(false)}>
-        <div style={{ paddingTop: "54px" }}>
+        <div style={{ paddingTop: "56px" }}>
           <SearchPage handleOpen={handleOpen}></SearchPage>
         </div>
       </Modal>

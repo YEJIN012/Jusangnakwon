@@ -9,15 +9,16 @@ const initialState = {
   profileImageUrl: null,
   survey: null,
 };
-const loginUserSlice = createSlice({
-  name: "loginUser",
+const userInfoSlice = createSlice({
+  name: "userInfo",
   initialState,
   reducers: {
-    saveLoginUserInfo: (state, action) => {
+    saveUserInfo: (state, action) => {
       state = action.payload;
+      console.log(state)
       return state;
     },
-    deleteLoginUserInfo: (state, action) => {
+    deleteUserInfo: (state, action) => {
       state = initialState;
     },
   },
@@ -29,6 +30,6 @@ const loginUserSlice = createSlice({
   // },
 });
 
-export const loginUserActions = loginUserSlice.actions;
+export const userInfoActions = userInfoSlice.actions;
 
-export default loginUserSlice.reducer;
+export default userInfoSlice.reducer;
