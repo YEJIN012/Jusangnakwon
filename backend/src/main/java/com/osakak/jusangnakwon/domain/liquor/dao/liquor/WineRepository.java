@@ -30,4 +30,6 @@ public interface WineRepository extends JpaRepository<Wine, Long> {
 
     @Query("select w from Wine w WHERE w.id IN :similarWineUniqueList ")
     Page<Wine> findById(Set<Long> similarWineUniqueList, Pageable pageable);
+    @Query("select l from  Wine l where l.id in (:id)")
+    List<Wine> findByIdList(List<Long> id);
 }
