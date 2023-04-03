@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class CreateFeedRequest {
 
-    @NotBlank
+    @NotNull
     private FeedType type;
     private String img;
     private String title;
