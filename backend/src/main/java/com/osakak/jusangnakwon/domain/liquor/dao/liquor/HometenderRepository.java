@@ -1,6 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Hometender;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Tradition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,4 +35,7 @@ public interface HometenderRepository extends JpaRepository<Hometender, Long>,Ho
 
     @Query("select w from Hometender w WHERE w.id IN :similarHometenderUniqueList ")
     Page<Hometender> findById(Set<Long> similarHometenderUniqueList, Pageable pageable);
+
+    @Query("select l from  Hometender l where l.id in (:id)")
+    List<Hometender> findByIdList(List<Long> id);
 }

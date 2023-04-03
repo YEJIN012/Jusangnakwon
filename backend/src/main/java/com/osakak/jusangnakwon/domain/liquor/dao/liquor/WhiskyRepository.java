@@ -27,4 +27,7 @@ public interface WhiskyRepository extends JpaRepository<Whisky, Long>,WhiskyQuer
 
     @Query("select w from Whisky w WHERE w.id IN :similarWhiskyUniqueList ")
     Page<Whisky> findById(Set<Long> similarWhiskyUniqueList, Pageable pageable);
+
+    @Query("select l from  Whisky l where l.id in (:id)")
+    List<Whisky> findByIdList(List<Long> id);
 }
