@@ -2,6 +2,7 @@ package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Cocktail;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Whisky;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
+public interface CocktailRepository extends JpaRepository<Cocktail, Long>,CocktailQueryRepository {
     /**
      * 전체 칵테일 랭킹순 조회
      *
@@ -27,5 +28,8 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 
     @Query("select w from Cocktail w WHERE w.id IN :similarCocktailUniqueList ")
     Page<Cocktail> findById(Set<Long> similarCocktailUniqueList, Pageable pageable);
+
+    @Query("select l from  Cocktail l where l.id in (:id)")
+    List<Cocktail> findByIdList(List<Long> id);
 }
 

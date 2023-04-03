@@ -16,7 +16,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BeerRepository extends JpaRepository<Beer, Long> {
+public interface BeerRepository extends JpaRepository<Beer, Long>,BeerQueryRepository {
     /**
      * 전체 맥주 랭킹순 조회
      *
