@@ -9,7 +9,6 @@ import com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.HometenderTasteDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.HometenderTasteType;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorCustomMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorDtoMapper;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import io.swagger.annotations.ApiOperation;
@@ -76,7 +75,6 @@ public class LiquorController {
      *
      * @param user              유저 로그인 정보
      * @param hometenderRequest 홈텐더 레시피 생성 요청
-     *
      * @return LiquorDetailResponse : 생성된 홈텐더 레시피 상세내용
      */
     //@param user 유저 로그인 정보 주석에 추가해야함.
@@ -84,7 +82,7 @@ public class LiquorController {
     @Operation(summary = "홈텐더 레시피 생성", description = "홈텐더 레시피를 생성하고 생성된 홈텐더 레시피 상세내용을 리턴")
     @PostMapping("hometender/{userId}")
     public ResponseEntity<ResponseDto> createHometender(@AuthenticationPrincipal User user,
-            @RequestBody HometenderRequest hometenderRequest){
+                                                        @RequestBody HometenderRequest hometenderRequest) {
         HometenderTasteDto taste = hometenderRequest.getTaste();
         //taste 0(낮음), 1(중간), 2(높음) 값을 각 실제 맛 타입 범위 안의 중간값으로 변환하는 작업
         HometenderTasteDto convertedTaste = HometenderTasteDto.builder()

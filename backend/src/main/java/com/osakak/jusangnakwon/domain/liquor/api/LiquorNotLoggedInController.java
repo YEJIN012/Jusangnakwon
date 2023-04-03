@@ -4,7 +4,6 @@ import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorNotLoggedInService;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import com.osakak.jusangnakwon.domain.liquor.dto.SearchType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("api")
 public class LiquorNotLoggedInController {
-    private final LiquorNotLoggedInService liquorService;
+    private final LiquorNotLoggedInService liquorNotLoggedInService;
 
     /**
      * 주종별 랭킹순 추천 페이징 처리
@@ -35,7 +34,7 @@ public class LiquorNotLoggedInController {
      */
     private LiquorListMainResponse getLiquorListWithPaging(int page, LiquorType liquorType) {
         Pageable pageable = PageRequest.of(page, 6);
-        return liquorService.getLiquorList(liquorType, SearchType.RANK, pageable);
+        return liquorNotLoggedInService.getLiquorList(liquorType, pageable);
     }
 
     /**

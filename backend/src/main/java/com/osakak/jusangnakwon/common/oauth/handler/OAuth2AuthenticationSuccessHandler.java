@@ -33,8 +33,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import static com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
-import static com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.REFRESH_TOKEN;
+import static com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.*;
 
 @Slf4j
 @Component
@@ -118,9 +117,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         CookieUtil.deleteCookie(request, response, REFRESH_TOKEN);
         CookieUtil.addCookie(response, REFRESH_TOKEN, refreshToken, cookieMaxAge);
+        CookieUtil.addCookie(response, ACCESS_TOKEN, accessToken.getToken(), cookieMaxAge);
 
         return UriComponentsBuilder.fromUriString(targetUrl)
-                .queryParam("token", accessToken.getToken())
                 .queryParam("survey", byUserId.getSurvey())
                 .build().toUriString();
     }

@@ -3,6 +3,7 @@ package com.osakak.jusangnakwon.domain.feed.dao;
 import com.osakak.jusangnakwon.domain.feed.dto.CalendarDto;
 import com.osakak.jusangnakwon.domain.feed.dto.RecordListDto;
 import com.osakak.jusangnakwon.domain.feed.entity.Feed;
+import com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto;
 import java.time.LocalDate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,5 +37,49 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
                     + "WHERE date > LAST_DAY(:date - interval 1 month) AND date <= LAST_DAY(:date) "
                     + "GROUP BY date;")
     List<CalendarDto> findCalendarByUserIdAndDate(Long userId, LocalDate date);
+
+    //    @Query("select f.content as content, f.img as img, f.dateCreated as dateCreated, l.ratingAvg as ratingScore from Feed f " +
+//            "left join fetch Beer l " +
+//            "on f.liquorId = l.id and f.liquorType=l.liquorType " +
+//            "where l.id=:id and f.type='리뷰글'")
+//    List<ReviewListDto> findBeerReviewByLiquorId(Long id);
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto(r.score, f.dateCreated, f.content, f.img) " +
+            "from Feed f " +
+            "left join fetch Rating r " +
+            "on f.user.id = r.user.id and r.liquorId=f.liquorId " +
+            "left join fetch Beer b " +
+            "on f.liquorId = b.id " +
+            "where f.liquorId=:id and f.type='리뷰글'")
+    List<ReviewListDto> findBeerReviewByLiquorId(Long id);
+
+    @Query("select f.content, f.img, f.dateCreated, l.ratingAvg from Feed f " +
+            "left join fetch Wine l " +
+            "on f.liquorId = l.id and f.liquorType=l.liquorType " +
+            "where l.id=:id")
+    List<ReviewListDto> findWineReviewByLiquorId(Long id);
+
+    @Query("select f.content, f.img, f.dateCreated, l.ratingAvg from Feed f " +
+            "left join fetch Cocktail l " +
+            "on f.liquorId = l.id and f.liquorType=l.liquorType " +
+            "where l.id=:id")
+    List<ReviewListDto> findCocktailReviewByLiquorId(Long id);
+
+    @Query("select f.content, f.img, f.dateCreated, l.ratingAvg from Feed f " +
+            "left join fetch Tradition l " +
+            "on f.liquorId = l.id and f.liquorType=l.liquorType " +
+            "where l.id=:id")
+    List<ReviewListDto> findTraditionReviewByLiquorId(Long id);
+
+    @Query("select f.content, f.img, f.dateCreated, l.ratingAvg from Feed f " +
+            "left join fetch Hometender l " +
+            "on f.liquorId = l.id and f.liquorType=l.liquorType " +
+            "where l.id=:id")
+    List<ReviewListDto> findHometenderReviewByLiquorId(Long id);
+
+    @Query("select f.content, f.img, f.dateCreated, l.ratingAvg from Feed f " +
+            "left join fetch Whisky l " +
+            "on f.liquorId = l.id and f.liquorType=l.liquorType " +
+            "where l.id=:id")
+    List<ReviewListDto> findWhiskyReviewByLiquorId(Long id);
 
 }
