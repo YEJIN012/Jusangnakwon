@@ -20,7 +20,6 @@ import com.osakak.jusangnakwon.domain.feed.mapper.FeedDtoMapper;
 import com.osakak.jusangnakwon.domain.feed.mapper.FeedMapper;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import com.osakak.jusangnakwon.domain.user.entity.User;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
@@ -62,13 +61,13 @@ public class FeedService {
 
     public FeedListResponse getFeedList(Long id, Pageable pageable) {
         User user = findUser(id);
-        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithRatingAndLike(user.getId(), pageable);
+        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithLike(user.getId(), pageable);
         return getFeedListResponse(feedPage.getTotalPages(), feedPage.getPageable(), feedPage.getContent());
     }
 
     public FeedListResponse getFeedListByType(Long id, String type, Pageable pageable) {
         User user = findUser(id);
-        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithRatingAndLikeByType(user.getId(), FeedType.findFeedType(type), pageable);
+        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithLikeByType(user.getId(), FeedType.findFeedType(type), pageable);
         return getFeedListResponse(feedPage.getTotalPages(), feedPage.getPageable(), feedPage.getContent());
     }
 

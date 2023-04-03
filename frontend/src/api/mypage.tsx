@@ -13,9 +13,9 @@ export const apiGetReviewListMonthly = async (year: number, month: number) => {
 };
 
 // 내가 쓴 글 목록 조회
-export const apiGetMyFeed = async () => {
+export const apiGetMyFeed = async (page: number) => {
   try {
-    const response = await api.get(`/mypage/record`);
+    const response = await api.get(`/mypage/record?page=${page}`);
     return response;
   } catch (e) {
     console.log(e);

@@ -1,5 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class LiquorListItemDto {
     private LiquorType liquorType;
 
     @Builder
+    @QueryProjection
     public LiquorListItemDto(Long id, String name, String img, LiquorType liquorType) {
         this.id = id;
         this.name = name;

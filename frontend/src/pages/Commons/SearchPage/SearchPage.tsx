@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { apiSearchDrink } from "@/api/home";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { styled, alpha } from "@mui/material/styles";
@@ -49,6 +49,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
 interface Content {
   id: number;
   name: string;
@@ -56,34 +57,67 @@ interface Content {
 }
 
 interface Data {
-  content: Content[] | null;
+  content: Array<Content> | null;
   curPageNumber: number;
   totalPage: number;
 }
 
-const SearchPage = () => {
-  const [searchedData, setSearchedData] = useState<Data | null>();
+// interface ApiData {
+//   success: boolean;
+//   error: string | null;
+//   body: {
+//     totalPage: number;
+//     curPageNumber: number;
+//     content: Array<{
+//       id: number;
+//       name: string;
+//       liquorType: string;
+//     }>;
+//   };
+// }
+interface Props {
+  handleOpen?: (props: boolean) => void | undefined;
+};
+
+const SearchPage = (props: Props) => {
+  const [searchedData, setSearchedData] = useState<Data | null>(null);
+  const [searchingWord, setSearchigWord] = useState<string>("");
+  const [page, setPage] = useState(0);
 
   const navigate = useNavigate();
 
   const handleSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     // console.log(e.target.value);
-    // console.log(e.target.value);
+    setSearchigWord(e.target.value);
     if (e.target.value) {
-      apiSearchDrink(e.target.value).then((r) => {
-        console.log(r);
-        setSearchedData(r?.data.body);
-        console.log(r?.data.body);
-      });
+      apiSearchDrink(e.target.value, page)
+        .then((r) => {
+          // console.log(r);
+          setSearchedData(r?.data.body);
+          // console.log(r?.data.body);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+    if (e.target.value === "") {
+      setSearchedData(null);
     }
   };
 
   return (
-    <div>
+    <>
       <div className={`${styles[`header-container`]}`}>
-        <ArrowBackIcon onClick={() => navigate(-1)} />
-
+        {props.handleOpen === undefined ? (
+          <ArrowBackIcon onClick={() => navigate(-1)} />
+        ) : (
+          <ArrowBackIcon
+            onClick={() => {
+              props.handleOpen?.(false);
+            }}
+          />
+        )}
         <Search sx={{ marginLeft: "2%" }}>
           <SearchIconWrapper>
             <SearchIcon />
@@ -95,23 +129,15 @@ const SearchPage = () => {
           />
         </Search>
       </div>
-      <div className={`${styles[`search-list-container`]}`}>
-        {/* {searchedData &&
-          searchedData.content &&
-          searchedData.content.map((item: Content | null) => (
-            // <div key={`'술'+${item.id}`} className={`${styles[`search-item`]}`}>
-            //   <p>{item.id}</p>
-            //   <p>{item.name}</p>
-            //   <p>{item.liquorType}</p>
-            // </div>
-            <SearchItem content={item}></SearchItem> */}
-        {/* ))} */}
-        {/* {console.log(searchedData?.content[0])} */}
-        {/* <div>{searchedData?.content[0]}</div> */}
-        {searchedData === null ? <div>찾으시는 술이 없습니다.</div> : null}
-        {searchedData && <SearchItem searchedData={searchedData}></SearchItem>}
+      <div>
+        {searchedData === null ? <div className={`${styles[`search-no-drink`]}`}>찾으시는 술이 없습니다.</div> : null}
+        {searchedData != null
+          ? searchedData.content?.map((content: Content) => (
+              <SearchItem key={content.id} content={content} searchingWord={searchingWord}></SearchItem>
+            ))
+          : null}
       </div>
-    </div>
+    </>
   );
 };
 export default SearchPage;

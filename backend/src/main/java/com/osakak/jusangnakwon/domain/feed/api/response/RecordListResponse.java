@@ -16,7 +16,7 @@ public class RecordListResponse {
     @Schema(description = "현재 페이지")
     private final int curPageNumber;
 
-    @Schema(description = "피드 목록")
+    @Schema(description = "내가 쓴 글 목록")
     private final List<RecordListDto> content;
 
     @Builder
