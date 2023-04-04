@@ -1,4 +1,4 @@
-import { useState, useEffect, SetStateAction } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { pink } from "@mui/material/colors";
 import { alpha, styled } from "@mui/material/styles";
@@ -10,7 +10,8 @@ import Search from "@mui/icons-material/Search";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import StarIcon from "@mui/icons-material/Star";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
+import Calendar from "react-calendar";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import styles from "./Write.module.css";
@@ -22,6 +23,7 @@ import { RootState } from "@/store/reducers";
 import { alcoholTypeStyle } from "@/pages/MyPage/BookmarkList";
 import { useDispatch } from "react-redux";
 import { selectDrinkActions } from "@/slices/selectedDrinkSlice";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
 export interface ReviewFormData {
   [key: string]: any; // formdata로 바꾸려면 필요.
@@ -150,6 +152,12 @@ const WriteReview = () => {
     }
   };
 
+  // 날짜 바꾸는 달력
+  const [openCalendar, setOpenCalendar] = useState(false);
+  const handleDate = (date: Date) => {
+    setData({ ...data, dateCreated: date });
+  };
+
   const handleSubmit = (data: ReviewFormData) => {
     if (data.liquorId != undefined && data.ratingScore != 0 && data.content != "") {
       // formData 생성
@@ -244,13 +252,49 @@ const WriteReview = () => {
         {/* 달력에서 리뷰작성으로 넘어오면 */}
         {/* navigate state로 선택된 날짜 같이 넘겨줘서 미리 담아놈  */}
         <div className={`${styles[`row-container`]}`}>
-          <DatePicker
+          <div className={`${styles[`subtitle-row`]}`}>
+            <CalendarTodayIcon onClick={() => setOpenCalendar(!openCalendar)}/>
+          </div>
+          {/* <DatePicker
             selected={data.dateCreated}
             dateFormat="yyyy년 MM월 dd일"
             locale={ko}
+            maxDate={new Date()}
             className={`${styles[`input-basic`]}`}
             onChange={(d) => setData({ ...data, dateCreated: d })}
-          />
+          /> */}
+          <div className={`${styles[`input-basic`]}`} onClick={() => setOpenCalendar(!openCalendar)}>
+            {data.dateCreated ? data.dateCreated.toLocaleDateString("ko-KR") : "N/A"}
+          </div>
+          {openCalendar ? (
+            <div
+              style={{ 
+                scale: "0.6",
+                zIndex: 10,
+                position: "absolute",
+                width: "400px",
+                bottom: "-10px",
+                left: "9px"
+              }}
+            >
+              <Calendar
+                className="react-calendar"
+                onChange={handleDate}
+                // 일요일 먼저
+                calendarType="Hebrew"
+                // 연도 못보게
+                minDetail="month"
+                // 이전, 다음달 못보게
+                maxDetail="month"
+                showNeighboringMonth={false}
+                locale="ko-KO"
+                // 달력에 '일' 빼는 코드
+                formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
 
         <div className={`${styles[`row-container`]}`}>
