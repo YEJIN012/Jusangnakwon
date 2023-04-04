@@ -63,40 +63,50 @@ export default function MainTab() {
 
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const [curPageNumber, setCurPageNumber] = useState<number>(1);
-  const [totalPage, setTotalPage] = useState<number>(0);
+
   console.log(value);
   // 칵테일
   const [cocktailItemsToShow, setcocktailItemsToShow] = useState(6);
   const [cocktailList, setCocktailList] = useState<DrinkItem[]>([]);
   const [cocktailListToShow, setCocktailListToShow] = useState<DrinkItem[]>([]);
   const [isLoadingMoreCocktails, setIsLoadingMoreCocktails] = useState(false);
+  const [cocktailCurPageNumber, setCocktailCurPageNumber] = useState<number>(1);
+  const [cocktailTotalPage, setCocktailTotalPage] = useState<number>(0);
 
   // 위스키
   const [whiskyItemsToShow, setwhiskyItemsToShow] = useState(6);
   const [whiskyList, setWhiskyList] = useState<DrinkItem[]>([]);
   const [whiskyListToShow, setWhiskyListToShow] = useState<DrinkItem[]>([]);
   const [isLoadingMoreWhiskys, setIsLoadingMoreWhiskys] = useState(false);
+  const [whiskyCurPageNumber, setWhiskyCurPageNumber] = useState<number>(1);
+  const [whiskyTotalPage, setWhiskyTotalPage] = useState<number>(0);
 
   // 와인
   const [wineItemsToShow, setwineItemsToShow] = useState(6);
   const [wineList, setWineList] = useState<DrinkItem[]>([]);
   const [wineListToShow, setWineListToShow] = useState<DrinkItem[]>([]);
   const [isLoadingMoreWines, setIsLoadingMoreWines] = useState(false);
-  // const [curPageNumber, setCurPageNumber] = useState(1);
-  // const [totalPage, setTotalPage] = useState(0);
+  const [wineCurPageNumber, setWineCurPageNumber] = useState<number>(1);
+  const [wineTotalPage, setWineTotalPage] = useState<number>(0);
 
   // 전통주
   const [koreanItemsToShow, setkoreanItemsToShow] = useState(6);
   const [koreanList, setKoreanList] = useState<DrinkItem[]>([]);
   const [koreanListToShow, setKoreanListToShow] = useState<DrinkItem[]>([]);
   const [isLoadingMoreKoreans, setIsLoadingMoreKoreans] = useState(false);
+  const [koreanCurPageNumber, setKoreanCurPageNumber] = useState<number>(1);
+  const [koreanTotalPage, setKoreanTotalPage] = useState<number>(0);
+
+  const [curPageNumber, setCurPageNumber] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(0);
 
   // 맥주
   const [beerItemsToShow, setbeerItemsToShow] = useState(6);
   const [beerList, setBeerList] = useState<DrinkItem[]>([]);
   const [beerListToShow, setBeerListToShow] = useState<DrinkItem[]>([]);
   const [isLoadingMoreBeers, setIsLoadingMoreBeers] = useState(false);
+  const [beerCurPageNumber, setBeerCurPageNumber] = useState<number>(1);
+  const [beerTotalPage, setBeerTotalPage] = useState<number>(0);
 
   const navigate = useNavigate();
   // const classes = useStyles();
@@ -111,51 +121,64 @@ export default function MainTab() {
     setValue(index);
   };
 
+  // 와인 더보기
   const handleShowMoreWineItems = () => {
-    if (!isLoadingMoreWines && curPageNumber < totalPage) {
+    if (!isLoadingMoreWines && wineCurPageNumber < wineTotalPage) {
       setIsLoadingMoreWines(true);
-      setCurPageNumber(curPageNumber + 1);
+      setWineCurPageNumber(wineCurPageNumber + 1);
       setwineItemsToShow(wineItemsToShow + 6);
       setIsLoadingMoreWines(false);
+      console.log(wineTotalPage);
+      console.log(wineCurPageNumber);
     }
   };
 
+  // 칵테일 더보기
   const handleShowMoreCocktailItems = () => {
-    if (!isLoadingMoreCocktails && curPageNumber < totalPage) {
+    if (!isLoadingMoreCocktails && cocktailCurPageNumber < cocktailTotalPage) {
       setIsLoadingMoreCocktails(true);
-      setCurPageNumber(curPageNumber + 1);
+      setCocktailCurPageNumber(cocktailCurPageNumber + 1);
       // setcocktailItemsToShow(cocktailItemsToShow + 6);
       setcocktailItemsToShow((prev) => prev + 6);
       setIsLoadingMoreCocktails(false);
-      console.log(totalPage);
-      console.log(curPageNumber);
+      console.log(cocktailTotalPage);
+      console.log(cocktailCurPageNumber);
     }
   };
 
+  // 위스키 더보기
   const handleShowMoreWhiskyItems = () => {
-    if (!isLoadingMoreWhiskys && curPageNumber < totalPage) {
+    if (!isLoadingMoreWhiskys && whiskyCurPageNumber < whiskyTotalPage) {
       setIsLoadingMoreWhiskys(true);
-      setCurPageNumber(curPageNumber + 1);
+      setWhiskyCurPageNumber(whiskyCurPageNumber + 1);
       setwhiskyItemsToShow(whiskyItemsToShow + 6);
       setIsLoadingMoreWhiskys(false);
+      console.log(whiskyTotalPage);
+      console.log(whiskyCurPageNumber);
     }
   };
 
+  // 전통주 더보기
   const handleShowMoreKoreanItems = () => {
-    if (!isLoadingMoreKoreans && curPageNumber < totalPage) {
+    if (!isLoadingMoreKoreans && koreanCurPageNumber < koreanTotalPage) {
       setIsLoadingMoreKoreans(true);
-      setCurPageNumber(curPageNumber + 1);
+      setKoreanCurPageNumber(koreanCurPageNumber + 1);
       setkoreanItemsToShow(koreanItemsToShow + 6);
       setIsLoadingMoreKoreans(false);
+      console.log(koreanTotalPage);
+      console.log(koreanCurPageNumber);
     }
   };
 
+  // 맥주 더보기
   const handleShowMoreBeerItems = () => {
-    if (!isLoadingMoreBeers && curPageNumber < totalPage) {
+    if (!isLoadingMoreBeers && beerCurPageNumber < beerTotalPage) {
       setIsLoadingMoreBeers(true);
-      setCurPageNumber(curPageNumber + 1);
+      setBeerCurPageNumber(beerCurPageNumber + 1);
       setbeerItemsToShow(beerItemsToShow + 6);
       setIsLoadingMoreBeers(false);
+      console.log(beerTotalPage);
+      console.log(beerCurPageNumber);
     }
   };
 
@@ -164,24 +187,24 @@ export default function MainTab() {
     console.log(isLogin);
     // 와인
     useEffect(() => {
-      apiGetNotLoginRecommendedByType("l1", curPageNumber)
+      apiGetNotLoginRecommendedByType("l1", wineCurPageNumber)
         .then((res: any) => {
           console.log(res);
           if (res.data.success) {
             const wineList = res.data.body.content.filter((item: any) => item.liquorType === "WINE");
             setWineList((prevWineList) => [...prevWineList, ...wineList]);
             setWineListToShow((prevWineListToShow) => [...prevWineListToShow, ...wineList.slice(0, wineItemsToShow)]);
-            setTotalPage(res.data.body.totalPage);
+            setWineTotalPage(res.data.body.totalPage);
           }
         })
         .catch((error) => {
           console.error(error);
         });
-    }, [curPageNumber]);
+    }, [wineCurPageNumber]);
 
     // 칵테일
     useEffect(() => {
-      apiGetNotLoginRecommendedByType("l5", curPageNumber)
+      apiGetNotLoginRecommendedByType("l5", cocktailCurPageNumber)
         .then((res: any) => {
           console.log(res);
           if (res.data.success) {
@@ -191,17 +214,17 @@ export default function MainTab() {
               ...prevCocktailListToShow,
               ...cocktailList.slice(0, cocktailItemsToShow),
             ]);
-            setTotalPage(res.data.body.totalPage);
+            setCocktailTotalPage(res.data.body.totalPage);
           }
         })
         .catch((error) => {
           console.error(error);
         });
-    }, [curPageNumber, cocktailItemsToShow]);
+    }, [cocktailCurPageNumber, cocktailItemsToShow]);
 
     // 위스키
     useEffect(() => {
-      apiGetNotLoginRecommendedByType("l2", curPageNumber)
+      apiGetNotLoginRecommendedByType("l2", whiskyCurPageNumber)
         .then((res: any) => {
           console.log(res);
           if (res.data.success) {
@@ -211,17 +234,17 @@ export default function MainTab() {
               ...prevWhiskyListToShow,
               ...whiskyList.slice(0, whiskyItemsToShow),
             ]);
-            setTotalPage(res.data.body.totalPage);
+            setWhiskyTotalPage(res.data.body.totalPage);
           }
         })
         .catch((error) => {
           console.error(error);
         });
-    }, [curPageNumber]);
+    }, [whiskyCurPageNumber]);
 
     // 전통주
     useEffect(() => {
-      apiGetNotLoginRecommendedByType("l4", curPageNumber)
+      apiGetNotLoginRecommendedByType("l4", koreanCurPageNumber)
         .then((res: any) => {
           console.log(res);
           if (res.data.success) {
@@ -231,53 +254,53 @@ export default function MainTab() {
               ...prevKoreanListToShow,
               ...koreanList.slice(0, koreanItemsToShow),
             ]);
-            setTotalPage(res.data.body.totalPage);
+            setKoreanTotalPage(res.data.body.totalPage);
           }
         })
         .catch((error) => {
           console.error(error);
         });
-    }, [curPageNumber]);
+    }, [koreanCurPageNumber]);
 
     // 맥주
     useEffect(() => {
-      apiGetNotLoginRecommendedByType("l3", curPageNumber)
+      apiGetNotLoginRecommendedByType("l3", beerCurPageNumber)
         .then((res: any) => {
           console.log(res);
           if (res.data.success) {
             const beerList = res.data.body.content.filter((item: any) => item.liquorType === "BEER");
             setBeerList((prevBeerList) => [...prevBeerList, ...beerList]);
             setBeerListToShow((prevBeerListToShow) => [...prevBeerListToShow, ...beerList.slice(0, beerItemsToShow)]);
-            setTotalPage(res.data.body.totalPage);
+            setBeerTotalPage(res.data.body.totalPage);
           }
         })
         .catch((error) => {
           console.error(error);
         });
-    }, [curPageNumber]);
+    }, [beerCurPageNumber]);
 
     // 로그인시 호출 api
   } else {
     console.log(isLogin);
     useEffect(() => {
-      apiGetLoginRecommendedByType("l1", curPageNumber)
+      apiGetLoginRecommendedByType("l1", wineCurPageNumber)
         .then((res: any) => {
           console.log(res);
           if (res.data.success) {
             const wineList = res.data.body.content.filter((item: any) => item.liquorType === "WINE");
             setWineList((prevWineList) => [...prevWineList, ...wineList]);
             setWineListToShow((prevWineListToShow) => [...prevWineListToShow, ...wineList.slice(0, wineItemsToShow)]);
-            setTotalPage(res.data.body.totalPage);
+            setWineTotalPage(res.data.body.totalPage);
           }
         })
         .catch((error) => {
           console.error(error);
         });
-    }, [curPageNumber]);
+    }, [wineCurPageNumber]);
 
     // 칵테일
     useEffect(() => {
-      apiGetLoginRecommendedByType("l5", curPageNumber)
+      apiGetLoginRecommendedByType("l5", cocktailCurPageNumber)
         .then((res: any) => {
           console.log(res);
           if (res.data.success) {
@@ -287,17 +310,17 @@ export default function MainTab() {
               ...prevCocktailListToShow,
               ...cocktailList.slice(0, cocktailItemsToShow),
             ]);
-            setTotalPage(res.data.body.totalPage);
+            setCocktailTotalPage(res.data.body.totalPage);
           }
         })
         .catch((error) => {
           console.error(error);
         });
-    }, [curPageNumber, cocktailItemsToShow]);
+    }, [cocktailCurPageNumber, cocktailItemsToShow]);
 
     // 위스키
     useEffect(() => {
-      apiGetLoginRecommendedByType("l2", curPageNumber)
+      apiGetLoginRecommendedByType("l2", whiskyCurPageNumber)
         .then((res: any) => {
           console.log(res);
           if (res.data.success) {
@@ -307,17 +330,17 @@ export default function MainTab() {
               ...prevWhiskyListToShow,
               ...whiskyList.slice(0, whiskyItemsToShow),
             ]);
-            setTotalPage(res.data.body.totalPage);
+            setWhiskyTotalPage(res.data.body.totalPage);
           }
         })
         .catch((error) => {
           console.error(error);
         });
-    }, [curPageNumber]);
+    }, [whiskyCurPageNumber]);
 
     // 전통주
     useEffect(() => {
-      apiGetLoginRecommendedByType("l4", curPageNumber)
+      apiGetLoginRecommendedByType("l4", koreanCurPageNumber)
         .then((res: any) => {
           console.log(res);
           if (res.data.success) {
@@ -327,30 +350,30 @@ export default function MainTab() {
               ...prevKoreanListToShow,
               ...koreanList.slice(0, koreanItemsToShow),
             ]);
-            setTotalPage(res.data.body.totalPage);
+            setKoreanTotalPage(res.data.body.totalPage);
           }
         })
         .catch((error) => {
           console.error(error);
         });
-    }, [curPageNumber]);
+    }, [koreanCurPageNumber]);
 
     // 맥주
     useEffect(() => {
-      apiGetLoginRecommendedByType("l3", curPageNumber)
+      apiGetLoginRecommendedByType("l3", beerCurPageNumber)
         .then((res: any) => {
           console.log(res);
           if (res.data.success) {
             const beerList = res.data.body.content.filter((item: any) => item.liquorType === "BEER");
             setBeerList((prevBeerList) => [...prevBeerList, ...beerList]);
             setBeerListToShow((prevBeerListToShow) => [...prevBeerListToShow, ...beerList.slice(0, beerItemsToShow)]);
-            setTotalPage(res.data.body.totalPage);
+            setBeerTotalPage(res.data.body.totalPage);
           }
         })
         .catch((error) => {
           console.error(error);
         });
-    }, [curPageNumber]);
+    }, [beerCurPageNumber]);
   }
 
   const themes = createTheme({
@@ -476,7 +499,7 @@ export default function MainTab() {
                     </div>
                   ))}
                   {isLoadingMoreCocktails && <div>Loading...</div>}
-                  {!isLoadingMoreCocktails && curPageNumber < totalPage - 1 && (
+                  {!isLoadingMoreCocktails && cocktailCurPageNumber < cocktailTotalPage - 1 && (
                     <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreCocktailItems}>
                       더보기
                     </a>
@@ -523,7 +546,7 @@ export default function MainTab() {
                     </div>
                   ))}
                   {isLoadingMoreWhiskys && <div>Loading...</div>}
-                  {!isLoadingMoreWhiskys && curPageNumber < totalPage && (
+                  {!isLoadingMoreWhiskys && whiskyCurPageNumber < whiskyTotalPage - 1 && (
                     <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreWhiskyItems}>
                       더보기
                     </a>
@@ -570,7 +593,7 @@ export default function MainTab() {
                     </div>
                   ))}
                   {isLoadingMoreWines && <div>Loading...</div>}
-                  {!isLoadingMoreWines && curPageNumber < totalPage && (
+                  {!isLoadingMoreWines && wineCurPageNumber < wineTotalPage - 1 && (
                     <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreWineItems}>
                       더보기
                     </a>
@@ -617,7 +640,7 @@ export default function MainTab() {
                     </div>
                   ))}
                   {isLoadingMoreKoreans && <div>Loading...</div>}
-                  {!isLoadingMoreKoreans && curPageNumber < totalPage && (
+                  {!isLoadingMoreKoreans && koreanCurPageNumber < koreanTotalPage - 1 && (
                     <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreKoreanItems}>
                       더보기
                     </a>
@@ -664,7 +687,7 @@ export default function MainTab() {
                     </div>
                   ))}
                   {isLoadingMoreBeers && <div>Loading...</div>}
-                  {!isLoadingMoreBeers && curPageNumber < totalPage && (
+                  {!isLoadingMoreBeers && beerCurPageNumber < beerTotalPage - 1 && (
                     <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreBeerItems}>
                       더보기
                     </a>
