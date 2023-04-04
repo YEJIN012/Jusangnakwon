@@ -2,9 +2,9 @@ package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.domain.liquor.api.request.HometenderRequest;
-import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorService;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.HometenderTasteDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.HometenderTasteType;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
@@ -97,5 +97,13 @@ public class LiquorController {
         com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto hometenderDto = liquorCommonService.createHometender(user.getId(), requestHometenderDto);
         return ResponseEntity.ok(ResponseDto.builder().success(true)
                 .body(liquorDtoMapper.hometenderDtoToLiquorDetailResponse(hometenderDto)).build());
+    }
+
+    @GetMapping("scrap/{type}/{id}")
+    public ResponseEntity<ResponseDto> scrapLiquor(
+            @PathVariable("type") String type, @PathVariable("id") Long id,
+            @AuthenticationPrincipal User user) {
+        liquorCommonService.scrapLiquor(type, id, user);
+        return ResponseEntity.ok(ResponseDto.builder().build());
     }
 }

@@ -2,10 +2,13 @@ package com.osakak.jusangnakwon.domain.liquor.application;
 
 import com.osakak.jusangnakwon.common.errors.NoLiquorNameExistException;
 import com.osakak.jusangnakwon.common.errors.UserNotFoundException;
-import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
+import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
+import com.osakak.jusangnakwon.domain.feed.entity.Scrap;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorCustomMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
@@ -38,6 +41,7 @@ public class LiquorService {
     private final WineRepository wineRepository;
     private final LiquorMapper liquorMapper;
     private final LiquorCustomMapper liquorCustomMapper;
+    private final ScrapRepository scrapRepository;
 
     /**
      * 사용자 검색
@@ -174,5 +178,71 @@ public class LiquorService {
         return userRepository
                 .findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @Transactional
+    public void scrapLiquor(String type, Long id, User user) {
+        switch (type) {
+            case "l3":
+                Optional<Beer> beerByid = beerRepository.findById(id);
+                if (beerByid.isPresent()) {
+                    Beer beer = beerByid.get();
+                    updateScrapState(LiquorType.BEER, id, user, beer.getName());
+                }
+                return;
+            case "l6":
+                Optional<Hometender> byIdHometender = hometenderRepository.findById(id);
+                if (byIdHometender.isPresent()) {
+                    Hometender liquor = byIdHometender.get();
+                    updateScrapState(LiquorType.HOMETENDER, id, user, liquor.getName());
+                }
+                return;
+            case "l4":
+                Optional<Tradition> byIdTradition = traditionRepository.findById(id);
+                if (byIdTradition.isPresent()) {
+                    Tradition liquor = byIdTradition.get();
+                    updateScrapState(LiquorType.TRADITION, id, user, liquor.getName());
+                }
+                return;
+            case "l5":
+                Optional<Cocktail> byIdCocktail = cocktailRepository.findById(id);
+                if (byIdCocktail.isPresent()) {
+                    Cocktail liquor = byIdCocktail.get();
+                    updateScrapState(LiquorType.COCKTAIL, id, user, liquor.getName());
+                }
+                return;
+            case "l2":
+                Optional<Whisky> byIdWhisky = whiskyRepository.findById(id);
+                if (byIdWhisky.isPresent()) {
+                    Whisky liquor = byIdWhisky.get();
+                    updateScrapState(LiquorType.WHISKY, id, user, liquor.getName());
+                }
+                return;
+            case "l1":
+                Optional<Wine> byIdWine = wineRepository.findById(id);
+                if (byIdWine.isPresent()) {
+                    Wine liquor = byIdWine.get();
+                    updateScrapState(LiquorType.WINE, id, user, liquor.getName());
+                }
+        }
+    }
+
+    private void updateScrapState(LiquorType type, Long id, User user, String name) {
+        scrapRepository.isUserScrapped(id, user.getId(), type)
+                .ifPresentOrElse(scrap -> {
+                    scrap.updateScrapState(!scrap.getScrapped());
+                }, () -> {
+                    extracted(id, name, type, user);
+                });
+    }
+
+    private void extracted(Long id, String liquor, LiquorType type, User user) {
+        scrapRepository.save(Scrap.builder()
+                .liquorId(id)
+                .liquorName(liquor)
+                .liquorType(type)
+                .user(user)
+                .scrapped(true)
+                .build());
     }
 }
