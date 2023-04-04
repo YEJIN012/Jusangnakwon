@@ -3,10 +3,7 @@ package com.osakak.jusangnakwon.domain.user.entity;
 import com.osakak.jusangnakwon.common.oauth.entity.ProviderType;
 import com.osakak.jusangnakwon.common.oauth.entity.RoleType;
 import io.jsonwebtoken.Claims;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -69,5 +66,10 @@ public class User {
     public User(Long id,String userId) {
         this.id=id;
         this.userId = userId;
+    }
+
+
+    public void completeSurvey(Byte complete) {
+        this.survey=complete;
     }
 }
