@@ -29,6 +29,6 @@ public interface TraditionRepository extends JpaRepository<Tradition, Long>,Trad
     Page<Tradition> findById(Set<Long> similarTraditionUniqueList, Pageable pageable);
 
     @Query("select l from  Tradition l where l.id in (:id)")
-    List<Tradition> findByIdList(List<Long> id);
+    List<Tradition> findByIdList(@Param("id")List<Long> id);
 }
 
