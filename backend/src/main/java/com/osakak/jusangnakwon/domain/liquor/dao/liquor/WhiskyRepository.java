@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public interface WhiskyRepository extends JpaRepository<Whisky, Long> {
+public interface WhiskyRepository extends JpaRepository<Whisky, Long>,WhiskyQueryRepository {
     /**
      * 전체 위스키 칵테일 랭킹순 조회
      *
@@ -27,4 +27,7 @@ public interface WhiskyRepository extends JpaRepository<Whisky, Long> {
 
     @Query("select w from Whisky w WHERE w.id IN :similarWhiskyUniqueList ")
     Page<Whisky> findById(Set<Long> similarWhiskyUniqueList, Pageable pageable);
+
+    @Query("select l from  Whisky l where l.id in (:list)")
+    List<Whisky> findByIdList(@Param("list") List<Long> list);
 }

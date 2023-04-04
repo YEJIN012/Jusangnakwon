@@ -117,4 +117,20 @@ public class LiquorLoggedInController {
         return ResponseEntity.ok(responseDto);
     }
 
+    /**
+     * 주종별 추천 - 칵테일
+     * user state: logged in
+     *
+     * @return 추천 4개(개수는 임시)
+     */
+    @GetMapping("l6")
+    public ResponseEntity<ResponseDto> recommendHometender(@RequestParam int page,@AuthenticationPrincipal User user) {
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.HOMETENDER,user);
+        ResponseDto responseDto = ResponseDto.builder()
+                .success(true)
+                .body(liquorList)
+                .build();
+        return ResponseEntity.ok(responseDto);
+    }
+
 }

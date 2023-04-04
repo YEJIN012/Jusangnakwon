@@ -1,5 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
+import com.osakak.jusangnakwon.common.errors.SurveyNotFoundException;
 import com.osakak.jusangnakwon.domain.feed.dao.RatingRepository;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
@@ -144,14 +145,34 @@ public class LiquorLoggedInService {
 
         } else { //좋아하는 술이 4개 미만이라면 취향설문을 기반으로 유사한 술을 추천해준다
             Survey survey = surveyRepository.findByUserId(user.getId());
-            switch(liquorType){
+            if (survey == null) {
+                throw new SurveyNotFoundException(user.getId());
+            }
+            switch (liquorType) {
                 case WINE:
+                    Page<Wine> wines = wineRepository.findByTaste(survey, pageable);
+                    list = liquorMapper.toLiquorListDtoWine(wines.getContent());
+                    return getLiquorListMainResponse(wines.getTotalPages(), wines.getPageable(), list);
                 case WHISKY:
+                    Page<Whisky> whiskies = whiskyRepository.findByTaste(survey, pageable);
+                    list = liquorMapper.toLiquorListDtoWhisky(whiskies.getContent());
+                    return getLiquorListMainResponse(whiskies.getTotalPages(), whiskies.getPageable(), list);
                 case BEER:
+                    Page<Beer> beers = beerRepository.findByTaste(survey, pageable);
+                    list = liquorMapper.toLiquorListDtoBeer(beers.getContent());
+                    return getLiquorListMainResponse(beers.getTotalPages(), beers.getPageable(), list);
                 case COCKTAIL:
+                    Page<Cocktail> cocktails = cocktailRepository.findByTaste(survey, pageable);
+                    list = liquorMapper.toLiquorListDtoCocktail(cocktails.getContent());
+                    return getLiquorListMainResponse(cocktails.getTotalPages(), cocktails.getPageable(), list);
                 case TRADITION:
+                    Page<Tradition> traditions = traditionRepository.findByTaste(survey, pageable);
+                    list = liquorMapper.toLiquorListDtoTradition(traditions.getContent());
+                    return getLiquorListMainResponse(traditions.getTotalPages(), traditions.getPageable(), list);
                 case HOMETENDER:
-
+                    Page<Hometender> hometenders = hometenderRepository.findByTaste(survey, pageable);
+                    list = liquorMapper.toLiquorListDtoHometender(hometenders.getContent());
+                    return getLiquorListMainResponse(hometenders.getTotalPages(), hometenders.getPageable(), list);
             }
         }
 
