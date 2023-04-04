@@ -22,8 +22,8 @@ const App = () => {
               {/* <Header /> */}
               <div className={`${styles[`content-wrapper`]}`}>
                 <Outlet></Outlet>
+                <BottomBar />
               </div>
-              <BottomBar />
             </PersistGate>
           </Provider>
         </CookiesProvider>

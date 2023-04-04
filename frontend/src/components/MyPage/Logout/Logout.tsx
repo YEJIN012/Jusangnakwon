@@ -10,7 +10,6 @@ const Logout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookie, setCookie, removeCookie] = useCookies();
-  const [tokenInSessionStorage, setTokenInSessionStorage] = useState(sessionStorage.getItem("accessToken"))
 
   const handleLogout = () => {
     console.log("로그아웃");
@@ -33,13 +32,6 @@ const Logout = () => {
       // .catch((e) => {
       //   console.log(e);
       // });
-      // useEffect(() => {
-      //   if (self.name != "reload") {
-      //     self.name = "reload";
-      //     self.location.reload();
-      //     console.log("토큰지우고 재렌더링")
-      //   } else self.name = "";
-      // }, [tokenInSessionStorage]);
   };
   
 
