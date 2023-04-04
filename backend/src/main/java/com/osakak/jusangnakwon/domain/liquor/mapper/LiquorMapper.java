@@ -1,7 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.mapper;
 
-import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
-import com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.user.entity.User;
@@ -9,17 +8,22 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import java.util.stream.Collectors;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Mapper(componentModel = "spring", imports = {Arrays.class, Collectors.class})
 public interface LiquorMapper {
-    @Mapping(target = "materials", expression = "java(Arrays.asList(hometender.getMaterials().split(\",\"))" +
+    @Mapping(target = "ingredients", expression = "java(Arrays.asList(hometender.getMaterials().split(\",\"))" +
             ".stream().map(String::trim).collect(Collectors.toList()))")
-    RandomHometenderResponse toRandHometender(Hometender hometender);
+    @Mapping(target = "explain", source = "description")
+    @Named("HOMETENDER")
+    HometenderPageDto toRandHometender(Hometender hometender);
+
+    @IterableMapping(qualifiedByName = "HOMETENDER")
+    List<HometenderPageDto> toHometenderList(List<Hometender> hometenders);
 
     /**
      * 술 객체 하나를 메인에 보여줄 리스트 아이템 하나로 만들어준다
@@ -47,18 +51,16 @@ public interface LiquorMapper {
     @IterableMapping(qualifiedByName = "COCKTAIL")
     List<LiquorListItemDto> toLiquorListDtoCocktail(List<Cocktail> cocktails);
 
-
-    @Named("HOMETENDER")
-    LiquorListItemDto toLiquorItemHometender(Hometender hometender);
-
-    @IterableMapping(qualifiedByName = "HOMETENDER")
-    List<LiquorListItemDto> toLiquorListDtoHometender(List<Hometender> hometenders);
-
     @Named("TRADITION")
     LiquorListItemDto toLiquorItemTradition(Tradition tradition);
 
     @IterableMapping(qualifiedByName = "TRADITION")
     List<LiquorListItemDto> toLiquorListDtoTradition(List<Tradition> traditions);
+    @Named("HOMEDTO")
+    LiquorListItemDto toLiquorItemHometender(Hometender hometender);
+
+    @IterableMapping(qualifiedByName = "HOMEDTO")
+    List<LiquorListItemDto> toLiquorListDtoHometender(List<Hometender> hometenders);
 
     @Named("WHISKY")
     LiquorListItemDto toLiquorItemWhisky(Whisky whisky);
@@ -81,7 +83,7 @@ public interface LiquorMapper {
     @Mapping(source = "hometenderDto.taste.sweet", target = "sweet")
     @Mapping(target = "similarHometenderItem", ignore = true)
     @Mapping(target = "dateCreated", ignore = true)
-    Hometender hometenderDtoToHometender(HometenderDto hometenderDto, User user);
+    Hometender hometenderDtoToHometender(com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto hometenderDto, User user);
 
     @Mapping(source = "user.username", target = "writer.username")
     @Mapping(source = "user.profileImageUrl", target = "writer.profileImg")
@@ -94,6 +96,5 @@ public interface LiquorMapper {
     @Mapping(source = "sweet", target = "taste.sweet")
     @Mapping(target = "reviews", ignore = true)
     @Mapping(target = "similarItems", ignore = true)
-    HometenderDto hometenderToHometenderDto(Hometender hometender);
+    com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto hometenderToHometenderDto(Hometender hometender);
 }
-
