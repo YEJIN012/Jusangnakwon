@@ -12,6 +12,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepository {
@@ -53,7 +55,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "left join fetch Beer b " +
             "on f.liquorId = b.id " +
             "where f.liquorId=:id and f.type='리뷰글'")
-    List<ReviewListDto> findBeerReviewByLiquorId(Long id);
+    List<ReviewListDto> findBeerReviewByLiquorId(@Param("id") Long id);
 
     @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto(r.score, f.dateCreated, f.content, f.img) " +
             "from Feed f " +
