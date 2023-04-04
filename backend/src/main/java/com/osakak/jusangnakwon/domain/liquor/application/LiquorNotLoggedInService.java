@@ -74,6 +74,10 @@ public class LiquorNotLoggedInService {
                 Page<Tradition> traditions = traditionRepository.findByRatingAvg(pageable);
                 list = liquorMapper.toLiquorListDtoTradition(traditions.getContent());
                 return getLiquorListMainResponse(traditions.getTotalPages(), traditions.getPageable(), list);
+            case HOMETENDER:
+                Page<Hometender> hometenders = hometenderRepository.findByRatingAvg(pageable);
+                list = liquorMapper.toLiquorListDtoHometender(hometenders.getContent());
+                return getLiquorListMainResponse(hometenders.getTotalPages(), hometenders.getPageable(), list);
         }
         return null;
     }
