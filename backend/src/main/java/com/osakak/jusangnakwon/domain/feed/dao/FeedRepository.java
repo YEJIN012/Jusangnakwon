@@ -18,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepository {
 
-    List<Feed> findByIdAndLiquorType(Long id, String liquorType);
-
     @Query(nativeQuery = true,
             value = "select f.id AS id, f.type AS feedType, f.date_created AS dateCreated, f.title AS title, f.content AS content, f.img AS image from feed f where f.user_id = :userId union "
                     + "select h.id AS id, '레시피' AS feedType, h.date_created AS dateCreated, h.name AS title, h.description AS content, h.image AS image from hometender h where h.user_id = :userId "
@@ -64,7 +62,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "left join fetch Wine b " +
             "on f.liquorId = b.id " +
             "where f.liquorId=:id and f.type='리뷰글'")
-    List<ReviewListDto> findWineReviewByLiquorId(Long id);
+    List<ReviewListDto> findWineReviewByLiquorId(@Param("id")Long id);
 
     @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto(r.score, f.dateCreated, f.content, f.img) " +
             "from Feed f " +
@@ -73,7 +71,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "left join fetch Cocktail b " +
             "on f.liquorId = b.id " +
             "where f.liquorId=:id and f.type='리뷰글'")
-    List<ReviewListDto> findCocktailReviewByLiquorId(Long id);
+    List<ReviewListDto> findCocktailReviewByLiquorId(@Param("id")Long id);
 
     @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto(r.score, f.dateCreated, f.content, f.img) " +
             "from Feed f " +
@@ -82,7 +80,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "left join fetch Tradition b " +
             "on f.liquorId = b.id " +
             "where f.liquorId=:id and f.type='리뷰글'")
-    List<ReviewListDto> findTraditionReviewByLiquorId(Long id);
+    List<ReviewListDto> findTraditionReviewByLiquorId(@Param("id")Long id);
 
     @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto(r.score, f.dateCreated, f.content, f.img) " +
             "from Feed f " +
@@ -91,7 +89,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "left join fetch Hometender b " +
             "on f.liquorId = b.id " +
             "where f.liquorId=:id and f.type='리뷰글'")
-    List<ReviewListDto> findHometenderReviewByLiquorId(Long id);
+    List<ReviewListDto> findHometenderReviewByLiquorId(@Param("id")Long id);
 
     @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto(r.score, f.dateCreated, f.content, f.img) " +
             "from Feed f " +
@@ -100,7 +98,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "left join fetch Whisky b " +
             "on f.liquorId = b.id " +
             "where f.liquorId=:id and f.type='리뷰글'")
-    List<ReviewListDto> findWhiskyReviewByLiquorId(Long id);
+    List<ReviewListDto> findWhiskyReviewByLiquorId(@Param("id") Long id);
 
     @Modifying
     @Query("update Beer b set b.ratingAvg = "
