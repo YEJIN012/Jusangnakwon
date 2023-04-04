@@ -7,8 +7,7 @@ import com.osakak.jusangnakwon.domain.user.application.SurveyService;
 import com.osakak.jusangnakwon.domain.user.application.UserService;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import com.osakak.jusangnakwon.domain.user.mapper.UserDtoMapper;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +29,9 @@ public class UserController {
      * @param user
      * @return 유저정보
      */
-    @Tag(name = "userInfo")
-    @Operation(
-            summary = "유저 정보 조회",
-            description = "토큰값을 이용해 유저를 찾아서 세부정보를 리턴"
+    @ApiOperation(
+            value = "유저 정보 조회",
+            notes = "토큰값을 이용해 유저를 찾아서 세부정보를 리턴"
     )
     @GetMapping("/info")
     public ResponseEntity<ResponseDto> getUserInfo(@AuthenticationPrincipal User user) {
@@ -52,10 +50,9 @@ public class UserController {
      * @param requestSurvey
      * @return
      */
-    @Tag(name = "survey 저장")
-    @Operation(
-            summary = "유저 취향 설문 결과 저장",
-            description = "유저 취향 설문 결과 저장"
+    @ApiOperation(
+            value = "유저 취향 설문 결과 저장",
+            notes = "유저 취향 설문 결과 저장"
     )
     @PostMapping("/survey")
     public ResponseEntity<ResponseDto> postSurvey(@AuthenticationPrincipal User user, @RequestBody SurveyRequest requestSurvey) {
