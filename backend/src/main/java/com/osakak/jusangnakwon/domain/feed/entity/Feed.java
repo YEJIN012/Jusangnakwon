@@ -96,4 +96,8 @@ public class Feed {
         this.comments = comments;
         this.rating = rating;
     }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
 }
