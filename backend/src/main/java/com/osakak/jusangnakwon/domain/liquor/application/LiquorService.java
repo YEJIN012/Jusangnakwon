@@ -1,5 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
 import com.osakak.jusangnakwon.common.errors.NoLiquorNameExistException;
 import com.osakak.jusangnakwon.common.errors.UserNotFoundException;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
@@ -13,17 +15,17 @@ import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -39,6 +41,9 @@ public class LiquorService {
     private final WineRepository wineRepository;
     private final LiquorMapper liquorMapper;
     private final LiquorCustomMapper liquorCustomMapper;
+    @Value("${spring.cloud.gcp.storage.bucket}")
+    private String bucketName;
+    private final Storage storage;
 
     /**
      * 사용자 검색
@@ -156,8 +161,21 @@ public class LiquorService {
      * @return 생성한 홈텐더 레시피
      */
     @Transactional
-    public HometenderDto createHometender(Long id, HometenderDto hometenderDto) {
+    public HometenderDto createHometender(Long id, HometenderDto hometenderDto, MultipartFile image) throws IOException {
         User user = findUser(id);
+        String uuid = null;
+        if (image != null) {
+            uuid = UUID.randomUUID().toString();
+            String ext = image.getContentType();
+            BlobInfo blobInfo = storage.create(
+                    BlobInfo.newBuilder(bucketName, uuid)
+                            .setContentType(ext)
+                            .build(),
+                    image.getInputStream()
+            );
+            uuid = "https://storage.googleapis.com/" + bucketName + "/" + uuid;
+        }
+        hometenderDto.setImage(uuid);
         Hometender hometender = liquorMapper.hometenderDtoToHometender(
                 hometenderDto,
                 user

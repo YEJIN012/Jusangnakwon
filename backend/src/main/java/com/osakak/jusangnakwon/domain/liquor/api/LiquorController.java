@@ -21,6 +21,9 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Tag(name = "liquor", description = "공통 술 api")
 @RestController
@@ -82,7 +85,7 @@ public class LiquorController {
     @Operation(summary = "홈텐더 레시피 생성", description = "홈텐더 레시피를 생성하고 생성된 홈텐더 레시피 상세내용을 리턴")
     @PostMapping("hometender/{userId}")
     public ResponseEntity<ResponseDto> createHometender(@AuthenticationPrincipal User user,
-                                                        @RequestBody HometenderRequest hometenderRequest) {
+                                                        HometenderRequest hometenderRequest) throws IOException {
         HometenderTasteDto taste = hometenderRequest.getTaste();
         //taste 0(낮음), 1(중간), 2(높음) 값을 각 실제 맛 타입 범위 안의 중간값으로 변환하는 작업
         HometenderTasteDto convertedTaste = HometenderTasteDto.builder()
@@ -91,11 +94,12 @@ public class LiquorController {
                 .sour(HometenderTasteType.findTasteType("SOUR", taste.getSour()).getVal())
                 .sweet(HometenderTasteType.findTasteType("SWEET", taste.getSweet()).getVal())
                 .build();
+        MultipartFile image = hometenderRequest.getImage();
         hometenderRequest.setTaste(convertedTaste);
         HometenderDto requestHometenderDto = liquorDtoMapper.hometenderRequestToHometenderDto(hometenderRequest);
         requestHometenderDto.setLiquorType(LiquorType.HOMETENDER);
         requestHometenderDto.setRatingAvg(Double.valueOf("0"));
-        HometenderDto hometenderDto = liquorCommonService.createHometender(user.getId(), requestHometenderDto);
+        HometenderDto hometenderDto = liquorCommonService.createHometender(user.getId(), requestHometenderDto, image);
         return ResponseEntity.ok(ResponseDto.builder().success(true)
                 .body(liquorDtoMapper.hometenderDtoToLiquorDetailResponse(hometenderDto)).build());
     }

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public interface LiquorDtoMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "image", ignore = true)
     @Mapping(target = "writer", ignore = true)
     @Mapping(target = "ratingAvg", ignore = true)
     @Mapping(target = "scrapCnt", ignore = true)

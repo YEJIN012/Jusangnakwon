@@ -14,7 +14,7 @@ public class HometenderDto {
     private final Long id;
     private final String name;
     private final WriterDto writer;
-    private final String image;
+    private String image;
     private Double ratingAvg;
     private Long scrapCnt;
     private Boolean scrapped;

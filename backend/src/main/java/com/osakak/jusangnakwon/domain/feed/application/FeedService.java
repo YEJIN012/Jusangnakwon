@@ -45,7 +45,7 @@ public class FeedService {
     private final FeedDtoMapper feedDtoMapper = Mappers.getMapper(FeedDtoMapper.class);
     private final FeedMapper feedMapper = Mappers.getMapper(FeedMapper.class);
     static int pageNumber = 0;
-    @Value("${spring.cloud.gcp.storage.bucket}") // application.yml에 써둔 bucket 이름
+    @Value("${spring.cloud.gcp.storage.bucket}")
     private String bucketName;
     private final Storage storage;
 
