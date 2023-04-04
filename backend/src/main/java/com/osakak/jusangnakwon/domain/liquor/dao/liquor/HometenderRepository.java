@@ -37,5 +37,5 @@ public interface HometenderRepository extends JpaRepository<Hometender, Long>,Ho
     Page<Hometender> findById(Set<Long> similarHometenderUniqueList, Pageable pageable);
 
     @Query("select l from  Hometender l where l.id in (:id)")
-    List<Hometender> findByIdList(List<Long> id);
+    List<Hometender> findByIdList(@Param("id")List<Long> id);
 }
