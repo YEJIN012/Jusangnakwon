@@ -1,15 +1,17 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
+import com.osakak.jusangnakwon.domain.liquor.api.response.HometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import com.osakak.jusangnakwon.domain.liquor.dto.SearchType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorCustomMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +40,7 @@ public class LiquorNotLoggedInService {
      * @param pageable   페이징
      * @return 페이징 포함 주종 id, name 정보
      */
-    public LiquorListMainResponse getLiquorList(LiquorType liquorType,   Pageable pageable) {
+    public LiquorListMainResponse getLiquorList(LiquorType liquorType, Pageable pageable) {
         return getLiquorListByRank(liquorType, pageable);
     }
 
@@ -72,10 +74,6 @@ public class LiquorNotLoggedInService {
                 Page<Tradition> traditions = traditionRepository.findByRatingAvg(pageable);
                 list = liquorMapper.toLiquorListDtoTradition(traditions.getContent());
                 return getLiquorListMainResponse(traditions.getTotalPages(), traditions.getPageable(), list);
-            case HOMETENDER:
-                Page<Hometender> hometenders = hometenderRepository.findByRatingAvg(pageable);
-                list = liquorMapper.toLiquorListDtoHometender(hometenders.getContent());
-                return getLiquorListMainResponse(hometenders.getTotalPages(), hometenders.getPageable(), list);
         }
         return null;
     }
@@ -91,5 +89,14 @@ public class LiquorNotLoggedInService {
     private LiquorListMainResponse getLiquorListMainResponse(int totalPage, Pageable pageable, List<LiquorListItemDto> list) {
         pageNumber = pageable.getPageNumber();
         return liquorCustomMapper.toMainPageResponse(list, totalPage, pageNumber);
+    }
+
+    public HometenderResponse getRankHometender() {
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<Hometender> page = hometenderRepository.findByRatingAvg(pageable);
+        List<HometenderPageDto> hometenderResponses = liquorMapper.toHometenderList(page.getContent());
+        return HometenderResponse.builder()
+                .content(hometenderResponses)
+                .build();
     }
 }

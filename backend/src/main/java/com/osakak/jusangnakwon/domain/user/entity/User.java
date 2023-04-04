@@ -2,8 +2,10 @@ package com.osakak.jusangnakwon.domain.user.entity;
 
 import com.osakak.jusangnakwon.common.oauth.entity.ProviderType;
 import com.osakak.jusangnakwon.common.oauth.entity.RoleType;
-import io.jsonwebtoken.Claims;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -46,7 +48,7 @@ public class User {
     @Column(name = "profile_img", nullable = false, length = 512)
     private String profileImageUrl;
 
-    @Column(name= "survey",nullable = false)
+    @Column(name = "survey", nullable = false)
     private Byte survey;
 
     @Builder
@@ -63,13 +65,13 @@ public class User {
         this.survey = survey;
     }
 
-    public User(Long id,String userId) {
-        this.id=id;
+    public User(Long id, String userId) {
+        this.id = id;
         this.userId = userId;
     }
 
 
     public void completeSurvey(Byte complete) {
-        this.survey=complete;
+        this.survey = complete;
     }
 }
