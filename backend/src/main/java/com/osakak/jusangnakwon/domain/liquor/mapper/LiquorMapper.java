@@ -9,15 +9,16 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.springframework.data.jpa.repository.Query;
+import java.util.stream.Collectors;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
-@Mapper(componentModel = "spring", imports = Arrays.class)
+
+@Mapper(componentModel = "spring", imports = {Arrays.class, Collectors.class})
 public interface LiquorMapper {
-    @Mapping(target = "materials", expression = "java(Arrays.asList(hometender.getMaterials().split(\",\")))")
+    @Mapping(target = "materials", expression = "java(Arrays.asList(hometender.getMaterials().split(\",\"))" +
+            ".stream().map(String::trim).collect(Collectors.toList()))")
     RandomHometenderResponse toRandHometender(Hometender hometender);
 
     /**
@@ -38,7 +39,7 @@ public interface LiquorMapper {
      */
 
     @IterableMapping(qualifiedByName = "BEER")
-    List<LiquorListItemDto>     toLiquorListDtoBeer(List<Beer> beers);
+    List<LiquorListItemDto> toLiquorListDtoBeer(List<Beer> beers);
 
     @Named("COCKTAIL")
     LiquorListItemDto toLiquorItemCocktail(Cocktail cocktail);
