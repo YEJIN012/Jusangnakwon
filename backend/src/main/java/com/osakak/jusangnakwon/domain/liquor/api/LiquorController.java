@@ -99,7 +99,7 @@ public class LiquorController {
                 .body(liquorDtoMapper.hometenderDtoToLiquorDetailResponse(hometenderDto)).build());
     }
 
-    @GetMapping("scrap/{type}/{id}")
+    @PutMapping("scrap/{type}/{id}")
     public ResponseEntity<ResponseDto> scrapLiquor(
             @PathVariable("type") String type, @PathVariable("id") Long id,
             @AuthenticationPrincipal User user) {
