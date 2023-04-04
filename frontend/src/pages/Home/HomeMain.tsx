@@ -19,7 +19,7 @@ const settings = {
   arrows: false,
   infinite: true,
   speed: 2000,
-  autoplay: false,
+  autoplay: true,
   slidesToShow: 1,
   slidesToScroll: 1,
   autoplaySpeed: 2000,
@@ -33,7 +33,7 @@ interface ApiData {
     id: number;
     name: number;
     img: string;
-    materials: string[];
+    ingredients: string[];
   };
 }
 const HomeMain = () => {
@@ -78,7 +78,7 @@ const HomeMain = () => {
             if (item.type === HometenderBanner) {
               return (
                 <div key={index}>
-                  <HometenderBanner {...recommendedHometender} />
+                  <HometenderBanner key={index} {...recommendedHometender} />
                 </div>
               );
             } else {
@@ -87,19 +87,17 @@ const HomeMain = () => {
           })}
         </Slider>
       </div>
-      {
-        userInfo.isLogin ?
-
+      {userInfo.isLogin ? (
         <div className={`${styles[`text-wrap`]}`}>
-        <h3>{userInfo.username}님의 취향</h3>
-        <p>{userInfo.username}님의의 취향에 맞는 술을 주종별로 추천해드려요!</p>
-      </div>
-      :
-      <div className={`${styles[`text-wrap`]}`}>
-      <h3>주상낙원만의 Best 술을</h3>
-      <h3>주종별로 추천해드려요!</h3>
-      </div>
-      }
+          <h3>{userInfo.username}님의 취향</h3>
+          <p>{userInfo.username}님의의 취향에 맞는 술을 주종별로 추천해드려요!</p>
+        </div>
+      ) : (
+        <div className={`${styles[`text-wrap`]}`}>
+          <h3>주상낙원만의 Best 술을</h3>
+          <h3>주종별로 추천해드려요!</h3>
+        </div>
+      )}
       <MainTab />
     </div>
   );

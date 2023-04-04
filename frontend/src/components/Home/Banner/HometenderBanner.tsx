@@ -14,7 +14,7 @@ interface ApiData {
     id: number;
     name: number;
     img: string;
-    materials: string[];
+    ingredients: string[];
   };
 }
 export default function HometenderBanner(props: ApiData | null) {
@@ -65,15 +65,16 @@ export default function HometenderBanner(props: ApiData | null) {
                 <div className={`${styles[`hometender-banner-contents`]}`}>
                   <p className={`${styles[`hometender-banner-mini-title`]}`}>{recommendedHometender.name}</p>
                   <div className={`${styles[`hometender-banner-materials`]}`}>
-                    {recommendedHometender.materials != null && recommendedHometender.materials.length > 1
-                      ? recommendedHometender.materials.map((material, index) => {
-                          return (
-                            <p key={index} className={`${styles[`hometender-banner-material`]}`}>
+                    {recommendedHometender.ingredients != null && recommendedHometender.ingredients.length > 1
+                      ? recommendedHometender.ingredients
+                          .slice(0, 2)
+                          .map((material, index) => (
+                            <p className={`${styles[`hometender-banner-material`]}`} key={index}>
                               {extractStringBeforeNumber(material)}
                             </p>
-                          );
-                        })
-                      : recommendedHometender.materials}
+                          ))
+                          .concat(recommendedHometender.ingredients.length > 2 ? <p>...▶홈텐딩 하러 가기</p> : [])
+                      : recommendedHometender.ingredients}
                   </div>
                 </div>
               </div>

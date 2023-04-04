@@ -33,25 +33,24 @@ interface UserProfileType {
 }
 
 const MyPageMain = () => {
+  const navigate = useNavigate();
   const userInfo = useSelector((state: RootState) => state.userInfo);
   const userProfile: UserProfileType = { userName: userInfo.username, userImg: userInfo.profileImageUrl };
-  const [date, setDate] = useState(new Date());
-  const [value, onChange] = useState(new Date());
-  // const selectedDate = moment(date)
-
-  const { pathname } = useLocation();
   const [currentPage, setCurrentPage] = useState(0);
-  const [myMonthlyFeedList, setMyMonthlyFeedList] = useState<MyMonthlyFeedItem[] | []>([]);
-  const [myMonthlyReview, setMyMonthlyReview] = useState<MyMonthlyReviewItem[] | []>([]);
-  const navigate = useNavigate();
-  // const filteredPosts = myFeedList
-  //   ? myFeedList.filter((feed: MyFeedItem) => {
-  //       return new Date(feed.dateCreated).toDateString() === selectedDate.toDateString();
-  //     })
-  //   : [];
 
+  // 한달간 쓴 리뷰글
+  const [myMonthlyFeedList, setMyMonthlyFeedList] = useState<MyMonthlyFeedItem[] | []>([]);
+  // 선택된 날짜
+  const [date, setDate] = useState(new Date());
+  // 선택된 날짜에 쓴 리뷰글
+  const [selectedFeedList, setSelectedFeedList] = useState<MyMonthlyReviewItem[] | []>([]);
+  // 달 변경될때마다 api 요청 보내기 위한 연도, 달, 초기 값은 오늘 날짜의 연도와 달
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+
+  // 이번달에 쓴 리뷰글 조회(달 변경할때마다 요청)
   useEffect(() => {
-    apiGetReviewListMonthly(2023, 4)
+    apiGetReviewListMonthly(year, month)
       .then((r) => {
         if (r?.data.success === true) {
           setCurrentPage(r?.data.currentPageNumber);
@@ -63,18 +62,37 @@ const MyPageMain = () => {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, [year, month]);
 
+  // 달 변경 할 때 set 년도, 달
+  const handleViewChange = (view: any) => {
+    const year = view.activeStartDate.getFullYear();
+    const month = view.activeStartDate.getMonth() + 1;
+    setYear(year);
+    setMonth(month);
+    console.log("년", year); // 년도 출력
+    console.log("월", month); // 월 출력
+    setSelectedFeedList([]);
+  };
+
+  // 날짜 클릭하면 myMonthlyFeedList에서 해당 날짜에 쓴 리뷰글을 selectedList로 set
+  const handleDateChange = (date: Date) => {
+    setDate(date);
+    console.log(date);
+    const selectedList = myMonthlyFeedList
+      .filter((feed) => {
+        return feed.date === moment(date).format("YYYY-MM-DD");
+      })
+      .flatMap((feed) => feed.reviews);
+    setSelectedFeedList(selectedList);
+    console.log("선택", selectedFeedList);
+  };
+
+  // myMonthlyFeedList에서 날짜 별로 리뷰글 조회해서 liquorType에 맞는 이모지 붙여줌
   const tileContent = ({ date }: any) => {
     const formattedDate = moment(date).format("YYYY-MM-DD");
-    // const feed = myMonthlyFeedList.find((feed) => {
-    //   console.log("날짜뭔데", formattedDate);
-    //   feed.date === formattedDate;
-    //   console.log("비교", feed.date, formattedDate);
-    //   setMyMonthlyReview(feed?.reviews);
-    // });
+
     const feed = myMonthlyFeedList.find((feed) => {
-      setMyMonthlyReview(feed?.reviews);
       return feed.date === formattedDate;
     });
     if (feed?.liquorType != null) {
@@ -93,6 +111,7 @@ const MyPageMain = () => {
     }
     return null;
   };
+
   return (
     <div>
       {userInfo.isLogin ? (
@@ -107,7 +126,7 @@ const MyPageMain = () => {
         <div className="calender-container">
           <Calendar
             className="react-calendar"
-            onChange={setDate}
+            onChange={handleDateChange}
             value={date}
             // 일요일 먼저
             calendarType="Hebrew"
@@ -120,11 +139,13 @@ const MyPageMain = () => {
             // 달력에 '일' 빼는 코드
             formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })}
             tileContent={tileContent}
+            // 달 변경할 때마다 연도, 달 받아옴
+            onActiveStartDateChange={handleViewChange}
           />
         </div>
       </div>
       <div style={{ marginTop: "10%" }}>
-        <MyFeedList selectedDate={date} myMonthlyReviewList={myMonthlyReview}></MyFeedList>
+        <MyFeedList selectedDate={date} myMonthlyReviewList={selectedFeedList}></MyFeedList>
       </div>
       {userInfo.isLogin ? <Logout></Logout> : <></>}
     </div>

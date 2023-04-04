@@ -3,7 +3,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 
 interface Ingredients {
   ingredients: string[];
-  delete?: ((x: number) => void);
+  delete?: (x: number) => void;
 }
 
 const RandomColor = [
@@ -15,7 +15,7 @@ const RandomColor = [
   "var(--tag-color-skyblue)",
 ];
 
-const Ingredients = (props : Ingredients) => {
+const Ingredients = (props: Ingredients) => {
   return (
     <div className={`${styles[`flexwrap-container`]}`}>
       {props.ingredients.map((ingredient, index) => (
@@ -26,18 +26,19 @@ const Ingredients = (props : Ingredients) => {
           >
             {ingredient}
           </div>
-          {props.delete? (
+          {props.delete ? (
             <CancelIcon
               fontSize="small"
               className={`${styles[`delete`]}`}
               onClick={() => {
                 if (props.delete) {
-                  props.delete(index)
-                };
+                  props.delete(index);
+                }
               }}
             />
-          ) : <></>}
-          
+          ) : (
+            <></>
+          )}
         </div>
       ))}
     </div>

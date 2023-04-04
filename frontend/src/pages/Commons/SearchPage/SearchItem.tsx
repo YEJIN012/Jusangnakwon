@@ -48,14 +48,13 @@ const SearchItem = (props: Props | null) => {
         style={{
           color: "white",
           display: "flex",
-          textAlign: "center",
+          // textAlign: "center",
           borderBottom: "0.5px solid gray",
           padding: "4%",
         }}
         onClick={() => {
           isWriting
             ? dispatch(selectDrinkActions.selectDrink(props?.content))
-            
             : navigate(`../details/${drinkType[props?.content.liquorType as keyof DrinkTypes]}/${props?.content.id}`);
         }}
       >

@@ -115,7 +115,14 @@ const FeedDetail = () => {
   };
 
   const createLike = () => {
-    apiCreateLike(Number(id), { isLiked: String(!feed?.liked) });
+    apiCreateLike(Number(id), { isLiked: String(!feed?.liked) }).then(() => {
+      apiGetFeedDetail(Number(id))
+        .then((r) => {
+          // console.log(r);
+          setFeed(r?.data.body);
+        })
+        .catch((e) => console.log(e));
+    });
   };
 
   return (
@@ -177,10 +184,12 @@ const FeedDetail = () => {
               {feed.liked ? (
                 <button onClick={createLike} style={{ background: "none", border: "none" }}>
                   <LikeButton isLiked={feed.liked}></LikeButton>
+                  <p style={{ color: "white", marginTop: "-10px" }}>{feed.likeCnt}</p>
                 </button>
               ) : (
                 <button onClick={createLike} style={{ background: "none", border: "none" }}>
                   <LikeButton isLiked={feed.liked}></LikeButton>
+                  <p style={{ color: "white", marginTop: "-10px" }}>{feed.likeCnt}</p>
                 </button>
               )}
             </div>
