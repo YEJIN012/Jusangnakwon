@@ -166,7 +166,7 @@ h6:focus {
 .content {
   position: absolute;
   bottom: 30px;
-  left: 40%;
+  right: -70px;
   transform: translate(-50%, -50%);
   /* height: 160px; */
   overflow: hidden;

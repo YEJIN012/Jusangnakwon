@@ -96,6 +96,7 @@ const MyPageMain = () => {
       return feed.date === formattedDate;
     });
     if (feed?.liquorType != null) {
+      console.log(feed.liquorType)
       const iconUrl = `/assets/${feed.liquorType}.svg`;
       return (
         <div>

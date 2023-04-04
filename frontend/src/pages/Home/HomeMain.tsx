@@ -87,17 +87,17 @@ const HomeMain = () => {
           })}
         </Slider>
       </div>
-      {userInfo.isLogin ? (
+      {userInfo.isLogin ? 
         <div className={`${styles[`text-wrap`]}`}>
-          <h3>{userInfo.username}님의 취향</h3>
-          <p>{userInfo.username}님의의 취향에 맞는 술을 주종별로 추천해드려요!</p>
-        </div>
-      ) : (
-        <div className={`${styles[`text-wrap`]}`}>
-          <h3>주상낙원만의 Best 술을</h3>
-          <h3>주종별로 추천해드려요!</h3>
-        </div>
-      )}
+        <h3>{userInfo.username}님의 취향</h3>
+        <p>{userInfo.username}님의 취향에 맞는 술을 주종별로 추천해드려요!</p>
+      </div>
+      :
+      <div className={`${styles[`text-wrap`]}`}>
+      <h3>주상낙원의 Best 술</h3>
+      <p>주종별로 추천해드려요!</p>
+      </div>
+      }
       <MainTab />
     </div>
   );

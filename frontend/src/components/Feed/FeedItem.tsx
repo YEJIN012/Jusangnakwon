@@ -30,12 +30,13 @@ const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
         console.log("안됨");
       });
   };
+  console.log(feed);
   return (
     <>
       {feed.type === "리뷰글" ? (
         <Card style={{ backgroundColor: "inherit", boxShadow: "0px 0px 2px gray" }}>
           <Link to={`../details/feed/${feed.id}`}>
-            <CardMedia component="img" height="auto" image={feed.img} alt={feed.writer.username} />
+            {feed.img ? <CardMedia component="img" height="auto" image={feed.img} alt={feed.writer.username} /> : <></>}
           </Link>
           <CardContent style={{ backgroundColor: `inherit`, padding: "2%" }}>
             <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.9rem", color: "white" }}>

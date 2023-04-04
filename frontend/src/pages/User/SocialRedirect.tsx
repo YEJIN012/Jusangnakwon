@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import axios from "axios";
@@ -16,23 +16,23 @@ const SocialRedirect = () => {
   console.log(survey);
   const cookies = useCookies(["access_token"]);
 
-  useEffect(() => {
-    // 쿠키에 저장된 access token을 세션에 저장
-    const accessToken = cookies[0]["access_token"];
-    sessionStorage.setItem("accessToken", accessToken);
+  const [tokenInSessionStorage, setTokenInSessionStorage] = useState(sessionStorage.getItem("accessToken"))
 
+  useEffect(() => {
     // 쿠키에서 access token을 가져오기
     const getCookies = () => cookies[0]["access_token"];
     const token = getCookies();
+    // sessionStorage에 accessToken 저장
+    sessionStorage.setItem("accessToken", token);
+    setTokenInSessionStorage(sessionStorage.getItem("accessToken"))
 
     // userInfo조회 요청해서 redux에 저장
     axios
       .get(`${import.meta.env.VITE_API_BASE_URL}/v1/users/info`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => {
-        console.log(response);
 
+      .then((response) => {
         // 응답이 성공적으로 왔는지 확인하고 유저정보에 isLogin 추가해서 dispatch 요청
         if (response?.data.body) {
           console.log(`로그인유저정보 :${response}`);
@@ -41,20 +41,29 @@ const SocialRedirect = () => {
         } else {
           console.log("유저정보없음");
         }
+      })
 
-        // navigate 하기
+      .then(() => {
         if (survey === "0") {
           alert("맞춤추천을 위해 취향을 입력해주세요");
           navigate("/tasteform");
         } else {
-          alert("로그인성공");
+          // alert("로그인성공");
           navigate(`/`);
         }
       })
+
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+   useEffect(() => {
+    if (self.name != "reload") {
+      self.name = "reload";
+      self.location.reload();
+    } else self.name = "";
+  }, [tokenInSessionStorage]);
 
   return (
     <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true}>
