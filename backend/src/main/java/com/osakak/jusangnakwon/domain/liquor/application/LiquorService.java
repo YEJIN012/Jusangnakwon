@@ -181,48 +181,48 @@ public class LiquorService {
     }
 
     @Transactional
-    public void scrapLiquor(LiquorType type, Long id, User user) {
+    public void scrapLiquor(String type, Long id, User user) {
         switch (type) {
-            case BEER:
+            case "l3":
                 Optional<Beer> beerByid = beerRepository.findById(id);
                 if (beerByid.isPresent()) {
                     Beer beer = beerByid.get();
-                    updateScrapState(type, id, user, beer.getName());
+                    updateScrapState(LiquorType.BEER, id, user, beer.getName());
                 }
                 return;
-            case HOMETENDER:
+            case "l6":
                 Optional<Hometender> byIdHometender = hometenderRepository.findById(id);
                 if (byIdHometender.isPresent()) {
                     Hometender liquor = byIdHometender.get();
-                    updateScrapState(type, id, user, liquor.getName());
+                    updateScrapState(LiquorType.HOMETENDER, id, user, liquor.getName());
                 }
                 return;
-            case TRADITION:
+            case "l4":
                 Optional<Tradition> byIdTradition = traditionRepository.findById(id);
                 if (byIdTradition.isPresent()) {
                     Tradition liquor = byIdTradition.get();
-                    updateScrapState(type, id, user, liquor.getName());
+                    updateScrapState(LiquorType.TRADITION, id, user, liquor.getName());
                 }
                 return;
-            case COCKTAIL:
+            case "l5":
                 Optional<Cocktail> byIdCocktail = cocktailRepository.findById(id);
                 if (byIdCocktail.isPresent()) {
                     Cocktail liquor = byIdCocktail.get();
-                    updateScrapState(type, id, user, liquor.getName());
+                    updateScrapState(LiquorType.COCKTAIL, id, user, liquor.getName());
                 }
                 return;
-            case WHISKY:
+            case "l2":
                 Optional<Whisky> byIdWhisky = whiskyRepository.findById(id);
                 if (byIdWhisky.isPresent()) {
                     Whisky liquor = byIdWhisky.get();
-                    updateScrapState(type, id, user, liquor.getName());
+                    updateScrapState(LiquorType.WHISKY, id, user, liquor.getName());
                 }
                 return;
-            case WINE:
+            case "l1":
                 Optional<Wine> byIdWine = wineRepository.findById(id);
                 if (byIdWine.isPresent()) {
                     Wine liquor = byIdWine.get();
-                    updateScrapState(type, id, user, liquor.getName());
+                    updateScrapState(LiquorType.WINE, id, user, liquor.getName());
                 }
         }
     }
