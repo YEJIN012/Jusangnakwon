@@ -1,6 +1,8 @@
 import styles from "./BookmarkList.module.css";
 import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { apiGetBookmarkList } from "@/api/mypage";
 
 const dummyBookmarkList = [
   {
@@ -63,6 +65,15 @@ export const alcoholTypeStyle: { [key: string]: string } = {
 };
 
 const BookmarkList = () => {
+  useEffect(() => {
+    apiGetBookmarkList()
+      .then((r) => {
+        console.log(r);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
   return (
     <>
       <h2 style={{ marginLeft: "5%" }}>나의 스크랩북</h2>

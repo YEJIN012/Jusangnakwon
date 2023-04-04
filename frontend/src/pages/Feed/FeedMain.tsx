@@ -24,63 +24,75 @@ export interface FeedContent {
 const FeedMain = () => {
   const [feedList, setFeedList] = useState<FeedContent[]>([]);
   const [curPageNumber, setCurPageNumber] = useState<number>(0);
-  const [totalPage, setTotalPage] = useState<number>(0);
-  // const container = useRef<HTMLDivElement>(null);
-
-  // useEffect(() => {
-  //   let animation: any;
-  //   if (container.current) {
-  //     animation = lottie.loadAnimation({
-  //       container: container.current,
-  //       animationData: animationData,
-  //     });
-  //   }
-
-  //   return () => {
-  //     if (animation) {
-  //       animation.destroy();
-  //     }
-  //   };
-  // }, []);
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const loader = useRef(null);
+  // console.log("합쳐짐", curPageNumber, totalPage);
   const [focusedPostList, setFocusedPostList] = useState("");
-  // const allButtonRef = useRef<HTMLButtonElement>(null);
-
-  // const sortPostList = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   const clickedButtonValue = event.currentTarget.value;
-  //   setFocusedPostList(clickedButtonValue);
-  // };
-
-  // useEffect(() => {
-  //   if (allButtonRef.current) {
-  //     allButtonRef.current.focus();
-  //   } else {
-  //   }
-  // }, []);
 
   useEffect(() => {
+    // if (curPageNumber >= totalPage) return;
     apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
       .then((res: any) => {
         console.log(res);
-        setFeedList(res.data.body?.content);
+        setFeedList([...feedList, ...res?.data.body?.content]);
+        setTotalPage(res?.data.body.totalPage);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [focusedPostList]);
+  }, [curPageNumber]);
 
+  const handleObserver = (entries: IntersectionObserverEntry[]) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      setCurPageNumber((prevPage) => prevPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 1.0,
+    };
+
+    const observer = new IntersectionObserver(handleObserver, options);
+
+    if (loader.current) {
+      observer.observe(loader.current);
+    }
+
+    return () => {
+      if (loader.current) {
+        observer.unobserve(loader.current);
+      }
+    };
+  }, []);
+  // const loadMore = async () => {
+  //   const newItems = await apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber + 1 }).then((r) => {
+  //     setFeedList([...feedList, ...r?.data.body?.content]);
+  //   });
+  //   setCurPageNumber(curPageNumber + 1);
+  // };
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+  //       loadMore();
+  //     }
+  //   };
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, [feedList]);
   return (
     <>
-      {/* <div ref={container}></div> */}
-      {/* <NeonBtn></NeonBtn> */}
       <FloatingButton></FloatingButton>
       <div className={`${styles[`feed-main-container`]}`}>
         <div className={`${styles[`feed-classify-btn-container`]}`}>
-          {/* <NeonBtn></NeonBtn> */}
           <button
             className={focusedPostList === "" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={""}
             onClick={(e) => setFocusedPostList(e.currentTarget.value)}
-            // ref={allButtonRef}
           >
             전체글
           </button>
@@ -113,6 +125,7 @@ const FeedMain = () => {
             <></>
           )}
         </Masonry>
+        {/* <div ref={loader}>Loading...</div> */}
       </div>
     </>
   );
