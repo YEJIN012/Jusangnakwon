@@ -1,5 +1,24 @@
 package com.osakak.jusangnakwon.domain.feed.dao;
 
+import com.osakak.jusangnakwon.domain.feed.dto.*;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
+import com.osakak.jusangnakwon.domain.liquor.dto.QLiquorListItemDto;
+import com.querydsl.core.types.ConstantImpl;
+import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
+import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.util.List;
+
 import static com.osakak.jusangnakwon.domain.feed.entity.QComment.comment;
 import static com.osakak.jusangnakwon.domain.feed.entity.QFeed.feed;
 import static com.osakak.jusangnakwon.domain.feed.entity.QLike.like;
@@ -11,33 +30,6 @@ import static com.osakak.jusangnakwon.domain.liquor.entity.liquor.QHometender.ho
 import static com.osakak.jusangnakwon.domain.liquor.entity.liquor.QTradition.tradition;
 import static com.osakak.jusangnakwon.domain.liquor.entity.liquor.QWhisky.whisky;
 import static com.osakak.jusangnakwon.domain.liquor.entity.liquor.QWine.wine;
-
-import com.osakak.jusangnakwon.domain.feed.dto.QReviewListItemDto;
-import com.osakak.jusangnakwon.domain.feed.dto.ReviewListItemDto;
-import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
-import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
-import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
-import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
-import com.osakak.jusangnakwon.domain.feed.dto.QCommentDto;
-import com.osakak.jusangnakwon.domain.feed.dto.QFeedDto;
-import com.osakak.jusangnakwon.domain.feed.dto.QFeedListDto;
-import com.osakak.jusangnakwon.domain.feed.dto.QWriterDto;
-import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
-import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import com.osakak.jusangnakwon.domain.liquor.dto.QLiquorListItemDto;
-import com.querydsl.core.types.ConstantImpl;
-import com.querydsl.core.types.Expression;
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.dsl.CaseBuilder;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.jpa.JPAExpressions;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.time.LocalDate;
-import java.util.List;
-import javax.persistence.EntityManager;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
 public class FeedQueryRepositoryImpl implements FeedQueryRepository {
 
@@ -69,7 +61,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
 
     @Override
     public Page<FeedListDto> findFeedPageWithLikeByType(Long userId, FeedType type,
-            Pageable pageable) {
+                                                        Pageable pageable) {
         List<FeedListDto> content = queryFactory.select(
                         new QFeedListDto(feed.id, feed.type, feed.img, feed.title, feed.content,
                                 feed.isPublic, feed.dateCreated,

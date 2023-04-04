@@ -4,10 +4,10 @@ import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
 import com.osakak.jusangnakwon.domain.feed.dto.WriterDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -30,12 +30,11 @@ public class FeedResponse {
     private final List<CommentDto> comments;
 
 
-
     @Builder
     public FeedResponse(Long id, FeedType type, String img, String title, Long liquorId,
-            LiquorType liquorType, String liquorName, String content, Double ratingScore,
-            Boolean isPublic, LocalDateTime dateCreated, WriterDto writer, Integer likeCnt,
-            Boolean liked, List<CommentDto> comments) {
+                        LiquorType liquorType, String liquorName, String content, Double ratingScore,
+                        Boolean isPublic, LocalDateTime dateCreated, WriterDto writer, Integer likeCnt,
+                        Boolean liked, List<CommentDto> comments) {
         this.id = id;
         this.type = type;
         this.img = img;

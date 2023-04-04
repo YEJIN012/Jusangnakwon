@@ -1,8 +1,9 @@
 package com.osakak.jusangnakwon.domain.feed.api.request;
 
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor

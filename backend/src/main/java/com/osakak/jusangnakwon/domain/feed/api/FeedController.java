@@ -13,10 +13,6 @@ import com.osakak.jusangnakwon.domain.feed.mapper.FeedDtoMapper;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.PageRequest;
@@ -24,9 +20,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -49,7 +48,7 @@ public class FeedController {
     @Operation(summary = "피드 생성", description = "피드를 생성하고 작성된 피드 상세내용을 리턴")
     @PostMapping("/api/feed")
     public ResponseEntity<ResponseDto> createFeed(@AuthenticationPrincipal User user,
-            @Valid CreateFeedRequest createFeedRequest) throws IOException {
+                                                  @Valid CreateFeedRequest createFeedRequest) throws IOException {
         MultipartFile image = createFeedRequest.getImg();
         FeedDto requestFeedDto = feedDtoMapper.createFeedRequestToFeedDto(createFeedRequest);
         RatingDto requestRatingDto = feedDtoMapper.createFeedRequestToRatingDto(createFeedRequest);
@@ -69,7 +68,7 @@ public class FeedController {
     @Operation(summary = "피드 목록 조회", description = "피드 목록을 최신순으로 리턴")
     @GetMapping("/api/feed/list")
     public ResponseEntity<ResponseDto> getFeedList(@AuthenticationPrincipal User user,
-            @RequestParam int page) {
+                                                   @RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 20);
         FeedListResponse feeds = feedService.getFeedList(user.getId(), pageable);
         ResponseDto responseDto = ResponseDto.builder().success(true).body(feeds).build();
@@ -89,7 +88,7 @@ public class FeedController {
     @Operation(summary = "피드 목록 타입 필터링 조회 - 리뷰글, 질문글", description = "피드 목록을 타입으로 필터링하여 리턴")
     @GetMapping("/api/feed/list/{type}")
     public ResponseEntity<ResponseDto> getFeedListByType(@AuthenticationPrincipal User user,
-            @PathVariable String type, @RequestParam int page) {
+                                                         @PathVariable String type, @RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 20);
         FeedListResponse feeds = feedService.getFeedListByType(user.getId(), type, pageable);
         ResponseDto responseDto = ResponseDto.builder().success(true).body(feeds).build();
@@ -107,7 +106,7 @@ public class FeedController {
     @Operation(summary = "피드 상세내용 조회", description = "피드의 상세내용을 리턴")
     @GetMapping("/api/feed/{feedId}")
     public ResponseEntity<ResponseDto> getFeedDetail(@AuthenticationPrincipal User user,
-            @PathVariable Long feedId) {
+                                                     @PathVariable Long feedId) {
         FeedDto feedDto = feedService.getFeedDetail(user.getId(), feedId);
         return ResponseEntity.ok(ResponseDto.builder().success(true)
                 .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
@@ -124,7 +123,7 @@ public class FeedController {
     @Operation(summary = "댓글 생성", description = "댓글을 생성하고 댓글이 작성된 피드의 전체 댓글목록을 리턴")
     @PostMapping("/api/comment")
     public ResponseEntity<ResponseDto> createComment(@AuthenticationPrincipal User user,
-            @RequestBody @Valid CreateCommentRequest createCommentRequest) {
+                                                     @RequestBody @Valid CreateCommentRequest createCommentRequest) {
         CommentDto requestCommentDto = feedDtoMapper.createCommentRequestToCommentDto(
                 createCommentRequest);
         List<CommentDto> comments = feedService.createComment(user.getId(), requestCommentDto);
@@ -144,7 +143,7 @@ public class FeedController {
     @Operation(summary = "좋아요 업데이트", description = "좋아요 상태를 업데이트")
     @PutMapping("/api/feed/like/{feedId}")
     public void updateLike(@AuthenticationPrincipal User user, @PathVariable Long feedId,
-            @RequestBody @Valid UpdateLikeRequest updateLikeRequest) {
+                           @RequestBody @Valid UpdateLikeRequest updateLikeRequest) {
         feedService.updateLike(user.getId(), feedId, updateLikeRequest.getIsLiked());
     }
 
