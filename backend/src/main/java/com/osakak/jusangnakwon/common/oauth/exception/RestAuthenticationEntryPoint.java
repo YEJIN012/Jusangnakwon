@@ -25,7 +25,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
         ResponseDto responseDto = ResponseDto.builder()
                 .success(false)
-                .error(new ErrorDto(ErrorCode.UNAUTORIZED)).build();
+                .error(new ErrorDto(ErrorCode.EXPIRED_ACCESS_TOKEN)).build();
 
         try (OutputStream os = response.getOutputStream()) {
             ObjectMapper objectMapper = new ObjectMapper();
