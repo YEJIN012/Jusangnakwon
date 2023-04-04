@@ -66,9 +66,9 @@ export default function HometenderBanner(props: ApiData | null) {
                   <p className={`${styles[`hometender-banner-mini-title`]}`}>{recommendedHometender.name}</p>
                   <div className={`${styles[`hometender-banner-materials`]}`}>
                     {recommendedHometender.materials != null && recommendedHometender.materials.length > 1
-                      ? recommendedHometender.materials.map((material) => {
+                      ? recommendedHometender.materials.map((material, index) => {
                           return (
-                            <p className={`${styles[`hometender-banner-material`]}`}>
+                            <p key={index} className={`${styles[`hometender-banner-material`]}`}>
                               {extractStringBeforeNumber(material)}
                             </p>
                           );
