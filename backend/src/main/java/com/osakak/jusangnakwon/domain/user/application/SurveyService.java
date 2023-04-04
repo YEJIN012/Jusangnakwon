@@ -21,6 +21,7 @@ public class SurveyService {
      * @param requestSurvey
      */
     public void saveSurvey(User user, SurveyRequest requestSurvey) {
+
         Survey survey = Survey.builder()
                 .userId(user.getId())
                 .aroma(requestSurvey.getAroma())
@@ -29,6 +30,11 @@ public class SurveyService {
                 .sweetness(requestSurvey.getSweetness())
                 .body(requestSurvey.getBody())
                 .build();
+
+        Survey checkSurvey = surveyRepository.findByUserId(user.getId());
+        if (checkSurvey != null) {
+            surveyRepository.delete(checkSurvey);
+        }
         surveyRepository.save(survey);
         User byId = userRepository.findByUserId(user.getUserId());
         byId.completeSurvey(Byte.parseByte("1"));

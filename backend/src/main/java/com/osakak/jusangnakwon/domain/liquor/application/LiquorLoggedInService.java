@@ -2,9 +2,11 @@ package com.osakak.jusangnakwon.domain.liquor.application;
 
 import com.osakak.jusangnakwon.common.errors.SurveyNotFoundException;
 import com.osakak.jusangnakwon.domain.feed.dao.RatingRepository;
+import com.osakak.jusangnakwon.domain.liquor.api.response.HometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.dao.similar.*;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
@@ -16,6 +18,7 @@ import com.osakak.jusangnakwon.domain.user.entity.Survey;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -128,19 +131,6 @@ public class LiquorLoggedInService {
                     Page<Tradition> traditions = traditionRepository.findById(similarTraditionUniqueList, pageable);
                     list = liquorMapper.toLiquorListDtoTradition(traditions.getContent());
                     return getLiquorListMainResponse(traditions.getTotalPages(), traditions.getPageable(), list);
-                case HOMETENDER:
-                    List<SimilarHometenderItem> similarHometenderIdList = similarHometenderItemRepository.findAllByHometenderId(ratings);
-                    Set<Long> similarHometenderUniqueList = new HashSet<>();
-                    for (SimilarHometenderItem type : similarHometenderIdList) {
-                        similarHometenderUniqueList.add(type.getSimilarLiquor().getItem1());
-                        similarHometenderUniqueList.add(type.getSimilarLiquor().getItem2());
-                        similarHometenderUniqueList.add(type.getSimilarLiquor().getItem3());
-                        similarHometenderUniqueList.add(type.getSimilarLiquor().getItem4());
-                        similarHometenderUniqueList.add(type.getSimilarLiquor().getItem5());
-                    }
-                    Page<Hometender> hometenders = hometenderRepository.findById(similarHometenderUniqueList, pageable);
-                    list = liquorMapper.toLiquorListDtoHometender(hometenders.getContent());
-                    return getLiquorListMainResponse(hometenders.getTotalPages(), hometenders.getPageable(), list);
             }
 
         } else { //좋아하는 술이 4개 미만이라면 취향설문을 기반으로 유사한 술을 추천해준다
@@ -169,10 +159,6 @@ public class LiquorLoggedInService {
                     Page<Tradition> traditions = traditionRepository.findByTaste(survey, pageable);
                     list = liquorMapper.toLiquorListDtoTradition(traditions.getContent());
                     return getLiquorListMainResponse(traditions.getTotalPages(), traditions.getPageable(), list);
-                case HOMETENDER:
-                    Page<Hometender> hometenders = hometenderRepository.findByTaste(survey, pageable);
-                    list = liquorMapper.toLiquorListDtoHometender(hometenders.getContent());
-                    return getLiquorListMainResponse(hometenders.getTotalPages(), hometenders.getPageable(), list);
             }
         }
 
@@ -190,5 +176,33 @@ public class LiquorLoggedInService {
     private LiquorListMainResponse getLiquorListMainResponse(int totalPage, Pageable pageable, List<LiquorListItemDto> list) {
         pageNumber = pageable.getPageNumber();
         return liquorCustomMapper.toMainPageResponse(list, totalPage, pageNumber);
+    }
+
+    public HometenderResponse getRecommendHometender(User user) {
+        Pageable pageable = PageRequest.of(0, 5);
+        List<Long> ratings = ratingRepository.countByLiquorTypeAndScoreAndUserId(LiquorType.HOMETENDER, user.getId());
+        if (ratings.size() >= 4) {
+            List<SimilarHometenderItem> similarHometenderIdList = similarHometenderItemRepository.findAllByHometenderId(ratings);
+            Set<Long> similarHometenderUniqueList = new HashSet<>();
+            for (SimilarHometenderItem type : similarHometenderIdList) {
+                similarHometenderUniqueList.add(type.getSimilarLiquor().getItem1());
+                similarHometenderUniqueList.add(type.getSimilarLiquor().getItem2());
+                similarHometenderUniqueList.add(type.getSimilarLiquor().getItem3());
+                similarHometenderUniqueList.add(type.getSimilarLiquor().getItem4());
+                similarHometenderUniqueList.add(type.getSimilarLiquor().getItem5());
+            }
+            Page<Hometender> hometenders = hometenderRepository.findById(similarHometenderUniqueList, pageable);
+            List<HometenderPageDto> hometenderResponses = liquorMapper.toHometenderList(hometenders.getContent());
+            return HometenderResponse.builder()
+                    .content(hometenderResponses)
+                    .build();
+        } else {
+            Survey survey = surveyRepository.findByUserId(user.getId());
+            Page<Hometender> hometenders = hometenderRepository.findByTaste(survey, pageable);
+            List<HometenderPageDto> hometenderResponses = liquorMapper.toHometenderList(hometenders.getContent());
+            return HometenderResponse.builder()
+                    .content(hometenderResponses)
+                    .build();
+        }
     }
 }
