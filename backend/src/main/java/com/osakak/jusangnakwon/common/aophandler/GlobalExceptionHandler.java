@@ -1,7 +1,6 @@
 package com.osakak.jusangnakwon.common.aophandler;
 
 import com.osakak.jusangnakwon.common.errors.*;
-import com.osakak.jusangnakwon.common.oauth.exception.TokenValidFailedException;
 import com.osakak.jusangnakwon.common.response.ErrorCode;
 import com.osakak.jusangnakwon.common.response.ErrorDto;
 import com.osakak.jusangnakwon.common.response.ResponseDto;
