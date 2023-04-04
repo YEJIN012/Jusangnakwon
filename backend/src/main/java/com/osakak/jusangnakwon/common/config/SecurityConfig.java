@@ -83,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/rank/**").permitAll()
                 .antMatchers("/api/v1/auth/refresh").permitAll()
                 .antMatchers("/api/v1/**").hasAnyAuthority(RoleType.USER.getCode())
+                .antMatchers("/api/weather/**").permitAll()
 //                .anyRequest().authenticated()
                 .and()
                 .logout()
