@@ -29,6 +29,8 @@ public class FeedResponse {
     private final Boolean liked;
     private final List<CommentDto> comments;
 
+
+
     @Builder
     public FeedResponse(Long id, FeedType type, String img, String title, Long liquorId,
             LiquorType liquorType, String liquorName, String content, Double ratingScore,

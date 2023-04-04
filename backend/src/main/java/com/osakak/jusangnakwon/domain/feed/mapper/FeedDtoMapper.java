@@ -11,6 +11,7 @@ import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
 import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
 import com.osakak.jusangnakwon.domain.feed.dto.RatingDto;
 import com.osakak.jusangnakwon.domain.feed.entity.Feed;
+import com.osakak.jusangnakwon.domain.liquor.dto.TasteDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,8 @@ import org.mapstruct.Named;
 
 @Mapper
 public interface FeedDtoMapper {
+
+
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "img", ignore = true)
   @Mapping(target = "writer", ignore = true)
@@ -59,4 +62,5 @@ public interface FeedDtoMapper {
 
   @IterableMapping(qualifiedByName = "F2R")
   List<ReviewListDto> toReviewDtoList(List<Feed> feeds);
+
 }

@@ -9,11 +9,7 @@ import com.osakak.jusangnakwon.domain.feed.dao.CommentRepository;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
 import com.osakak.jusangnakwon.domain.feed.dao.LikeRepository;
 import com.osakak.jusangnakwon.domain.feed.dao.RatingRepository;
-import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
-import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
-import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
-import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
-import com.osakak.jusangnakwon.domain.feed.dto.RatingDto;
+import com.osakak.jusangnakwon.domain.feed.dto.*;
 import com.osakak.jusangnakwon.domain.feed.entity.Comment;
 import com.osakak.jusangnakwon.domain.feed.entity.Feed;
 import com.osakak.jusangnakwon.domain.feed.entity.Like;
@@ -23,8 +19,6 @@ import com.osakak.jusangnakwon.domain.feed.mapper.FeedMapper;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import com.osakak.jusangnakwon.domain.user.entity.User;
-import java.io.IOException;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,8 +26,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.UUID;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -53,10 +50,10 @@ public class FeedService {
     private final Storage storage;
 
     @Transactional
-    public FeedDto createFeed(Long id, FeedDto feedDto, RatingDto ratingDto, MultipartFile image) throws IOException{
+    public FeedDto createFeed(Long id, FeedDto feedDto, RatingDto ratingDto, MultipartFile image) throws IOException {
         User user = findUser(id);
         String uuid = null;
-        if (image != null){
+        if (image != null) {
             uuid = UUID.randomUUID().toString();
             String ext = image.getContentType();
             BlobInfo blobInfo = storage.create(
@@ -65,6 +62,7 @@ public class FeedService {
                             .build(),
                     image.getInputStream()
             );
+            uuid = "https://storage.googleapis.com/" + bucketName + "/" + uuid;
         }
         feedDto.setImg(uuid);
         Feed feed = feedMapper.feedDtoToFeed(feedDto, user);
@@ -84,7 +82,7 @@ public class FeedService {
     }
 
     private void updateRatingAvgOfLiquor(LiquorType liquorType, Long liquorId) {
-        switch (liquorType){
+        switch (liquorType) {
             case BEER:
                 feedRepository.updateBeerRatingAvgByLiquorId(liquorId);
                 break;
