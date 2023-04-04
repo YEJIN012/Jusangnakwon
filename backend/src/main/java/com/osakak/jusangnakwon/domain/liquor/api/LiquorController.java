@@ -101,10 +101,9 @@ public class LiquorController {
 
     @GetMapping("scrap/{type}/{id}")
     public ResponseEntity<ResponseDto> scrapLiquor(
-            @PathVariable String type,
-            @PathVariable Long id,
+            @PathVariable("type") String type, @PathVariable("id") Long id,
             @AuthenticationPrincipal User user) {
-        liquorCommonService.scrapLiquor(LiquorType.valueOf(type), id, user);
+        liquorCommonService.scrapLiquor(type, id, user);
         return ResponseEntity.ok(ResponseDto.builder().build());
     }
 }
