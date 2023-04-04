@@ -3,7 +3,7 @@ package com.osakak.jusangnakwon.domain.liquor.api.response;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.*;
+import java.util.List;
 
 @Getter
 public class RandomHometenderResponse {
