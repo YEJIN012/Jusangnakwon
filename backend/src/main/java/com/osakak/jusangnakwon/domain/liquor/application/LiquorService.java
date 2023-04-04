@@ -175,4 +175,8 @@ public class LiquorService {
                 .findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
+
+    public void scrapLiquor(String type, String id) {
+
+    }
 }
