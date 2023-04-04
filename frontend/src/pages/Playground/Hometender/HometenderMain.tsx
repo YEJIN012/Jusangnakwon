@@ -14,6 +14,8 @@ interface ApiItem {
   name: string;
   img: string;
   liquorType: string;
+  ingredients: string[];
+  explain: string;
 }
 
 // const recommendDummy = [
@@ -145,8 +147,8 @@ const HometenderMain = () => {
           r?.data.body.content.map((item: ApiItem) => ({
             ...item,
             type: item.liquorType,
-            ingredients: [],
-            explan: "",
+            ingredients: item.ingredients,
+            explain: item.explain,
           })),
         );
       })
@@ -161,8 +163,8 @@ const HometenderMain = () => {
           r?.data.body.content.map((item: ApiItem) => ({
             ...item,
             type: item.liquorType,
-            ingredients: [],
-            explan: "",
+            ingredients: item.ingredients,
+            explain: item.explain,
           })),
         );
       })

@@ -15,7 +15,7 @@ import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
 import { apiGetLoginRecommendedByType, apiGetNotLoginRecommendedByType } from "@/api/home";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/reducers";
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -127,6 +127,8 @@ export default function MainTab() {
       // setcocktailItemsToShow(cocktailItemsToShow + 6);
       setcocktailItemsToShow((prev) => prev + 6);
       setIsLoadingMoreCocktails(false);
+      console.log(totalPage);
+      console.log(curPageNumber);
     }
   };
 
@@ -159,7 +161,7 @@ export default function MainTab() {
 
   // 비로그인시 호출하는 api
   if (!isLogin) {
-    console.log(isLogin)
+    console.log(isLogin);
     // 와인
     useEffect(() => {
       apiGetNotLoginRecommendedByType("l1", curPageNumber)
@@ -254,10 +256,9 @@ export default function MainTab() {
         });
     }, [curPageNumber]);
 
-
     // 로그인시 호출 api
   } else {
-    console.log(isLogin)
+    console.log(isLogin);
     useEffect(() => {
       apiGetLoginRecommendedByType("l1", curPageNumber)
         .then((res: any) => {
@@ -475,7 +476,7 @@ export default function MainTab() {
                     </div>
                   ))}
                   {isLoadingMoreCocktails && <div>Loading...</div>}
-                  {!isLoadingMoreCocktails && curPageNumber < totalPage && (
+                  {!isLoadingMoreCocktails && curPageNumber < totalPage - 1 && (
                     <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreCocktailItems}>
                       더보기
                     </a>
