@@ -10,12 +10,10 @@ import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.common.utils.CookieUtil;
 import com.osakak.jusangnakwon.common.utils.HeaderUtil;
 import io.jsonwebtoken.Claims;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-
-import static com.osakak.jusangnakwon.common.response.ErrorCode.INVALID_PARAMS;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -52,10 +47,9 @@ public class AuthController {
      * @param response
      * @return access token
      */
-    @Tag(name = "getAccessToken")
-    @Operation(
-            summary = "AccessToken 재발급",
-            description = "AccessToken이 만료되었을 때, RefreshToken을 이용해서 AccessToken을 재발급"
+    @ApiOperation(
+            value = "AccessToken 재발급",
+            notes = "AccessToken이 만료되었을 때, RefreshToken을 이용해서 AccessToken을 재발급"
     )
     @GetMapping("/refresh")
     public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {

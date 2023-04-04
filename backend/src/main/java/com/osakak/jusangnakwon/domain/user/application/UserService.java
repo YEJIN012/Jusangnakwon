@@ -1,6 +1,5 @@
 package com.osakak.jusangnakwon.domain.user.application;
 
-import com.osakak.jusangnakwon.common.errors.UserNotFoundException;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import com.osakak.jusangnakwon.domain.user.dto.UserResponseDto;
 import com.osakak.jusangnakwon.domain.user.entity.User;
@@ -8,8 +7,6 @@ import com.osakak.jusangnakwon.domain.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
