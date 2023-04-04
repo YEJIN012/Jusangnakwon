@@ -13,6 +13,7 @@ import com.osakak.jusangnakwon.domain.feed.mapper.FeedDtoMapper;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
@@ -25,6 +26,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,10 +49,11 @@ public class FeedController {
     @Operation(summary = "피드 생성", description = "피드를 생성하고 작성된 피드 상세내용을 리턴")
     @PostMapping("/api/feed")
     public ResponseEntity<ResponseDto> createFeed(@AuthenticationPrincipal User user,
-            @RequestBody @Valid CreateFeedRequest createFeedRequest) {
+            @Valid CreateFeedRequest createFeedRequest) throws IOException {
+        MultipartFile image = createFeedRequest.getImg();
         FeedDto requestFeedDto = feedDtoMapper.createFeedRequestToFeedDto(createFeedRequest);
         RatingDto requestRatingDto = feedDtoMapper.createFeedRequestToRatingDto(createFeedRequest);
-        FeedDto feedDto = feedService.createFeed(user.getId(), requestFeedDto, requestRatingDto);
+        FeedDto feedDto = feedService.createFeed(user.getId(), requestFeedDto, requestRatingDto, image);
         return ResponseEntity.ok(ResponseDto.builder().success(true)
                 .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
     }

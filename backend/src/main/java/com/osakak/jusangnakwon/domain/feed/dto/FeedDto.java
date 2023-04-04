@@ -15,7 +15,7 @@ public class FeedDto {
 
     private final Long id;
     private final FeedType type;
-    private final String img;
+    private String img;
     private final String title;
     private final Long liquorId;
     private final LiquorType liquorType;

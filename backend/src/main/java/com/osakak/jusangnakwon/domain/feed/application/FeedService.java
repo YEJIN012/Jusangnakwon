@@ -1,5 +1,7 @@
 package com.osakak.jusangnakwon.domain.feed.application;
 
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
 import com.osakak.jusangnakwon.common.errors.FeedNotFoundException;
 import com.osakak.jusangnakwon.common.errors.UserNotFoundException;
 import com.osakak.jusangnakwon.domain.feed.api.response.FeedListResponse;
@@ -21,13 +23,17 @@ import com.osakak.jusangnakwon.domain.feed.mapper.FeedMapper;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import com.osakak.jusangnakwon.domain.user.entity.User;
+import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.UUID;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Transactional(readOnly = true)
@@ -42,10 +48,25 @@ public class FeedService {
     private final FeedDtoMapper feedDtoMapper = Mappers.getMapper(FeedDtoMapper.class);
     private final FeedMapper feedMapper = Mappers.getMapper(FeedMapper.class);
     static int pageNumber = 0;
+    @Value("${spring.cloud.gcp.storage.bucket}") // application.yml에 써둔 bucket 이름
+    private String bucketName;
+    private final Storage storage;
 
     @Transactional
-    public FeedDto createFeed(Long id, FeedDto feedDto, RatingDto ratingDto) {
+    public FeedDto createFeed(Long id, FeedDto feedDto, RatingDto ratingDto, MultipartFile image) throws IOException{
         User user = findUser(id);
+        String uuid = null;
+        if (image != null){
+            uuid = UUID.randomUUID().toString();
+            String ext = image.getContentType();
+            BlobInfo blobInfo = storage.create(
+                    BlobInfo.newBuilder(bucketName, uuid)
+                            .setContentType(ext)
+                            .build(),
+                    image.getInputStream()
+            );
+        }
+        feedDto.setImg(uuid);
         Feed feed = feedMapper.feedDtoToFeed(feedDto, user);
         Double ratingScore = feedDto.getRatingScore();
         feed = feedRepository.save(feed);

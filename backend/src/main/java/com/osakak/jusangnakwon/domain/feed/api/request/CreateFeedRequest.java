@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @NoArgsConstructor
@@ -15,7 +16,7 @@ public class CreateFeedRequest {
 
     @NotNull
     private FeedType type;
-    private String img;
+    private MultipartFile img;
     private String title;
     private Long liquorId;
     private LiquorType liquorType;

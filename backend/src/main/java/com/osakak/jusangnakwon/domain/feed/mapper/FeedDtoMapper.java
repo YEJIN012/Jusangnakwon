@@ -23,6 +23,7 @@ import org.mapstruct.Named;
 @Mapper
 public interface FeedDtoMapper {
   @Mapping(target = "id", ignore = true)
+  @Mapping(target = "img", ignore = true)
   @Mapping(target = "writer", ignore = true)
   @Mapping(target = "likeCnt", ignore = true)
   @Mapping(target = "liked", ignore = true)

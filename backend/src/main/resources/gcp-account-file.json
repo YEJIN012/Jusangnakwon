@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "direct-landing-382700",
+  "private_key_id": "d1c65421832a40c43c9b2565df528ed50ce71190",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC/++vk2YGi/8ge\noD2elJS56bWZQ4Pzew51vzW5iOEVIU9Tz6PB8NoFcBzHbDd8XE0HmbKFUIrOB068\nZBOzlm1La9HVJIgQdL66JHHPtwaxR5sqiUEXBM+SOxm4CcZzkxtaaJp9v1TAvPui\nMrCoycGixMNtwmjTk7fT5RhkWsLtMtIKiChGhZVRjPpXVE73WDxAdqUN4mIqHDUh\n94hSDEa3tLUq/cYF12bjiMAZpudC9VaKwNXkyZ2WhQ5uKZVFW7349iFGWYOPJOVX\ncaGPYUgYe/WGm6HrBsL5GB6g56ClG89oIxoWG7i4R0usp+9FN+Ym6LAQOGYwQtmF\n+o4hL86DAgMBAAECggEADPzMYP9r2yyFi7jYYk134DnUvKkKGKMW/9UvG72MSIMn\n3CocUGbsQNjsQXtrJ4EQ/vYhUw53TWfGJk143bnL7AG/wLUHdWGIc4w6nMwrajvH\nXfHKEvYS2rgfzcjvgWsOuyd/aAlVAPLn7PmT5N89N7cq51ZzA/kmwvFpHITdUfFz\nlTudvCTmUx5gipLKem03LD6UevUWv4t9P3SjMcTXTPR2OCKPqAv1MldDh9fs6j2B\nwrTvlJnzSQ9QCRDrKVmLn8/fn46HT/8YBGgojFPDlomVVY/Px3yIzS8AqpUPEtt6\n0IEh1stRF6I3ALhCMqX4gUl5R2uwkHJeoBV2WLD3KQKBgQDxI1v0I2jSKlr2hlFw\n2DHnFsbnjKskFdv9khnQWyzpGgcTe6+bxlVknFvbn8m5lwYbT5ZqbpMTJFhsjPyJ\nXStZwKghUN+eQ7NkACRi7ykZ/PY7FAUpV8c6YW6dBbrtlQaJU4gxH2BE4VfhjxYt\n9AM6gC6BzrVsSRcD+rODUXvV+wKBgQDL0QRdCE/sd3IDTLRknpq8NMIlpABgI6eA\nO9Q2G4lplJGWcsZ7oSSu97lxw9WSBJol8NcUyeE0UquaF2YGYIppvhftknCFJwrW\nvd7ffxYWlsrEOf30RUcyV4WZa37UJ2hpnykb9FOyQwLHdaPVTSdwTmlspwYyOP7o\nFPzRlHhrGQKBgHPDC9PqY9nxJ3YOCW7o+xv7XUWvzEEolVHoH6hc/PRy4E7EJAve\nbQQ95ANNdGQ6Ul4uGQHDT6vy2NhT3rB7H+KYkJ5d2tx5l9c8EjvEoLCvNe4qsEem\nsigeuiF7rL99uYOXrFwYufiXTb8lF/q7mAkvnCQI/iOb+waYBjHWnmKdAoGAY54l\no9MMPWekMjircwKSXqrqubsO8+55UBPuBQQwhYo4HnC60nJQm7Q4z4IIQPY+4Yx1\nk5OYnxpJBWeqVjOZc1WWHGgW1v3eLldfN53GDgRl1sMBfQLfaZudkP8ZXlhkkDta\nvG8O+XIHSbYV/YtYW2v320NHpAR3krevWkBXGwECgYEAqvNNvOjWdWOzppk8EZ+E\nyZf1QLQ4oBP5HR/4rVzgUPYOTAi0cK1kewNikHhNfAE/f/UgWlNpK588FaIKscFz\n1ZtUiZU4PL6j+vaaFQHFgHbIdrgKLLas+G8jgRA6cykkEw1jLHDfrgNQvuV3cnvM\nZchshqv0id5Kkh1HSvdKD4Y=\n-----END PRIVATE KEY-----\n",
+  "client_email": "springboot-storage-access@direct-landing-382700.iam.gserviceaccount.com",
+  "client_id": "107692943406057561130",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/springboot-storage-access%40direct-landing-382700.iam.gserviceaccount.com"
+}
