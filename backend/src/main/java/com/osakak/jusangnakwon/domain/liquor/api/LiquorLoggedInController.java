@@ -1,6 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
+import com.osakak.jusangnakwon.domain.liquor.api.response.HometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorLoggedInService;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
@@ -124,11 +125,11 @@ public class LiquorLoggedInController {
      * @return 추천 4개(개수는 임시)
      */
     @GetMapping("l6")
-    public ResponseEntity<ResponseDto> recommendHometender(@RequestParam int page,@AuthenticationPrincipal User user) {
-        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.HOMETENDER,user);
+    public ResponseEntity<ResponseDto> recommendHometender(@AuthenticationPrincipal User user) {
+        HometenderResponse rankHometender = liquorService.getRecommendHometender(user);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
-                .body(liquorList)
+                .body(rankHometender)
                 .build();
         return ResponseEntity.ok(responseDto);
     }
