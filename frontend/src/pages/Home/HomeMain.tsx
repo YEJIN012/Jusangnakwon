@@ -10,6 +10,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import WeatherAniBanner from "@/components/Home/Banner/WeatherAniBanner";
 import { apiGetRandomlyRecommendedHometender } from "@/api/home";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
 
 const settings = {
   dots: false,
@@ -34,8 +37,10 @@ interface ApiData {
   };
 }
 const HomeMain = () => {
+  const userInfo = useSelector((state: RootState) => state.userInfo);
   const [recommendedHometender, setRecommendedHometender] = useState<ApiData | null>(null);
   const banner = [<HometenderBanner {...recommendedHometender} />, <WeatherAniBanner />, <DrinkBtiBanner />];
+  console.log(axios.defaults.headers.common["Authorization"]);
   useEffect(() => {
     if (recommendedHometender === null) {
       apiGetRandomlyRecommendedHometender()
@@ -59,9 +64,13 @@ const HomeMain = () => {
         <span>취향입력폼</span>
       </Link>
       <br />
-      <Link to={`/login`}>
-        <span>로그인</span>
-      </Link>
+      {userInfo.isLogin ? (
+        <></>
+      ) : (
+        <Link to={`/login`}>
+          <span>로그인</span>
+        </Link>
+      )}
       <div className={`${styles[`banner-box`]}`}>
         <Slider {...settings} className={`${styles[`slider`]}`}>
           {banner.map((item, index) => {
@@ -78,10 +87,19 @@ const HomeMain = () => {
           })}
         </Slider>
       </div>
-      <div className={`${styles[`text-wrap`]}`}>
-        <h3>나는멋쟁이호님의 취향</h3>
-        <p>당신의 취향에 맞는 술을 주종별로 추천해드려요!</p>
+      {
+        userInfo.isLogin ?
+
+        <div className={`${styles[`text-wrap`]}`}>
+        <h3>{userInfo.username}님의 취향</h3>
+        <p>{userInfo.username}님의의 취향에 맞는 술을 주종별로 추천해드려요!</p>
       </div>
+      :
+      <div className={`${styles[`text-wrap`]}`}>
+      <h3>주상낙원만의 Best 술을</h3>
+      <h3>주종별로 추천해드려요!</h3>
+      </div>
+      }
       <MainTab />
     </div>
   );

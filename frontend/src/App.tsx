@@ -9,7 +9,7 @@ import Header from "@/components/Commons/Header/Header";
 import styles from "./App.module.css";
 import ScrollToTop from "./components/Commons/ScrollToTop/ScrollToTop";
 import TopButton from "./components/Commons/ScrollToTop/TopButton";
-const persistor = persistStore(store);
+export const persistor = persistStore(store);
 
 const App = () => {
   return (

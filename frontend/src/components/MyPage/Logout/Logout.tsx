@@ -1,7 +1,6 @@
 import styles from "./Logout.module.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { removeCookieToken } from "@/utils/cookies";
 import { userInfoActions } from "@/slices/userInfoSlice";
 
 const Logout = () => {
@@ -10,17 +9,11 @@ const Logout = () => {
 
   const handleLogout = () => {
     console.log("로그아웃");
-    // user Info 삭제
-    // deleteInfo(userEmail).payload
-    //     .then((res) => {
-    //         const status = res.status
-    //         if ( status === 200 ){
-    //             // refresh 토큰 삭제
 
-    // refresh token 삭제
-    // removeCookieToken();
     // 유저정보 삭제
     dispatch(userInfoActions.deleteUserInfo(null))
+    // accessToken 삭제
+    sessionStorage.removeItem("accessToken");
 
     alert("로그아웃 성공");
     // logout 시 login 창으로

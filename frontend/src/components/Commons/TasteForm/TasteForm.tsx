@@ -11,6 +11,7 @@ import { RadioGroup, FormControlLabel, Radio, Typography } from "@material-ui/co
 import ConfettiButton from "../ConfettiButton/ConfettiButton";
 import { apiSubmitSurvey } from "@/api/users";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   radioGroup: {
@@ -53,6 +54,7 @@ const TasteForm = () => {
     sour: null,
   });
 
+
   const classes = useStyles();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -62,9 +64,9 @@ const TasteForm = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(selectedValue);
-  }, [selectedValue]);
+  // useEffect(() => {
+  //   console.log(selectedValue);
+  // }, [selectedValue]);
 
   const handleSubmitSurvey = () => {
     // e.preventDefault();

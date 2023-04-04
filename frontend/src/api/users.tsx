@@ -1,12 +1,12 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import getApiInstance from "./http";
 
 const api = getApiInstance();
 
 // 로그인 유저 정보 조회
-export const apiGetUserInfo = async () => {
+export const apiGetUserInfo =  async () => {
   try {
-    const response = await api.get("v1/users/info");
+    const response = await axios.get("/v1/users/info");
     return response;
   } catch (e) {
     console.log(e);
@@ -16,7 +16,7 @@ export const apiGetUserInfo = async () => {
 // 회원가입 후 취향설문 제출
 export const apiSubmitSurvey = async (data : object) => {
     try {
-        const response = await api.post("v1/users/survey", data)
+        const response = await api.post("/v1/users/survey", data)
         return response
     } catch (e) {
         console.log(e)

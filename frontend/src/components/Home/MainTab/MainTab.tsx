@@ -12,8 +12,9 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 // import { makeStyles } from "@material-ui/core/styles";
 import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
-import { apiGetNotLoginRecommendedByType } from "@/api/home";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { apiGetLoginRecommendedByType, apiGetNotLoginRecommendedByType } from "@/api/home";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -57,6 +58,8 @@ function a11yProps(index: number) {
 }
 
 export default function MainTab() {
+  const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
+
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [curPageNumber, setCurPageNumber] = useState<number>(1);
@@ -107,23 +110,6 @@ export default function MainTab() {
     setValue(index);
   };
 
-  // 와인
-  useEffect(() => {
-    apiGetNotLoginRecommendedByType("l1", curPageNumber)
-      .then((res: any) => {
-        console.log(res);
-        if (res.data.success) {
-          const wineList = res.data.body.content.filter((item: any) => item.liquorType === "WINE");
-          setWineList((prevWineList) => [...prevWineList, ...wineList]);
-          setWineListToShow((prevWineListToShow) => [...prevWineListToShow, ...wineList.slice(0, wineItemsToShow)]);
-          setTotalPage(res.data.body.totalPage);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [curPageNumber]);
-
   const handleShowMoreWineItems = () => {
     if (!isLoadingMoreWines && curPageNumber < totalPage) {
       setIsLoadingMoreWines(true);
@@ -132,26 +118,6 @@ export default function MainTab() {
       setIsLoadingMoreWines(false);
     }
   };
-
-  // 칵테일
-  useEffect(() => {
-    apiGetNotLoginRecommendedByType("l5", curPageNumber)
-      .then((res: any) => {
-        console.log(res);
-        if (res.data.success) {
-          const cocktailList = res.data.body.content.filter((item: any) => item.liquorType === "COCKTAIL");
-          setCocktailList((prevCocktailList) => [...prevCocktailList, ...cocktailList]);
-          setCocktailListToShow((prevCocktailListToShow) => [
-            ...prevCocktailListToShow,
-            ...cocktailList.slice(0, cocktailItemsToShow),
-          ]);
-          setTotalPage(res.data.body.totalPage);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [curPageNumber, cocktailItemsToShow]);
 
   const handleShowMoreCocktailItems = () => {
     if (!isLoadingMoreCocktails && curPageNumber < totalPage) {
@@ -163,26 +129,6 @@ export default function MainTab() {
     }
   };
 
-  // 위스키
-  useEffect(() => {
-    apiGetNotLoginRecommendedByType("l2", curPageNumber)
-      .then((res: any) => {
-        console.log(res);
-        if (res.data.success) {
-          const whiskyList = res.data.body.content.filter((item: any) => item.liquorType === "WHISKY");
-          setWhiskyList((prevWhiskyList) => [...prevWhiskyList, ...whiskyList]);
-          setWhiskyListToShow((prevWhiskyListToShow) => [
-            ...prevWhiskyListToShow,
-            ...whiskyList.slice(0, whiskyItemsToShow),
-          ]);
-          setTotalPage(res.data.body.totalPage);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [curPageNumber]);
-
   const handleShowMoreWhiskyItems = () => {
     if (!isLoadingMoreWhiskys && curPageNumber < totalPage) {
       setIsLoadingMoreWhiskys(true);
@@ -191,26 +137,6 @@ export default function MainTab() {
       setIsLoadingMoreWhiskys(false);
     }
   };
-
-  // 전통주
-  useEffect(() => {
-    apiGetNotLoginRecommendedByType("l4", curPageNumber)
-      .then((res: any) => {
-        console.log(res);
-        if (res.data.success) {
-          const koreanList = res.data.body.content.filter((item: any) => item.liquorType === "TRADITION");
-          setKoreanList((prevKoreanList) => [...prevKoreanList, ...koreanList]);
-          setKoreanListToShow((prevKoreanListToShow) => [
-            ...prevKoreanListToShow,
-            ...koreanList.slice(0, koreanItemsToShow),
-          ]);
-          setTotalPage(res.data.body.totalPage);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [curPageNumber]);
 
   const handleShowMoreKoreanItems = () => {
     if (!isLoadingMoreKoreans && curPageNumber < totalPage) {
@@ -221,23 +147,6 @@ export default function MainTab() {
     }
   };
 
-  // 맥주
-  useEffect(() => {
-    apiGetNotLoginRecommendedByType("l3", curPageNumber)
-      .then((res: any) => {
-        console.log(res);
-        if (res.data.success) {
-          const beerList = res.data.body.content.filter((item: any) => item.liquorType === "BEER");
-          setBeerList((prevBeerList) => [...prevBeerList, ...beerList]);
-          setBeerListToShow((prevBeerListToShow) => [...prevBeerListToShow, ...beerList.slice(0, beerItemsToShow)]);
-          setTotalPage(res.data.body.totalPage);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [curPageNumber]);
-
   const handleShowMoreBeerItems = () => {
     if (!isLoadingMoreBeers && curPageNumber < totalPage) {
       setIsLoadingMoreBeers(true);
@@ -246,6 +155,201 @@ export default function MainTab() {
       setIsLoadingMoreBeers(false);
     }
   };
+
+  // 비로그인시 호출하는 api
+  if (!isLogin) {
+    console.log(isLogin)
+    // 와인
+    useEffect(() => {
+      apiGetNotLoginRecommendedByType("l1", curPageNumber)
+        .then((res: any) => {
+          console.log(res);
+          if (res.data.success) {
+            const wineList = res.data.body.content.filter((item: any) => item.liquorType === "WINE");
+            setWineList((prevWineList) => [...prevWineList, ...wineList]);
+            setWineListToShow((prevWineListToShow) => [...prevWineListToShow, ...wineList.slice(0, wineItemsToShow)]);
+            setTotalPage(res.data.body.totalPage);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [curPageNumber]);
+
+    // 칵테일
+    useEffect(() => {
+      apiGetNotLoginRecommendedByType("l5", curPageNumber)
+        .then((res: any) => {
+          console.log(res);
+          if (res.data.success) {
+            const cocktailList = res.data.body.content.filter((item: any) => item.liquorType === "COCKTAIL");
+            setCocktailList((prevCocktailList) => [...prevCocktailList, ...cocktailList]);
+            setCocktailListToShow((prevCocktailListToShow) => [
+              ...prevCocktailListToShow,
+              ...cocktailList.slice(0, cocktailItemsToShow),
+            ]);
+            setTotalPage(res.data.body.totalPage);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [curPageNumber, cocktailItemsToShow]);
+
+    // 위스키
+    useEffect(() => {
+      apiGetNotLoginRecommendedByType("l2", curPageNumber)
+        .then((res: any) => {
+          console.log(res);
+          if (res.data.success) {
+            const whiskyList = res.data.body.content.filter((item: any) => item.liquorType === "WHISKY");
+            setWhiskyList((prevWhiskyList) => [...prevWhiskyList, ...whiskyList]);
+            setWhiskyListToShow((prevWhiskyListToShow) => [
+              ...prevWhiskyListToShow,
+              ...whiskyList.slice(0, whiskyItemsToShow),
+            ]);
+            setTotalPage(res.data.body.totalPage);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [curPageNumber]);
+
+    // 전통주
+    useEffect(() => {
+      apiGetNotLoginRecommendedByType("l4", curPageNumber)
+        .then((res: any) => {
+          console.log(res);
+          if (res.data.success) {
+            const koreanList = res.data.body.content.filter((item: any) => item.liquorType === "TRADITION");
+            setKoreanList((prevKoreanList) => [...prevKoreanList, ...koreanList]);
+            setKoreanListToShow((prevKoreanListToShow) => [
+              ...prevKoreanListToShow,
+              ...koreanList.slice(0, koreanItemsToShow),
+            ]);
+            setTotalPage(res.data.body.totalPage);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [curPageNumber]);
+
+    // 맥주
+    useEffect(() => {
+      apiGetNotLoginRecommendedByType("l3", curPageNumber)
+        .then((res: any) => {
+          console.log(res);
+          if (res.data.success) {
+            const beerList = res.data.body.content.filter((item: any) => item.liquorType === "BEER");
+            setBeerList((prevBeerList) => [...prevBeerList, ...beerList]);
+            setBeerListToShow((prevBeerListToShow) => [...prevBeerListToShow, ...beerList.slice(0, beerItemsToShow)]);
+            setTotalPage(res.data.body.totalPage);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [curPageNumber]);
+
+
+    // 로그인시 호출 api
+  } else {
+    console.log(isLogin)
+    useEffect(() => {
+      apiGetLoginRecommendedByType("l1", curPageNumber)
+        .then((res: any) => {
+          console.log(res);
+          if (res.data.success) {
+            const wineList = res.data.body.content.filter((item: any) => item.liquorType === "WINE");
+            setWineList((prevWineList) => [...prevWineList, ...wineList]);
+            setWineListToShow((prevWineListToShow) => [...prevWineListToShow, ...wineList.slice(0, wineItemsToShow)]);
+            setTotalPage(res.data.body.totalPage);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [curPageNumber]);
+
+    // 칵테일
+    useEffect(() => {
+      apiGetLoginRecommendedByType("l5", curPageNumber)
+        .then((res: any) => {
+          console.log(res);
+          if (res.data.success) {
+            const cocktailList = res.data.body.content.filter((item: any) => item.liquorType === "COCKTAIL");
+            setCocktailList((prevCocktailList) => [...prevCocktailList, ...cocktailList]);
+            setCocktailListToShow((prevCocktailListToShow) => [
+              ...prevCocktailListToShow,
+              ...cocktailList.slice(0, cocktailItemsToShow),
+            ]);
+            setTotalPage(res.data.body.totalPage);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [curPageNumber, cocktailItemsToShow]);
+
+    // 위스키
+    useEffect(() => {
+      apiGetLoginRecommendedByType("l2", curPageNumber)
+        .then((res: any) => {
+          console.log(res);
+          if (res.data.success) {
+            const whiskyList = res.data.body.content.filter((item: any) => item.liquorType === "WHISKY");
+            setWhiskyList((prevWhiskyList) => [...prevWhiskyList, ...whiskyList]);
+            setWhiskyListToShow((prevWhiskyListToShow) => [
+              ...prevWhiskyListToShow,
+              ...whiskyList.slice(0, whiskyItemsToShow),
+            ]);
+            setTotalPage(res.data.body.totalPage);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [curPageNumber]);
+
+    // 전통주
+    useEffect(() => {
+      apiGetLoginRecommendedByType("l4", curPageNumber)
+        .then((res: any) => {
+          console.log(res);
+          if (res.data.success) {
+            const koreanList = res.data.body.content.filter((item: any) => item.liquorType === "TRADITION");
+            setKoreanList((prevKoreanList) => [...prevKoreanList, ...koreanList]);
+            setKoreanListToShow((prevKoreanListToShow) => [
+              ...prevKoreanListToShow,
+              ...koreanList.slice(0, koreanItemsToShow),
+            ]);
+            setTotalPage(res.data.body.totalPage);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [curPageNumber]);
+
+    // 맥주
+    useEffect(() => {
+      apiGetLoginRecommendedByType("l3", curPageNumber)
+        .then((res: any) => {
+          console.log(res);
+          if (res.data.success) {
+            const beerList = res.data.body.content.filter((item: any) => item.liquorType === "BEER");
+            setBeerList((prevBeerList) => [...prevBeerList, ...beerList]);
+            setBeerListToShow((prevBeerListToShow) => [...prevBeerListToShow, ...beerList.slice(0, beerItemsToShow)]);
+            setTotalPage(res.data.body.totalPage);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [curPageNumber]);
+  }
 
   const themes = createTheme({
     components: {

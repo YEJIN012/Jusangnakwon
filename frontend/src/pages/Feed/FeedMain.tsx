@@ -61,7 +61,7 @@ const FeedMain = () => {
     apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
       .then((res: any) => {
         console.log(res);
-        setFeedList(res.data.body.content);
+        setFeedList(res.data.body?.content);
       })
       .catch((error) => {
         console.error(error);

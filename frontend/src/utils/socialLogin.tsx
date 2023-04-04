@@ -8,7 +8,7 @@ interface Provider {
 const socialLogin = (props: Provider) => {
   const { provider_id } = props;
   window.location.href = 
-  `${baseURL}/oauth2/authorization/${provider_id}?redirect_uri=${redirect_uri}/oauth/redirect`;
+  `http://localhost:8084/oauth2/authorization/${provider_id}?redirect_uri=${redirect_uri}/oauth/redirect`;
 };
 
 export default socialLogin;

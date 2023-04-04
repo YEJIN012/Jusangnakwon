@@ -8,6 +8,7 @@ const initialState = {
   dateRegisted: null,
   profileImageUrl: null,
   survey: null,
+  isLogin: false
 };
 const userInfoSlice = createSlice({
   name: "userInfo",
@@ -22,12 +23,6 @@ const userInfoSlice = createSlice({
       state = initialState;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(login.fulfilled, (state, action) => {
-  //     state.accessToken = action.payload.access_token;
-  //     state.refreshToken = action.payload.refresh_token;
-  //   });
-  // },
 });
 
 export const userInfoActions = userInfoSlice.actions;

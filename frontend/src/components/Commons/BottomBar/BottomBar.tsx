@@ -20,7 +20,6 @@ const BottomBar = () => {
   const { pathname } = useLocation();
   const rootPathList = ["/", "/feed", "/playground", "/mypage"];
   const rootPathName =`/${pathname.split("/")[1]}`
-
   useEffect(() => {
     dispatch(updateTabActions.updateTab(value));
   }, [value]);

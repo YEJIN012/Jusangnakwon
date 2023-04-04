@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/reducers";
 import UserProfile from "@/components/MyPage/UserProfile";
 import { apiGetMyFeed, apiGetReviewListMonthly } from "@/api/mypage";
+import { Link } from "react-router-dom";
+import styles from "@/components/MyPage/UserProfile.module.css";
 
 interface MyMonthlyFeedItem {
   date: string;
@@ -93,7 +95,13 @@ const MyPageMain = () => {
   };
   return (
     <div>
-      <UserProfile userProfile={userProfile}></UserProfile>
+      {userInfo.isLogin ? (
+        <UserProfile userProfile={userProfile}></UserProfile>
+      ) : (
+        <Link className={`${styles[`mypage-profile-container`]}`} to={`/login`}>
+          <span>로그인</span>
+        </Link>
+      )}
       {/* <MyPageCalendar></MyPageCalendar> */}
       <div className="MyCalendar">
         <div className="calender-container">
@@ -118,7 +126,7 @@ const MyPageMain = () => {
       <div style={{ marginTop: "10%" }}>
         <MyFeedList selectedDate={date} myMonthlyReviewList={myMonthlyReview}></MyFeedList>
       </div>
-      <Logout></Logout>
+      {userInfo.isLogin ? <Logout></Logout> : <></>}
     </div>
   );
 };
