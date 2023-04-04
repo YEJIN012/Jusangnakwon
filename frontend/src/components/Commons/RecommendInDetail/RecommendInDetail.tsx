@@ -5,21 +5,18 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import styles from './RecommendInDetail.module.css';
+import styles from "./RecommendInDetail.module.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { SimilarItem } from "@/pages/Commons/DrinkDetail/DrinkDetail";
+import { EnglishToCode } from "@/pages/Commons/Write/WriteReview";
 
-interface List {
-  dummyList: {
-    id: number;
-    img: string;
-    name: string;
-    drinktype: string;
-  }[];
+interface SimilarItems {
+  similarItems?: SimilarItem[];
 }
 
-const RecommendInDetail = (props: List) => {
+const RecommendInDetail = ({ similarItems }: SimilarItems) => {
   return (
     <div>
       <div className={`${styles[`title`]}`}>
@@ -27,10 +24,10 @@ const RecommendInDetail = (props: List) => {
       </div>
       <div className={`${styles[`drink-list-wrap`]}`}>
         <ul className={`${styles[`tab-drink-list`]}`}>
-          {props.dummyList.map(({ id, img, name, drinktype }) => (
+          {similarItems?.map(({ id, img, name, liquorType }) => (
             <li key={id}>
               <div className={styles["img-container"]}>
-                <Link to={`/details/${drinktype}/${id}`}>
+                <Link to={`/details/${EnglishToCode[liquorType]}/${id}`}>
                   <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
                   <p className={styles["drink-name"]}>{name}</p>
                 </Link>

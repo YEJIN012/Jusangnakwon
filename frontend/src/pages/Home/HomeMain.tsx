@@ -19,7 +19,7 @@ const settings = {
   arrows: false,
   infinite: true,
   speed: 2000,
-  autoplay: false,
+  autoplay: true,
   slidesToShow: 1,
   slidesToScroll: 1,
   autoplaySpeed: 2000,
@@ -78,7 +78,7 @@ const HomeMain = () => {
             if (item.type === HometenderBanner) {
               return (
                 <div key={index}>
-                  <HometenderBanner {...recommendedHometender} />
+                  <HometenderBanner key={index} {...recommendedHometender} />
                 </div>
               );
             } else {

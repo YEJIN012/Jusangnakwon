@@ -2,9 +2,7 @@ import styles from "./MyFeedList.module.css";
 import MyFeedItem from "./MyFeedItem";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { apiGetMyFeed } from "@/api/mypage";
-import { useEffect, useState } from "react";
-import moment from "moment";
+import { useState } from "react";
 import { MyMonthlyReviewItem } from "@/pages/MyPage/MyPageMain";
 
 interface MyFeedItem {
@@ -33,42 +31,13 @@ export interface MyMonthlyFeedItem {
 interface MyFeedListProps {
   myFeedListProps?: MyFeedItem[];
   myMonthlyReviewList?: MyMonthlyReviewItem[];
-  // myFeedListProps: MyFeedItem[];
   selectedDate?: Date;
 }
 
 const MyFeedList = ({ myFeedListProps, myMonthlyReviewList, selectedDate }: MyFeedListProps) => {
   const { pathname } = useLocation();
-  const [selecetedFeedList, setSelectedFeedList] = useState([]);
   console.log(myMonthlyReviewList);
-  // const [currentPage, setCurrentPage] = useState(0);
-  // const [myFeedList, setMyFeedList] = useState<MyFeedItem[] | []>([]);
   const navigate = useNavigate();
-  // const filteredPosts = myMonthlyReviewList
-  // ? myMonthlyReviewList.filter((feed: MyMonthlyReviewItem) => {
-  // console.log("비교", feed.date, moment(selectedDate).format("YYYY-MM-DD"));
-  // if (feed.date === moment(selectedDate).format("YYYY-MM-DD")) {
-  //   console.log(feed.reviews);
-  // return feed;
-  // }
-  // })
-  // : [];
-
-  // console.log("filtered", filteredPosts);
-
-  // useEffect(() => {
-  //   apiGetMyFeed(currentPage)
-  //     .then((r) => {
-  //       if (r?.data.success === true) {
-  //         setCurrentPage(r?.data.currentPageNumber);
-  //         setMyFeedList(r?.data.content);
-  //         console.log("myfeedlist", r?.data);
-  //       }
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // });
 
   return (
     <div className={`${styles[`myfeed-container`]}`}>

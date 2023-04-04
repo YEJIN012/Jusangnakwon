@@ -17,14 +17,18 @@ interface Feed {
 
 const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
   const updateLike = () => {
-    apiCreateLike(Number(feed.id), { isLiked: String(!feed.liked) }).then((r) => {
-      apiGetFilteredFeedList({ type: focusedPostList, page: 0 })
-        .then((r) => {
-          // console.log(r);
-          setFeedList(r?.data.body.content);
-        })
-        .catch((e) => console.log(e));
-    });
+    apiCreateLike(Number(feed.id), { isLiked: String(!feed.liked) })
+      .then((r) => {
+        apiGetFilteredFeedList({ type: focusedPostList, page: 0 })
+          .then((r) => {
+            // console.log(r);
+            setFeedList(r?.data.body.content);
+          })
+          .catch((e) => console.log(e));
+      })
+      .catch((e) => {
+        console.log("안됨");
+      });
   };
   return (
     <>

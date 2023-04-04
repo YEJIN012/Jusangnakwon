@@ -2,6 +2,7 @@ import { useNavigate, NavigateFunction } from "react-router-dom";
 import styles from "./ReviewList.module.css";
 import CreateIcon from "@mui/icons-material/Create";
 import ReviewListItem from "./ReviewListItem";
+import { DrinkDetailReviewItem } from "@/pages/Commons/DrinkDetail/DrinkDetail";
 
 const reviewList = [
   {
@@ -32,10 +33,11 @@ interface Props {
   id: number;
   type: string;
   name: string;
+  reviews: DrinkDetailReviewItem[];
 }
 
 const ReviewList = (props: Props) => {
-  const { id, type, name } = props;
+  const { id, type, name, reviews } = props;
   const navigate = useNavigate();
   return (
     <div style={{ width: "100%" }}>
@@ -52,7 +54,7 @@ const ReviewList = (props: Props) => {
           <CreateIcon />
         </button>
       </div>
-      {reviewList.map((review, index) => {
+      {reviews.map((review, index) => {
         return <ReviewListItem key={index} review={review}></ReviewListItem>;
       })}
     </div>

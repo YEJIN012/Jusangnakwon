@@ -11,7 +11,7 @@
   margin-bottom: 50px; */
   margin: 0 auto;
   background: linear-gradient(180deg, #ff9e80 0%, #fff6e3 100%);
-  /* background-color: black; */
+  /* background-color: inherit; */
   text-align: center;
 }
 .hometender-banner-container {

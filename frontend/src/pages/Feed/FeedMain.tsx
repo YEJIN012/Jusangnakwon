@@ -64,7 +64,7 @@ const FeedMain = () => {
         setFeedList(res.data.body?.content);
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
       });
   }, [focusedPostList]);
 

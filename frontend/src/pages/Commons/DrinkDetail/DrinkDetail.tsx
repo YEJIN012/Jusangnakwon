@@ -1,6 +1,6 @@
 import styles from "./DrinkDetail.module.css";
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Rating from "@mui/material/Rating";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Ingredients from "@/components/Commons/Ingredients/Ingredients";
@@ -10,8 +10,40 @@ import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 import HeaderBack from "@/components/Commons/Header/HeaderBack";
 import { apiGetDrinkDetail } from "@/api/drinks";
 
+interface DrinkDetailItem {
+  id: number;
+  description: string | null;
+  image: string;
+  ingredients: string[] | null;
+  liquorType: string;
+  name: string;
+  ratingAvg: number;
+  reviews: DrinkDetailReviewItem[];
+  scriptCnt: number | null;
+  scrapped: boolean;
+  similarItems: SimilarItem[];
+  tastes: string[];
+  writer: string | null;
+}
+
+export interface SimilarItem {
+  id: number;
+  name: string;
+  img: string;
+  liquorType: string;
+}
+
+export interface DrinkDetailReviewItem {
+  ratingScore: number;
+  dateCreated: Date;
+  content: string | null;
+  img: string | null;
+}
+
 const DrinkDetail = () => {
-  const params = useParams();
+  const { drinktype, id } = useParams();
+  const [drinkDetailItem, setDrinkDetailItem] = useState<DrinkDetailItem>();
+  // console.log(drinktype, id);
 
   const drink = {
     id: 4140,
@@ -62,10 +94,17 @@ const DrinkDetail = () => {
   ];
 
   useEffect(() => {
-    apiGetDrinkDetail("l3", 8).then((r) => {
-      console.log(r);
-    });
-  });
+    if (drinktype != undefined && id != undefined) {
+      apiGetDrinkDetail(drinktype, Number(id)).then((r) => {
+        // console.log(r);
+        if (r?.data.success === true) {
+          setDrinkDetailItem(r?.data.body);
+        } else {
+          throw new Error("Feed detail axios 에러");
+        }
+      });
+    }
+  }, [drinktype, id]);
 
   return (
     <>
@@ -73,7 +112,7 @@ const DrinkDetail = () => {
       <div className={`${styles[`drink-img-box`]}`}>
         <img src={drink.img} className={`${styles[`drink-img`]}`}></img>
         {/* 일반 술이랑 공통 컴포로 쓰려면 업로드유저(user_id) 있는지 판별  */}
-        {drink.user_id ? (
+        {drinkDetailItem?.writer ? (
           <div className={`${styles[`user-profile-container-abs`]}`}>
             <div className={`${styles[`user-profile`]}`}>
               <img src={drink.userImg} className={`${styles[`user-img`]}`}></img>
@@ -85,16 +124,24 @@ const DrinkDetail = () => {
       <div className={`${styles[`drink-content-container`]}`}>
         <div className={`${styles[`drink-title-box`]}`}>
           <div className={`${styles[`drink-title`]}`}>
-            <div>{drink.name}</div>
-            <Rating name="read-only" value={drink.ratings} readOnly />
+            <div>{drinkDetailItem?.name}</div>
+            {drinkDetailItem?.ratingAvg && <Rating name="read-only" value={drinkDetailItem.ratingAvg} readOnly />}
           </div>
           <BookmarkBorderIcon />
         </div>
-        <Ingredients ingredients={drink.ingredients}></Ingredients>
-        <Ingredients ingredients={drink.taste}></Ingredients>
-        <ReadMore content={drink.explan}></ReadMore>
-        <ReviewList id={drink.id} type={drink.type} name={drink.name}></ReviewList>
-        <RecommendInDetail dummyList={dummyList}></RecommendInDetail>
+        {drinkDetailItem?.ingredients && <Ingredients ingredients={drinkDetailItem?.ingredients}></Ingredients>}
+        {drinkDetailItem?.tastes && <Ingredients ingredients={drinkDetailItem?.tastes}></Ingredients>}
+        {drinkDetailItem?.description && <ReadMore content={drinkDetailItem?.description}></ReadMore>}
+        {drinkDetailItem?.reviews && (
+          <ReviewList
+            id={drinkDetailItem.id}
+            type={drinkDetailItem.liquorType}
+            name={drinkDetailItem.name}
+            reviews={drinkDetailItem.reviews}
+          ></ReviewList>
+        )}
+        {/* <ReadMore content={drinkDetailItem?.description}></ReadMore> */}
+        <RecommendInDetail similarItems={drinkDetailItem?.similarItems}></RecommendInDetail>
       </div>
     </>
   );

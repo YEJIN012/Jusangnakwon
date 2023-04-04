@@ -1,29 +1,27 @@
 import { Link } from "react-router-dom";
 import styles from "./ReviewList.module.css";
 import Rating from "@mui/material/Rating";
+import { DrinkDetailReviewItem } from "@/pages/Commons/DrinkDetail/DrinkDetail";
 
-interface Review {
-  review: {
-    id: number;
-    ratings: number;
-    date: string;
-    img: string;
-    explan: string;
-  };
+interface Props {
+  key: number;
+  review: DrinkDetailReviewItem;
 }
-
-const ReviewListItem = (props: Review) => {
+const ReviewListItem = ({ key, review }: Props) => {
   return (
-    <Link to={`/details/feed/${props.review.id}`} className={`${styles[`review-item`]}`}>
+    // 아이디 받아 오면 리뷰 상세 페이지로 가는 링크 주석 풀어주면 됨
+    // <Link to={`/details/feed/${review.id}`} className={`${styles[`review-item`]}`}>
+    <>
       <div className={`${styles[`column-container`]}`}>
         <div className={`${styles[`row-container`]}`}>
-          <Rating name="read-only" value={props.review.ratings} readOnly />
-          <div className={`${styles[`date`]}`}>{props.review.date}</div>
+          <Rating name="read-only" value={review.ratingScore} readOnly />
+          <div className={`${styles[`date`]}`}>{String(review.dateCreated)}</div>
         </div>
-        <div>{props.review.explan}</div>
+        <div>{review.content}</div>
       </div>
-      <img className={`${styles[`img-box`]}`} src={props.review.img} />
-    </Link>
+      {review.img && <img className={`${styles[`img-box`]}`} src={review.img} />}
+    </>
+    // </Link>
   );
 };
 
