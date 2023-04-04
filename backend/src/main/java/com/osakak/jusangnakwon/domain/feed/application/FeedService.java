@@ -18,9 +18,9 @@ import com.osakak.jusangnakwon.domain.feed.entity.Like;
 import com.osakak.jusangnakwon.domain.feed.entity.Rating;
 import com.osakak.jusangnakwon.domain.feed.mapper.FeedDtoMapper;
 import com.osakak.jusangnakwon.domain.feed.mapper.FeedMapper;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import com.osakak.jusangnakwon.domain.user.entity.User;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
@@ -52,6 +52,8 @@ public class FeedService {
         if (FeedType.리뷰글.equals(feed.getType())) {
             Rating rating = feedMapper.ratingDtoToRating(ratingDto, user);
             ratingRepository.save(rating);
+            feed.setRating(rating);
+            updateRatingAvgOfLiquor(rating.getLiquorType(), rating.getLiquorId());
         }
         feedDto = feedMapper.feedToFeedDto(feed);
         feedDto.setLikeCnt(Long.parseLong("0"));
@@ -60,15 +62,37 @@ public class FeedService {
         return feedDto;
     }
 
+    private void updateRatingAvgOfLiquor(LiquorType liquorType, Long liquorId) {
+        switch (liquorType){
+            case BEER:
+                feedRepository.updateBeerRatingAvgByLiquorId(liquorId);
+                break;
+            case COCKTAIL:
+                feedRepository.updateCocktailRatingAvgByLiquorId(liquorId);
+                break;
+            case HOMETENDER:
+                feedRepository.updateHometenderRatingAvgByLiquorId(liquorId);
+                break;
+            case TRADITION:
+                feedRepository.updateTraditionRatingAvgByLiquorId(liquorId);
+                break;
+            case WINE:
+                feedRepository.updateWineRatingAvgByLiquorId(liquorId);
+                break;
+            case WHISKY:
+                feedRepository.updateWhiskyRatingAvgByLiquorId(liquorId);
+        }
+    }
+
     public FeedListResponse getFeedList(Long id, Pageable pageable) {
         User user = findUser(id);
-        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithRatingAndLike(user.getId(), pageable);
+        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithLike(user.getId(), pageable);
         return getFeedListResponse(feedPage.getTotalPages(), feedPage.getPageable(), feedPage.getContent());
     }
 
     public FeedListResponse getFeedListByType(Long id, String type, Pageable pageable) {
         User user = findUser(id);
-        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithRatingAndLikeByType(user.getId(), FeedType.findFeedType(type), pageable);
+        Page<FeedListDto> feedPage = feedRepository.findFeedPageWithLikeByType(user.getId(), FeedType.findFeedType(type), pageable);
         return getFeedListResponse(feedPage.getTotalPages(), feedPage.getPageable(), feedPage.getContent());
     }
 

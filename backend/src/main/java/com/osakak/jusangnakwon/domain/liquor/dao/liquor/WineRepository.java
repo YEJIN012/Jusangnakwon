@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Repository
-public interface WineRepository extends JpaRepository<Wine, Long> {
+public interface WineRepository extends JpaRepository<Wine, Long>,WineQueryRepository {
     /**
      * 전체 와인 랭킹순 조회
      *
@@ -30,4 +30,6 @@ public interface WineRepository extends JpaRepository<Wine, Long> {
 
     @Query("select w from Wine w WHERE w.id IN :similarWineUniqueList ")
     Page<Wine> findById(Set<Long> similarWineUniqueList, Pageable pageable);
+    @Query("select l from  Wine l where l.id in (:id)")
+    List<Wine> findByIdList(@Param("id")List<Long> id);
 }
