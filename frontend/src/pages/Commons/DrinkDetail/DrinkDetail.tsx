@@ -9,7 +9,8 @@ import RecommendInDetail from "@/components/Commons/RecommendInDetail/RecommendI
 import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 import HeaderBack from "@/components/Commons/Header/HeaderBack";
 import { apiGetDrinkDetail } from "@/api/drinks";
-
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { apiPutBookmark } from "@/api/drinks";
 interface DrinkDetailItem {
   id: number;
   description: string | null;
@@ -34,6 +35,7 @@ export interface SimilarItem {
 }
 
 export interface DrinkDetailReviewItem {
+  id: number;
   ratingScore: number;
   dateCreated: Date;
   content: string | null;
@@ -106,11 +108,26 @@ const DrinkDetail = () => {
     }
   }, [drinktype, id]);
 
+  const handleScrap = () => {
+    if (drinktype != undefined && id != undefined) {
+      apiPutBookmark(drinktype, Number(id)).then((r) => {
+        apiGetDrinkDetail(drinktype, Number(id)).then((r) => {
+          // console.log(r);
+          if (r?.data.success === true) {
+            setDrinkDetailItem(r?.data.body);
+          } else {
+            throw new Error("Feed detail axios 에러");
+          }
+        });
+      });
+    }
+  };
+
   return (
     <>
       <HeaderBack></HeaderBack>
       <div className={`${styles[`drink-img-box`]}`}>
-        <img src={drink.img} className={`${styles[`drink-img`]}`}></img>
+        <img src={drinkDetailItem?.image} className={`${styles[`drink-img`]}`}></img>
         {/* 일반 술이랑 공통 컴포로 쓰려면 업로드유저(user_id) 있는지 판별  */}
         {drinkDetailItem?.writer ? (
           <div className={`${styles[`user-profile-container-abs`]}`}>
@@ -127,7 +144,11 @@ const DrinkDetail = () => {
             <div>{drinkDetailItem?.name}</div>
             {drinkDetailItem?.ratingAvg && <Rating name="read-only" value={drinkDetailItem.ratingAvg} readOnly />}
           </div>
-          <BookmarkBorderIcon />
+          {drinkDetailItem?.scrapped ? (
+            <BookmarkIcon onClick={handleScrap}></BookmarkIcon>
+          ) : (
+            <BookmarkBorderIcon onClick={handleScrap}></BookmarkBorderIcon>
+          )}
         </div>
         {drinkDetailItem?.ingredients && <Ingredients ingredients={drinkDetailItem?.ingredients}></Ingredients>}
         {drinkDetailItem?.tastes && <Ingredients ingredients={drinkDetailItem?.tastes}></Ingredients>}

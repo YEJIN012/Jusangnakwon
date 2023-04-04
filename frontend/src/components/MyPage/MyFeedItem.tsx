@@ -68,6 +68,7 @@ const MyFeedItem = ({ myfeed, myMonthlyReviewItem }: MyFeed) => {
             >
               {myMonthlyReviewItem?.feedType}
             </div> */}
+              {<Rating value={myMonthlyReviewItem?.ratingScore} readOnly></Rating>}
             </div>
           </div>
         </Link>

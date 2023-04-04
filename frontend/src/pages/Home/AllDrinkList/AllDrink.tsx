@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
 import { apiGetDrinkList } from "@/api/drinks";
 import { makeStyles } from "@material-ui/core/styles";
+import { EnglishToCode } from "@/pages/Commons/Write/WriteReview";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,7 +66,7 @@ const AllDrink = () => {
                     className={`${styles["drink-item"]}`}
                     src={drink.img}
                     alt={drink.name}
-                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                    onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
                 <div className={styles["drink-label-wrap"]}>
@@ -104,7 +105,7 @@ const AllDrink = () => {
                     className={`${styles["drink-item"]}`}
                     src={drink.img}
                     alt={drink.name}
-                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                    onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
                 <div className={styles["drink-label-wrap"]}>
@@ -143,7 +144,7 @@ const AllDrink = () => {
                     className={`${styles["drink-item"]}`}
                     src={drink.img}
                     alt={drink.name}
-                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                    onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
                 <div className={styles["drink-label-wrap"]}>
@@ -182,7 +183,7 @@ const AllDrink = () => {
                     className={`${styles["drink-item"]}`}
                     src={drink.img}
                     alt={drink.name}
-                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                    onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
                 <div className={styles["drink-label-wrap"]}>
@@ -221,7 +222,7 @@ const AllDrink = () => {
                     className={`${styles["drink-item"]}`}
                     src={drink.img}
                     alt={drink.name}
-                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                    onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
                 <div className={styles["drink-label-wrap"]}>
