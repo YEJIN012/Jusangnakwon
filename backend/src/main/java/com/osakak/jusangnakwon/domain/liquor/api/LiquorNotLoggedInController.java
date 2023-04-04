@@ -1,6 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
+import com.osakak.jusangnakwon.domain.liquor.api.response.HometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorNotLoggedInService;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
@@ -128,13 +129,12 @@ public class LiquorNotLoggedInController {
 
     @Tag(name = "liquorByRank")
     @GetMapping("rank/l6")
-    public ResponseEntity<ResponseDto> rankHometender(@RequestParam int page) {
-        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.HOMETENDER);
+    public ResponseEntity<ResponseDto> rankHometender() {
+        HometenderResponse rankHometender = liquorNotLoggedInService.getRankHometender();
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
-                .body(liquorList)
+                .body(rankHometender)
                 .build();
         return ResponseEntity.ok(responseDto);
     }
 }
-

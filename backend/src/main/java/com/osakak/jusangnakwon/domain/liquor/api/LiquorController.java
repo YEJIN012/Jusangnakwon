@@ -2,10 +2,9 @@ package com.osakak.jusangnakwon.domain.liquor.api;
 
 import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.domain.liquor.api.request.HometenderRequest;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
-import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorService;
-import com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.HometenderTasteDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.HometenderTasteType;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
@@ -44,7 +43,7 @@ public class LiquorController {
     )
     @Tag(name = "liquor")
     public ResponseEntity<ResponseDto> randHometender() {
-        RandomHometenderResponse response = liquorCommonService.getRandomHometender();
+        HometenderPageDto response = liquorCommonService.getRandomHometender();
 
         return ResponseEntity.ok(ResponseDto.builder()
                 .body(response)
@@ -92,10 +91,10 @@ public class LiquorController {
                 .sweet(HometenderTasteType.findTasteType("SWEET", taste.getSweet()).getVal())
                 .build();
         hometenderRequest.setTaste(convertedTaste);
-        HometenderDto requestHometenderDto = liquorDtoMapper.hometenderRequestToHometenderDto(hometenderRequest);
+        com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto requestHometenderDto = liquorDtoMapper.hometenderRequestToHometenderDto(hometenderRequest);
         requestHometenderDto.setLiquorType(LiquorType.HOMETENDER);
         requestHometenderDto.setRatingAvg(Double.valueOf("0"));
-        HometenderDto hometenderDto = liquorCommonService.createHometender(user.getId(), requestHometenderDto);
+        com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto hometenderDto = liquorCommonService.createHometender(user.getId(), requestHometenderDto);
         return ResponseEntity.ok(ResponseDto.builder().success(true)
                 .body(liquorDtoMapper.hometenderDtoToLiquorDetailResponse(hometenderDto)).build());
     }
