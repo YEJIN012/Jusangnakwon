@@ -96,3 +96,4 @@ public interface LiquorMapper {
     @Mapping(target = "similarItems", ignore = true)
     HometenderDto hometenderToHometenderDto(Hometender hometender);
 }
+
