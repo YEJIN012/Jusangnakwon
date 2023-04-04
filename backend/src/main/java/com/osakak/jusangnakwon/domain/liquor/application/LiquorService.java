@@ -2,9 +2,10 @@ package com.osakak.jusangnakwon.domain.liquor.application;
 
 import com.osakak.jusangnakwon.common.errors.NoLiquorNameExistException;
 import com.osakak.jusangnakwon.common.errors.UserNotFoundException;
-import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
+import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorCustomMapper;
@@ -138,7 +139,7 @@ public class LiquorService {
      *
      * @return 칵테일 재료정보, 이름, 이미지
      */
-    public HometenderPageDto getRandomHometender() {
+    public RandomHometenderResponse getRandomHometender() {
         Pageable pageable = PageRequest.of(0, 1);
         Page<Hometender> hometenderPage = hometenderRepository.findByRandom(
                 pageable
@@ -155,7 +156,7 @@ public class LiquorService {
      * @return 생성한 홈텐더 레시피
      */
     @Transactional
-    public com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto createHometender(Long id, com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto hometenderDto) {
+    public HometenderDto createHometender(Long id, HometenderDto hometenderDto) {
         User user = findUser(id);
         Hometender hometender = liquorMapper.hometenderDtoToHometender(
                 hometenderDto,

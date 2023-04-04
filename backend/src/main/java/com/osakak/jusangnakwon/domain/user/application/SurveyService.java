@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class SurveyService {
-    private SurveyRepository surveyRepository;
+    private final SurveyRepository surveyRepository;
 
     /**
      * 취향설문 저장
