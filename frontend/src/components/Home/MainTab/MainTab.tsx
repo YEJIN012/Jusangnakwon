@@ -11,7 +11,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 // import { makeStyles } from "@material-ui/core/styles";
-import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
 import { apiGetLoginRecommendedByType, apiGetNotLoginRecommendedByType } from "@/api/home";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/reducers";
@@ -581,7 +580,24 @@ export default function MainTab() {
                           <div className={styles["drink-name"]}>
                             {name.length > 15 ? `${name.substring(0, 15)}...` : name}
                           </div>
-                          <BookmarkBorder fontSize="small" />
+                          {drinkItem?.scrapped ? (
+                            <BookmarkIcon
+                              onClick={() => {
+                                apiPutBookmark("l2", Number(id)).then(() => {
+                                  apiGetNotLoginRecommendedByType("l2", whiskyCurPageNumber).then((r) => {
+                                    console.log("북마크누르고다시", r);
+                                    setWhiskyListToShow(r?.data.body.content);
+                                  });
+                                });
+                              }}
+                            />
+                          ) : (
+                            <BookmarkBorderIcon
+                              onClick={() => {
+                                apiPutBookmark("l2", Number(id));
+                              }}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -628,7 +644,24 @@ export default function MainTab() {
                           <div className={styles["drink-name"]}>
                             {name.length > 15 ? `${name.substring(0, 15)}...` : name}
                           </div>
-                          <BookmarkBorder fontSize="small" sx={{ color: "black" }} />
+                          {drinkItem?.scrapped ? (
+                            <BookmarkIcon
+                              onClick={() => {
+                                apiPutBookmark("l1", Number(id)).then(() => {
+                                  apiGetNotLoginRecommendedByType("l1", wineCurPageNumber).then((r) => {
+                                    console.log("북마크누르고다시", r);
+                                    setWineListToShow(r?.data.body.content);
+                                  });
+                                });
+                              }}
+                            />
+                          ) : (
+                            <BookmarkBorderIcon
+                              onClick={() => {
+                                apiPutBookmark("l1", Number(id));
+                              }}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -675,7 +708,24 @@ export default function MainTab() {
                           <div className={styles["drink-name"]}>
                             {name.length > 15 ? `${name.substring(0, 15)}...` : name}
                           </div>
-                          <BookmarkBorder fontSize="small" />
+                          {drinkItem?.scrapped ? (
+                            <BookmarkIcon
+                              onClick={() => {
+                                apiPutBookmark("l4", Number(id)).then(() => {
+                                  apiGetNotLoginRecommendedByType("l4", koreanCurPageNumber).then((r) => {
+                                    console.log("북마크누르고다시", r);
+                                    setKoreanListToShow(r?.data.body.content);
+                                  });
+                                });
+                              }}
+                            />
+                          ) : (
+                            <BookmarkBorderIcon
+                              onClick={() => {
+                                apiPutBookmark("l4", Number(id));
+                              }}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -722,7 +772,24 @@ export default function MainTab() {
                           <div className={styles["drink-name"]}>
                             {name.length > 15 ? `${name.substring(0, 15)}...` : name}
                           </div>
-                          <BookmarkBorder fontSize="small" />
+                          {drinkItem?.scrapped ? (
+                            <BookmarkIcon
+                              onClick={() => {
+                                apiPutBookmark("l3", Number(id)).then(() => {
+                                  apiGetNotLoginRecommendedByType("l3", beerCurPageNumber).then((r) => {
+                                    console.log("북마크누르고다시", r);
+                                    setBeerListToShow(r?.data.body.content);
+                                  });
+                                });
+                              }}
+                            />
+                          ) : (
+                            <BookmarkBorderIcon
+                              onClick={() => {
+                                apiPutBookmark("l3", Number(id));
+                              }}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
