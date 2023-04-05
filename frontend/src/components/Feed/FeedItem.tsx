@@ -17,7 +17,8 @@ interface Feed {
 
 const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
   const updateLike = () => {
-    apiCreateLike(Number(feed.id), { isLiked: String(!feed.liked) })
+    const likeData = feed.liked;
+    apiCreateLike(Number(feed.id), { isLiked: !likeData })
       .then((r) => {
         apiGetFilteredFeedList({ type: focusedPostList, page: 0 })
           .then((r) => {
@@ -87,15 +88,19 @@ const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
                   <FavoriteBorderIcon />
                 </button>
               )} */}
-              {feed.liked ? (
-                <button onClick={updateLike} style={{ background: "none", border: "none" }}>
+              {/* {feed.liked ? ( */}
+              <button onClick={updateLike} style={{ background: "none", border: "none" }}>
+                {feed.liked ? (
                   <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
-                </button>
-              ) : (
-                <button onClick={updateLike} style={{ background: "none", border: "none" }}>
+                ) : (
                   <FavoriteBorderIcon sx={{ color: "white" }} />
-                </button>
-              )}
+                )}
+              </button>
+              {/* ) : ( */}
+              {/* <button onClick={updateLike} style={{ background: "none", border: "none" }}> */}
+              {/* <FavoriteBorderIcon sx={{ color: "white" }} /> */}
+              {/* </button> */}
+              {/* )} */}
             </div>
             <Link to={`../details/feed/${feed.id}`}>
               <Typography variant="body2" color="white" style={{ padding: "3% 5%" }}>

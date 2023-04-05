@@ -64,9 +64,9 @@ const FeedMain = () => {
     apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
       .then((res: any) => {
         // console.log(res);
-        console.log(res?.data.body?.content);
+        // console.log(res?.data.body?.content);
         setFeedList(res?.data.body?.content);
-        console.log("실행됨?");
+        // console.log("실행됨?");
         setTotalPage(res?.data.body.totalPage - 1);
       })
       .catch((error) => {

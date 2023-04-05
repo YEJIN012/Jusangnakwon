@@ -45,7 +45,7 @@ interface CommentFormData {
 const FeedDetail = () => {
   const { id } = useParams();
   const [feed, setFeed] = useState<FeedDetailContent | null>(null);
-  // const [liked, setLiked] = useState(feed?.liked);
+  const [shoot, setShoot] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -59,6 +59,12 @@ const FeedDetail = () => {
     feedId: Number(id),
     content: "",
   });
+
+  useEffect(() => {
+    if (feed) {
+      setShoot(feed?.liked);
+    }
+  }, [feed]);
 
   useEffect(() => {
     apiGetFeedDetail(Number(id))
@@ -114,7 +120,8 @@ const FeedDetail = () => {
   };
 
   const createLike = () => {
-    apiCreateLike(Number(id), { isLiked: String(!feed?.liked) }).then(() => {
+    // console.log(Number(id), shoot);
+    apiCreateLike(Number(id), { isLiked: !shoot }).then(() => {
       apiGetFeedDetail(Number(id))
         .then((r) => {
           // console.log(r);
@@ -180,17 +187,19 @@ const FeedDetail = () => {
           <div className={`${styles[`feed-content-container`]}`}>
             <ReadMore content={feed.content}></ReadMore>
             <div className={`${styles[`feed-stars-like`]}`}>
-              {feed.liked ? (
+              {/* {feed.liked ? ( */}
+              {/* <button onClick={createLike} style={{ background: "none", border: "none" }}> */}
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <LikeButton isLiked={feed.liked} createLike={createLike}></LikeButton>
+                <p style={{ color: "white", marginTop: "-10px" }}>{feed.likeCnt}</p>
+              </div>
+              {/* </button> */}
+              {/* ) : (
                 <button onClick={createLike} style={{ background: "none", border: "none" }}>
                   <LikeButton isLiked={feed.liked}></LikeButton>
                   <p style={{ color: "white", marginTop: "-10px" }}>{feed.likeCnt}</p>
                 </button>
-              ) : (
-                <button onClick={createLike} style={{ background: "none", border: "none" }}>
-                  <LikeButton isLiked={feed.liked}></LikeButton>
-                  <p style={{ color: "white", marginTop: "-10px" }}>{feed.likeCnt}</p>
-                </button>
-              )}
+              )} */}
             </div>
           </div>
           {feed.type === "리뷰글" ? (

@@ -61,7 +61,7 @@ export const apiCreateComment = async (data: { feedId: number; content: string }
 };
 
 // 좋아요
-export const apiCreateLike = async (feedId: number, data: { [key: string]: string }) => {
+export const apiCreateLike = async (feedId: number, data: { [key: string]: boolean }) => {
   try {
     const response = await api.put(`/feed/like/${feedId}`, data);
     return response;
