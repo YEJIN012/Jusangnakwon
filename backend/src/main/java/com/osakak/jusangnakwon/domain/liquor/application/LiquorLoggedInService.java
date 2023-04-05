@@ -8,6 +8,7 @@ import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.dao.similar.*;
 import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemScrapDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.*;
@@ -140,8 +141,9 @@ public class LiquorLoggedInService {
             }
             switch (liquorType) {
                 case WINE:
-                    Page<Wine> wines = wineRepository.findByTaste(survey, pageable);
-                    list = liquorMapper.toLiquorListDtoWine(wines.getContent());
+                    Page<LiquorListItemScrapDto> wines = wineRepository.findByTaste(survey, pageable,user);
+//                    list = liquorMapper.toLiquorListDtoWine(wines.getContent(),user);
+                    System.out.println(wines.getContent().size());
                     return getLiquorListMainResponse(wines.getTotalPages(), wines.getPageable(), list);
                 case WHISKY:
                     Page<Whisky> whiskies = whiskyRepository.findByTaste(survey, pageable);

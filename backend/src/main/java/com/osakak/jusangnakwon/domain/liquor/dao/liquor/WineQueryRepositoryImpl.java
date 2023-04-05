@@ -1,7 +1,8 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.QWine;
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Wine;
+import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
+import com.osakak.jusangnakwon.domain.feed.entity.Scrap;
+import com.osakak.jusangnakwon.domain.liquor.dto.*;
 import com.osakak.jusangnakwon.domain.user.entity.Survey;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -13,21 +14,27 @@ import javax.persistence.EntityManager;
 
 import java.util.List;
 
+import static com.osakak.jusangnakwon.domain.feed.entity.QScrap.scrap;
+import static com.osakak.jusangnakwon.domain.user.entity.QUser.user;
 import static com.osakak.jusangnakwon.domain.liquor.entity.liquor.QWine.wine;
 
 public class WineQueryRepositoryImpl implements WineQueryRepository {
 
     private final JPAQueryFactory queryFactory;
+    private final ScrapRepository scrapRepository;
 
-    public WineQueryRepositoryImpl(EntityManager em) {
+    public WineQueryRepositoryImpl(EntityManager em, ScrapRepository scrapRepository) {
         this.queryFactory = new JPAQueryFactory(em);
+        this.scrapRepository = scrapRepository;
     }
 
     @Override
-    public Page<Wine> findByTaste(Survey survey, Pageable pageable) {
-        List<Wine> content = queryFactory
-                .select(new QWine(wine))
+    public Page<LiquorListItemScrapDto> findByTaste(Survey survey, Pageable pageable, Long userId) {
+        List<LiquorListItemScrapDto> content = queryFactory
+                .select(new QLiquorListItemScrapDto(wine.id,wine.name,wine.img,wine.liquorType,scrap.scrapped))
                 .from(wine)
+                .leftJoin(scrap).on(scrap.liquorId.eq(wine.id),scrap.liquorType.eq(wine.liquorType))
+                .leftJoin(user)
                 .where(surveySweet(survey.getSweetness()), surveyBody(survey.getBody()))
                 .offset(pageable.getOffset()).limit(pageable.getPageSize())
                 .fetch();
