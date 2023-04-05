@@ -1,5 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
+import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
 import com.osakak.jusangnakwon.domain.liquor.api.response.HometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
@@ -9,6 +10,7 @@ import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorCustomMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
+import com.osakak.jusangnakwon.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +33,7 @@ public class LiquorNotLoggedInService {
     private final TraditionRepository traditionRepository;
     private final LiquorCustomMapper liquorCustomMapper;
     private final LiquorMapper liquorMapper;
+    private final ScrapRepository scrapRepository;
     static int pageNumber = 0;
 
     /**
@@ -40,8 +43,8 @@ public class LiquorNotLoggedInService {
      * @param pageable   페이징
      * @return 페이징 포함 주종 id, name 정보
      */
-    public LiquorListMainResponse getLiquorList(LiquorType liquorType, Pageable pageable) {
-        return getLiquorListByRank(liquorType, pageable);
+    public LiquorListMainResponse getLiquorList(User user, LiquorType liquorType, Pageable pageable) {
+        return getLiquorListByRank(user, liquorType, pageable);
     }
 
     /**
@@ -51,13 +54,18 @@ public class LiquorNotLoggedInService {
      * @param pageable   페이징
      * @return 페이징 포함 주종 id, name 정보
      */
-    private LiquorListMainResponse getLiquorListByRank(LiquorType liquorType, Pageable pageable) {
+    private LiquorListMainResponse getLiquorListByRank(User user, LiquorType liquorType, Pageable pageable) {
         List<LiquorListItemDto> list = new ArrayList<>();
         switch (liquorType) {
             case WHISKY:
-                Page<Whisky> whiskies = whiskyRepository.findByRatingAvg(pageable);
-                list = liquorMapper.toLiquorListDtoWhisky(whiskies.getContent());
-                return getLiquorListMainResponse(whiskies.getTotalPages(), whiskies.getPageable(), list);
+                Page<LiquorListItemDto> listByRating = null;
+                if (user == null) {
+                    listByRating = whiskyRepository.findListByRatingIsNotLoggedIn(pageable);
+                }else {
+                    listByRating = whiskyRepository.findListByRatingIsLogin(pageable);
+                }
+                list = listByRating.getContent();
+                return getLiquorListMainResponse(listByRating.getTotalPages(), listByRating.getPageable(), list);
             case WINE:
                 Page<Wine> wines = wineRepository.findByRatingAvg(pageable);
                 list = liquorMapper.toLiquorListDtoWine(wines.getContent());
