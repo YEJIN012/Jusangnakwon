@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/reducers";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { apiPutBookmark } from "@/api/drinks";
+import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 

@@ -6,15 +6,26 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { apiGetDrinkList } from "@/api/drinks";
 import { makeStyles } from "@material-ui/core/styles";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 interface RecipeList {
   recipeList: {
     id: number;
-    type: string;
-    img: string;
     name: string;
-    likes: number;
+    img: string;
+    liquorType: string;
+    scrapped: boolean;
   }[];
+}
+
+interface RecipeType {
+  id: number;
+  name: string;
+  img: string;
+  liquorType: string;
+  scrapped: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -25,9 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-const RecipeFeed = (props: RecipeList) => {
+const RecipeFeed = () => {
   const classes = useStyles();
   const [curPageNumber, setCurPageNumber] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
@@ -37,6 +46,7 @@ const RecipeFeed = (props: RecipeList) => {
     const getDrinkList = async () => {
       const response = await apiGetDrinkList("l6", curPageNumber);
       if (response && response.data.success) {
+        console.log(response);
         setDrinkList(response.data.body.content);
         setTotalPage(response.data.body.totalPage);
       }
@@ -51,7 +61,7 @@ const RecipeFeed = (props: RecipeList) => {
   return (
     <div className={`${styles[`drink-list-wrap`]}`}>
       <ul className={`${styles[`tab-drink-list`]}`}>
-        {drinkList.map((drink: any) => (
+        {drinkList.map((drink: RecipeType) => (
           <li key={drink.id} className={`${styles[`tab-drink-item`]}`}>
             <div className={styles["item-container"]}>
               <Link to={`/details/l6/${drink.id}`}>
@@ -61,23 +71,23 @@ const RecipeFeed = (props: RecipeList) => {
                 <div>{drink.name}</div>
                 <div className={styles["like-box"]}>
                   <FavoriteBorderIcon />
-                  {drink.likes}
+                  {drink.scrapped}
                 </div>
               </div>
             </div>
           </li>
         ))}
-      <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
-            <Pagination
-              className={`${styles["pagination"]}`}
-              count={totalPage - 1}
-              page={curPageNumber}
-              variant="outlined"
-              onChange={handlePageChange}
-              color="secondary"
-              classes={{ root: classes.root }}
-            />
-          </Stack>
+        <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
+          <Pagination
+            className={`${styles["pagination"]}`}
+            count={totalPage - 1}
+            page={curPageNumber}
+            variant="outlined"
+            onChange={handlePageChange}
+            color="secondary"
+            classes={{ root: classes.root }}
+          />
+        </Stack>
       </ul>
     </div>
   );

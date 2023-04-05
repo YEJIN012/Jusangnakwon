@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./MyFeedList.module.css";
 import Rating from "@mui/material/Rating";
 import { MyMonthlyReviewItem } from "@/pages/MyPage/MyPageMain";
@@ -23,11 +23,12 @@ const FeedTypeStyle: { [key: string]: string } = {
 };
 
 const MyFeedItem = ({ myfeed, myMonthlyReviewItem }: MyFeed) => {
+  const navigate = useNavigate()
   return (
     <>
       {myfeed != null ? (
-        <Link to={`/details/feed/${myfeed?.id}`}>
-          <div className={`${styles[`myfeed-item-container`]}`}>
+        
+          <div className={`${styles[`myfeed-item-container`]}`} onClick={()=> navigate(myfeed.feedType === "레시피" ? `/details/l6/${myfeed?.id}` : `/details/feed/${myfeed?.id}`)}>
             <div className={`${styles[`myfeed-item-left-container`]}`}>
               <div>{myfeed.img != null ? <img className={`${styles[`img-box`]}`} src={myfeed.img}></img> : null}</div>
               {/* <Rating name="read-only" value={myfeed.ratings} readOnly /> */}
@@ -45,7 +46,6 @@ const MyFeedItem = ({ myfeed, myMonthlyReviewItem }: MyFeed) => {
               </div>
             </div>
           </div>
-        </Link>
       ) : (
         <Link to={`/details/feed/${myMonthlyReviewItem?.id}`}>
           <div className={`${styles[`myfeed-item-container`]}`}>

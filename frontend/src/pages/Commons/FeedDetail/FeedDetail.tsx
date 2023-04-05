@@ -63,7 +63,7 @@ const FeedDetail = () => {
   useEffect(() => {
     apiGetFeedDetail(Number(id))
       .then((r) => {
-        // console.log(r);
+        console.log(r);
         setFeed(r?.data.body);
       })
       .catch((e) => console.log(e));

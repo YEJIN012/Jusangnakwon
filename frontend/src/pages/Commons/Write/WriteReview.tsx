@@ -158,6 +158,7 @@ const WriteReview = () => {
   const handleSubmit = (data: ReviewFormData) => {
     if (data.liquorId != undefined && data.ratingScore != 0 && data.content != "") {
       // formData 생성
+      console.log(data)
       const formData = new FormData();
       const blob = new Blob([JSON.stringify(data)], {
         type: "application/json",

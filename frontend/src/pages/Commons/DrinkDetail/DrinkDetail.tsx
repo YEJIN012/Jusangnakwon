@@ -45,27 +45,12 @@ export interface DrinkDetailReviewItem {
 const DrinkDetail = () => {
   const { drinktype, id } = useParams();
   const [drinkDetailItem, setDrinkDetailItem] = useState<DrinkDetailItem>();
-  // console.log(drinktype, id);
-
-  const drink = {
-    id: 4140,
-    type: "WINE",
-    user_id: 3,
-    name: "리씬 프르미에 메독",
-    userName: "hojung",
-    ratings: 4,
-    userImg: "https://picsum.photos/30/30/?random",
-    img: "https://picsum.photos/300/300/?random",
-    writer: "스펩한이",
-    ingredients: ["딸기", "소주", "사이다"],
-    taste: ["단맛", "신맛", "쓴맛", "짠맛"],
-    explan: "크렌베리 + 딸기향, 상큼달콤하지만 도수가 높음",
-  };
+  console.log(drinktype, id);
 
   useEffect(() => {
     if (drinktype != undefined && id != undefined) {
       apiGetDrinkDetail(drinktype, Number(id)).then((r) => {
-        // console.log(r);
+        console.log(r);
         if (r?.data.success === true) {
           setDrinkDetailItem(r?.data.body);
           console.log(r?.data.body);
