@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -40,19 +41,19 @@ public class FeedController {
     /**
      * [POST] /api/feed : 피드 생성
      *
-     * @param user              유저 로그인 정보
-     * @param createFeedRequest 피드 생성 요청
+     * @param user    유저 로그인 정보
+     * @param request 피드 생성 요청
      * @return FeedResponse : 생성된 피드 상세내용
      */
     @Tag(name = "feeds", description = "피드 API")
     @Operation(summary = "피드 생성", description = "피드를 생성하고 작성된 피드 상세내용을 리턴")
-    @PostMapping("/api/feed")
+    @PostMapping(value = "/api/feed", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<ResponseDto> createFeed(@AuthenticationPrincipal User user,
-                                                  @Valid CreateFeedRequest createFeedRequest) throws IOException {
-        MultipartFile image = createFeedRequest.getImg();
-        FeedDto requestFeedDto = feedDtoMapper.createFeedRequestToFeedDto(createFeedRequest);
-        RatingDto requestRatingDto = feedDtoMapper.createFeedRequestToRatingDto(createFeedRequest);
-        FeedDto feedDto = feedService.createFeed(user.getId(), requestFeedDto, requestRatingDto, image);
+                                                  @RequestPart CreateFeedRequest request,
+                                                  @RequestPart MultipartFile imgFile) throws IOException {
+        FeedDto requestFeedDto = feedDtoMapper.createFeedRequestToFeedDto(request);
+        RatingDto requestRatingDto = feedDtoMapper.createFeedRequestToRatingDto(request);
+        FeedDto feedDto = feedService.createFeed(user.getId(), requestFeedDto, requestRatingDto, imgFile);
         return ResponseEntity.ok(ResponseDto.builder().success(true)
                 .body(feedDtoMapper.feedDtoToFeedResponse(feedDto)).build());
     }

@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class HometenderRequest {
 
-    private MultipartFile image;
     private String name;
     private List<String> ingredients;
     private HometenderTasteDto taste;

@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -76,17 +77,18 @@ public class LiquorController {
     /**
      * [POST] /api/hometender : 홈텐더 레시피 생성
      *
-     * @param user              유저 로그인 정보
-     * @param hometenderRequest 홈텐더 레시피 생성 요청
+     * @param user    유저 로그인 정보
+     * @param request 홈텐더 레시피 생성 요청
      * @return LiquorDetailResponse : 생성된 홈텐더 레시피 상세내용
      */
     //@param user 유저 로그인 정보 주석에 추가해야함.
     @Tag(name = "liquor")
     @Operation(summary = "홈텐더 레시피 생성", description = "홈텐더 레시피를 생성하고 생성된 홈텐더 레시피 상세내용을 리턴")
-    @PostMapping("hometender/{userId}")
+    @PostMapping(value = "hometender", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<ResponseDto> createHometender(@AuthenticationPrincipal User user,
-                                                        HometenderRequest hometenderRequest) throws IOException {
-        HometenderTasteDto taste = hometenderRequest.getTaste();
+                                                        @RequestPart HometenderRequest request,
+                                                        @RequestPart MultipartFile imgFile) throws IOException {
+        HometenderTasteDto taste = request.getTaste();
         //taste 0(낮음), 1(중간), 2(높음) 값을 각 실제 맛 타입 범위 안의 중간값으로 변환하는 작업
         HometenderTasteDto convertedTaste = HometenderTasteDto.builder()
                 .bitter(HometenderTasteType.findTasteType("BITTER", taste.getBitter()).getVal())
@@ -94,12 +96,11 @@ public class LiquorController {
                 .sour(HometenderTasteType.findTasteType("SOUR", taste.getSour()).getVal())
                 .sweet(HometenderTasteType.findTasteType("SWEET", taste.getSweet()).getVal())
                 .build();
-        MultipartFile image = hometenderRequest.getImage();
-        hometenderRequest.setTaste(convertedTaste);
-        HometenderDto requestHometenderDto = liquorDtoMapper.hometenderRequestToHometenderDto(hometenderRequest);
+        request.setTaste(convertedTaste);
+        HometenderDto requestHometenderDto = liquorDtoMapper.hometenderRequestToHometenderDto(request);
         requestHometenderDto.setLiquorType(LiquorType.HOMETENDER);
         requestHometenderDto.setRatingAvg(Double.valueOf("0"));
-        HometenderDto hometenderDto = liquorCommonService.createHometender(user.getId(), requestHometenderDto, image);
+        HometenderDto hometenderDto = liquorCommonService.createHometender(user.getId(), requestHometenderDto, imgFile);
         return ResponseEntity.ok(ResponseDto.builder().success(true)
                 .body(liquorDtoMapper.hometenderDtoToLiquorDetailResponse(hometenderDto)).build());
     }
