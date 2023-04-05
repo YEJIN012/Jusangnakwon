@@ -25,22 +25,41 @@ const FeedMain = () => {
   const [feedList, setFeedList] = useState<FeedContent[]>([]);
   const [curPageNumber, setCurPageNumber] = useState<number>(0);
   const [totalPage, setTotalPage] = useState<number>(1);
+  const [prevPost, setPrevPost] = useState("");
   const loader = useRef(null);
+  console.log(feedList);
   // console.log("합쳐짐", curPageNumber, totalPage);
   const [focusedPostList, setFocusedPostList] = useState("");
 
+  // 무한스크롤, feedList 누적
   useEffect(() => {
-    // if (curPageNumber >= totalPage) return;
+    if (curPageNumber > totalPage) return;
     apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
       .then((res: any) => {
         // console.log(res);
         setFeedList([...feedList, ...res?.data.body?.content]);
-        setTotalPage(res?.data.body.totalPage);
+        // setTotalPage(res?.data.body.totalPage - 1);
+        setTotalPage(res?.data.body.totalPage - 1);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [curPageNumber]);
+
+  // 탭 선택했을 때 api호출, feedList / curPageNumber갱신
+  useEffect(() => {
+    // console.log(focusedPostList);
+    setCurPageNumber(0);
+    apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
+      .then((res: any) => {
+        // console.log(res);
+        setFeedList(res?.data.body?.content);
+        // setTotalPage(res?.data.body.totalPage - 1);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [focusedPostList]);
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
@@ -125,8 +144,8 @@ const FeedMain = () => {
             <></>
           )}
         </Masonry>
-        {/* <div ref={loader}>Loading...</div> */}
       </div>
+      <div ref={loader}></div>
     </>
   );
 };

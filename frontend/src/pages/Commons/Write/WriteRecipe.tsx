@@ -1,14 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import styles from "./Write.module.css";
 import ImageUpload from "@/components/Commons/ImageUpload/ImageUpload";
 import Ingredients from "@/components/Commons/Ingredients/Ingredients";
-import { apiCreateFeed } from "@/api/feed";
 import FormControl from "@mui/material/FormControl";
 import { makeStyles } from "@material-ui/core/styles";
 import { RadioGroup, FormControlLabel, Radio, Typography } from "@material-ui/core";
+import { apiCreateRecipe } from "@/api/hometender";
 
 interface RecipeFormData {
   // img: string;
@@ -105,22 +105,28 @@ const WriteRecipe = () => {
     sour: null,
   });
   console.log(taste)
+  useEffect(()=> {
+    setData({ ...data, taste: taste });
+  },[taste])
 
   const handleSubmit = (data: RecipeFormData) => {
+    console.log(!Object.values(taste).includes(null))
     if (
-      !Object.values(taste).includes(null) &&
+      !Object.values(data.taste).includes(null) &&
       data.name != "" &&
       data.ingredients.length >= 1 &&
       data.description != "" &&
       imgFile !== null
     ) {
       // taste 값 저장
-      setData({ ...data, taste: taste });
+      // setData({ ...data, taste: taste });
       // formData 생성
+      console.log(data)
       const formData = new FormData();
       const blob = new Blob([JSON.stringify(data)], {
         type: "application/json",
       });
+      console.log(blob)
       formData.append("request", blob);
       if (imgFile) {
         formData.append("imgFile", imgFile);
@@ -129,8 +135,7 @@ const WriteRecipe = () => {
       console.log(formData);
 
       // 제출 api호출
-      // apiCreateFeed(formData)
-      apiCreateFeed(formData)
+      apiCreateRecipe(formData)
         .then((res: any) => {
           console.log(res);
           const newFeed = res.data.body;
@@ -146,6 +151,7 @@ const WriteRecipe = () => {
     }
   };
   const WriteHeader = () => {
+    console.log(data)
     return (
       <div className={`${styles[`header-container`]}`}>
         <CloseIcon onClick={() => navigate(-1)} />

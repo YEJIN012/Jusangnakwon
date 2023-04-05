@@ -9,7 +9,7 @@ import styles from "@/pages/Home/HomeMain.module.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import WeatherAniBanner from "@/components/Home/Banner/WeatherAniBanner";
-import { apiGetRandomlyRecommendedHometender } from "@/api/home";
+import { apiGetRandomlyRecommendedHometender, apiGetWeather } from "@/api/home";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/reducers";
@@ -26,7 +26,7 @@ const settings = {
   // fade: true,
 };
 
-interface ApiData {
+export interface HometenderApiData {
   success?: boolean;
   error?: string | null;
   body?: {
@@ -36,10 +36,17 @@ interface ApiData {
     ingredients: string[];
   };
 }
+
+export interface WeatherApiData {
+  temperature?: number | undefined;
+  message?: string | undefined;
+  type?: string | undefined;
+}
 const HomeMain = () => {
   const userInfo = useSelector((state: RootState) => state.userInfo);
-  const [recommendedHometender, setRecommendedHometender] = useState<ApiData | null>(null);
-  const banner = [<HometenderBanner {...recommendedHometender} />, <WeatherAniBanner />, <DrinkBtiBanner />];
+  const [recommendedHometender, setRecommendedHometender] = useState<HometenderApiData | null>(null);
+  const [weather, setWeather] = useState<WeatherApiData | null>(null);
+  const banner = [<HometenderBanner {...recommendedHometender} />, <DrinkBtiBanner />];
   console.log(axios.defaults.headers.common["Authorization"]);
   useEffect(() => {
     if (recommendedHometender === null) {
@@ -56,7 +63,22 @@ const HomeMain = () => {
           console.log(e);
         });
     }
+    if (recommendedHometender === null) {
+      console.log("날씨호출");
+      apiGetWeather()
+        .then((r) => {
+          if (r?.data.success) {
+            setWeather(r.data.body);
+          } else {
+            throw new Error(r?.data.error ?? "Failed to fetch data");
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   }, []);
+
 
   return (
     <div className={`${styles[`container`]}`}>
@@ -71,6 +93,7 @@ const HomeMain = () => {
           <span>로그인</span>
         </Link>
       )}
+      <div className={`${styles[`banner-box`]}`}>{weather != null ? <WeatherAniBanner {...weather} /> : <></>}</div>
       <div className={`${styles[`banner-box`]}`}>
         <Slider {...settings} className={`${styles[`slider`]}`}>
           {banner.map((item, index) => {

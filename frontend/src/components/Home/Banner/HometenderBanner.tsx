@@ -6,18 +6,9 @@ import HometenderBannerAni from "./HometenderAni";
 import lottie from "lottie-web";
 import animationData from "./cocktail.json";
 import Ingredients from "@/components/Commons/Ingredients/Ingredients";
+import { HometenderApiData } from "@/pages/Home/HomeMain";
 
-interface ApiData {
-  success?: boolean;
-  error?: string | null;
-  body?: {
-    id: number;
-    name: number;
-    img: string;
-    ingredients: string[];
-  };
-}
-export default function HometenderBanner(props: ApiData | null) {
+export default function HometenderBanner(props: HometenderApiData | null) {
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { pink } from "@mui/material/colors";
 import { alpha, styled } from "@mui/material/styles";
@@ -10,10 +10,7 @@ import Search from "@mui/icons-material/Search";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import StarIcon from "@mui/icons-material/Star";
-// import DatePicker from "react-datepicker";
 import Calendar from "react-calendar";
-import "react-datepicker/dist/react-datepicker.css";
-import { ko } from "date-fns/esm/locale";
 import styles from "./Write.module.css";
 import ImageUpload from "@/components/Commons/ImageUpload/ImageUpload";
 import { apiCreateFeed } from "@/api/feed";
@@ -173,7 +170,6 @@ const WriteReview = () => {
       console.log(formData);
 
       // 제출 api호출
-      // apiCreateFeed(formData)
       apiCreateFeed(formData)
         .then((res: any) => {
           console.log(res);
