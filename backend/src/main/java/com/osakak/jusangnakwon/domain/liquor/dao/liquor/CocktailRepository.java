@@ -30,6 +30,6 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long>,Cockta
     Page<Cocktail> findById(Set<Long> similarCocktailUniqueList, Pageable pageable);
 
     @Query("select l from  Cocktail l where l.id in (:id)")
-    List<Cocktail> findByIdList(List<Long> id);
+    List<Cocktail> findByIdList(@Param("id")List<Long> id);
 }
 

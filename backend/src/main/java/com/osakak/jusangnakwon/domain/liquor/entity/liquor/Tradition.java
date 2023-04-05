@@ -34,7 +34,7 @@ public class Tradition {
     @Column(length = 30)
     private String description;
     @Column(length = 30)
-    private Double sweeetness;
+    private Double sweetness;
     @Column(length = 30)
     private Double acidity;
     @Column(length = 30)
@@ -51,7 +51,7 @@ public class Tradition {
     private double ratingAvg;
 
     @Builder
-    public Tradition(Long id, String name, String price, String img, double alcohol, String size, String materials, String brewery, String description, double sweeetness, double acidity, double freshness, int body, LiquorType liquorType, SimilarTraditionItem similarTraditionalLiquorItem, double ratingAvg) {
+    public Tradition(Long id, String name, String price, String img, double alcohol, String size, String materials, String brewery, String description, double sweetness, double acidity, double freshness, int body, LiquorType liquorType, SimilarTraditionItem similarTraditionalLiquorItem, double ratingAvg) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -61,7 +61,7 @@ public class Tradition {
         this.materials = materials;
         this.brewery = brewery;
         this.description = description;
-        this.sweeetness = sweeetness;
+        this.sweetness = sweetness;
         this.acidity = acidity;
         this.freshness = freshness;
         this.body = body;

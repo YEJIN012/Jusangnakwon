@@ -6,10 +6,7 @@ import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.dao.similar.*;
-import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
-import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import com.osakak.jusangnakwon.domain.liquor.dto.ReviewListDto;
-import com.osakak.jusangnakwon.domain.liquor.dto.SimilarItemValueType;
+import com.osakak.jusangnakwon.domain.liquor.dto.*;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
@@ -18,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +38,6 @@ public class LiquorDetailService {
     private final SimilarTraditionItemRepository similarTraditionItemRepository;
     private final SimilarCocktailItemRepository similarCocktailItemRepository;
     private final SimilarHometenderItemRepository similarHometenderItemRepository;
-
 
     /**
      * - 평점
@@ -69,6 +66,13 @@ public class LiquorDetailService {
         List<ReviewListDto> reviews = null;
         List<LiquorListItemDto> similarItem = null;
 
+        String body = null;
+        String sweet = null;
+        String acidity = null;
+        String sour = null;
+        String bitter = null;
+        String salty = null;
+
         List<Long> list = new ArrayList<>();
         switch (type) {
             case BEER:
@@ -76,6 +80,8 @@ public class LiquorDetailService {
                 if (byIdBeer.isEmpty())
                     throw new LiquorNotFoundException();
                 Beer beer = byIdBeer.get();
+                body = BeerTasteType.getTag("BODY", beer.getFlavor());
+                String aroma = BeerTasteType.getTag("AROMA", beer.getAroma());
                 Optional<SimilarBeerItem> byId = similarBeerItemRepository.findById(id);
                 if (byId.isPresent()) {
                     SimilarBeerItem similarBeerItem = byId.get();
@@ -89,13 +95,20 @@ public class LiquorDetailService {
                     similarItem = liquorMapper.toLiquorListDtoBeer(byIdList);
                     description = beer.getDescription().trim();
                     image = beer.getImg();
+                    tastes = Arrays.asList(body, aroma);
                 }
                 break;
             case WINE:
                 Optional<Wine> byIdWine = wineRepository.findById(id);
                 if (byIdWine.isEmpty())
                     throw new LiquorNotFoundException();
+
                 Wine wine = byIdWine.get();
+                body = WineTasteType.getTag("BODY", wine.getBody());
+                acidity = WineTasteType.getTag("ACIDITY", wine.getAcidity());
+                sweet = WineTasteType.getTag("SWEET", wine.getSweetness());
+                tastes = Arrays.asList(body, acidity, sweet);
+
                 Optional<SimilarWineItem> byIdWineSim = similarWineItemRepository.findById(id);
                 if (byIdWineSim.isPresent()) {
                     SimilarWineItem similarWineItem = byIdWineSim.get();
@@ -116,6 +129,10 @@ public class LiquorDetailService {
                 if (byIdWhisky.isEmpty())
                     throw new LiquorNotFoundException();
                 Whisky whisky = byIdWhisky.get();
+                body = WhiskyTasteType.getTag("BODY", whisky.getBody());
+                sweet = WhiskyTasteType.getTag("SWEET", whisky.getSweet());
+                tastes = Arrays.asList(body, sweet);
+
                 Optional<SimilarWhiskyItem> byIdWhiskySim = similarWhiskyItemRepository.findById(id);
                 if (byIdWhiskySim.isPresent()) {
                     SimilarWhiskyItem similarWhiskyItem = byIdWhiskySim.get();
@@ -135,6 +152,10 @@ public class LiquorDetailService {
                 if (byIdCocktail.isEmpty())
                     throw new LiquorNotFoundException();
                 Cocktail cocktail = byIdCocktail.get();
+                sweet = CocktailTasteType.getTag("SWEET", cocktail.getSweet());
+                sour = CocktailTasteType.getTag("SOUR", cocktail.getSweet());
+                tastes = Arrays.asList(sweet, sour);
+
                 Optional<SimilarCocktailItem> byIdCocktailSim = similarCocktailItemRepository.findById(id);
                 if (byIdCocktailSim.isPresent()) {
                     SimilarCocktailItem similarCocktailItem = byIdCocktailSim.get();
@@ -154,6 +175,10 @@ public class LiquorDetailService {
                 if (byIdTradition.isEmpty())
                     throw new LiquorNotFoundException();
                 Tradition tradition = byIdTradition.get();
+                tastes = Arrays.asList(TraditionTasteType.getTag("SWEET", tradition.getSweetness()),
+                        TraditionTasteType.getTag("ACIDITY", tradition.getAcidity()),
+                        TraditionTasteType.getTag("BODY", tradition.getBody()));
+
                 Optional<SimilarTraditionItem> byIdTraditionSim = similarTraditionItemRepository.findById(id);
                 if (byIdTraditionSim.isPresent()) {
                     SimilarTraditionItem similarTraditionItem = byIdTraditionSim.get();
@@ -173,6 +198,11 @@ public class LiquorDetailService {
                 if (byIdHometender.isEmpty())
                     throw new LiquorNotFoundException();
                 Hometender hometender = byIdHometender.get();
+                tastes = Arrays.asList(HometenderTasteType.getTag("SWEET", hometender.getSweet()),
+                        HometenderTasteType.getTag("SOUR", hometender.getSour()),
+                        HometenderTasteType.getTag("BITTER", hometender.getBitter()),
+                        HometenderTasteType.getTag("SALTY", hometender.getSalty()));
+
                 Optional<SimilarHometenderItem> byIdHometenderSim = similarHometenderItemRepository.findById(id);
                 if (byIdHometenderSim.isPresent()) {
                     SimilarHometenderItem similarHometenderItem = byIdHometenderSim.get();
@@ -180,6 +210,7 @@ public class LiquorDetailService {
                     List<Hometender> repositoryByIdList = hometenderRepository.findByIdList(list);
 
                     liquorId = id;
+                    ingredients = liquorMapper.toRandHometender(hometender).getIngredients();
                     name = hometender.getName().trim();
                     ratingAvg = hometender.getRatingAvg();
                     reviews = feedRepository.findHometenderReviewByLiquorId(id);
@@ -195,7 +226,8 @@ public class LiquorDetailService {
                 .ratingAvg(ratingAvg)
                 .scrapCnt(scrapCnt)
                 .scrapped(scrapped)
-                .tastes(null)
+                .ingredients(ingredients)
+                .tastes(tastes)
                 .description(description)
                 .reviews(reviews)
                 .similarItems(similarItem)

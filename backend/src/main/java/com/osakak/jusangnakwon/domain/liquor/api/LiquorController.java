@@ -3,12 +3,8 @@ package com.osakak.jusangnakwon.domain.liquor.api;
 import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.domain.liquor.api.request.HometenderRequest;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
-import com.osakak.jusangnakwon.domain.liquor.api.response.RandomHometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorService;
-import com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto;
-import com.osakak.jusangnakwon.domain.liquor.dto.HometenderTasteDto;
-import com.osakak.jusangnakwon.domain.liquor.dto.HometenderTasteType;
-import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
+import com.osakak.jusangnakwon.domain.liquor.dto.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorDtoMapper;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import io.swagger.annotations.ApiOperation;
@@ -48,7 +44,7 @@ public class LiquorController {
     )
     @Tag(name = "liquor")
     public ResponseEntity<ResponseDto> randHometender() {
-        RandomHometenderResponse response = liquorCommonService.getRandomHometender();
+        HometenderPageDto response = liquorCommonService.getRandomHometender();
 
         return ResponseEntity.ok(ResponseDto.builder()
                 .body(response)
@@ -103,5 +99,13 @@ public class LiquorController {
         HometenderDto hometenderDto = liquorCommonService.createHometender(user.getId(), requestHometenderDto, imgFile);
         return ResponseEntity.ok(ResponseDto.builder().success(true)
                 .body(liquorDtoMapper.hometenderDtoToLiquorDetailResponse(hometenderDto)).build());
+    }
+
+    @PutMapping("scrap/{type}/{id}")
+    public ResponseEntity<ResponseDto> scrapLiquor(
+            @PathVariable("type") String type, @PathVariable("id") Long id,
+            @AuthenticationPrincipal User user) {
+        liquorCommonService.scrapLiquor(type, id, user);
+        return ResponseEntity.ok(ResponseDto.builder().build());
     }
 }
