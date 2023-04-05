@@ -51,7 +51,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
                                         .where(like.user.id.eq(userId), like.feed.id.eq(feed.id),
                                                 like.isLiked.isTrue()).exists(), "liked"))).from(feed)
                 .where(feed.isPublic.eq(true)).offset(pageable.getOffset())
-                .limit(pageable.getPageSize()).orderBy(feed.dateCreated.desc()).fetch();
+                .limit(pageable.getPageSize()).orderBy(feed.dateCreated.desc(), feed.id.desc()).fetch();
 
         Long count = queryFactory.select(feed.count()).from(feed).where(feed.isPublic.eq(true))
                 .fetchOne();
@@ -72,7 +72,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
                                         .where(like.user.id.eq(userId), like.feed.id.eq(feed.id),
                                                 like.isLiked.isTrue()).exists(), "liked"))).from(feed)
                 .where(feed.type.eq(type), feed.isPublic.eq(true)).offset(pageable.getOffset())
-                .limit(pageable.getPageSize()).orderBy(feed.dateCreated.desc()).fetch();
+                .limit(pageable.getPageSize()).orderBy(feed.dateCreated.desc(), feed.id.desc()).fetch();
 
         Long count = queryFactory.select(feed.count()).from(feed)
                 .where(feed.type.eq(type), feed.isPublic.eq(true)).fetchOne();
