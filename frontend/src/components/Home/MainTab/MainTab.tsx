@@ -70,13 +70,20 @@ export default function MainTab() {
   const [drinkItem, setDrinkItem] = useState<DrinkItem>();
 
   // 북마크 상태를 변경하는 함수
-  // const handleScrap = () => {
-  //   if (drinktype !== undefined && id !== undefined) {
-  //     apiPutBookmark(drinktype, Number(id))
-  //       .then(() => setBookmarked((prev) => !prev))
-  //       .catch((error) => console.log(error));
-  //   }
-  // };
+  const handleScrap = (id: string) => {
+    if (id !== undefined) {
+      apiPutBookmark("l5", Number(id)).then((r) => {
+        setDrinkItem((prev) =>
+          prev
+            ? {
+                ...prev,
+                scrapped: !prev.scrapped,
+              }
+            : undefined,
+        );
+      });
+    }
+  };
 
   console.log(value);
   // 칵테일
@@ -508,7 +515,12 @@ export default function MainTab() {
                           {drinkItem?.scrapped ? (
                             <BookmarkIcon
                               onClick={() => {
-                                apiPutBookmark("l5", Number(id));
+                                apiPutBookmark("l5", Number(id)).then(() => {
+                                  apiGetNotLoginRecommendedByType("l5", cocktailCurPageNumber).then((r) => {
+                                    console.log("북마크누르고다시", r);
+                                    setCocktailListToShow(r?.data.body.content);
+                                  });
+                                });
                               }}
                             />
                           ) : (
@@ -518,6 +530,11 @@ export default function MainTab() {
                               }}
                             />
                           )}
+                          {/* {drinkItem?.scrapped ? (
+                            <BookmarkIcon onClick={() => handleScrap(drinkItem.id)} />
+                          ) : (
+                            <BookmarkBorderIcon onClick={() => handleScrap(drinkItem.id)} />
+                          )} */}
                         </div>
                       </div>
                     </div>

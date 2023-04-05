@@ -5,9 +5,10 @@ import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
-import { apiGetDrinkList } from "@/api/drinks";
+import { apiGetDrinkList, apiPutBookmark } from "@/api/drinks";
 import { makeStyles } from "@material-ui/core/styles";
 import { EnglishToCode } from "@/pages/Commons/Write/WriteReview";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,7 +74,28 @@ const AllDrink = () => {
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
                   </p>
-                  <BookmarkBorder fontSize="small" />
+                  {drink.scrapped ? (
+                    <BookmarkIcon
+                      onClick={() => {
+                        apiPutBookmark("l5", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                      fontSize="small"
+                    />
+                  ) : (
+                    <BookmarkBorder
+                      onClick={() => {
+                        apiPutBookmark("l5", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                    ></BookmarkBorder>
+                  )}
                 </div>
               </div>
             ))}
@@ -112,7 +134,28 @@ const AllDrink = () => {
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
                   </p>
-                  <BookmarkBorder fontSize="small" />
+                  {drink.scrapped ? (
+                    <BookmarkIcon
+                      onClick={() => {
+                        apiPutBookmark("l2", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                      fontSize="small"
+                    />
+                  ) : (
+                    <BookmarkBorder
+                      onClick={() => {
+                        apiPutBookmark("l2", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                    ></BookmarkBorder>
+                  )}
                 </div>
               </div>
             ))}
@@ -151,7 +194,28 @@ const AllDrink = () => {
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
                   </p>
-                  <BookmarkBorder fontSize="small" />
+                  {drink.scrapped ? (
+                    <BookmarkIcon
+                      onClick={() => {
+                        apiPutBookmark("l1", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                      fontSize="small"
+                    />
+                  ) : (
+                    <BookmarkBorder
+                      onClick={() => {
+                        apiPutBookmark("l1", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                    ></BookmarkBorder>
+                  )}
                 </div>
               </div>
             ))}
@@ -190,7 +254,28 @@ const AllDrink = () => {
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
                   </p>
-                  <BookmarkBorder fontSize="small" />
+                  {drink.scrapped ? (
+                    <BookmarkIcon
+                      onClick={() => {
+                        apiPutBookmark("l4", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                      fontSize="small"
+                    />
+                  ) : (
+                    <BookmarkBorder
+                      onClick={() => {
+                        apiPutBookmark("l4", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                    ></BookmarkBorder>
+                  )}
                 </div>
               </div>
             ))}
@@ -229,7 +314,28 @@ const AllDrink = () => {
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
                   </p>
-                  <BookmarkBorder fontSize="small" />
+                  {drink.scrapped ? (
+                    <BookmarkIcon
+                      onClick={() => {
+                        apiPutBookmark("l3", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                      fontSize="small"
+                    />
+                  ) : (
+                    <BookmarkBorder
+                      onClick={() => {
+                        apiPutBookmark("l3", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                    ></BookmarkBorder>
+                  )}
                 </div>
               </div>
             ))}

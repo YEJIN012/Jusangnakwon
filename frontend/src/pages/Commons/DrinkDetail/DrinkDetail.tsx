@@ -8,9 +8,8 @@ import ReviewList from "@/components/Commons/ReviewList/ReviewList";
 import RecommendInDetail from "@/components/Commons/RecommendInDetail/RecommendInDetail";
 import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 import HeaderBack from "@/components/Commons/Header/HeaderBack";
-import { apiGetDrinkDetail } from "@/api/drinks";
+import { apiGetDrinkDetail, apiPutBookmark } from "@/api/drinks";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { apiPutBookmark } from "@/api/drinks";
 
 interface DrinkDetailItem {
   id: number;
