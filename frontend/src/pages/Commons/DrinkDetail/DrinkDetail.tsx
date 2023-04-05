@@ -62,39 +62,6 @@ const DrinkDetail = () => {
     explan: "크렌베리 + 딸기향, 상큼달콤하지만 도수가 높음",
   };
 
-  // const dummyList = [
-  //   {
-  //     id: 1,
-  //     img: "https://picsum.photos/300/300/?random",
-  //     name: "콥케",
-  //     drinktype: "l6",
-  //   },
-  //   {
-  //     id: 2,
-  //     img: "https://picsum.photos/300/300/?random",
-  //     name: "샌드맨",
-  //     drinktype: "l6",
-  //   },
-  //   {
-  //     id: 3,
-  //     img: "https://picsum.photos/300/300/?random",
-  //     name: "맛있는와인",
-  //     drinktype: "l6",
-  //   },
-  //   {
-  //     id: 4,
-  //     img: "https://picsum.photos/300/300/?random",
-  //     name: "달콤한와인",
-  //     drinktype: "l6",
-  //   },
-  //   {
-  //     id: 5,
-  //     img: "https://picsum.photos/300/300/?random",
-  //     name: "새콤한와인",
-  //     drinktype: "l6",
-  //   },
-  // ];
-
   useEffect(() => {
     if (drinktype != undefined && id != undefined) {
       apiGetDrinkDetail(drinktype, Number(id)).then((r) => {

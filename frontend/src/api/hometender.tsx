@@ -5,9 +5,11 @@ const api = getApiInstance();
 // 홈텐더 전체 리스트 조회, 추천 리스트 조회는 drinks.tsx에 있음
 
 // 홈텐더 레시피 등록
-export const apiCreateRecipe = async (data: any[]) => {
+export const apiCreateRecipe = async (data: FormData) => {
   try {
-    const response = await api.post(`/hometender`, data);
+    const response = await api.post(`/hometender`, data, 
+    { headers: { "Content-Type": "multipart/form-data" } }
+    );
     return response;
   } catch (e) {
     console.log(e);

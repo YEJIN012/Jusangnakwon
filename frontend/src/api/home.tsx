@@ -52,3 +52,13 @@ export const apiSearchDrink = async (keyword: string, page: number) => {
     console.log(e);
   }
 };
+
+// 날씨
+export const apiGetWeather = async () => {
+  try {
+    const response = await api.get(`/weather`);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};

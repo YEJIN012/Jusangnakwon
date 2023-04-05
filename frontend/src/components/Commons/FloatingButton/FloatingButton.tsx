@@ -7,8 +7,6 @@ import FloatingButtonList from "./FloatingButtonList";
 
 const FloatingButton = () => {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   return (
     <>
@@ -17,8 +15,8 @@ const FloatingButton = () => {
         ariaLabel="SpeedDial tooltip example"
         sx={{ position: "fixed", bottom: 70, right: 16, display: "flex", alignItems: "end" }}
         icon={<SpeedDialIcon openIcon={<EditIcon />} />}
-        onClose={handleClose}
-        onOpen={handleOpen}
+        onClose={() => setOpen(!open)}
+        onOpen={() => setOpen(!open)}
         open={open}
       >
         {open && <FloatingButtonList></FloatingButtonList>}
