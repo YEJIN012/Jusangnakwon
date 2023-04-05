@@ -131,7 +131,7 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
 
         List<LiquorListItemDto> content = queryFactory.select(
                         new QLiquorListItemDto(scrap.liquorId, scrap.liquorName, getLiquorImg,
-                                scrap.liquorType)).from(scrap).where(scrap.user.id.eq(userId), scrap.scrapped.eq(true))
+                                scrap.liquorType, scrap.scrapped)).from(scrap).where(scrap.user.id.eq(userId), scrap.scrapped.eq(true))
                 .offset(pageable.getOffset()).limit(pageable.getPageSize()).orderBy(scrap.id.desc())
                 .fetch();
 
