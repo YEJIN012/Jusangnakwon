@@ -54,7 +54,7 @@ const RecipeFeed = (props: RecipeList) => {
         {drinkList.map((drink: any) => (
           <li key={drink.id} className={`${styles[`tab-drink-item`]}`}>
             <div className={styles["item-container"]}>
-              <Link to={`/details/${drink.type}/${drink.id}`}>
+              <Link to={`/details/l6/${drink.id}`}>
                 <img src={drink.img}></img>
               </Link>
               <div className={styles["item-title"]}>

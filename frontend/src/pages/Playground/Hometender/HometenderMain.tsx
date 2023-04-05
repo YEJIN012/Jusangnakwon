@@ -175,25 +175,31 @@ const HometenderMain = () => {
 
   return (
     <>
-      <FloatingButton></FloatingButton>
+          <FloatingButton></FloatingButton>
       <div className={`${styles[`container`]}`}>
-        {loginRecommendList ? (
-          <>
-            <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
-            <RecommendCarousel recommendList={loginRecommendList}></RecommendCarousel>
-          </>
-        ) : (
-          <></>
-        )}
+        <div className={`${styles[`carousel-wrap`]}`}>
+          <div className={`${styles[`carousel-item`]}`}>
+            {loginRecommendList ? (
+              <div className={`${styles[`carousel-item`]}`}>
+                <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
+                <RecommendCarousel recommendList={loginRecommendList}></RecommendCarousel>
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
 
-        {rankRecommendList ? (
-          <>
-            <div className={`${styles[`recommend-title`]}`}>주상낙원 Best 레시피</div>
-            <RecommendCarousel recommendList={rankRecommendList}></RecommendCarousel>
-          </>
-        ) : (
-          <></>
-        )}
+          <div className={`${styles[`carousel-item`]}`}>
+            {rankRecommendList ? (
+              <>
+                <div className={`${styles[`recommend-title`]}`}>주상낙원 Best 레시피</div>
+                <RecommendCarousel recommendList={rankRecommendList}></RecommendCarousel>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
         <div className={`${styles[`recipe-title`]}`}>
           <div>주상낙원의 홈텐더들을 위한 레시피</div>
         </div>

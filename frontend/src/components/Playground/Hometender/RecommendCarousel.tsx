@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import styles from "./RecommendCarousel.module.css";
 import Ingredients from "@/components/Commons/Ingredients/Ingredients";
+import { EnglishToCode } from "@/pages/Commons/Write/WriteReview";
 
 interface RecommendList {
   recommendList: {
@@ -60,7 +61,7 @@ const RecommendCarousel = (props: RecommendList) => {
     <Slider {...settings} className={`${styles[`carousel`]}`}>
       {props.recommendList.map((item) => (
         <div key={item.id}>
-          <Link to={`/details/${item.type}/${item.id}`}>
+          <Link to={`/details/${EnglishToCode[item.type]}/${item.id}`}>
             <div className={`${styles[`box`]}`}>
               <img className={`${styles[`img-box`]}`} src={item.img} />
               <div className={`${styles[`info`]}`}>

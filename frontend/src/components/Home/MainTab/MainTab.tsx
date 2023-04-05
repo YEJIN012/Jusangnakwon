@@ -16,6 +16,9 @@ import { apiGetLoginRecommendedByType, apiGetNotLoginRecommendedByType } from "@
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/reducers";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { apiPutBookmark } from "@/api/drinks";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -29,6 +32,7 @@ interface DrinkItem {
   name: string;
   img: string;
   liquorType: string;
+  scrapped: boolean;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -60,9 +64,19 @@ function a11yProps(index: number) {
 
 export default function MainTab() {
   const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
-
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const [bookmarked, setBookmarked] = useState(false);
+  const [drinkItem, setDrinkItem] = useState<DrinkItem>();
+
+  // 북마크 상태를 변경하는 함수
+  // const handleScrap = () => {
+  //   if (drinktype !== undefined && id !== undefined) {
+  //     apiPutBookmark(drinktype, Number(id))
+  //       .then(() => setBookmarked((prev) => !prev))
+  //       .catch((error) => console.log(error));
+  //   }
+  // };
 
   console.log(value);
   // 칵테일
@@ -96,9 +110,6 @@ export default function MainTab() {
   const [isLoadingMoreKoreans, setIsLoadingMoreKoreans] = useState(false);
   const [koreanCurPageNumber, setKoreanCurPageNumber] = useState<number>(1);
   const [koreanTotalPage, setKoreanTotalPage] = useState<number>(0);
-
-  const [curPageNumber, setCurPageNumber] = useState<number>(1);
-  const [totalPage, setTotalPage] = useState<number>(0);
 
   // 맥주
   const [beerItemsToShow, setbeerItemsToShow] = useState(6);
@@ -382,6 +393,7 @@ export default function MainTab() {
         styleOverrides: {
           root: {
             minWidth: "unset",
+            fontFamily: "Hahmlet, serif",
           },
         },
       },
@@ -464,8 +476,8 @@ export default function MainTab() {
           <TabPanel value={value} index={0} dir={theme.direction}>
             <div
               style={{
-                background:
-                  value === 0 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                background: "#06031A",
+                // value === 0 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
                 // "#06031A"
                 // border:"solid 2px",
                 // "linear-gradient(212.38deg, #A0425F 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
@@ -493,7 +505,21 @@ export default function MainTab() {
                           <div className={styles["drink-name"]}>
                             {name.length > 15 ? `${name.substring(0, 15)}...` : name}
                           </div>
-                          <BookmarkBorder fontSize="small" />
+                          {drinkItem?.scrapped ? (
+                            <BookmarkIcon
+                            onClick={() => {
+                              apiPutBookmark("l5", Number(id));
+                            }}
+                          />
+                          ) : (
+                            <BookmarkBorderIcon
+                            onClick={() => {
+                              apiPutBookmark("l5", Number(id));
+                            }}
+                          />
+                          )
+                        }
+                          
                         </div>
                       </div>
                     </div>
@@ -511,8 +537,8 @@ export default function MainTab() {
           <TabPanel value={value} index={1} dir={theme.direction}>
             <div
               style={{
-                background:
-                  value === 1 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                background: "#06031A",
+                // value === 1 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
                 // border:"solid 2px",
                 // "linear-gradient(180deg, #997D7B 0%, rgba(153, 125, 123, 0) 100%)" : "black",
                 paddingTop: "5%",
@@ -558,8 +584,8 @@ export default function MainTab() {
           <TabPanel value={value} index={2} dir={theme.direction}>
             <div
               style={{
-                background:
-                  value === 2 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                background: "#06031A",
+                // value === 2 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
                 // border:"solid 2px",
                 // "linear-gradient(180deg,  #421F3C 0%, rgba(153, 125, 123, 0) 100%)" : "black",
                 paddingTop: "5%",
@@ -605,8 +631,8 @@ export default function MainTab() {
           <TabPanel value={value} index={3} dir={theme.direction}>
             <div
               style={{
-                background:
-                  value === 3 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                background: "#06031A",
+                // value === 3 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
                 // border:"solid 2px",
                 // "linear-gradient(180deg, #4E3415 0%, rgba(78, 52, 21, 0) 100%)" : "black",
                 paddingTop: "5%",
@@ -652,8 +678,8 @@ export default function MainTab() {
           <TabPanel value={value} index={4} dir={theme.direction}>
             <div
               style={{
-                background:
-                  value === 4 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                background: "#06031A",
+                // value === 4 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
                 // border:"solid 2px",
                 // "linear-gradient(180deg, #9D615F 0%, rgba(157, 97, 95, 0) 100%)" : "black",
                 paddingTop: "5%",

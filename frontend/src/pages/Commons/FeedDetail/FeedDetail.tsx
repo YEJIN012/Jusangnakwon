@@ -129,7 +129,7 @@ const FeedDetail = () => {
     <div>
       <HeaderBack></HeaderBack>
       {feed && (
-        <div key={feed.id}>
+        <div key={feed.id} className={`${styles[`container`]}`}>
           <div className={`${styles[`user-profile-container`]}`}>
             <div className={`${styles[`user-profile`]}`}>
               <img src={feed.writer.profileImg} className={`${styles[`user-img`]}`}></img>
