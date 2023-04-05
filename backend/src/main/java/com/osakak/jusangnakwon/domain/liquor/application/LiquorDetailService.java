@@ -3,6 +3,7 @@ package com.osakak.jusangnakwon.domain.liquor.application;
 import com.osakak.jusangnakwon.common.errors.LiquorNotFoundException;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
 import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
+import com.osakak.jusangnakwon.domain.feed.entity.Scrap;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.dao.similar.*;
@@ -60,12 +61,16 @@ public class LiquorDetailService {
         String image = null;
         Double ratingAvg = null;
         Long scrapCnt = null;
-        boolean scrapped = scrapRepository.isUserScrapped(id, user.getId(), type).isPresent();
+        boolean scrapped = false;
         List<String> ingredients = null;
         List<String> tastes = null;
         String description = null;
         List<ReviewListDto> reviews = null;
         List<LiquorListItemDto> similarItem = null;
+
+        Optional<Scrap> userScrapped = scrapRepository.isUserScrapped(id, user.getId(), type);
+        if (userScrapped.isPresent())
+            scrapped = userScrapped.get().getScrapped();
 
         String body = null;
         String sweet = null;
