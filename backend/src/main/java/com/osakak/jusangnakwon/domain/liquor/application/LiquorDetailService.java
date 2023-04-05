@@ -10,6 +10,7 @@ import com.osakak.jusangnakwon.domain.liquor.dto.*;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
+import com.osakak.jusangnakwon.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,13 +54,13 @@ public class LiquorDetailService {
      * @param id   술 id
      * @return 술 상세 정보
      */
-    public LiquorDetailResponse getLiquorDetail(LiquorType type, Long id) {
+    public LiquorDetailResponse getLiquorDetail(User user, LiquorType type, Long id) {
         Long liquorId = null;
         String name = null;
         String image = null;
         Double ratingAvg = null;
         Long scrapCnt = null;
-        boolean scrapped = false;
+        boolean scrapped = scrapRepository.isUserScrapped(id, user.getId(), type).isPresent();
         List<String> ingredients = null;
         List<String> tastes = null;
         String description = null;
@@ -72,6 +73,7 @@ public class LiquorDetailService {
         String sour = null;
         String bitter = null;
         String salty = null;
+
 
         List<Long> list = new ArrayList<>();
         switch (type) {

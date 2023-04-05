@@ -14,4 +14,5 @@ public interface ScrapRepository extends JpaRepository<Scrap, Long> {
     @Query("select s from Scrap s where s.liquorId=:liquorId and s.user.id=:userId and s.liquorType=:liquorType")
     Optional<Scrap> isUserScrapped(Long liquorId, Long userId, LiquorType liquorType);
 
+
 }
