@@ -44,6 +44,4 @@ public class BeerQueryRepositoryImpl implements BeerQueryRepository {
             return beer.mouthfeel.gt(12);
         }
     }
-
-
 }

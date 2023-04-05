@@ -1,7 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Whisky;
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Wine;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,8 +19,10 @@ public interface WhiskyRepository extends JpaRepository<Whisky, Long>,WhiskyQuer
      * @param pageable 페이징 정보
      * @return 페이징 포함 위스키 칵테일 리스트
      */
-    @Query("select c from Whisky c order by c.ratingAvg desc")
-    Page<Whisky> findByRatingAvg(Pageable pageable);
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType) " +
+            "from Whisky l " +
+            "order by l.ratingAvg desc ")
+    Page<LiquorListItemDto> findListByRatingIsNotLoggedIn(Pageable pageable);
 
     @Query("select l from Whisky l where l.name like :keyword%")
     Optional<List<Whisky>> findByKeyword(@Param("keyword") String keyword);
@@ -30,4 +32,14 @@ public interface WhiskyRepository extends JpaRepository<Whisky, Long>,WhiskyQuer
 
     @Query("select l from  Whisky l where l.id in (:list)")
     List<Whisky> findByIdList(@Param("list") List<Long> list);
+
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType, s.scrapped) " +
+            "from Whisky l " +
+            "left join fetch Scrap s " +
+            "on l.liquorType=s.liquorType and l.id=s.liquorId " +
+            "left join fetch User u " +
+            "on u.id=s.user.id " +
+            "order by l.ratingAvg desc ")
+    Page<LiquorListItemDto> findListByRatingIsLogin(Pageable pageable);
+
 }
