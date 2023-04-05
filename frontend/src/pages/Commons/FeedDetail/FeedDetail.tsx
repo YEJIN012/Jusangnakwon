@@ -17,8 +17,7 @@ import { apiGetFeedDetail, apiCreateLike, apiCreateComment } from "@/api/feed";
 import CommentItem from "@/components/Feed/CommentItem";
 import { EnglishToKorean, EnglishToCode } from "@/pages/Commons/Write/WriteReview";
 import { alcoholTypeStyle } from "@/pages/MyPage/BookmarkList";
-import { stringify } from "querystring";
-
+import StarIcon from "@mui/icons-material/Star";
 export interface Comment {
   id: number;
   writer: {
@@ -208,7 +207,14 @@ const FeedDetail = () => {
               {/* <p>술 이름</p> */}
               <p className={`${styles[`feed-alcohol-name`]}`}>{feed.liquorName}</p>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "50%" }}>
-                {feed.type === "리뷰글" ? <Rating name="read-only" value={feed.ratingScore} readOnly /> : null}
+                {feed.type === "리뷰글" ? (
+                  <Rating
+                    name="read-only"
+                    value={feed.ratingScore}
+                    readOnly
+                    emptyIcon={<StarIcon sx={{ color: "gray" }} fontSize="inherit" />}
+                  />
+                ) : null}
                 <p style={{ fontSize: "0.7rem", color: "gray" }}>{feed.writer.username}님의 평점</p>
               </div>
             </div>

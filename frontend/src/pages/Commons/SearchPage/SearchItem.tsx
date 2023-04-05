@@ -22,6 +22,7 @@ interface Props {
 interface DrinkTypes {
   WINE: string;
   WHISKY: string;
+  BEER: string;
   TRADITION: string;
   COCKTAIL: string;
   HOMETENDER: string;
@@ -36,9 +37,10 @@ const SearchItem = (props: Props | null) => {
   const drinkType: DrinkTypes = {
     WINE: "l1",
     WHISKY: "l2",
-    TRADITION: "l3",
-    COCKTAIL: "l4",
-    HOMETENDER: "l5",
+    BEER: "l3",
+    TRADITION: "l4",
+    COCKTAIL: "l5",
+    HOMETENDER: "l6",
   };
 
   return (

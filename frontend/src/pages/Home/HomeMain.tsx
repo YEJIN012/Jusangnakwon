@@ -82,7 +82,7 @@ const HomeMain = () => {
 
   return (
     <div className={`${styles[`container`]}`}>
-      <Link to={`/tasteform`}>
+      {/* <Link to={`/tasteform`}>
         <span>취향입력폼</span>
       </Link>
       <br />
@@ -110,7 +110,7 @@ const HomeMain = () => {
           })}
         </Slider>
       </div>
-      {userInfo.isLogin ? 
+      {userInfo.isLogin ? (
         <div className={`${styles[`text-wrap`]}`}>
           <h3>{userInfo.username}님의 취향</h3>
           <p>{userInfo.username}님의 취향에 맞는 술을 주종별로 추천해드려요!</p>

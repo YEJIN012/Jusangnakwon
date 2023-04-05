@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import styles from "./MyFeedList.module.css";
 import Rating from "@mui/material/Rating";
-import { MyMonthlyFeedItem } from "./MyFeedList";
 import { MyMonthlyReviewItem } from "@/pages/MyPage/MyPageMain";
+import StarIcon from "@mui/icons-material/Star";
 
 interface MyFeed {
   myfeed?: {
@@ -58,7 +58,7 @@ const MyFeedItem = ({ myfeed, myMonthlyReviewItem }: MyFeed) => {
               {/* <Rating name="read-only" value={myfeed.ratings} readOnly /> */}
               <div>
                 {myMonthlyReviewItem?.content}
-                <div className={`${styles[`date`]}`}>{String(myMonthlyReviewItem?.dateCreated)}</div>
+                <div className={`${styles[`date`]}`}>{String(myMonthlyReviewItem?.dateCreated).slice(0, 10)}</div>
               </div>
             </div>
             <div className={`${styles[`myfeed-item-right-container`]}`}>
@@ -68,7 +68,14 @@ const MyFeedItem = ({ myfeed, myMonthlyReviewItem }: MyFeed) => {
             >
               {myMonthlyReviewItem?.feedType}
             </div> */}
-              {<Rating value={myMonthlyReviewItem?.ratingScore} readOnly></Rating>}
+              {
+                <Rating
+                  size={"small"}
+                  value={myMonthlyReviewItem?.ratingScore}
+                  readOnly
+                  emptyIcon={<StarIcon sx={{ color: "gray" }} fontSize="inherit" />}
+                ></Rating>
+              }
             </div>
           </div>
         </Link>

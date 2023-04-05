@@ -24,37 +24,50 @@ export interface FeedContent {
 const FeedMain = () => {
   const [feedList, setFeedList] = useState<FeedContent[]>([]);
   const [curPageNumber, setCurPageNumber] = useState<number>(0);
-  const [totalPage, setTotalPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(0);
   const [prevPost, setPrevPost] = useState("");
   const loader = useRef(null);
-  console.log(feedList);
+  // console.log(feedList);
   // console.log("합쳐짐", curPageNumber, totalPage);
   const [focusedPostList, setFocusedPostList] = useState("");
 
   // 무한스크롤, feedList 누적
   useEffect(() => {
     if (curPageNumber > totalPage) return;
-    apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
-      .then((res: any) => {
-        // console.log(res);
-        setFeedList([...feedList, ...res?.data.body?.content]);
-        // setTotalPage(res?.data.body.totalPage - 1);
-        setTotalPage(res?.data.body.totalPage - 1);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (curPageNumber != 0) {
+      apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
+        .then((res: any) => {
+          console.log(res);
+          // const prevFocusedFeedList =
+          //   focusedPostList != ""
+          //     ? feedList.filter((feed) => {
+          //         // console.log(feed.type);
+          //         // console.log(feed);
+          //         feed.type === focusedPostList;
+          //       })
+          //     : feedList;
+          // console.log("이전", prevFocusedFeedList);
+          setFeedList([...feedList, ...res?.data.body?.content]);
+          // setTotalPage(res?.data.body.tot`alPage - 1);
+          setTotalPage(res?.data.body.totalPage - 1);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, [curPageNumber]);
 
   // 탭 선택했을 때 api호출, feedList / curPageNumber갱신
   useEffect(() => {
     // console.log(focusedPostList);
-    setCurPageNumber(0);
+    // setCurPageNumber(0);
     apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
       .then((res: any) => {
         // console.log(res);
+        console.log(res?.data.body?.content);
         setFeedList(res?.data.body?.content);
-        // setTotalPage(res?.data.body.totalPage - 1);
+        console.log("실행됨?");
+        setTotalPage(res?.data.body.totalPage - 1);
       })
       .catch((error) => {
         console.log(error);
@@ -111,21 +124,30 @@ const FeedMain = () => {
           <button
             className={focusedPostList === "" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={""}
-            onClick={(e) => setFocusedPostList(e.currentTarget.value)}
+            onClick={(e) => {
+              setCurPageNumber(0);
+              setFocusedPostList(e.currentTarget.value);
+            }}
           >
             전체글
           </button>
           <button
             className={focusedPostList === "리뷰글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={"리뷰글"}
-            onClick={(e) => setFocusedPostList(e.currentTarget.value)}
+            onClick={(e) => {
+              setCurPageNumber(0);
+              setFocusedPostList(e.currentTarget.value);
+            }}
           >
             리뷰글
           </button>
           <button
             className={focusedPostList === "질문글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={"질문글"}
-            onClick={(e) => setFocusedPostList(e.currentTarget.value)}
+            onClick={(e) => {
+              setCurPageNumber(0);
+              setFocusedPostList(e.currentTarget.value);
+            }}
           >
             질문글
           </button>

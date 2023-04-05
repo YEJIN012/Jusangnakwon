@@ -11,6 +11,7 @@ import HeaderBack from "@/components/Commons/Header/HeaderBack";
 import { apiGetDrinkDetail } from "@/api/drinks";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { apiPutBookmark } from "@/api/drinks";
+
 interface DrinkDetailItem {
   id: number;
   description: string | null;
@@ -68,6 +69,7 @@ const DrinkDetail = () => {
         // console.log(r);
         if (r?.data.success === true) {
           setDrinkDetailItem(r?.data.body);
+          console.log(r?.data.body);
         } else {
           throw new Error("Feed detail axios 에러");
         }
@@ -82,7 +84,7 @@ const DrinkDetail = () => {
           // console.log(r);
           if (r?.data.success === true) {
             setDrinkDetailItem(r?.data.body);
-            console.log("북마크", r?.data.body);
+            // console.log("북마크", r?.data.body);
           } else {
             throw new Error("Feed detail axios 에러");
           }
@@ -100,8 +102,8 @@ const DrinkDetail = () => {
         {drinkDetailItem?.writer ? (
           <div className={`${styles[`user-profile-container-abs`]}`}>
             <div className={`${styles[`user-profile`]}`}>
-              <img src={drink.userImg} className={`${styles[`user-img`]}`}></img>
-              <p>{drink.userName}</p>
+              {/* <img src={drinkDetailItem.writer} className={`${styles[`user-img`]}`}></img> */}
+              <p>{drinkDetailItem.writer}</p>
             </div>
           </div>
         ) : null}

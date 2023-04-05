@@ -143,6 +143,7 @@ const HometenderMain = () => {
     // 주상낙원 BEST 레시피
     apiGetRankedHometender("l6", 1)
       .then((r) => {
+        console.log(r?.data.body.content);
         setrankRecommendList(
           r?.data.body.content.map((item: ApiItem) => ({
             ...item,

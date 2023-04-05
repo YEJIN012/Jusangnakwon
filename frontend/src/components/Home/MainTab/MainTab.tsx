@@ -507,19 +507,17 @@ export default function MainTab() {
                           </div>
                           {drinkItem?.scrapped ? (
                             <BookmarkIcon
-                            onClick={() => {
-                              apiPutBookmark("l5", Number(id));
-                            }}
-                          />
+                              onClick={() => {
+                                apiPutBookmark("l5", Number(id));
+                              }}
+                            />
                           ) : (
                             <BookmarkBorderIcon
-                            onClick={() => {
-                              apiPutBookmark("l5", Number(id));
-                            }}
-                          />
-                          )
-                        }
-                          
+                              onClick={() => {
+                                apiPutBookmark("l5", Number(id));
+                              }}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -613,7 +611,7 @@ export default function MainTab() {
                           <div className={styles["drink-name"]}>
                             {name.length > 15 ? `${name.substring(0, 15)}...` : name}
                           </div>
-                          <BookmarkBorder fontSize="small" />
+                          <BookmarkBorder fontSize="small" sx={{ color: "black" }} />
                         </div>
                       </div>
                     </div>
