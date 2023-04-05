@@ -30,10 +30,10 @@ export const apiGetFilteredFeedList = async (props: Props) => {
 };
 
 // 피드 작성
-export const apiCreateFeed = async (data: { [key: string]: any } ) => {
+export const apiCreateFeed = async (data: FormData ) => {
   try {
     const response = await api.post(`/feed`, data,
-      // { headers: { "Content-Type": "multipart/form-data" } }
+      { headers: { "Content-Type": "multipart/form-data" } }
     );
     return response;
   } catch (e) {

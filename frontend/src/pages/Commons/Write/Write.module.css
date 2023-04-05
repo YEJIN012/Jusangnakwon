@@ -58,7 +58,7 @@
 .row-container {
   width: 100%;
   display: flex;
-  align-items: start;
+  align-items: center;
   border-bottom: solid 0.5px rgb(149, 149, 149);
   box-sizing: border-box;
   padding: 6%;
@@ -134,4 +134,23 @@ textarea:focus {
   padding: 3px 8px;
   border-radius: 20px;
   font-size: 0.9rem;
+}
+
+
+/* taste 선택 radio */
+.taste-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.taste-type {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.taste-name {
+  display: flex;
+  align-items: center;
 }

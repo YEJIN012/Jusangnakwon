@@ -70,15 +70,15 @@ const MyPageMain = () => {
     const month = view.activeStartDate.getMonth() + 1;
     setYear(year);
     setMonth(month);
-    console.log("년", year); // 년도 출력
-    console.log("월", month); // 월 출력
+    // console.log("년", year); // 년도 출력
+    // console.log("월", month); // 월 출력
     setSelectedFeedList([]);
   };
 
   // 날짜 클릭하면 myMonthlyFeedList에서 해당 날짜에 쓴 리뷰글을 selectedList로 set
   const handleDateChange = (date: Date) => {
     setDate(date);
-    console.log(date);
+    // console.log(date);
     const selectedList = myMonthlyFeedList
       .filter((feed) => {
         return feed.date === moment(date).format("YYYY-MM-DD");
@@ -96,7 +96,6 @@ const MyPageMain = () => {
       return feed.date === formattedDate;
     });
     if (feed?.liquorType != null) {
-      console.log(feed.liquorType)
       const iconUrl = `/assets/${feed.liquorType}.svg`;
       return (
         <div>

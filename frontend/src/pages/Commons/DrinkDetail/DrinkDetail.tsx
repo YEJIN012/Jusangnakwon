@@ -115,6 +115,7 @@ const DrinkDetail = () => {
           // console.log(r);
           if (r?.data.success === true) {
             setDrinkDetailItem(r?.data.body);
+            console.log("북마크", r?.data.body);
           } else {
             throw new Error("Feed detail axios 에러");
           }
