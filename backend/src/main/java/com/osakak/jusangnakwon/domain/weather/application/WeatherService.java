@@ -42,20 +42,20 @@ public class WeatherService {
                 message = "호달달 너무 춥네요/n 위스키 한잔으로 뜨거워져봐요?";
                 type = "e";
             } else if (temperature >= 0 && temperature < 26) {
-                message = "봄바람 맞으며  피크닉 치맥 어떠세요?";
+                message = "봄바람 맞으며/n 피크닉 치맥 어떠세요?";
                 type = "d";
             } else {
-                message = "푹찌는 여름엔 살얼음 동동 생맥주 한잔~!";
+                message = "푹찌는 여름엔/n 살얼음 동동 생맥주 한잔~!";
                 type = "b";
             }
         } else if (v[2].equals("비")) {
             message = "꿀꿀한 비 오는 날/n 파전에 막걸리 어떠세요?";
             type = "a";
         } else if (v[2].equals("눈")) {
-            message = "분위기 있게 스테이크와 레드와인 잡솨보세요";
+            message = "분위기 있게/n 스테이크와 레드와인/n 어때요?";
             type = "f";
         } else if (v[2].equals("흐림")) {
-            message = "흐린 날엔 역시 삼겹살에 쏘주로 텐션 업!";
+            message = "흐린 날엔 역시,/n 삼겹살에 쏘주로 텐션 업!";
             type = "c";
         } else {
             message = "어떤 날씨든 술과 함께라면 행복할거야";
