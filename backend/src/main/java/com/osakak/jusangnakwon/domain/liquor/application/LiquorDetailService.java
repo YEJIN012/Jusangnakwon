@@ -95,6 +95,7 @@ public class LiquorDetailService {
                     extracted(list, similarBeerItem.getSimilarLiquor());
                     List<Beer> byIdList = beerRepository.findByIdList(list);
 
+                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(beer.getName(), beer.getLiquorType());
                     liquorId = id;
                     name = beer.getName().trim();
                     ratingAvg = beer.getRatingAvg();
@@ -121,7 +122,7 @@ public class LiquorDetailService {
                     SimilarWineItem similarWineItem = byIdWineSim.get();
                     extracted(list, similarWineItem.getSimilarLiquor());
                     List<Wine> byIdListWine = wineRepository.findByIdList(list);
-
+                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(wine.getName(), wine.getLiquorType());
                     liquorId = id;
                     name = wine.getName().trim();
                     ratingAvg = wine.getRatingAvg();
@@ -145,7 +146,7 @@ public class LiquorDetailService {
                     SimilarWhiskyItem similarWhiskyItem = byIdWhiskySim.get();
                     extracted(list, similarWhiskyItem.getSimilarLiquor());
                     List<Whisky> byIdListWhisky = whiskyRepository.findByIdList(list);
-
+                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(whisky.getName(), whisky.getLiquorType());
                     liquorId = id;
                     name = whisky.getName().trim();
                     ratingAvg = whisky.getRatingAvg();
@@ -168,7 +169,7 @@ public class LiquorDetailService {
                     SimilarCocktailItem similarCocktailItem = byIdCocktailSim.get();
                     extracted(list, similarCocktailItem.getSimilarLiquor());
                     List<Cocktail> byIdListCocktail = cocktailRepository.findByIdList(list);
-
+                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(cocktail.getName(), cocktail.getLiquorType());
                     liquorId = id;
                     name = cocktail.getName().trim();
                     ratingAvg = cocktail.getRatingAvg();
@@ -191,7 +192,7 @@ public class LiquorDetailService {
                     SimilarTraditionItem similarTraditionItem = byIdTraditionSim.get();
                     extracted(list, similarTraditionItem.getSimilarLiquor());
                     List<Tradition> repositoryByIdList = traditionRepository.findByIdList(list);
-
+                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(tradition.getName(), tradition.getLiquorType());
                     liquorId = id;
                     name = tradition.getName().trim();
                     ratingAvg = tradition.getRatingAvg();
@@ -215,7 +216,7 @@ public class LiquorDetailService {
                     SimilarHometenderItem similarHometenderItem = byIdHometenderSim.get();
                     extracted(list, similarHometenderItem.getSimilarLiquor());
                     List<Hometender> repositoryByIdList = hometenderRepository.findByIdList(list);
-
+                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(hometender.getName(), hometender.getLiquorType());
                     liquorId = id;
                     ingredients = liquorMapper.toRandHometender(hometender).getIngredients();
                     name = hometender.getName().trim();

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ScrapRepository extends JpaRepository<Scrap, Long> {
     @Query("select s from Scrap s where s.liquorName=:name and s.liquorType=:type")
-    Long getScrapCntByNameAndLiquorType(String name, String type);
+    Long getScrapCntByNameAndLiquorType(String name, LiquorType type);
 
     @Query("select s from Scrap s where s.liquorId=:liquorId and s.user.id=:userId and s.liquorType=:liquorType")
     Optional<Scrap> isUserScrapped(Long liquorId, Long userId, LiquorType liquorType);
