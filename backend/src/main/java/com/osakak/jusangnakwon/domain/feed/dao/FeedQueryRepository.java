@@ -1,15 +1,12 @@
 package com.osakak.jusangnakwon.domain.feed.dao;
 
-import com.osakak.jusangnakwon.domain.feed.dto.ReviewListItemDto;
-import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
-import com.osakak.jusangnakwon.domain.feed.dto.FeedDto;
-import com.osakak.jusangnakwon.domain.feed.dto.FeedListDto;
-import com.osakak.jusangnakwon.domain.feed.dto.FeedType;
+import com.osakak.jusangnakwon.domain.feed.dto.*;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
-import java.time.LocalDate;
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public interface FeedQueryRepository {
 

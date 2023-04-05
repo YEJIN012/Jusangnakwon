@@ -2,10 +2,11 @@ package com.osakak.jusangnakwon.domain.feed.api.response;
 
 import com.osakak.jusangnakwon.domain.feed.dto.ReviewListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import java.time.LocalDate;
-import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 public class CalendarResponse {

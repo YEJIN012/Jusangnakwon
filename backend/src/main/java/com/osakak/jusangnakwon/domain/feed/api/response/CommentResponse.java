@@ -1,11 +1,10 @@
 package com.osakak.jusangnakwon.domain.feed.api.response;
 
-import com.osakak.jusangnakwon.domain.feed.dto.CommentDto;
 import com.osakak.jusangnakwon.domain.feed.dto.WriterDto;
-import java.time.LocalDateTime;
-import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDateTime;
 
 @Getter
 public class CommentResponse {
@@ -18,7 +17,7 @@ public class CommentResponse {
 
     @Builder
     public CommentResponse(Long id, WriterDto writer, Long feedId, String content,
-            LocalDateTime dateCreated) {
+                           LocalDateTime dateCreated) {
         this.id = id;
         this.writer = writer;
         this.feedId = feedId;

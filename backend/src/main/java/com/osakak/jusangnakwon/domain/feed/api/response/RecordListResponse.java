@@ -2,9 +2,10 @@ package com.osakak.jusangnakwon.domain.feed.api.response;
 
 import com.osakak.jusangnakwon.domain.feed.dto.RecordListDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @Schema(description = "내가 쓴 글 목록 조회")

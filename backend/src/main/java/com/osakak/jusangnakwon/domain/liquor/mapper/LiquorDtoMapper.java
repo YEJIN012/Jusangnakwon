@@ -4,17 +4,19 @@ import com.osakak.jusangnakwon.domain.liquor.api.request.HometenderRequest;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
 import com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.TasteDto;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper
 public interface LiquorDtoMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "image", ignore = true)
     @Mapping(target = "writer", ignore = true)
     @Mapping(target = "ratingAvg", ignore = true)
     @Mapping(target = "scrapCnt", ignore = true)

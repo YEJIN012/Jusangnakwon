@@ -16,7 +16,7 @@ public class RatingDto {
 
     @Builder
     public RatingDto(Long id, Long userId, Long liquorId, LiquorType liquorType, String liquorName,
-            Double score) {
+                     Double score) {
         this.id = id;
         this.userId = userId;
         this.liquorId = liquorId;
