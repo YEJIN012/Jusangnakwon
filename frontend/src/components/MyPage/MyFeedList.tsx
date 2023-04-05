@@ -36,7 +36,7 @@ interface MyFeedListProps {
 
 const MyFeedList = ({ myFeedListProps, myMonthlyReviewList, selectedDate }: MyFeedListProps) => {
   const { pathname } = useLocation();
-  console.log(myMonthlyReviewList);
+  // console.log(myMonthlyReviewList);
   const navigate = useNavigate();
 
   return (

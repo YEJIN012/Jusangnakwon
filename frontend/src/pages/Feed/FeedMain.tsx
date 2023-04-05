@@ -33,7 +33,7 @@ const FeedMain = () => {
     // if (curPageNumber >= totalPage) return;
     apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
         setFeedList([...feedList, ...res?.data.body?.content]);
         setTotalPage(res?.data.body.totalPage);
       })

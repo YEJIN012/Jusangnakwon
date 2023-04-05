@@ -30,7 +30,7 @@ const FeedItem = ({ feed, setFeedList, focusedPostList }: Feed) => {
         console.log("안됨");
       });
   };
-  console.log(feed);
+  // console.log(feed);
   return (
     <>
       {feed.type === "리뷰글" ? (
