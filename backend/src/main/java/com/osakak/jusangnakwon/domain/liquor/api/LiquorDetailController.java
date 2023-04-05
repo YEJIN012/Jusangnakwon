@@ -4,9 +4,11 @@ import com.osakak.jusangnakwon.common.response.ResponseDto;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorDetailService;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
+import com.osakak.jusangnakwon.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +29,8 @@ public class LiquorDetailController {
      */
     @GetMapping("l1/{id}")
     @Tag(name = "liquorDetail")
-    public ResponseEntity<ResponseDto> wineDetail(@PathVariable Long id) {
-        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.WINE, id);
+    public ResponseEntity<ResponseDto> wineDetail(@PathVariable Long id, @AuthenticationPrincipal User user) {
+        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(user, LiquorType.WINE, id);
         return ResponseEntity.ok(ResponseDto.builder()
                 .body(liquorDetail)
                 .success(true)
@@ -43,8 +45,8 @@ public class LiquorDetailController {
      */
     @GetMapping("l2/{id}")
     @Tag(name = "liquorDetail")
-    public ResponseEntity<ResponseDto> whiskyDetail(@PathVariable Long id) {
-        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.WHISKY, id);
+    public ResponseEntity<ResponseDto> whiskyDetail(@PathVariable Long id, @AuthenticationPrincipal User user) {
+        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(user, LiquorType.WHISKY, id);
         return ResponseEntity.ok(ResponseDto.builder()
                 .body(liquorDetail)
                 .success(true)
@@ -59,8 +61,8 @@ public class LiquorDetailController {
      */
     @GetMapping("l3/{id}")
     @Tag(name = "liquorDetail")
-    public ResponseEntity<ResponseDto> beerDetail(@PathVariable Long id) {
-        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.BEER, id);
+    public ResponseEntity<ResponseDto> beerDetail(@PathVariable Long id, @AuthenticationPrincipal User user) {
+        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(user, LiquorType.BEER, id);
         return ResponseEntity.ok(ResponseDto.builder()
                 .body(liquorDetail)
                 .success(true)
@@ -75,8 +77,8 @@ public class LiquorDetailController {
      */
     @GetMapping("l4/{id}")
     @Tag(name = "liquorDetail")
-    public ResponseEntity<ResponseDto> traditionDetail(@PathVariable Long id) {
-        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.TRADITION, id);
+    public ResponseEntity<ResponseDto> traditionDetail(@PathVariable Long id, @AuthenticationPrincipal User user) {
+        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(user, LiquorType.TRADITION, id);
         return ResponseEntity.ok(ResponseDto.builder()
                 .body(liquorDetail)
                 .success(true)
@@ -91,8 +93,8 @@ public class LiquorDetailController {
      */
     @GetMapping("l5/{id}")
     @Tag(name = "liquorDetail")
-    public ResponseEntity<ResponseDto> cocktailDetail(@PathVariable Long id) {
-        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.COCKTAIL, id);
+    public ResponseEntity<ResponseDto> cocktailDetail(@PathVariable Long id, @AuthenticationPrincipal User user) {
+        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(user, LiquorType.COCKTAIL, id);
         return ResponseEntity.ok(ResponseDto.builder()
                 .body(liquorDetail)
                 .success(true)
@@ -107,8 +109,8 @@ public class LiquorDetailController {
      */
     @GetMapping("l6/{id}")
     @Tag(name = "liquorDetail")
-    public ResponseEntity<ResponseDto> hometenderDetail(@PathVariable Long id) {
-        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(LiquorType.HOMETENDER, id);
+    public ResponseEntity<ResponseDto> hometenderDetail(@PathVariable Long id, @AuthenticationPrincipal User user) {
+        LiquorDetailResponse liquorDetail = liquorDetailService.getLiquorDetail(user, LiquorType.HOMETENDER, id);
         return ResponseEntity.ok(ResponseDto.builder()
                 .body(liquorDetail)
                 .success(true)

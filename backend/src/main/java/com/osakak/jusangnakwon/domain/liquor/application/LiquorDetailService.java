@@ -3,6 +3,7 @@ package com.osakak.jusangnakwon.domain.liquor.application;
 import com.osakak.jusangnakwon.common.errors.LiquorNotFoundException;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
 import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
+import com.osakak.jusangnakwon.domain.feed.entity.Scrap;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.dao.similar.*;
@@ -10,6 +11,7 @@ import com.osakak.jusangnakwon.domain.liquor.dto.*;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.entity.similar.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
+import com.osakak.jusangnakwon.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +55,7 @@ public class LiquorDetailService {
      * @param id   술 id
      * @return 술 상세 정보
      */
-    public LiquorDetailResponse getLiquorDetail(LiquorType type, Long id) {
+    public LiquorDetailResponse getLiquorDetail(User user, LiquorType type, Long id) {
         Long liquorId = null;
         String name = null;
         String image = null;
@@ -66,12 +68,17 @@ public class LiquorDetailService {
         List<ReviewListDto> reviews = null;
         List<LiquorListItemDto> similarItem = null;
 
+        Optional<Scrap> userScrapped = scrapRepository.isUserScrapped(id, user.getId(), type);
+        if (userScrapped.isPresent())
+            scrapped = userScrapped.get().getScrapped();
+
         String body = null;
         String sweet = null;
         String acidity = null;
         String sour = null;
         String bitter = null;
         String salty = null;
+
 
         List<Long> list = new ArrayList<>();
         switch (type) {
