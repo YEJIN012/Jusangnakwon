@@ -1,10 +1,11 @@
 package com.osakak.jusangnakwon.domain.feed.dto;
 
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import java.time.LocalDate;
-import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 public class CalendarWithReviewsDto {
@@ -15,7 +16,7 @@ public class CalendarWithReviewsDto {
 
     @Builder
     public CalendarWithReviewsDto(LocalDate date, LiquorType liquorType,
-            List<ReviewListItemDto> reviews) {
+                                  List<ReviewListItemDto> reviews) {
         this.date = date;
         this.liquorType = liquorType;
         this.reviews = reviews;
