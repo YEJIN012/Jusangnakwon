@@ -2,7 +2,6 @@ import MainTab from "@/components/Home/MainTab/MainTab";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import HometenderBanner from "@/components/Home/Banner/HometenderBanner";
-import WeatherBanner from "@/components/Home/Banner/WeatherBanner";
 import DrinkBtiBanner from "@/components/Home/Banner/DrinkBtiBanner";
 import Slider from "react-slick";
 import styles from "@/pages/Home/HomeMain.module.css";
@@ -110,9 +109,11 @@ const HomeMain = () => {
         </Slider>
       </div>
       {userInfo.isLogin ? (
-        <div className={`${styles[`text-wrap`]}`}>
-          <h3>{userInfo.username}님의 취향</h3>
-          <p>{userInfo.username}님의 취향에 맞는 술을 주종별로 추천해드려요!</p>
+        <div className={`${styles[`main-content-container`]}`}>
+          <div className={`${styles[`text-wrap`]}`}>
+            <h3>{userInfo.username}님의 취향</h3>
+            <p>{userInfo.username}님의 취향에 맞는 술을 주종별로 추천해드려요!</p>
+          </div>
         </div>
       ) : (
         <div className={`${styles[`main-content-container`]}`}>
