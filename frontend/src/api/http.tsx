@@ -10,18 +10,15 @@ import persistor from "@/App";
 
 const getApiInstance = () => {
   axios.defaults.withCredentials = true; // 쿠키 데이터를 전송받기 위해
-  // axios.defaults.headers.common["Authorization"] =
-  //   "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoiMTAxMTgzNDQ5MDgzNDUwNDQwOTA2Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTY4MDgzMDI2Mn0.TvyHCGKPZrGLE7NdVey-OSoQeks_9uKvjkQDhzmJdYk";
 
   const accessToken = sessionStorage.getItem("accessToken");
-  // console.log(sessionStorage.getItem("accessToken"));
   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
   const instance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoiMTAxMTgzNDQ5MDgzNDUwNDQwOTA2Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTY4MDgzMDI2Mn0.TvyHCGKPZrGLE7NdVey-OSoQeks_9uKvjkQDhzmJdYk",
+      // Authorization:
+      //   "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoiMTAxMTgzNDQ5MDgzNDUwNDQwOTA2Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTY4MDgzMDI2Mn0.TvyHCGKPZrGLE7NdVey-OSoQeks_9uKvjkQDhzmJdYk",
     },
   });
 
