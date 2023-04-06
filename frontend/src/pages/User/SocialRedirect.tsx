@@ -15,8 +15,10 @@ const SocialRedirect = () => {
   const survey = searchParams.get("survey");
   console.log(survey);
   const cookies = useCookies(["access_token"]);
-
+  
   const [tokenInSessionStorage, setTokenInSessionStorage] = useState(sessionStorage.getItem("accessToken"))
+  console.log(`1.${sessionStorage.getItem("accessToken")}`)
+  console.log(`2.${tokenInSessionStorage}`)
 
   useEffect(() => {
     // 쿠키에서 access token을 가져오기
@@ -25,6 +27,8 @@ const SocialRedirect = () => {
     // sessionStorage에 accessToken 저장
     sessionStorage.setItem("accessToken", token);
     setTokenInSessionStorage(sessionStorage.getItem("accessToken"))
+    console.log(`4.${sessionStorage.getItem("accessToken")}`)
+    console.log(`3.${tokenInSessionStorage}`)
 
     // userInfo조회 요청해서 redux에 저장
     axios
@@ -45,6 +49,7 @@ const SocialRedirect = () => {
 
       .then(() => {
         if (survey === "0") {
+          console.log
           alert("🍸맞춤추천을 위한 취향설문을 작성해주세요🍹");
           navigate("/tasteform");
         } else {
@@ -60,6 +65,7 @@ const SocialRedirect = () => {
 
    useEffect(() => {
     if (self.name != "reload") {
+      console.log("reload")
       self.name = "reload";
       self.location.reload();
     } else self.name = "";
