@@ -23,6 +23,7 @@ const Logout = () => {
     // removeCookie('accessToken', { path: '/', domain: 'localhost' });
 
     apiLogout().then((response) => {
+      console.log(response)
       if (self.name != "reload") {
         self.name = "reload";
         self.location.reload();

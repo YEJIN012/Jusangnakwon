@@ -44,6 +44,7 @@ export const apiCreateFeed = async (data: FormData) => {
 export const apiGetFeedDetail = async (feedId: number) => {
   try {
     const response = await api.get(`/feed/${feedId}`);
+    console.log(response)
     return response;
   } catch (e) {
     console.log(e);
