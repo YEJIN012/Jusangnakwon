@@ -2,11 +2,9 @@ package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Wine;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -39,9 +37,7 @@ public interface WineRepository extends JpaRepository<Wine, Long>,WineQueryRepos
     @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType, s.scrapped) " +
             "from Wine l " +
             "left join fetch Scrap s " +
-            "on l.liquorType=s.liquorType and l.id=s.liquorId " +
-            "left join fetch User u " +
-            "on u.id=s.user.id " +
+            "on l.liquorType=s.liquorType and l.id=s.liquorId and s.user.id=:userId " +
             "order by l.ratingAvg desc, l.name ")
-    Page<LiquorListItemDto> findListByRatingIsLogin(Pageable pageable);
+    Page<LiquorListItemDto> findListByRatingIsLogin(Pageable pageable, Long userId);
 }
