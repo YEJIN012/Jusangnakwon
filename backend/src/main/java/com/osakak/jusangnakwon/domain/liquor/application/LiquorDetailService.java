@@ -3,6 +3,7 @@ package com.osakak.jusangnakwon.domain.liquor.application;
 import com.osakak.jusangnakwon.common.errors.LiquorNotFoundException;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
 import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
+import com.osakak.jusangnakwon.domain.feed.dto.WriterDto;
 import com.osakak.jusangnakwon.domain.feed.entity.Scrap;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
@@ -67,6 +68,7 @@ public class LiquorDetailService {
         String description = null;
         List<ReviewListDto> reviews = null;
         List<LiquorListItemDto> similarItem = null;
+        WriterDto writerDto = null;
 
         Optional<Scrap> userScrapped = scrapRepository.isUserScrapped(id, user.getId(), type);
         if (userScrapped.isPresent())
@@ -95,6 +97,7 @@ public class LiquorDetailService {
                     extracted(list, similarBeerItem.getSimilarLiquor());
                     List<Beer> byIdList = beerRepository.findByIdList(list);
 
+                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(beer.getName(), beer.getLiquorType());
                     liquorId = id;
                     name = beer.getName().trim();
                     ratingAvg = beer.getRatingAvg();
@@ -121,7 +124,7 @@ public class LiquorDetailService {
                     SimilarWineItem similarWineItem = byIdWineSim.get();
                     extracted(list, similarWineItem.getSimilarLiquor());
                     List<Wine> byIdListWine = wineRepository.findByIdList(list);
-
+                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(wine.getName(), wine.getLiquorType());
                     liquorId = id;
                     name = wine.getName().trim();
                     ratingAvg = wine.getRatingAvg();
@@ -145,7 +148,7 @@ public class LiquorDetailService {
                     SimilarWhiskyItem similarWhiskyItem = byIdWhiskySim.get();
                     extracted(list, similarWhiskyItem.getSimilarLiquor());
                     List<Whisky> byIdListWhisky = whiskyRepository.findByIdList(list);
-
+                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(whisky.getName(), whisky.getLiquorType());
                     liquorId = id;
                     name = whisky.getName().trim();
                     ratingAvg = whisky.getRatingAvg();
@@ -168,7 +171,7 @@ public class LiquorDetailService {
                     SimilarCocktailItem similarCocktailItem = byIdCocktailSim.get();
                     extracted(list, similarCocktailItem.getSimilarLiquor());
                     List<Cocktail> byIdListCocktail = cocktailRepository.findByIdList(list);
-
+                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(cocktail.getName(), cocktail.getLiquorType());
                     liquorId = id;
                     name = cocktail.getName().trim();
                     ratingAvg = cocktail.getRatingAvg();
@@ -191,7 +194,7 @@ public class LiquorDetailService {
                     SimilarTraditionItem similarTraditionItem = byIdTraditionSim.get();
                     extracted(list, similarTraditionItem.getSimilarLiquor());
                     List<Tradition> repositoryByIdList = traditionRepository.findByIdList(list);
-
+                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(tradition.getName(), tradition.getLiquorType());
                     liquorId = id;
                     name = tradition.getName().trim();
                     ratingAvg = tradition.getRatingAvg();
@@ -205,6 +208,11 @@ public class LiquorDetailService {
                 if (byIdHometender.isEmpty())
                     throw new LiquorNotFoundException();
                 Hometender hometender = byIdHometender.get();
+                writerDto = WriterDto.builder()
+                        .profileImg(hometender.getUser().getProfileImageUrl())
+                        .username(hometender.getUser().getUsername())
+                        .build();
+
                 tastes = Arrays.asList(HometenderTasteType.getTag("SWEET", hometender.getSweet()),
                         HometenderTasteType.getTag("SOUR", hometender.getSour()),
                         HometenderTasteType.getTag("BITTER", hometender.getBitter()),
@@ -215,15 +223,16 @@ public class LiquorDetailService {
                     SimilarHometenderItem similarHometenderItem = byIdHometenderSim.get();
                     extracted(list, similarHometenderItem.getSimilarLiquor());
                     List<Hometender> repositoryByIdList = hometenderRepository.findByIdList(list);
-
-                    liquorId = id;
-                    ingredients = liquorMapper.toRandHometender(hometender).getIngredients();
-                    name = hometender.getName().trim();
-                    ratingAvg = hometender.getRatingAvg();
-                    reviews = feedRepository.findHometenderReviewByLiquorId(id);
                     similarItem = liquorMapper.toLiquorListDtoHometender(repositoryByIdList);
-                    image = hometender.getImg();
                 }
+                scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(hometender.getName(), hometender.getLiquorType());
+                liquorId = id;
+                ingredients = liquorMapper.toRandHometender(hometender).getIngredients();
+                name = hometender.getName().trim();
+                ratingAvg = hometender.getRatingAvg();
+                reviews = feedRepository.findHometenderReviewByLiquorId(id);
+                image = hometender.getImg();
+                description = hometender.getDescription();
                 break;
         }
         return LiquorDetailResponse.builder()
@@ -234,9 +243,13 @@ public class LiquorDetailService {
                 .scrapCnt(scrapCnt)
                 .scrapped(scrapped)
                 .ingredients(ingredients)
+                .description(description)
+                .scrapped(scrapped)
+                .writer(writerDto)
                 .tastes(tastes)
                 .description(description)
                 .reviews(reviews)
+                .liquorType(type)
                 .similarItems(similarItem)
                 .build();
     }

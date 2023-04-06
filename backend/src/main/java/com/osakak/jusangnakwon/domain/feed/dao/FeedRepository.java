@@ -51,7 +51,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "on f.rating.id = r.id " +
             "left join fetch Beer b " +
             "on f.liquorId = b.id " +
-            "where f.liquorId=:id and f.type='리뷰글' " +
+            "where f.liquorId=:id and f.type='리뷰글' and f.liquorType='BEER' " +
             "order by f.dateCreated desc ")
     List<ReviewListDto> findBeerReviewByLiquorId(@Param("id") Long id);
 
@@ -61,7 +61,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "on f.rating.id = r.id " +
             "left join fetch Wine b " +
             "on f.liquorId = b.id " +
-            "where f.liquorId=:id and f.type='리뷰글' " +
+            "where f.liquorId=:id and f.type='리뷰글' and f.liquorType='WINE'" +
             "order by f.dateCreated desc ")
     List<ReviewListDto> findWineReviewByLiquorId(@Param("id") Long id);
 
@@ -71,7 +71,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "on f.rating.id = r.id " +
             "left join fetch Cocktail b " +
             "on f.liquorId = b.id " +
-            "where f.liquorId=:id and f.type='리뷰글' " +
+            "where f.liquorId=:id and f.type='리뷰글' and f.liquorType='COCKTAIL'" +
             "order by f.dateCreated desc ")
     List<ReviewListDto> findCocktailReviewByLiquorId(@Param("id") Long id);
 
@@ -81,7 +81,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "on f.rating.id = r.id " +
             "left join fetch Tradition b " +
             "on f.liquorId = b.id " +
-            "where f.liquorId=:id and f.type='리뷰글' " +
+            "where f.liquorId=:id and f.type='리뷰글' and f.liquorType='TRADITION'" +
             "order by f.dateCreated desc ")
     List<ReviewListDto> findTraditionReviewByLiquorId(@Param("id") Long id);
 
@@ -91,7 +91,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "on f.rating.id = r.id " +
             "left join fetch Hometender b " +
             "on f.liquorId = b.id " +
-            "where f.liquorId=:id and f.type='리뷰글' " +
+            "where f.liquorId=:id and f.type='리뷰글' and f.liquorType='HOMETENDER'" +
             "order by f.dateCreated desc ")
     List<ReviewListDto> findHometenderReviewByLiquorId(@Param("id") Long id);
 
@@ -101,7 +101,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long>, FeedQueryRepo
             "on f.rating.id = r.id " +
             "left join fetch Whisky b " +
             "on f.liquorId = b.id " +
-            "where f.liquorId=:id and f.type='리뷰글' " +
+            "where f.liquorId=:id and f.type='리뷰글' and f.liquorType='WHISKY'" +
             "order by f.dateCreated desc ")
     List<ReviewListDto> findWhiskyReviewByLiquorId(@Param("id") Long id);
 

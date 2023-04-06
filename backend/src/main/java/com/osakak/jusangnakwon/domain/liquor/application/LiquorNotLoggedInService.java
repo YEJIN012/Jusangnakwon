@@ -62,42 +62,42 @@ public class LiquorNotLoggedInService {
                 if (user == null) {
                     listByRating = whiskyRepository.findListByRatingIsNotLoggedIn(pageable);
                 } else {
-                    listByRating = whiskyRepository.findListByRatingIsLogin(pageable);
+                    listByRating = whiskyRepository.findListByRatingIsLogin(pageable, user.getId());
                 }
                 return getLiquorListMainResponse(list, listByRating);
             case WINE:
                 if (user == null) {
                     listByRating = wineRepository.findListByRatingIsNotLoggedIn(pageable);
                 } else {
-                    listByRating = wineRepository.findListByRatingIsLogin(pageable);
+                    listByRating = wineRepository.findListByRatingIsLogin(pageable, user.getId());
                 }
                 return getLiquorListMainResponse(list, listByRating);
             case BEER:
                 if (user == null) {
                     listByRating = beerRepository.findListByRatingIsNotLoggedIn(pageable);
                 } else {
-                    listByRating = beerRepository.findListByRatingIsLogin(pageable);
+                    listByRating = beerRepository.findListByRatingIsLogin(pageable, user.getId());
                 }
                 return getLiquorListMainResponse(list, listByRating);
             case COCKTAIL:
                 if (user == null) {
                     listByRating = cocktailRepository.findListByRatingIsNotLoggedIn(pageable);
                 } else {
-                    listByRating = cocktailRepository.findListByRatingIsLogin(pageable);
+                    listByRating = cocktailRepository.findListByRatingIsLogin(pageable, user.getId());
                 }
                 return getLiquorListMainResponse(list, listByRating);
             case TRADITION:
                 if (user == null) {
                     listByRating = traditionRepository.findListByRatingIsNotLoggedIn(pageable);
                 } else {
-                    listByRating = traditionRepository.findListByRatingIsLogin(pageable);
+                    listByRating = traditionRepository.findListByRatingIsLogin(pageable, user.getId());
                 }
                 return getLiquorListMainResponse(list, listByRating);
             case HOMETENDER:
                 if (user == null) {
                     listByRating = hometenderRepository.findListByRatingIsNotLoggedIn(pageable);
                 } else {
-                    listByRating = hometenderRepository.findListByRatingIsLogin(pageable);
+                    listByRating = hometenderRepository.findListByRatingIsLogin(pageable, user.getId());
                 }
                 return getLiquorListMainResponse(list, listByRating);
         }
