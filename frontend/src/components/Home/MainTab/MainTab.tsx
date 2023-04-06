@@ -63,6 +63,7 @@ function a11yProps(index: number) {
 
 export default function MainTab() {
   const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
+  console.log(isLogin)
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [drinkItem, setDrinkItem] = useState<DrinkItem>();
@@ -491,7 +492,7 @@ export default function MainTab() {
                 // borderTopRightRadius: 10,
                 // borderBottomRightRadius: 10,
                 // borderBottomLeftRadius: 10,
-                // border: "1px solid gray",
+                // border: "5px solid gray",
                 borderTop: "none",
                 borderRight: "none",
                 borderLeft: "none",
