@@ -28,6 +28,7 @@ public class WineQueryRepositoryImpl implements WineQueryRepository {
 
         List<LiquorListItemDto> content = queryFactory
                 .select(new QLiquorListItemDto(wine.id, wine.name, wine.img, wine.liquorType, scrap.scrapped))
+                .distinct()
                 .from(wine)
                 .leftJoin(scrap)
                 .on(scrap.liquorId.eq(wine.id),
