@@ -58,12 +58,12 @@ const SocialRedirect = () => {
       });
   }, []);
 
-   useEffect(() => {
-    if (self.name != "reload") {
-      self.name = "reload";
-      self.location.reload();
-    } else self.name = "";
-  }, [tokenInSessionStorage]);
+  //  useEffect(() => {
+  //   if (self.name != "reload") {
+  //     self.name = "reload";
+  //     self.location.reload();
+  //   } else self.name = "";
+  // }, [tokenInSessionStorage]);
 
   return (
     <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true}>
