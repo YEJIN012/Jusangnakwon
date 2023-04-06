@@ -115,9 +115,11 @@ const HomeMain = () => {
           <p>{userInfo.username}님의 취향에 맞는 술을 주종별로 추천해드려요!</p>
         </div>
       ) : (
-        <div className={`${styles[`text-wrap`]}`}>
-          <h3>주상낙원의 Best 술</h3>
-          <p>주종별로 추천해드려요!</p>
+        <div className={`${styles[`main-content-container`]}`}>
+          <div className={`${styles[`text-wrap`]}`}>
+            <h3>주상낙원의 Best 술</h3>
+            <p>주종별로 추천해드려요!</p>
+          </div>
         </div>
       )}
       <MainTab />
