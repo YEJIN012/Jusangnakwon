@@ -37,10 +37,8 @@ public interface TraditionRepository extends JpaRepository<Tradition, Long>,Trad
     @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType, s.scrapped) " +
             "from Tradition l " +
             "left join fetch Scrap s " +
-            "on l.liquorType=s.liquorType and l.id=s.liquorId " +
-            "left join fetch User u " +
-            "on u.id=s.user.id " +
+            "on l.liquorType=s.liquorType and l.id=s.liquorId and s.user.id=:userId " +
             "order by l.ratingAvg desc, l.name ")
-    Page<LiquorListItemDto> findListByRatingIsLogin(Pageable pageable);
+    Page<LiquorListItemDto> findListByRatingIsLogin(Pageable pageable, Long userId);
 }
 
