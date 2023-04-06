@@ -83,7 +83,7 @@ public class LiquorController {
     @PostMapping(value = "hometender", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<ResponseDto> createHometender(@AuthenticationPrincipal User user,
                                                         @RequestPart HometenderRequest request,
-                                                        @RequestPart MultipartFile imgFile) throws IOException {
+                                                        @RequestPart(required = false) MultipartFile imgFile) throws IOException {
         HometenderTasteDto taste = request.getTaste();
         //taste 0(낮음), 1(중간), 2(높음) 값을 각 실제 맛 타입 범위 안의 중간값으로 변환하는 작업
         HometenderTasteDto convertedTaste = HometenderTasteDto.builder()
