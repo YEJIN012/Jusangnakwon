@@ -4,7 +4,7 @@ import Rating from "@mui/material/Rating";
 import { DrinkDetailReviewItem } from "@/pages/Commons/DrinkDetail/DrinkDetail";
 
 interface Props {
-  key: number;
+  key: number | undefined;
   review: DrinkDetailReviewItem;
 }
 const ReviewListItem = ({ key, review }: Props) => {

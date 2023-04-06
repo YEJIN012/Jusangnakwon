@@ -21,6 +21,7 @@ const Login = () => {
       </p>
       <p className={`${styles["nineteen-text"]}`}>19세 이상 이용 가능한 서비스입니다.</p>
       <div
+        style = {{cursor: "pointer"}}
         className={`${styles["google"]}`}
         onClick={() => {
           socialLogin({ provider_id: "google" });
@@ -30,12 +31,13 @@ const Login = () => {
         <span>Google 계정으로 로그인</span>
       </div>
       <div
+        style = {{cursor: "pointer"}}
         className={`${styles["kakao"]}`}
         onClick={() => {
           socialLogin({ provider_id: "kakao" });
         }}
       >
-        <img src={kakao} />
+        <img src={kakao}/>
         <span>카카오 로그인</span>
       </div>
     </div>

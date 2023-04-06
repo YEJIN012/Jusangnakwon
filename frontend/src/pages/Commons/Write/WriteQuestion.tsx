@@ -131,10 +131,6 @@ const WriteQuestion = () => {
           />
         </div>
       </form>
-      <div>
-        데이터 확인 :{data.title}
-        {data.content}
-      </div>
     </div>
   );
 };

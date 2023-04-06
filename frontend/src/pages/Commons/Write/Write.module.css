@@ -62,7 +62,6 @@
   border-bottom: solid 0.5px rgb(149, 149, 149);
   box-sizing: border-box;
   padding: 6%;
-  gap: 2%;
 }
 
 select option[value=""][disabled] {

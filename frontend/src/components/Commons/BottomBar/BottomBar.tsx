@@ -73,7 +73,7 @@ const BottomBar = () => {
             <BottomNavigationAction
               component={Link}
               to={"/playground/hometender"}
-              value={"/playground/hometender"}
+              value={"/playground"}
               icon={<LocalBarIcon />}
               style={{ color: "white" }}
               disableRipple

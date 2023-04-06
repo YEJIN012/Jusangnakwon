@@ -7,9 +7,14 @@ import lottie from "lottie-web";
 import animationData from "./cocktail.json";
 import Ingredients from "@/components/Commons/Ingredients/Ingredients";
 import { HometenderApiData } from "@/pages/Home/HomeMain";
+import { useDispatch } from "react-redux";
+import { updateTabActions } from "@/slices/tabSlice";
 
 export default function HometenderBanner(props: HometenderApiData | null) {
   const container = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch()
+
+  const changeTab = () => {dispatch(updateTabActions.updateTab("/playground/hometender"))}
 
   useEffect(() => {
     let animation: any;
@@ -39,7 +44,7 @@ export default function HometenderBanner(props: HometenderApiData | null) {
   }
 
   return (
-    <Link to={`/playground/hometender`}>
+    <Link to={`/playground/hometender`} onClick={()=>{}}>
       <div className={`${styles[`container`]}`}>
         {/* <p className={`${styles[`hometender-banner-title`]}`}>인기 홈텐딩 칵테일</p> */}
         {/* <HometenderBannerAni></HometenderBannerAni> */}

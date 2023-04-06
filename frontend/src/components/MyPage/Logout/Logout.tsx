@@ -22,18 +22,20 @@ const Logout = () => {
     // const cookies = useCookies(["access_token"]);
     // removeCookie('accessToken', { path: '/', domain: 'localhost' });
 
-    // apiLogout()
-    //   .then((response) => {
-        alert("로그아웃 성공");
-        // logout 시 login 창으로
-        navigate("/");
-      // })
+    apiLogout().then((response) => {
+      if (self.name != "reload") {
+        self.name = "reload";
+        self.location.reload();
+      } else self.name = "";
+      alert("로그아웃 성공");
+      // logout 시 login 창으로
+      navigate("/");
+    });
 
-      // .catch((e) => {
-      //   console.log(e);
-      // });
+    // .catch((e) => {
+    //   console.log(e);
+    // });
   };
-  
 
   return (
     <div className={`${styles[`footer`]}`}>

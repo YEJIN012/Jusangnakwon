@@ -4,10 +4,9 @@ import styles from "./RecipeFeed.module.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { apiGetDrinkList } from "@/api/drinks";
+import { apiGetDrinkList, apiPutBookmark } from "@/api/drinks";
 import { makeStyles } from "@material-ui/core/styles";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 interface RecipeList {
@@ -33,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiPaginationItem-root:not(.Mui-selected)": {
       color: "white",
     },
+    "& .MuiPaginationItem-root.Mui-selected": {
+      color: "white",
+      border: " 1px solid #5b5b5b",
+      backgroundColor: " #80808032",
+    },
   },
 }));
 
@@ -42,6 +46,30 @@ const RecipeFeed = () => {
   const [totalPage, setTotalPage] = useState<number>(1);
   const [drinkList, setDrinkList] = useState([]);
 
+  // 북마크 상태를 변경한 뒤, 리스트 갱신하는 함수
+  const handleScrap = (id: number) => {
+    if (id !== undefined) {
+      apiPutBookmark("l6", id)
+        .then((r) => {
+          apiGetDrinkList("l6", curPageNumber)
+            .then((response) => {
+              if (response && response.data.success) {
+                console.log(response);
+                setDrinkList(response.data.body.content);
+                setTotalPage(response.data.body.totalPage);
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  // 페이지변화에 따라 리스트 재호출하는 함수
   useEffect(() => {
     const getDrinkList = async () => {
       const response = await apiGetDrinkList("l6", curPageNumber);
@@ -52,7 +80,7 @@ const RecipeFeed = () => {
       }
     };
     getDrinkList();
-  }, [curPageNumber, "l6"]);
+  }, [curPageNumber]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurPageNumber(value);
@@ -60,22 +88,26 @@ const RecipeFeed = () => {
 
   return (
     <div className={`${styles[`drink-list-wrap`]}`}>
-      <ul className={`${styles[`tab-drink-list`]}`}>
-        {drinkList.map((drink: RecipeType) => (
-          <li key={drink.id} className={`${styles[`tab-drink-item`]}`}>
+      <div className={`${styles[`tab-drink-list`]}`}>
+        {drinkList.map((drink: RecipeType, index) => (
+          <div key={index} className={`${styles[`tab-drink-item`]}`}>
             <div className={styles["item-container"]}>
               <Link to={`/details/l6/${drink.id}`}>
-                <img src={drink.img}></img>
+                <img src={drink.img} style={{ height: "150px" }}></img>
               </Link>
               <div className={styles["item-title"]}>
                 <div>{drink.name}</div>
-                <div className={styles["like-box"]}>
-                  <FavoriteBorderIcon />
-                  {drink.scrapped}
+                <div
+                  className={styles["like-box"]}
+                  onClick={() => {
+                    handleScrap(drink.id);
+                  }}
+                >
+                  {drink.scrapped ? <BookmarkIcon /> : <BookmarkBorderIcon />}
                 </div>
               </div>
             </div>
-          </li>
+          </div>
         ))}
         <Stack spacing={2} className={`${styles["pagination-wrap"]}`}>
           <Pagination
@@ -88,7 +120,7 @@ const RecipeFeed = () => {
             classes={{ root: classes.root }}
           />
         </Stack>
-      </ul>
+      </div>
     </div>
   );
 };

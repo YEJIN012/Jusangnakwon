@@ -81,17 +81,17 @@ const HomeMain = () => {
 
   return (
     <div className={`${styles[`container`]}`}>
-      <Link to={`/tasteform`}>
+      {/* <Link to={`/tasteform`}>
         <span>취향입력폼</span>
-      </Link>
+      </Link> */}
       <br />
-      {userInfo.isLogin ? (
+      {/* {userInfo.isLogin ? (
         <></>
       ) : (
         <Link to={`/login`}>
           <span>로그인</span>
         </Link>
-      )}
+      )} */}
       <div className={`${styles[`banner-box`]}`}>{weather != null ? <WeatherAniBanner {...weather} /> : <></>}</div>
       <div className={`${styles[`banner-box`]}`}>
         <Slider {...settings} className={`${styles[`slider`]}`}>

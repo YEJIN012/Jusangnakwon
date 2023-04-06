@@ -294,13 +294,6 @@ const WriteRecipe = () => {
           />
         </div>
       </form>
-
-      <div>
-        데이터 확인 :{data.name}
-        {data.description}
-        {data.ingredients}
-        {/* {formData.isPrivate} */}
-      </div>
     </div>
   );
 };

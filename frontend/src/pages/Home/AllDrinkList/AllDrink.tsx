@@ -60,8 +60,8 @@ const AllDrink = () => {
             <span>칵테일 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {drinkList.map((drink: any) => (
-              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+            {drinkList.map((drink: any, index) => (
+              <div key={index} className={`${styles["drink-wrap"]}`}>
                 <div className={`${styles["drink-img"]}`}>
                   <img
                     className={`${styles["drink-item"]}`}
@@ -120,8 +120,8 @@ const AllDrink = () => {
             <span>위스키 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {drinkList.map((drink: any) => (
-              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+            {drinkList.map((drink: any, index) => (
+              <div key={index} className={`${styles["drink-wrap"]}`}>
                 <div className={`${styles["drink-img"]}`}>
                   <img
                     className={`${styles["drink-item"]}`}
@@ -180,8 +180,8 @@ const AllDrink = () => {
             <span>와인 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {drinkList.map((drink: any) => (
-              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+            {drinkList.map((drink: any, index) => (
+              <div key={index} className={`${styles["drink-wrap"]}`}>
                 <div className={`${styles["drink-img"]}`}>
                   <img
                     className={`${styles["drink-item"]}`}
@@ -240,8 +240,8 @@ const AllDrink = () => {
             <span>전통주 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {drinkList.map((drink: any) => (
-              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+            {drinkList.map((drink: any, index) => (
+              <div key={index} className={`${styles["drink-wrap"]}`}>
                 <div className={`${styles["drink-img"]}`}>
                   <img
                     className={`${styles["drink-item"]}`}

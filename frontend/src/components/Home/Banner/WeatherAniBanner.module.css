@@ -9,6 +9,7 @@
   background: linear-gradient(180deg, #d780ff 0%, #fff6e3 100%); 
 } */
 .wrapper {
+  cursor: pointer;
   position: relative;
   display: flex;
   align-items: center;

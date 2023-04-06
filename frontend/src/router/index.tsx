@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "@/App";
 import Home from "@/pages/Home/Home";
 import HomeMain from "@/pages/Home/HomeMain";
@@ -31,6 +31,24 @@ import Loading from "@/pages/Loading/Loading";
 import Intro from "@/pages/Loading/Intro";
 import AbtiMain from "@/pages/Playground/ABTI/AbtiMain";
 import MyFeedList from "@/components/MyPage/MyFeedList";
+import React, { ComponentType, ReactElement } from "react";
+
+interface ProtectedRouteProps {
+  isLoggedin : boolean
+  outlet: JSX.Element;
+};
+
+const ProtectedRoute = ({isLoggedin, outlet}: ProtectedRouteProps) => {
+  if(isLoggedin) {
+    return outlet;
+  } else {
+    return <Navigate to={'/login'} />;
+  }
+};
+
+const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
+  isLoggedin : sessionStorage.getItem("accessToken") ? true : false,
+};
 
 const router = createBrowserRouter([
   {
@@ -57,7 +75,8 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <FeedMain></FeedMain>,
+            element: 
+            <ProtectedRoute {...defaultProtectedRouteProps} outlet={<FeedMain />} />
           },
           // {
           //   path: ":feedId",
@@ -73,16 +92,16 @@ const router = createBrowserRouter([
             index: true,
             element: <PlaygroundMain></PlaygroundMain>,
           },
-          {
-            path: "abti",
-            element: <ABTI></ABTI>,
-            children: [
-              {
-                index: true,
-                element: <AbtiMain></AbtiMain>,
-              },
-            ],
-          },
+          // {
+          //   path: "abti",
+          //   element: <ABTI></ABTI>,
+          //   children: [
+          //     {
+          //       index: true,
+          //       element: <AbtiMain></AbtiMain>,
+          //     },
+          //   ],
+          // },
           {
             path: "hometender",
             element: <Hometender></Hometender>,
@@ -95,7 +114,6 @@ const router = createBrowserRouter([
           },
           {
             path: "guide",
-            // path: "guide/:drinktype?",
             element: <Guide></Guide>,
             children: [
               {
@@ -112,7 +130,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <MyPageMain></MyPageMain>,
+            element: <ProtectedRoute {...defaultProtectedRouteProps} outlet={<MyPageMain />} />
           },
           {
             path: "bookmarks",
@@ -128,10 +146,6 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login></Login>,
       },
-      // {
-      //   path: "sign",
-      //   element: <Sign></Sign>,
-      // },
       {
         path: "tasteform",
         element: <TasteForm></TasteForm>,

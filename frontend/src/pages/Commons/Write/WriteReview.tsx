@@ -21,6 +21,7 @@ import { alcoholTypeStyle } from "@/pages/MyPage/BookmarkList";
 import { useDispatch } from "react-redux";
 import { selectDrinkActions } from "@/slices/selectedDrinkSlice";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import moment from "moment";
 
 export interface ReviewFormData {
   [key: string]: any; // formdata로 바꾸려면 필요.
@@ -130,7 +131,7 @@ const WriteReview = () => {
   };
 
   const selectedDrink = useSelector((state: RootState) => state.selectedDrink);
-
+  console.log(selectedDrink)
   useEffect(() => {
     if (selectedDrink.id) {
       setData({
@@ -153,6 +154,7 @@ const WriteReview = () => {
   const [openCalendar, setOpenCalendar] = useState(false);
   const handleDate = (date: Date) => {
     setData({ ...data, dateCreated: date });
+    setOpenCalendar(false)
   };
 
   const handleSubmit = (data: ReviewFormData) => {
@@ -175,8 +177,8 @@ const WriteReview = () => {
         .then((res: any) => {
           console.log(res);
           const newFeed = res.data.body;
-          navigate(`/details/feed/${newFeed.id}`);
-          // 상세페이지로 이동
+          // 상세페이지로 이동할 때 작성후 넘어간 건지 확인을 위해 state 같이 넘겨줌.
+          navigate(`/details/feed/${newFeed.id}`, {state:{writeSuccess : true}});
         })
         .catch((error) => {
           console.error(error);
@@ -204,7 +206,7 @@ const WriteReview = () => {
           <div style={{ width: "inherit" }}>
             <div className={`${styles[`subtitle-row`]}`}>
               사진
-              <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)" }}> (선택)</div>
+              <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)" }}>   (선택)</div>
             </div>
             {/* 이미지 선택, 미리보기, 업로드 로직 컴포넌트 */}
             <ImageUpload handleImg={handleImg}></ImageUpload>
@@ -249,19 +251,11 @@ const WriteReview = () => {
         {/* 달력에서 리뷰작성으로 넘어오면 */}
         {/* navigate state로 선택된 날짜 같이 넘겨줘서 미리 담아놈  */}
         <div className={`${styles[`row-container`]}`}>
-          <div className={`${styles[`subtitle-row`]}`}>
+          <div style={{marginLeft:"3px"}} className={`${styles[`subtitle-row`]}`}>
             <CalendarTodayIcon onClick={() => setOpenCalendar(!openCalendar)}/>
           </div>
-          {/* <DatePicker
-            selected={data.dateCreated}
-            dateFormat="yyyy년 MM월 dd일"
-            locale={ko}
-            maxDate={new Date()}
-            className={`${styles[`input-basic`]}`}
-            onChange={(d) => setData({ ...data, dateCreated: d })}
-          /> */}
-          <div className={`${styles[`input-basic`]}`} onClick={() => setOpenCalendar(!openCalendar)}>
-            {data.dateCreated ? data.dateCreated.toLocaleDateString("ko-KR") : "N/A"}
+          <div style={{marginLeft:"30px"}} className={`${styles[`input-basic`]}`} onClick={() => setOpenCalendar(!openCalendar)}>
+            {data.dateCreated ? moment(data.dateCreated).format("YYYY년 MM월 DD일") : "N/A"}
           </div>
           {openCalendar ? (
             <div
@@ -308,8 +302,7 @@ const WriteReview = () => {
             {data.isPublic ? <LockOpenIcon sx={{ fontSize: 35 }} /> : <LockIcon sx={{ fontSize: 35 }} />}
           </div>
           <StyleSwitch onClick={() => setData({ ...data, isPublic: !data.isPublic })} />
-          {/* <button onClick={() => setPrivate(false)}>공개</button>
-          <button onClick={() => setPrivate(true)}>비공개</button> */}
+
         </div>
       </form>
 
@@ -318,15 +311,6 @@ const WriteReview = () => {
           <SearchPage handleOpen={handleOpen}></SearchPage>
         </div>
       </Modal>
-
-      <div>
-        데이터 확인 :{data.liquorType}
-        {data.liquorName}
-        {data.content}
-        {data.ratingScore}
-        {/* {moment(formData.date)} */}
-        {data.isPublic}
-      </div>
     </div>
   );
 };
