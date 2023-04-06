@@ -79,7 +79,7 @@ jwt.secret: ${jwt.secret}
 app:
   auth:
     tokenSecret: ${app.auth.secret}
-    tokenExpiry: 50000
+    tokenExpiry: 3600000
     refreshTokenExpiry: 604800000
   oauth2:
     authorizedRedirectUris:
