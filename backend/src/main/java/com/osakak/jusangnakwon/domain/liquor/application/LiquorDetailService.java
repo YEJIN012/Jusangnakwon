@@ -206,6 +206,7 @@ public class LiquorDetailService {
                 if (byIdHometender.isEmpty())
                     throw new LiquorNotFoundException();
                 Hometender hometender = byIdHometender.get();
+
                 tastes = Arrays.asList(HometenderTasteType.getTag("SWEET", hometender.getSweet()),
                         HometenderTasteType.getTag("SOUR", hometender.getSour()),
                         HometenderTasteType.getTag("BITTER", hometender.getBitter()),
@@ -216,15 +217,16 @@ public class LiquorDetailService {
                     SimilarHometenderItem similarHometenderItem = byIdHometenderSim.get();
                     extracted(list, similarHometenderItem.getSimilarLiquor());
                     List<Hometender> repositoryByIdList = hometenderRepository.findByIdList(list);
-                    scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(hometender.getName(), hometender.getLiquorType());
-                    liquorId = id;
-                    ingredients = liquorMapper.toRandHometender(hometender).getIngredients();
-                    name = hometender.getName().trim();
-                    ratingAvg = hometender.getRatingAvg();
-                    reviews = feedRepository.findHometenderReviewByLiquorId(id);
                     similarItem = liquorMapper.toLiquorListDtoHometender(repositoryByIdList);
-                    image = hometender.getImg();
                 }
+                scrapCnt = scrapRepository.getScrapCntByNameAndLiquorType(hometender.getName(), hometender.getLiquorType());
+                liquorId = id;
+                ingredients = liquorMapper.toRandHometender(hometender).getIngredients();
+                name = hometender.getName().trim();
+                ratingAvg = hometender.getRatingAvg();
+                reviews = feedRepository.findHometenderReviewByLiquorId(id);
+                image = hometender.getImg();
+                description = hometender.getDescription();
                 break;
         }
         return LiquorDetailResponse.builder()
@@ -235,6 +237,7 @@ public class LiquorDetailService {
                 .scrapCnt(scrapCnt)
                 .scrapped(scrapped)
                 .ingredients(ingredients)
+                .description(description)
                 .tastes(tastes)
                 .description(description)
                 .reviews(reviews)
