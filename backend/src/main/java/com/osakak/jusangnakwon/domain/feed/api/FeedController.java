@@ -50,7 +50,7 @@ public class FeedController {
     @PostMapping(value = "/api/feed", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<ResponseDto> createFeed(@AuthenticationPrincipal User user,
                                                   @RequestPart CreateFeedRequest request,
-                                                  @RequestPart MultipartFile imgFile) throws IOException {
+                                                  @RequestPart(required = false) MultipartFile imgFile) throws IOException {
         FeedDto requestFeedDto = feedDtoMapper.createFeedRequestToFeedDto(request);
         RatingDto requestRatingDto = feedDtoMapper.createFeedRequestToRatingDto(request);
         FeedDto feedDto = feedService.createFeed(user.getId(), requestFeedDto, requestRatingDto, imgFile);
