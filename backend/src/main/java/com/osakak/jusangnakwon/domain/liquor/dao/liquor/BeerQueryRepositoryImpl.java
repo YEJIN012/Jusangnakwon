@@ -31,7 +31,7 @@ public class BeerQueryRepositoryImpl implements BeerQueryRepository {
                 .from(beer)
                 .leftJoin(scrap)
                 .on(scrap.liquorId.eq(beer.id),
-                        beer.liquorType.eq(beer.liquorType),
+                        scrap.liquorType.eq(beer.liquorType),
                         scrap.user.id.eq(userId))
                 .where(surveyBody(survey.getBody()))
                 .offset(pageable.getOffset()).limit(pageable.getPageSize())
