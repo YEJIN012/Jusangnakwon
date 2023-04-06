@@ -6,9 +6,9 @@ import com.osakak.jusangnakwon.domain.feed.api.response.ScrapListResponse;
 import com.osakak.jusangnakwon.domain.feed.dto.CalendarWithReviewsDto;
 import com.osakak.jusangnakwon.domain.feed.dto.RecordListDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
-import java.util.List;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+
+import java.util.List;
 
 @Mapper
 public interface MypageDtoMapper {

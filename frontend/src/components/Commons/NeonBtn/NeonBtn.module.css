@@ -2,13 +2,12 @@
   --clr-neon: hsl(317 100% 54%);
   --clr-bg: hsl(323 21% 16%);
 }
-
-/* *,
+/* 
+*,
 *::before,
 *::after {
   box-sizing: border-box;
 } */
-
 .container {
   min-height: 100vh;
   display: grid;
@@ -87,4 +86,12 @@
 .neon-button:focus::after {
   opacity: 0.8;
   box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "SDSamliphopangche_Outline";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }

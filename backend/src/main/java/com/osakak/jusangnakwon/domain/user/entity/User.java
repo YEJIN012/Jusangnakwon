@@ -2,7 +2,7 @@ package com.osakak.jusangnakwon.domain.user.entity;
 
 import com.osakak.jusangnakwon.common.oauth.entity.ProviderType;
 import com.osakak.jusangnakwon.common.oauth.entity.RoleType;
-import io.jsonwebtoken.Claims;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,10 +49,11 @@ public class User {
     @Column(name = "profile_img", nullable = false, length = 512)
     private String profileImageUrl;
 
-    @Column(name= "survey",nullable = false)
+    @Column(name = "survey", nullable = false)
     private Byte survey;
 
     @Builder
+    @QueryProjection
     public User(Long id, String userId, String username, boolean isDeleted, ProviderType providerType, String email, Timestamp dateRegisted, RoleType role, String profileImageUrl, Byte survey) {
         this.id = id;
         this.userId = userId;
@@ -66,8 +67,13 @@ public class User {
         this.survey = survey;
     }
 
-    public User(Long id,String userId) {
-        this.id=id;
+    public User(Long id, String userId) {
+        this.id = id;
         this.userId = userId;
+    }
+
+
+    public void completeSurvey(Byte complete) {
+        this.survey = complete;
     }
 }

@@ -8,7 +8,7 @@ const Playground = () => {
 
   return (
     <div>
-      {pathname === "/playground" ? <Header></Header> : <HeaderBack></HeaderBack>}
+      {pathname === "/playground/hometender" ? <Header></Header> : <HeaderBack></HeaderBack>}
       <Outlet></Outlet>
     </div>
   );
