@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Repository
-public interface WineRepository extends JpaRepository<Wine, Long>,WineQueryRepository {
+public interface WineRepository extends JpaRepository<Wine, Long>, WineQueryRepository {
     /**
      * 전체 와인 랭킹순 조회
      *
@@ -29,10 +29,11 @@ public interface WineRepository extends JpaRepository<Wine, Long>,WineQueryRepos
     @Query("select l from Wine l where l.name like :keyword%")
     Optional<List<Wine>> findByKeyword(@Param("keyword") String keyword);
 
-    @Query("select w from Wine w WHERE w.id IN :similarWineUniqueList ")
-    Page<Wine> findById(Set<Long> similarWineUniqueList, Pageable pageable);
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(w.id,w.name,w.img,w.liquorType,s.scrapped) from Wine w left join Scrap s on s.liquorId = w.id and w.liquorType = s.liquorType and s.user.id = :userId WHERE w.id IN :similarWineUniqueList ")
+    Page<LiquorListItemDto> findById(Set<Long> similarWineUniqueList, Pageable pageable, @Param("userId") Long userId);
+
     @Query("select l from  Wine l where l.id in (:id)")
-    List<Wine> findByIdList(@Param("id")List<Long> id);
+    List<Wine> findByIdList(@Param("id") List<Long> id);
 
     @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType, s.scrapped) " +
             "from Wine l " +
@@ -40,4 +41,5 @@ public interface WineRepository extends JpaRepository<Wine, Long>,WineQueryRepos
             "on l.liquorType=s.liquorType and l.id=s.liquorId and s.user.id=:userId " +
             "order by l.ratingAvg desc, l.name ")
     Page<LiquorListItemDto> findListByRatingIsLogin(Pageable pageable, Long userId);
+
 }
