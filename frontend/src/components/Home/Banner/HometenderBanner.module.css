@@ -10,9 +10,12 @@
   /* margin-top: 50px;
   margin-bottom: 50px; */
   margin: 0 auto;
-  background: linear-gradient(180deg, #ff9e80 0%, #fff6e3 100%);
+  /* background: linear-gradient(180deg, #ff9e80 0%, #fff6e3 100%); */
   /* background-color: inherit; */
+  background-color: rgba(219, 219, 219, 0.2);
+  border: 0.5px solid white;
   text-align: center;
+  box-shadow: 2px 2px 3px gainsboro;
 }
 .hometender-banner-container {
   display: flex;
@@ -42,7 +45,7 @@
 .hometender-banner-img {
   height: 100px;
   width: 100px;
-  margin-right: 3%;
+  /* margin-right: 3%; */
 }
 
 .hometender-banner-title {
@@ -72,9 +75,11 @@
 }
 
 .hometender-banner-material {
-  background-color: #ff9e80;
+  /* background-color: #ff9e80; */
+  background-color: rgb(176, 112, 144);
   margin: 1%;
-  padding: 1% 5%;
-  border: 1px solid #ff9e80;
+  padding: 2% 5%;
+  /* border: 1px solid #ff9e80; */
+  border: 1px solid rgb(176, 112, 144);
   border-radius: 30px;
 }
