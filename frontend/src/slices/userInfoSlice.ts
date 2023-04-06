@@ -8,7 +8,7 @@ const initialState = {
   dateRegisted: null,
   profileImageUrl: null,
   survey: null,
-  isLogin: false
+  isLogin: true
 };
 const userInfoSlice = createSlice({
   name: "userInfo",

@@ -65,7 +65,6 @@ export default function MainTab() {
   const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const [bookmarked, setBookmarked] = useState(false);
   const [drinkItem, setDrinkItem] = useState<DrinkItem>();
 
   // 북마크 상태를 변경하는 함수
@@ -84,6 +83,8 @@ export default function MainTab() {
   //   }
   // };
 
+
+
   console.log(value);
   // 칵테일
   const [cocktailItemsToShow, setcocktailItemsToShow] = useState(6);
@@ -92,6 +93,18 @@ export default function MainTab() {
   const [isLoadingMoreCocktails, setIsLoadingMoreCocktails] = useState(false);
   const [cocktailCurPageNumber, setCocktailCurPageNumber] = useState<number>(1);
   const [cocktailTotalPage, setCocktailTotalPage] = useState<number>(0);
+  const cocktailScrapToggle = (id: string) => {
+    apiPutBookmark("l5", Number(id)).then(() => {
+      setCocktailListToShow((prevCocktailListToShow) =>
+        prevCocktailListToShow.map((item) => {
+          if (item.id === id) {
+            return { ...item, scrapped: !item.scrapped };
+          }
+          return item;
+        }),
+      );
+    });
+  };
 
   // 위스키
   const [whiskyItemsToShow, setwhiskyItemsToShow] = useState(6);
@@ -100,6 +113,18 @@ export default function MainTab() {
   const [isLoadingMoreWhiskys, setIsLoadingMoreWhiskys] = useState(false);
   const [whiskyCurPageNumber, setWhiskyCurPageNumber] = useState<number>(1);
   const [whiskyTotalPage, setWhiskyTotalPage] = useState<number>(0);
+  const whiskyScrapToggle = (id: string) => {
+    apiPutBookmark("l2", Number(id)).then(() => {
+      setWhiskyListToShow((prevWhiskyListToShow) =>
+        prevWhiskyListToShow.map((item) => {
+          if (item.id === id) {
+            return { ...item, scrapped: !item.scrapped };
+          }
+          return item;
+        }),
+      );
+    });
+  };
 
   // 와인
   const [wineItemsToShow, setwineItemsToShow] = useState(6);
@@ -108,6 +133,18 @@ export default function MainTab() {
   const [isLoadingMoreWines, setIsLoadingMoreWines] = useState(false);
   const [wineCurPageNumber, setWineCurPageNumber] = useState<number>(1);
   const [wineTotalPage, setWineTotalPage] = useState<number>(0);
+  const wineScrapToggle = (id: string) => {
+    apiPutBookmark("l1", Number(id)).then(() => {
+      setWineListToShow((prevWineListToShow) =>
+        prevWineListToShow.map((item) => {
+          if (item.id === id) {
+            return { ...item, scrapped: !item.scrapped };
+          }
+          return item;
+        }),
+      );
+    });
+  };
 
   // 전통주
   const [koreanItemsToShow, setkoreanItemsToShow] = useState(6);
@@ -116,6 +153,18 @@ export default function MainTab() {
   const [isLoadingMoreKoreans, setIsLoadingMoreKoreans] = useState(false);
   const [koreanCurPageNumber, setKoreanCurPageNumber] = useState<number>(1);
   const [koreanTotalPage, setKoreanTotalPage] = useState<number>(0);
+  const koreanScrapToggle = (id: string) => {
+    apiPutBookmark("l4", Number(id)).then(() => {
+      setKoreanListToShow((prevKoreanListToShow) =>
+        prevKoreanListToShow.map((item) => {
+          if (item.id === id) {
+            return { ...item, scrapped: !item.scrapped };
+          }
+          return item;
+        }),
+      );
+    });
+  };
 
   // 맥주
   const [beerItemsToShow, setbeerItemsToShow] = useState(6);
@@ -124,6 +173,18 @@ export default function MainTab() {
   const [isLoadingMoreBeers, setIsLoadingMoreBeers] = useState(false);
   const [beerCurPageNumber, setBeerCurPageNumber] = useState<number>(1);
   const [beerTotalPage, setBeerTotalPage] = useState<number>(0);
+  const beerScrapToggle = (id: string) => {
+    apiPutBookmark("l3", Number(id)).then(() => {
+      setBeerListToShow((prevBeerListToShow) =>
+        prevBeerListToShow.map((item) => {
+          if (item.id === id) {
+            return { ...item, scrapped: !item.scrapped };
+          }
+          return item;
+        }),
+      );
+    });
+  };
 
   const navigate = useNavigate();
   // const classes = useStyles();
@@ -501,7 +562,7 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {cocktailListToShow.map(({ id, img, name }, index) => (
+                  {cocktailListToShow.map(({ id, img, name, scrapped }, index) => (
                     <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/l5/${id}`}>
@@ -513,36 +574,20 @@ export default function MainTab() {
                               {name.length > 15 ? `${name.substring(0, 15)}...` : name}
                             </div>
                             <>
-                              {drinkItem?.scrapped ? (
+                              {scrapped ? (
                                 <BookmarkIcon
                                   onClick={() => {
-                                    apiPutBookmark("l5", Number(id)).then(() => {
-                                      apiGetLoginRecommendedByType("l5", cocktailCurPageNumber).then((r) => {
-                                        console.log("북마크누르고다시", r);
-                                        setCocktailList(r?.data.body.content);
-                                      });
-                                    });
+                                    cocktailScrapToggle(id);
                                   }}
                                 />
                               ) : (
                                 <BookmarkBorderIcon
                                   onClick={() => {
-                                    apiPutBookmark("l5", Number(id)).then(() => {
-                                      apiGetLoginRecommendedByType("l5", cocktailCurPageNumber).then((r) => {
-                                        console.log("북마크 해제", r);
-                                        setCocktailList(r?.data.body.content);
-                                      });
-                                    });
+                                    cocktailScrapToggle(id);
                                   }}
                                 />
                               )}
                             </>
-
-                            {/* {drinkItem?.scrapped ? (
-                            <BookmarkIcon onClick={() => handleScrap(drinkItem.id)} />
-                          ) : (
-                            <BookmarkBorderIcon onClick={() => handleScrap(drinkItem.id)} />
-                          )} */}
                           </div>
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
@@ -586,7 +631,7 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {whiskyList.slice(0, whiskyItemsToShow).map(({ id, img, name }, index) => (
+                  {whiskyListToShow.map(({ id, img, name, scrapped }, index) => (
                     <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/l2/${id}`}>
@@ -597,24 +642,19 @@ export default function MainTab() {
                             <div className={styles["drink-name"]}>
                               {name.length > 15 ? `${name.substring(0, 15)}...` : name}
                             </div>
-                            {drinkItem?.scrapped ? (
-                              <BookmarkIcon
-                                onClick={() => {
-                                  apiPutBookmark("l2", Number(id)).then(() => {
-                                    apiGetNotLoginRecommendedByType("l2", whiskyCurPageNumber).then((r) => {
-                                      console.log("북마크누르고다시", r);
-                                      setWhiskyListToShow(r?.data.body.content);
-                                    });
-                                  });
-                                }}
-                              />
-                            ) : (
-                              <BookmarkBorderIcon
-                                onClick={() => {
-                                  apiPutBookmark("l2", Number(id));
-                                }}
-                              />
-                            )}
+                            {scrapped ? (
+                                <BookmarkIcon
+                                  onClick={() => {
+                                    whiskyScrapToggle(id);
+                                  }}
+                                />
+                              ) : (
+                                <BookmarkBorderIcon
+                                  onClick={() => {
+                                    whiskyScrapToggle(id);
+                                  }}
+                                />
+                              )}
                           </div>
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
@@ -658,7 +698,7 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {wineList.slice(0, wineItemsToShow).map(({ id, img, name }, index) => (
+                  {wineListToShow.map(({ id, img, name,scrapped }, index) => (
                     <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/l1/${id}`}>
@@ -669,24 +709,19 @@ export default function MainTab() {
                             <div className={styles["drink-name"]}>
                               {name.length > 15 ? `${name.substring(0, 15)}...` : name}
                             </div>
-                            {drinkItem?.scrapped ? (
-                              <BookmarkIcon
-                                onClick={() => {
-                                  apiPutBookmark("l1", Number(id)).then(() => {
-                                    apiGetNotLoginRecommendedByType("l1", wineCurPageNumber).then((r) => {
-                                      console.log("북마크누르고다시", r);
-                                      setWineListToShow(r?.data.body.content);
-                                    });
-                                  });
-                                }}
-                              />
-                            ) : (
-                              <BookmarkBorderIcon
-                                onClick={() => {
-                                  apiPutBookmark("l1", Number(id));
-                                }}
-                              />
-                            )}
+                            {scrapped ? (
+                                <BookmarkIcon
+                                  onClick={() => {
+                                    wineScrapToggle(id);
+                                  }}
+                                />
+                              ) : (
+                                <BookmarkBorderIcon
+                                  onClick={() => {
+                                    wineScrapToggle(id);
+                                  }}
+                                />
+                              )}
                           </div>
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
@@ -730,7 +765,7 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {koreanList.slice(0, koreanItemsToShow).map(({ id, img, name }, index) => (
+                  {koreanListToShow.map(({ id, img, name, scrapped }, index) => (
                     <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/l4/${id}`}>
@@ -741,24 +776,19 @@ export default function MainTab() {
                             <div className={styles["drink-name"]}>
                               {name.length > 15 ? `${name.substring(0, 15)}...` : name}
                             </div>
-                            {drinkItem?.scrapped ? (
-                              <BookmarkIcon
-                                onClick={() => {
-                                  apiPutBookmark("l4", Number(id)).then(() => {
-                                    apiGetNotLoginRecommendedByType("l4", koreanCurPageNumber).then((r) => {
-                                      console.log("북마크누르고다시", r);
-                                      setKoreanListToShow(r?.data.body.content);
-                                    });
-                                  });
-                                }}
-                              />
-                            ) : (
-                              <BookmarkBorderIcon
-                                onClick={() => {
-                                  apiPutBookmark("l4", Number(id));
-                                }}
-                              />
-                            )}
+                            {scrapped ? (
+                                <BookmarkIcon
+                                  onClick={() => {
+                                    koreanScrapToggle(id);
+                                  }}
+                                />
+                              ) : (
+                                <BookmarkBorderIcon
+                                  onClick={() => {
+                                    koreanScrapToggle(id);
+                                  }}
+                                />
+                              )}
                           </div>
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
@@ -802,7 +832,7 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {beerList.slice(0, beerItemsToShow).map(({ id, img, name }, index) => (
+                  {beerListToShow.map(({ id, img, name, scrapped }, index) => (
                     <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
                         <Link to={`/details/l3/${id}`}>
@@ -813,24 +843,19 @@ export default function MainTab() {
                             <div className={styles["drink-name"]}>
                               {name.length > 15 ? `${name.substring(0, 15)}...` : name}
                             </div>
-                            {drinkItem?.scrapped ? (
-                              <BookmarkIcon
-                                onClick={() => {
-                                  apiPutBookmark("l3", Number(id)).then(() => {
-                                    apiGetNotLoginRecommendedByType("l3", beerCurPageNumber).then((r) => {
-                                      console.log("북마크누르고다시", r);
-                                      setBeerListToShow(r?.data.body.content);
-                                    });
-                                  });
-                                }}
-                              />
-                            ) : (
-                              <BookmarkBorderIcon
-                                onClick={() => {
-                                  apiPutBookmark("l3", Number(id));
-                                }}
-                              />
-                            )}
+                            {scrapped ? (
+                                <BookmarkIcon
+                                  onClick={() => {
+                                    beerScrapToggle(id);
+                                  }}
+                                />
+                              ) : (
+                                <BookmarkBorderIcon
+                                  onClick={() => {
+                                    beerScrapToggle(id);
+                                  }}
+                                />
+                              )}
                           </div>
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
