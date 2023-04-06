@@ -21,8 +21,10 @@ public interface WineRepository extends JpaRepository<Wine, Long>, WineQueryRepo
      * @param pageable 페이징 정보
      * @return 페이징 포함 와인 리스트
      */
-    @Query("select w from Wine w order by w.ratingAvg desc")
-    Page<Wine> findByRatingAvg(Pageable pageable);
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType) " +
+            "from Wine l " +
+            "order by l.ratingAvg desc, l.name ")
+    Page<LiquorListItemDto> findListByRatingIsNotLoggedIn(Pageable pageable);
 
     @Query("select l from Wine l where l.name like :keyword%")
     Optional<List<Wine>> findByKeyword(@Param("keyword") String keyword);
@@ -32,4 +34,12 @@ public interface WineRepository extends JpaRepository<Wine, Long>, WineQueryRepo
 
     @Query("select l from  Wine l where l.id in (:id)")
     List<Wine> findByIdList(@Param("id") List<Long> id);
+
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType, s.scrapped) " +
+            "from Wine l " +
+            "left join fetch Scrap s " +
+            "on l.liquorType=s.liquorType and l.id=s.liquorId and s.user.id=:userId " +
+            "order by l.ratingAvg desc, l.name ")
+    Page<LiquorListItemDto> findListByRatingIsLogin(Pageable pageable, Long userId);
+
 }

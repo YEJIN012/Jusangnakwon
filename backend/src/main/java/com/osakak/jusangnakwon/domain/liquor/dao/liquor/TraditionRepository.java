@@ -1,7 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Cocktail;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Tradition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +19,10 @@ public interface TraditionRepository extends JpaRepository<Tradition, Long>, Tra
      * @param pageable 페이징 정보
      * @return 페이징 포함 전통주 칵테일 리스트
      */
-    @Query("select c from Tradition c order by c.ratingAvg desc")
-    Page<Tradition> findByRatingAvg(Pageable pageable);
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType) " +
+            "from Tradition l " +
+            "order by l.ratingAvg desc, l.name ")
+    Page<LiquorListItemDto> findListByRatingIsNotLoggedIn(Pageable pageable);
 
     @Query("select l from Tradition l where l.name like :keyword%")
     Optional<List<Tradition>> findByKeyword(@Param("keyword") String keyword);
@@ -31,5 +32,12 @@ public interface TraditionRepository extends JpaRepository<Tradition, Long>, Tra
 
     @Query("select l from  Tradition l where l.id in (:id)")
     List<Tradition> findByIdList(@Param("id") List<Long> id);
+
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType, s.scrapped) " +
+            "from Tradition l " +
+            "left join fetch Scrap s " +
+            "on l.liquorType=s.liquorType and l.id=s.liquorId and s.user.id=:userId " +
+            "order by l.ratingAvg desc, l.name ")
+    Page<LiquorListItemDto> findListByRatingIsLogin(Pageable pageable, Long userId);
 }
 
