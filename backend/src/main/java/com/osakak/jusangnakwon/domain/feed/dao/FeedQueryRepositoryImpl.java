@@ -95,8 +95,8 @@ public class FeedQueryRepositoryImpl implements FeedQueryRepository {
                                                 like.isLiked.isTrue()).exists(), "liked"))).from(feed)
                 .leftJoin(rating)
                 .on(feed.user.id.eq(rating.user.id), feed.liquorId.eq(rating.liquorId),
-                        feed.liquorType.eq(rating.liquorType))
-                .where(feed.id.eq(feedId), feed.rating.id.eq(rating.id)).fetchOne();
+                        feed.liquorType.eq(rating.liquorType), feed.rating.id.eq(rating.id))
+                .where(feed.id.eq(feedId)).fetchOne();
     }
 
     @Override
