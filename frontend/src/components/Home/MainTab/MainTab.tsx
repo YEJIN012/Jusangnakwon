@@ -69,20 +69,20 @@ export default function MainTab() {
   const [drinkItem, setDrinkItem] = useState<DrinkItem>();
 
   // 북마크 상태를 변경하는 함수
-  const handleScrap = (id: string) => {
-    if (id !== undefined) {
-      apiPutBookmark("l5", Number(id)).then((r) => {
-        setDrinkItem((prev) =>
-          prev
-            ? {
-                ...prev,
-                scrapped: !prev.scrapped,
-              }
-            : undefined,
-        );
-      });
-    }
-  };
+  // const handleScrap = (id: string) => {
+  //   if (id !== undefined) {
+  //     apiPutBookmark("l5", Number(id)).then((r) => {
+  //       setDrinkItem((prev) =>
+  //         prev
+  //           ? {
+  //               ...prev,
+  //               scrapped: !prev.scrapped,
+  //             }
+  //           : undefined,
+  //       );
+  //     });
+  //   }
+  // };
 
   console.log(value);
   // 칵테일
@@ -460,7 +460,7 @@ export default function MainTab() {
                   sx={{
                     // 칵테일 버튼 선택됐을 때 스타일
                     bgcolor: value === index ? "#06031A" : "#06031A",
-                    border: value === index ? "solid 2px #E1D1FF" : "solid 2px transparent",
+                    border: value === index ? "solid 2px rgb(176, 112, 144)" : "solid 2px transparent",
                     // boxShadow: value === 0 ? '0 0 10px 5px #8DFFFF':"#06031A",
                     // box-shadow: 0 0 10px 5px #8DFFFF
                     fontSize: { xs: 12, md: 16 },
@@ -517,9 +517,9 @@ export default function MainTab() {
                                 <BookmarkIcon
                                   onClick={() => {
                                     apiPutBookmark("l5", Number(id)).then(() => {
-                                      apiGetNotLoginRecommendedByType("l5", cocktailCurPageNumber).then((r) => {
+                                      apiGetLoginRecommendedByType("l5", cocktailCurPageNumber).then((r) => {
                                         console.log("북마크누르고다시", r);
-                                        setCocktailListToShow(r?.data.body.content);
+                                        setCocktailList(r?.data.body.content);
                                       });
                                     });
                                   }}
@@ -527,7 +527,12 @@ export default function MainTab() {
                               ) : (
                                 <BookmarkBorderIcon
                                   onClick={() => {
-                                    apiPutBookmark("l5", Number(id));
+                                    apiPutBookmark("l5", Number(id)).then(() => {
+                                      apiGetLoginRecommendedByType("l5", cocktailCurPageNumber).then((r) => {
+                                        console.log("북마크 해제", r);
+                                        setCocktailList(r?.data.body.content);
+                                      });
+                                    });
                                   }}
                                 />
                               )}

@@ -70,6 +70,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: nowrap;
   margin: 0 auto;
+  border: 1px solid #ffffff;
 }

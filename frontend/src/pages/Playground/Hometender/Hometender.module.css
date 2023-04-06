@@ -33,9 +33,9 @@
 }
 
 .recipe-title {
-  margin-top: 4vh;
-  margin-bottom: 4vh;
-  padding: 2vh;
+  margin-top: 15%;
+  margin-bottom: 7%;
+  padding: 4% 8%;
   background-color: antiquewhite;
   background: linear-gradient(268.16deg, #c9b9f7 0%, #f5ca8a 100%);
   border-radius: 50px;

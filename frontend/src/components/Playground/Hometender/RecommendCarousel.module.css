@@ -9,11 +9,12 @@
   flex-direction: row;
   justify-content: space-between;
   /* height: 10vh; */
-  background-color: #472e4e80;
+  background-color: rgba(219, 219, 219, 0.2);
   border-radius: 10px;
   padding: 4% 0 4% 8%;
   align-items: center;
-  border:2px solid #dadada;
+  border:0.5px solid #dadada;
+  box-shadow: 2px 2px 3px gainsboro;
 }
 
 .img-box {
@@ -42,19 +43,19 @@
   /* border: 1px solid #ffffff; */
   /* justify-content: space-between; */
   font-size: 0.8rem;
-  margin-left: 3%;
+  /* margin-left: 3%; */
 }
 
 .hometender-banner-material {
   /* border: 1px solid #ffffff; */
   border-radius: 10px;
   padding: 1% 5%;
-  background-color: #ffb0b0;
-  color: black;
+  background-color: rgb(176, 112, 144);
+  color: white;
   margin-right: 2%;
   margin-bottom: 2%;
 }
 
 .drink-explain{
-  margin-left: 3%;
+  /* margin-left: 3%; */
 }
