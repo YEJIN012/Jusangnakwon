@@ -168,7 +168,7 @@ public class LiquorService {
     public HometenderDto createHometender(Long id, HometenderDto hometenderDto, MultipartFile image) throws IOException {
         User user = findUser(id);
         String uuid = null;
-        if (image != null) {
+        if (image != null && !image.isEmpty()) {
             uuid = UUID.randomUUID().toString();
             String ext = image.getContentType();
             BlobInfo blobInfo = storage.create(
