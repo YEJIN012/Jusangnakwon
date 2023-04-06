@@ -5,18 +5,28 @@ import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import BookmarkBorder from "@mui/icons-material/BookmarkBorder";
-import { apiGetDrinkList } from "@/api/drinks";
+import { apiGetDrinkList, apiPutBookmark } from "@/api/drinks";
 import { makeStyles } from "@material-ui/core/styles";
+import { EnglishToCode } from "@/pages/Commons/Write/WriteReview";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiPaginationItem-root:not(.Mui-selected)": {
       color: "white",
     },
+    "& .MuiPaginationItem-root.Mui-selected": {
+      color: "white",
+      border: " 1px solid #5b5b5b",
+      backgroundColor: " #80808032",
+    },
   },
 }));
 
 const AllDrink = () => {
+  const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
@@ -58,22 +68,51 @@ const AllDrink = () => {
             <span>칵테일 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {drinkList.map((drink: any) => (
-              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+            {drinkList.map((drink: any, index) => (
+              <div key={index} className={`${styles["drink-wrap"]}`}>
                 <div className={`${styles["drink-img"]}`}>
                   <img
                     className={`${styles["drink-item"]}`}
                     src={drink.img}
                     alt={drink.name}
-                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                    onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
+                {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
                   </p>
-                  <BookmarkBorder fontSize="small" />
+                  {drink.scrapped ? (
+                    <BookmarkIcon
+                      onClick={() => {
+                        apiPutBookmark("l5", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                      fontSize="small"
+                    />
+                  ) : (
+                    <BookmarkBorder
+                      onClick={() => {
+                        apiPutBookmark("l5", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                    ></BookmarkBorder>
+                  )}
                 </div>
+                ) : (
+                  <div className={styles["drink-label-wrap-center"]}>
+                    <div className={styles["drink-name"]}>
+                      {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -97,22 +136,51 @@ const AllDrink = () => {
             <span>위스키 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {drinkList.map((drink: any) => (
-              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+            {drinkList.map((drink: any, index) => (
+              <div key={index} className={`${styles["drink-wrap"]}`}>
                 <div className={`${styles["drink-img"]}`}>
                   <img
                     className={`${styles["drink-item"]}`}
                     src={drink.img}
                     alt={drink.name}
-                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                    onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
+                {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
                   </p>
-                  <BookmarkBorder fontSize="small" />
+                  {drink.scrapped ? (
+                    <BookmarkIcon
+                      onClick={() => {
+                        apiPutBookmark("l2", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                      fontSize="small"
+                    />
+                  ) : (
+                    <BookmarkBorder
+                      onClick={() => {
+                        apiPutBookmark("l2", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                    ></BookmarkBorder>
+                  )}
                 </div>
+                ) : (
+                  <div className={styles["drink-label-wrap-center"]}>
+                    <div className={styles["drink-name"]}>
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -136,22 +204,51 @@ const AllDrink = () => {
             <span>와인 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {drinkList.map((drink: any) => (
-              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+            {drinkList.map((drink: any, index) => (
+              <div key={index} className={`${styles["drink-wrap"]}`}>
                 <div className={`${styles["drink-img"]}`}>
                   <img
                     className={`${styles["drink-item"]}`}
                     src={drink.img}
                     alt={drink.name}
-                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                    onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
+                {isLogin? (
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
                   </p>
-                  <BookmarkBorder fontSize="small" />
+                  {drink.scrapped ? (
+                    <BookmarkIcon
+                      onClick={() => {
+                        apiPutBookmark("l1", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                      fontSize="small"
+                    />
+                  ) : (
+                    <BookmarkBorder
+                      onClick={() => {
+                        apiPutBookmark("l1", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                    ></BookmarkBorder>
+                  )}
                 </div>
+                ) : (
+                  <div className={styles["drink-label-wrap-center"]}>
+                    <div className={styles["drink-name"]}>
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -175,22 +272,51 @@ const AllDrink = () => {
             <span>전통주 입문가이드 바로가기 ▶ </span>
           </Link>
           <div className={`${styles["drink-list"]}`}>
-            {drinkList.map((drink: any) => (
-              <div key={drink.id} className={`${styles["drink-wrap"]}`}>
+            {drinkList.map((drink: any, index) => (
+              <div key={index} className={`${styles["drink-wrap"]}`}>
                 <div className={`${styles["drink-img"]}`}>
                   <img
                     className={`${styles["drink-item"]}`}
                     src={drink.img}
                     alt={drink.name}
-                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                    onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
+                {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
                   </p>
-                  <BookmarkBorder fontSize="small" />
+                  {drink.scrapped ? (
+                    <BookmarkIcon
+                      onClick={() => {
+                        apiPutBookmark("l4", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                      fontSize="small"
+                    />
+                  ) : (
+                    <BookmarkBorder
+                      onClick={() => {
+                        apiPutBookmark("l4", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                    ></BookmarkBorder>
+                  )}
                 </div>
+                ) : (
+                  <div className={styles["drink-label-wrap-center"]}>
+                    <div className={styles["drink-name"]}>
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -221,15 +347,44 @@ const AllDrink = () => {
                     className={`${styles["drink-item"]}`}
                     src={drink.img}
                     alt={drink.name}
-                    onClick={() => navigate(`/details/${drink.liquorType}/${drink.id}`)}
+                    onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
+                {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
                   </p>
-                  <BookmarkBorder fontSize="small" />
+                  {drink.scrapped ? (
+                    <BookmarkIcon
+                      onClick={() => {
+                        apiPutBookmark("l3", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                      fontSize="small"
+                    />
+                  ) : (
+                    <BookmarkBorder
+                      onClick={() => {
+                        apiPutBookmark("l3", drink.id).then(() => {
+                          apiGetDrinkList(EnglishToCode[drink.liquorType], curPageNumber).then((r) => {
+                            setDrinkList(r?.data.body.content);
+                          });
+                        });
+                      }}
+                    ></BookmarkBorder>
+                  )}
                 </div>
+                ) : (
+                  <div className={styles["drink-label-wrap-center"]}>
+                    <div className={styles["drink-name"]}>
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -240,7 +395,6 @@ const AllDrink = () => {
               page={curPageNumber}
               variant="outlined"
               onChange={handlePageChange}
-              color="secondary"
               classes={{ root: classes.root }}
             />
           </Stack>

@@ -1,3 +1,12 @@
+:root{
+  --tag-color-lightpurple:  rgba(255, 205, 230, 0.55);
+  --tag-color-lightgold: rgb(255, 253, 161, 0.55);
+  --tag-color-lightgreen: rgb(184, 255, 184, 0.55);
+  --tag-color-lightskyblue: rgb(198, 239, 255, 0.55);
+  --tag-color-blue: rgba(144, 149, 255, 0.55);
+  --tag-color-orange: rgba(255, 214, 144, 0.55);
+}
+
 .flexwrap-container {
   width: 100% ;
   display: flex;

@@ -1,9 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   margin-top: 9%;
+  width: 100%;
+  height: 100vh;
 }
 
 .card-frame {
@@ -31,6 +33,7 @@
   margin: 2vh;
   border-radius: 20px;
   position: relative;
+  /* border: 1px solid #f53030; */
 }
 
 .card-frame-abti-colorbg {

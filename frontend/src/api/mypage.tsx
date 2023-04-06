@@ -23,9 +23,9 @@ export const apiGetMyFeed = async (page: number) => {
 };
 
 // 내 스크랩 목록 조회
-export const apiGetBookmarkList = async () => {
+export const apiGetBookmarkList = async (page: number) => {
   try {
-    const response = await api.get(`/mypage/scrap`);
+    const response = await api.get(`/mypage/scrap?page=${page}`);
     return response;
   } catch (e) {
     console.log(e);

@@ -9,9 +9,10 @@ import Header from "@/components/Commons/Header/Header";
 import styles from "./App.module.css";
 import ScrollToTop from "./components/Commons/ScrollToTop/ScrollToTop";
 import TopButton from "./components/Commons/ScrollToTop/TopButton";
-const persistor = persistStore(store);
+export const persistor = persistStore(store);
 
 const App = () => {
+  
   return (
     <>
       <ScrollToTop></ScrollToTop>
@@ -22,8 +23,8 @@ const App = () => {
               {/* <Header /> */}
               <div className={`${styles[`content-wrapper`]}`}>
                 <Outlet></Outlet>
+                <BottomBar />
               </div>
-              <BottomBar />
             </PersistGate>
           </Provider>
         </CookiesProvider>

@@ -42,55 +42,55 @@ const GuideMain: React.FC = () => {
         <img src={bookimg} className={`${styles[`book-img`]}`} />
       </div>
       <div className={`${styles[`guide-select-btn-wrap`]}`}>
-        <div className={`${styles[`three-btn`]}`}>
-          <button
-            className={`${styles[`guide-select-btn`]} ${
-              selectedButton === "cocktail" ? styles[`guide-select-btn-active`] : ""
-              // pathAlcoholType === "cocktail" ? styles[`guide-select-btn-active`] : ""
-            }`}
-            onClick={() => handleButtonClick("cocktail")}
-          >
-            칵테일
-          </button>
-          <button
-            className={`${styles[`guide-select-btn`]} ${
-              selectedButton === "whiskey" ? styles[`guide-select-btn-active`] : ""
-              // pathAlcoholType === "whiskey" ? styles[`guide-select-btn-active`] : ""
-            }`}
-            onClick={() => handleButtonClick("whiskey")}
-          >
-            위스키
-          </button>
-          <button
-            className={`${styles[`guide-select-btn`]} ${
-              selectedButton === "wine" ? styles[`guide-select-btn-active`] : ""
-              // pathAlcoholType === "wine" ? styles[`guide-select-btn-active`] : ""
-            }`}
-            onClick={() => handleButtonClick("wine")}
-          >
-            와인
-          </button>
+        {/* <div className={`${styles[`three-btn`]}`}> */}
+        <div
+          className={`${styles[`guide-select-btn`]} ${
+            selectedButton === "cocktail" ? styles[`guide-select-btn-active`] : ""
+            // pathAlcoholType === "cocktail" ? styles[`guide-select-btn-active`] : ""
+          }`}
+          onClick={() => handleButtonClick("cocktail")}
+        >
+          칵테일
         </div>
-        <div className={`${styles[`two-btn`]}`}>
-          <button
-            className={`${styles[`guide-select-btn`]} ${
-              selectedButton === "korean" ? styles[`guide-select-btn-active`] : ""
-              // pathAlcoholType === "korean" ? styles[`guide-select-btn-active`] : ""
-            }`}
-            onClick={() => handleButtonClick("korean")}
-          >
-            전통주
-          </button>
-          <button
-            className={`${styles[`guide-select-btn`]} ${
-              selectedButton === "beer" ? styles[`guide-select-btn-active`] : ""
-              // pathAlcoholType === "beer" ? styles[`guide-select-btn-active`] : ""
-            }`}
-            onClick={() => handleButtonClick("beer")}
-          >
-            맥주
-          </button>
+        <div
+          className={`${styles[`guide-select-btn`]} ${
+            selectedButton === "whiskey" ? styles[`guide-select-btn-active`] : ""
+            // pathAlcoholType === "whiskey" ? styles[`guide-select-btn-active`] : ""
+          }`}
+          onClick={() => handleButtonClick("whiskey")}
+        >
+          위스키
         </div>
+        <div
+          className={`${styles[`guide-select-btn`]} ${
+            selectedButton === "wine" ? styles[`guide-select-btn-active`] : ""
+            // pathAlcoholType === "wine" ? styles[`guide-select-btn-active`] : ""
+          }`}
+          onClick={() => handleButtonClick("wine")}
+        >
+          와인
+        </div>
+        {/* </div> */}
+        {/* <div className={`${styles[`two-btn`]}`}> */}
+        <div
+          className={`${styles[`guide-select-btn`]} ${
+            selectedButton === "korean" ? styles[`guide-select-btn-active`] : ""
+            // pathAlcoholType === "korean" ? styles[`guide-select-btn-active`] : ""
+          }`}
+          onClick={() => handleButtonClick("korean")}
+        >
+          전통주
+        </div>
+        <div
+          className={`${styles[`guide-select-btn`]} ${
+            selectedButton === "beer" ? styles[`guide-select-btn-active`] : ""
+            // pathAlcoholType === "beer" ? styles[`guide-select-btn-active`] : ""
+          }`}
+          onClick={() => handleButtonClick("beer")}
+        >
+          맥주
+        </div>
+        {/* </div> */}
       </div>
 
       <div className={`${styles[`component-wrap`]}`}>
