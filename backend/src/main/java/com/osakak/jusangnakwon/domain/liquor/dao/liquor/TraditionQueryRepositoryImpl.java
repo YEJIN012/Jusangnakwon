@@ -31,7 +31,7 @@ public class TraditionQueryRepositoryImpl implements TraditionQueryRepository {
                 .from(tradition)
                 .leftJoin(scrap)
                 .on(scrap.liquorId.eq(tradition.id),
-                        tradition.liquorType.eq(tradition.liquorType),
+                        scrap.liquorType.eq(tradition.liquorType),
                         scrap.user.id.eq(userId))
                 .where(surveySour(survey.getSour()))
                 .offset(pageable.getOffset()).limit(pageable.getPageSize())
