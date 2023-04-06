@@ -13,9 +13,9 @@
   /* background: linear-gradient(180deg, #ff9e80 0%, #fff6e3 100%); */
   /* background-color: inherit; */
   background-color: rgba(219, 219, 219, 0.2);
-  border: 0.5px solid white;
+  border: 2px solid rgba(68, 53, 71, 0.377);
   text-align: center;
-  box-shadow: 2px 2px 3px gainsboro;
+  /* box-shadow: 2px 2px 3px gainsboro; */
 }
 .hometender-banner-container {
   display: flex;

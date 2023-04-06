@@ -34,20 +34,21 @@ import MyFeedList from "@/components/MyPage/MyFeedList";
 import React, { ComponentType, ReactElement } from "react";
 
 interface ProtectedRouteProps {
-  isLoggedin : boolean
+  isLoggedin: boolean;
   outlet: JSX.Element;
-};
+}
 
-const ProtectedRoute = ({isLoggedin, outlet}: ProtectedRouteProps) => {
-  if(isLoggedin) {
+const ProtectedRoute = ({ isLoggedin, outlet }: ProtectedRouteProps) => {
+  if (isLoggedin) {
     return outlet;
   } else {
-    return <Navigate to={'/login'} />;
+    return <Navigate to={"/login"} />;
   }
 };
 
-const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
-  isLoggedin : sessionStorage.getItem("accessToken") ? true : false,
+const defaultProtectedRouteProps: Omit<ProtectedRouteProps, "outlet"> = {
+  // isLoggedin: sessionStorage.getItem("accessToken") ? true : false,
+  isLoggedin: true,
 };
 
 const router = createBrowserRouter([
@@ -75,13 +76,8 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: 
-            <ProtectedRoute {...defaultProtectedRouteProps} outlet={<FeedMain />} />
+            element: <ProtectedRoute {...defaultProtectedRouteProps} outlet={<FeedMain />} />,
           },
-          // {
-          //   path: ":feedId",
-          //   element: <FeedDetail></FeedDetail>,
-          // },
         ],
       },
       {
@@ -130,7 +126,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <ProtectedRoute {...defaultProtectedRouteProps} outlet={<MyPageMain />} />
+            element: <ProtectedRoute {...defaultProtectedRouteProps} outlet={<MyPageMain />} />,
           },
           {
             path: "bookmarks",

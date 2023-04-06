@@ -31,25 +31,38 @@ const FeedMain = () => {
   // console.log("합쳐짐", curPageNumber, totalPage);
   const [focusedPostList, setFocusedPostList] = useState("");
 
+  const scrollRef = useRef(0); // 스크롤 위치를 기억하는 변수
+
+  useEffect(() => {
+    const handleScroll = () => {
+      scrollRef.current = window.scrollY;
+    };
+    window.addEventListener("scroll", handleScroll);
+    console.log(scrollRef);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [feedList, focusedPostList]);
+
+  useEffect(() => {
+    window.scrollTo(0, scrollRef.current); // 이전 스크롤 위치로 스크롤
+  }, [curPageNumber]);
+
   // 무한스크롤, feedList 누적
   useEffect(() => {
-    if (curPageNumber > totalPage) return;
-    if (curPageNumber != 0) {
+    console.log(scrollRef);
+    if (curPageNumber > totalPage) {
+      // setCurPageNumber(0);
+      return;
+    }
+    if (curPageNumber !== 0) {
       apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
         .then((res: any) => {
           console.log(res);
-          // const prevFocusedFeedList =
-          //   focusedPostList != ""
-          //     ? feedList.filter((feed) => {
-          //         // console.log(feed.type);
-          //         // console.log(feed);
-          //         feed.type === focusedPostList;
-          //       })
-          //     : feedList;
-          // console.log("이전", prevFocusedFeedList);
           setFeedList([...feedList, ...res?.data.body?.content]);
-          // setTotalPage(res?.data.body.tot`alPage - 1);
           setTotalPage(res?.data.body.totalPage - 1);
+
+          console.log("무한스크롤 실행됨?");
         })
         .catch((error) => {
           console.log(error);
@@ -66,7 +79,7 @@ const FeedMain = () => {
         // console.log(res);
         // console.log(res?.data.body?.content);
         setFeedList(res?.data.body?.content);
-        // console.log("실행됨?");
+        console.log("실행됨?");
         setTotalPage(res?.data.body.totalPage - 1);
       })
       .catch((error) => {
@@ -76,7 +89,11 @@ const FeedMain = () => {
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
-    if (target.isIntersecting) {
+    // if (target.isIntersecting) {
+    //   setCurPageNumber((prevPage) => prevPage + 1);
+    // }
+    if (target.intersectionRatio > 0) {
+      // isIntersecting 대신 intersectionRatio 사용
       setCurPageNumber((prevPage) => prevPage + 1);
     }
   };
@@ -84,7 +101,7 @@ const FeedMain = () => {
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: "20px",
+      rootMargin: "0px",
       threshold: 1.0,
     };
 
@@ -160,6 +177,7 @@ const FeedMain = () => {
                 feed={feed}
                 setFeedList={setFeedList}
                 focusedPostList={focusedPostList}
+                curPageNumber={curPageNumber}
               ></FeedItem>
             ))
           ) : (

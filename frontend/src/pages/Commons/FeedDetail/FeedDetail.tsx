@@ -18,6 +18,7 @@ import CommentItem from "@/components/Feed/CommentItem";
 import { EnglishToKorean, EnglishToCode } from "@/pages/Commons/Write/WriteReview";
 import { alcoholTypeStyle } from "@/pages/MyPage/BookmarkList";
 import StarIcon from "@mui/icons-material/Star";
+
 export interface Comment {
   id: number;
   writer: {
@@ -83,18 +84,6 @@ const FeedDetail = () => {
       })
       .catch((e) => console.log(e));
   };
-  // const handleSubmit = () => {
-  //   if (formData.content != "") {
-  //     apiCreateComment(formData)
-  //       .then((r) => {
-  //         console.log(r);
-  //         getFeedDetail();
-  //         setFormData({ ...formData, content: "" });
-  //         inputRef.current.value = "";
-  //       })
-  //       .catch((e) => console.log(e));
-  //   }
-  // };
 
   const { content } = formData;
 
@@ -141,68 +130,20 @@ const FeedDetail = () => {
               <img src={feed.writer.profileImg} className={`${styles[`user-img`]}`}></img>
               <p>{feed.writer.username}</p>
             </div>
-            {/* <div>
-              <Button
-                id="basic-button"
-                aria-controls={open ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-                style={{ minWidth: "0", color: "white" }}
-              >
-                <MoreVertIcon />
-              </Button>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-                sx={{
-                  position: "absolute",
-                  "& .css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper": {
-                    right: 0,
-                  },
-                  "& .css-6hp17o-MuiList-root-MuiMenu-list": {
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  },
-                }}
-              >
-                {<Link to="../write/review">
-                    <MenuItem onClick={handleClose} sx={{ color: "black" }}>
-                      수정하기
-                    </MenuItem>
-                  </Link>
-                <MenuItem onClick={handleClose}>삭제하기</MenuItem>
-              </Menu>
-            </div> */}
           </div>
-          <img src={feed.img} className={`${styles[`feed-img`]}`}></img>
+          <div className={`${styles[`feed-img-wrapper`]}`}>
+            {feed.img && <img src={feed.img} className={`${styles[`feed-img`]}`}></img>}
+          </div>
           <h2 style={{ marginLeft: "3%" }}>{feed.title}</h2>
           <div className={`${styles[`feed-content-container`]}`}>
             <ReadMore content={feed.content}></ReadMore>
-              {/* {feed.liked ? ( */}
-              {/* <button onClick={createLike} style={{ background: "none", border: "none" }}> */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width:"10px" }}>
-                <LikeButton isLiked={feed.liked} createLike={createLike}></LikeButton>
-                <p style={{ color: "white", marginTop: "-10px" }}>{feed.likeCnt}</p>
-              </div>
-              {/* </button> */}
-              {/* ) : (
-                <button onClick={createLike} style={{ background: "none", border: "none" }}>
-                  <LikeButton isLiked={feed.liked}></LikeButton>
-                  <p style={{ color: "white", marginTop: "-10px" }}>{feed.likeCnt}</p>
-                </button>
-              )} */}
+            <div className={`${styles[`like-btn-container`]}`}>
+              <LikeButton isLiked={feed.liked} createLike={createLike}></LikeButton>
+              <p className={`${styles[`like-cnt`]}`}>{feed.likeCnt}</p>
+            </div>
           </div>
           {feed.type === "리뷰글" ? (
             <div className={`${styles[`feed-alcohol-info-container`]}`}>
-              {/* <p>주종</p> */}
               <p
                 className={`${styles[`feed-alcohol-type-tag`]}`}
                 style={{
@@ -211,8 +152,9 @@ const FeedDetail = () => {
               >
                 {EnglishToKorean[feed?.liquorType]}
               </p>
-              {/* <p>술 이름</p> */}
-              <p className={`${styles[`feed-alcohol-name`]}`}>{feed.liquorName}</p>
+              <Link to={`../details/${EnglishToCode[feed?.liquorType]}/${feed.liquorId}`}>
+                <p className={`${styles[`feed-alcohol-name`]}`}>{feed.liquorName}</p>
+              </Link>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "50%" }}>
                 {feed.type === "리뷰글" ? (
                   <Rating
@@ -222,7 +164,9 @@ const FeedDetail = () => {
                     emptyIcon={<StarIcon sx={{ color: "gray" }} fontSize="inherit" />}
                   />
                 ) : null}
-                <p style={{ fontSize: "0.7rem", color: "gray" }}>{feed.writer.username}님의 평점</p>
+                <div className={`${styles[`rating-container`]}`}>
+                  <p style={{ fontSize: "0.7rem", color: "gray" }}>{feed.writer.username}님의 평점</p>
+                </div>
               </div>
             </div>
           ) : null}
@@ -241,7 +185,6 @@ const FeedDetail = () => {
           {feed.comments.map((comment: Comment) => (
             <CommentItem key={comment.id} comment={comment}></CommentItem>
           ))}
-          {/* <CommentList></CommentList> */}
         </div>
       )}
     </div>
