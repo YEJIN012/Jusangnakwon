@@ -27,6 +27,7 @@ public class CocktailQueryRepositoryImpl implements CocktailQueryRepository {
     public Page<LiquorListItemDto> findByTaste(Survey survey, Pageable pageable, Long userId) {
         List<LiquorListItemDto> content = queryFactory
                 .select(new QLiquorListItemDto(cocktail.id, cocktail.name, cocktail.img, cocktail.liquorType, scrap.scrapped))
+                .distinct()
                 .from(cocktail)
                 .leftJoin(scrap)
                 .on(scrap.liquorId.eq(cocktail.id),
