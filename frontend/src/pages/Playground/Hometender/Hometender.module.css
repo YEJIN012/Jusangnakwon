@@ -9,8 +9,6 @@
   /* border: 5px solid #fd5959; */
 }
 
-
-
 .carousel-wrap {
   width: 100%;
   /* border: 1px solid #4b48f7; */
@@ -34,11 +32,13 @@
 
 .recipe-title {
   margin-top: 15%;
+  width: auto;
   margin-bottom: 7%;
   padding: 4% 8%;
   background-color: antiquewhite;
   background: linear-gradient(268.16deg, #c9b9f7 0%, #f5ca8a 100%);
   border-radius: 50px;
+  white-space: nowrap;
 }
 
 .recipe-grid {

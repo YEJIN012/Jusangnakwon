@@ -68,7 +68,7 @@ const HometenderMain = () => {
             <div className={`${styles[`carousel-item`]}`}>
               {loginRecommendList ? (
                 <div className={`${styles[`carousel-item`]}`}>
-                  <div className={`${styles[`recommend-title`]}`}>🍹당신을 위한 홈텐딩 레시피🍹</div>
+                  <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
                   <RecommendCarousel recommendList={loginRecommendList}></RecommendCarousel>
                 </div>
               ) : (

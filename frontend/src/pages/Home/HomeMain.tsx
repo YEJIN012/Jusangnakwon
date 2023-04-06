@@ -59,7 +59,7 @@ const HomeMain = () => {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.log(e); 
         });
     }
     if (recommendedHometender === null) {

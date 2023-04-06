@@ -50,7 +50,7 @@
   font-weight: 600;
   font-size: 0.9rem;
   color: white;
-  border-bottom: solid 2px white;
+  border-bottom: solid 2px rgb(176, 112, 144);
 }
 
 .component-wrap {
