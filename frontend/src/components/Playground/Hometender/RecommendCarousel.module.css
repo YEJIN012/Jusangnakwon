@@ -13,8 +13,8 @@
   border-radius: 10px;
   padding: 4% 0 4% 8%;
   align-items: center;
-  border: 1px solid #dadada;
-  box-shadow: 2px 2px 3px gainsboro;
+  /* border:0.5px solid #dadada; */
+  /* box-shadow: 2px 2px 3px gainsboro; */
 }
 
 .img-box {
@@ -54,8 +54,4 @@
   color: white;
   margin-right: 2%;
   margin-bottom: 2%;
-}
-
-.drink-explain {
-  /* margin-left: 3%; */
 }

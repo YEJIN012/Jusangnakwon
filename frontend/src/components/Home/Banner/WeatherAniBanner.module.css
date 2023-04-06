@@ -85,7 +85,7 @@
   height: 13vh;
   border-radius: 20px;
   /* z-index:120; */
-  border: solid 2px white;
+  border: 2px solid white;
   display: flex;
   flex-direction: column;
   justify-content: center;

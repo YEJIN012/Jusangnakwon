@@ -17,8 +17,10 @@
 .carousel-item {
   width: 100%;
   /* border: 3px solid #964040; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
 }
-
 .recommend-title {
   margin-top: 2vh;
   margin-bottom: 2vh;
@@ -27,19 +29,21 @@
   font-weight: 700;
 }
 
-.recommend-carousel {
-}
-
 .recipe-title {
   margin-top: 15%;
   width: auto;
   margin-bottom: 7%;
+  text-align: center;
   padding: 4% 8%;
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
   background: linear-gradient(268.16deg, #c9b9f7 0%, #f5ca8a 100%);
   border-radius: 50px;
   white-space: nowrap;
 }
 
-.recipe-grid {
-}
+/* .recipe-title-feed { */
+/* padding-top: "10%"; */
+/* width: 100vw; */
+/* margin-top: 5%; */
+/* justify-content: center; */
+/* } */

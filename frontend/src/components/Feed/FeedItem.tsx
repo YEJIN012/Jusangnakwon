@@ -35,7 +35,7 @@ const FeedItem = ({ feed, setFeedList, focusedPostList, curPageNumber }: Feed) =
     <>
       {feed.type === "리뷰글" ? (
         // 리뷰글
-        <Card style={{ backgroundColor: "inherit", boxShadow: "0px 0px 2px gray",}}>
+        <Card style={{ backgroundColor: "inherit", boxShadow: "0px 0px 2px gray" }}>
           <Link to={`../details/feed/${feed.id}`}>
             {feed.img ? <CardMedia component="img" height="auto" image={feed.img} alt={feed.writer.username} /> : <></>}
           </Link>
@@ -47,7 +47,7 @@ const FeedItem = ({ feed, setFeedList, focusedPostList, curPageNumber }: Feed) =
               </div>
               <button onClick={updateLike} style={{ background: "none", border: "none" }}>
                 {liked ? (
-                  <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
+                  <FavoriteIcon sx={{ color: "#C63B51" }}></FavoriteIcon>
                 ) : (
                   <FavoriteBorderIcon sx={{ color: "white" }} />
                 )}
@@ -74,7 +74,7 @@ const FeedItem = ({ feed, setFeedList, focusedPostList, curPageNumber }: Feed) =
               </div>
               <button onClick={updateLike} style={{ background: "none", border: "none" }}>
                 {liked ? (
-                  <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
+                  <FavoriteIcon sx={{ color: "#C63B51" }}></FavoriteIcon>
                 ) : (
                   <FavoriteBorderIcon sx={{ color: "white" }} />
                 )}

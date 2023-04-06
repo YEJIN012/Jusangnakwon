@@ -49,6 +49,16 @@
   display: flex;
 }
 
+.drink-img {
+  width: 100%;
+  height: 100%;
+}
+.drink-img-wrapper {
+  height: 50%;
+  margin-bottom: 10px;
+  width: 100vw;
+}
+
 .drink-content-container {
   padding: 5%;
   display: flex;

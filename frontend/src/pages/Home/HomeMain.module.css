@@ -28,12 +28,47 @@
 
 .main-content-container {
   width: 100%;
-  padding-top: 3%;
+  padding: 25px 0px;
   margin-top: 3%;
   border-top-left-radius: 50px;
   background-color: rgba(219, 219, 219, 0.1);
 }
 
+.username-text-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-page-username {
+  color: pink;
+  margin-right: 4px;
+  font-size: 22px;
+  width: 5ch;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 0.05em solid rgb(255, 255, 255);
+  animation: typing 0.8s steps(5), cursor 1s steps(1) forwards;
+  padding-right: 3px;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 5ch;
+  }
+}
+
+@keyframes cursor {
+  50% {
+    border-color: transparent;
+  }
+  100% {
+    border-right: none;
+  }
+}
 .slider {
   width: 100%;
 
@@ -42,13 +77,13 @@
 
 .text-wrap {
   text-align: center;
-  margin-bottom: 20px;
+  display: grid;
+  place-items: center;
 }
 
 .text-wrap p {
   font-size: small;
   margin-top: 3%;
-  margin-bottom: 3%;
 }
 
 /* .slick-track {

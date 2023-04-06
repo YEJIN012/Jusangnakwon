@@ -47,7 +47,10 @@ const BottomBar = () => {
               backgroundColor: "#06031a",
               // backgroundColor: "black",
               "& .Mui-selected > svg": {
-                backgroundColor: "#363636",
+                // backgroundColor: "#363636",
+                backgroundColor: "rgba(200, 200, 200, 0.2)",
+                // backgroundColor: "rgb(176, 112, 144, 0.7)",
+                // color: "pink",
                 borderRadius: "10px",
                 paddingX: "20px",
                 paddingY: "2px",

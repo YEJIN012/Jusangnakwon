@@ -77,7 +77,7 @@ interface Data {
 // }
 interface Props {
   handleOpen?: (props: boolean) => void | undefined;
-};
+}
 
 const SearchPage = (props: Props) => {
   const [searchedData, setSearchedData] = useState<Data | null>(null);
@@ -92,11 +92,15 @@ const SearchPage = (props: Props) => {
     setSearchigWord(e.target.value);
     if (e.target.value) {
       apiSearchDrink(e.target.value, page)
-        .then((r) => {
-          // console.log(r);
-          setSearchedData(r?.data.body);
+        .then(
+          (r) => {
+            console.log(r?.data.success);
+            // if (r?.data.success === "true") {
+            setSearchedData(r?.data.body);
+            // }
+          },
           // console.log(r?.data.body);
-        })
+        )
         .catch((e) => {
           console.log(e);
         });
@@ -123,14 +127,14 @@ const SearchPage = (props: Props) => {
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
-            placeholder="주상낙원 통합검색"
+            placeholder="검색어를 입력해주세요."
             inputProps={{ "aria-label": "search" }}
             onChange={handleSearchValue}
           />
         </Search>
       </div>
       <div>
-        {searchedData === null ? <div className={`${styles[`search-no-drink`]}`}>찾으시는 술이 없습니다.</div> : null}
+        {searchedData === null ? <div className={`${styles[`search-no-drink`]}`}>검색결과가 없습니다.</div> : null}
         {searchedData != null
           ? searchedData.content?.map((content: Content) => (
               <SearchItem key={content.id} content={content} searchingWord={searchingWord}></SearchItem>

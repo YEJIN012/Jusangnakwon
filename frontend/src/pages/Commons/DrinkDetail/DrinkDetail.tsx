@@ -82,7 +82,9 @@ const DrinkDetail = () => {
     <>
       <HeaderBack></HeaderBack>
       <div className={`${styles[`drink-img-box`]}`}>
-        <img src={drinkDetailItem?.image} className={`${styles[`drink-img`]}`}></img>
+        <div className={drinkDetailItem?.image ? `${styles[`drink-img-wrapper`]}` : ""}>
+          <img src={drinkDetailItem?.image} className={`${styles[`drink-img`]}`}></img>
+        </div>
         {/* 일반 술이랑 공통 컴포로 쓰려면 업로드유저(user_id) 있는지 판별  */}
         {drinkDetailItem?.writer ? (
           <div className={`${styles[`user-profile-container-abs`]}`}>
@@ -97,14 +99,12 @@ const DrinkDetail = () => {
         <div className={`${styles[`drink-title-box`]}`}>
           <div className={`${styles[`drink-title`]}`}>
             <div>{drinkDetailItem?.name}</div>
-            {drinkDetailItem?.ratingAvg && 
-              <Rating
-                name="read-only"
-                value={drinkDetailItem.ratingAvg}
-                emptyIcon={<StarIcon sx={{ color: "gray" }} fontSize="inherit" />}
-                readOnly
-              />
-            }
+            <Rating
+              name="read-only"
+              value={drinkDetailItem?.ratingAvg}
+              emptyIcon={<StarIcon sx={{ color: "gray" }} fontSize="inherit" />}
+              readOnly
+            />
           </div>
           {drinkDetailItem?.scrapped ? (
             <BookmarkIcon onClick={handleScrap}></BookmarkIcon>
