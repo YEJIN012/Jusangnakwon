@@ -83,7 +83,7 @@ const WriteQuestion = () => {
           navigate("/");
         });
     } else {
-      alert("제목과 내용은 필수입니다");
+      alert("💡제목과 내용은 필수입니다💡");
     }
   };
 

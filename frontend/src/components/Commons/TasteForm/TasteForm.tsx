@@ -83,7 +83,7 @@ const TasteForm = () => {
     
     // e.preventDefault();
     if (Object.values(selectedValue).includes(null)) {
-      alert("취향을 모두 입력해주세요");
+      alert("✨취향을 모두 입력해주세요✨");
     } else {
       apiSubmitSurvey(selectedValue)
       .then((response) => {

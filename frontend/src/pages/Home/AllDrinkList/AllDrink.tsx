@@ -9,16 +9,24 @@ import { apiGetDrinkList, apiPutBookmark } from "@/api/drinks";
 import { makeStyles } from "@material-ui/core/styles";
 import { EnglishToCode } from "@/pages/Commons/Write/WriteReview";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiPaginationItem-root:not(.Mui-selected)": {
       color: "white",
     },
+    "& .MuiPaginationItem-root.Mui-selected": {
+      color: "white",
+      border: " 1px solid #5b5b5b",
+      backgroundColor: " #80808032",
+    },
   },
 }));
 
 const AllDrink = () => {
+  const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
@@ -70,6 +78,7 @@ const AllDrink = () => {
                     onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
+                {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
@@ -97,6 +106,13 @@ const AllDrink = () => {
                     ></BookmarkBorder>
                   )}
                 </div>
+                ) : (
+                  <div className={styles["drink-label-wrap-center"]}>
+                    <div className={styles["drink-name"]}>
+                      {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -130,6 +146,7 @@ const AllDrink = () => {
                     onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
+                {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
@@ -157,6 +174,13 @@ const AllDrink = () => {
                     ></BookmarkBorder>
                   )}
                 </div>
+                ) : (
+                  <div className={styles["drink-label-wrap-center"]}>
+                    <div className={styles["drink-name"]}>
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -190,6 +214,7 @@ const AllDrink = () => {
                     onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
+                {isLogin? (
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
@@ -217,6 +242,13 @@ const AllDrink = () => {
                     ></BookmarkBorder>
                   )}
                 </div>
+                ) : (
+                  <div className={styles["drink-label-wrap-center"]}>
+                    <div className={styles["drink-name"]}>
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -250,6 +282,7 @@ const AllDrink = () => {
                     onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
+                {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
@@ -277,6 +310,13 @@ const AllDrink = () => {
                     ></BookmarkBorder>
                   )}
                 </div>
+                ) : (
+                  <div className={styles["drink-label-wrap-center"]}>
+                    <div className={styles["drink-name"]}>
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -310,6 +350,7 @@ const AllDrink = () => {
                     onClick={() => navigate(`/details/${EnglishToCode[drink.liquorType]}/${drink.id}`)}
                   />
                 </div>
+                {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
                     {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
@@ -337,6 +378,13 @@ const AllDrink = () => {
                     ></BookmarkBorder>
                   )}
                 </div>
+                ) : (
+                  <div className={styles["drink-label-wrap-center"]}>
+                    <div className={styles["drink-name"]}>
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -347,7 +395,6 @@ const AllDrink = () => {
               page={curPageNumber}
               variant="outlined"
               onChange={handlePageChange}
-              color="secondary"
               classes={{ root: classes.root }}
             />
           </Stack>

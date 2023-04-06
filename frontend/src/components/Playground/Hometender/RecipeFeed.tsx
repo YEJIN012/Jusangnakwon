@@ -6,6 +6,8 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { apiGetDrinkList, apiPutBookmark } from "@/api/drinks";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
@@ -45,6 +47,8 @@ const RecipeFeed = () => {
   const [curPageNumber, setCurPageNumber] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
   const [drinkList, setDrinkList] = useState([]);
+  const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
+
 
   // 북마크 상태를 변경한 뒤, 리스트 갱신하는 함수
   const handleScrap = (id: number) => {
@@ -95,6 +99,7 @@ const RecipeFeed = () => {
               <Link to={`/details/l6/${drink.id}`}>
                 <img src={drink.img} style={{ height: "150px" }}></img>
               </Link>
+              {isLogin ? (
               <div className={styles["item-title"]}>
                 <div>{drink.name}</div>
                 <div
@@ -106,6 +111,11 @@ const RecipeFeed = () => {
                   {drink.scrapped ? <BookmarkIcon /> : <BookmarkBorderIcon />}
                 </div>
               </div>
+              ) : (
+                <div className={styles["item-title-center"]}>
+                  <div>{drink.name}</div>
+                  </div>
+              )}
             </div>
           </div>
         ))}
@@ -116,7 +126,6 @@ const RecipeFeed = () => {
             page={curPageNumber}
             variant="outlined"
             onChange={handlePageChange}
-            color="secondary"
             classes={{ root: classes.root }}
           />
         </Stack>

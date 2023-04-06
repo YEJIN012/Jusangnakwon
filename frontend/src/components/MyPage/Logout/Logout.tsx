@@ -27,14 +27,12 @@ const Logout = () => {
         self.name = "reload";
         self.location.reload();
       } else self.name = "";
-      alert("로그아웃 성공");
       // logout 시 login 창으로
       navigate("/");
+    })
+    .catch((e) => {
+      console.log(e);
     });
-
-    // .catch((e) => {
-    //   console.log(e);
-    // });
   };
 
   return (

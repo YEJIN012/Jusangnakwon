@@ -147,7 +147,7 @@ const WriteRecipe = () => {
           navigate("/");
         });
     } else {
-      alert("레시피 양식을 모두 채워주세요");
+      alert("💡레시피 양식을 모두 채워주세요💡");
     }
   };
   const WriteHeader = () => {
@@ -193,7 +193,7 @@ const WriteRecipe = () => {
           <div style={{ width: "inherit" }}>
             <div className={`${styles[`subtitle-row`]}`}>
               사진
-              {/* <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)" }}> (선택)</div> */}
+              <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)", marginLeft:"5px"}}>(필수)</div>
             </div>
             {/* 이미지 선택, 미리보기, 업로드 로직 컴포넌트 */}
             <ImageUpload handleImg={handleImg}></ImageUpload>

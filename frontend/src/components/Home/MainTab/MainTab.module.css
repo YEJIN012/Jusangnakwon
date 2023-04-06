@@ -98,3 +98,8 @@
   display: flex;
   justify-content: space-between;
 }
+
+.drink-label-wrap-center {
+  display: flex;
+  justify-content: center;
+}

@@ -507,34 +507,45 @@ export default function MainTab() {
                         <Link to={`/details/l5/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
-                        <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>
-                            {name.length > 15 ? `${name.substring(0, 15)}...` : name}
-                          </div>
-                          {drinkItem?.scrapped ? (
-                            <BookmarkIcon
-                              onClick={() => {
-                                apiPutBookmark("l5", Number(id)).then(() => {
-                                  apiGetNotLoginRecommendedByType("l5", cocktailCurPageNumber).then((r) => {
-                                    console.log("북마크누르고다시", r);
-                                    setCocktailListToShow(r?.data.body.content);
-                                  });
-                                });
-                              }}
-                            />
-                          ) : (
-                            <BookmarkBorderIcon
-                              onClick={() => {
-                                apiPutBookmark("l5", Number(id));
-                              }}
-                            />
-                          )}
-                          {/* {drinkItem?.scrapped ? (
+                        {isLogin ? (
+                          <div className={styles["drink-label-wrap"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                            </div>
+                            <>
+                              {drinkItem?.scrapped ? (
+                                <BookmarkIcon
+                                  onClick={() => {
+                                    apiPutBookmark("l5", Number(id)).then(() => {
+                                      apiGetNotLoginRecommendedByType("l5", cocktailCurPageNumber).then((r) => {
+                                        console.log("북마크누르고다시", r);
+                                        setCocktailListToShow(r?.data.body.content);
+                                      });
+                                    });
+                                  }}
+                                />
+                              ) : (
+                                <BookmarkBorderIcon
+                                  onClick={() => {
+                                    apiPutBookmark("l5", Number(id));
+                                  }}
+                                />
+                              )}
+                            </>
+
+                            {/* {drinkItem?.scrapped ? (
                             <BookmarkIcon onClick={() => handleScrap(drinkItem.id)} />
                           ) : (
                             <BookmarkBorderIcon onClick={() => handleScrap(drinkItem.id)} />
                           )} */}
-                        </div>
+                          </div>
+                        ) : (
+                          <div className={styles["drink-label-wrap-center"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -576,29 +587,37 @@ export default function MainTab() {
                         <Link to={`/details/l2/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
-                        <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>
-                            {name.length > 15 ? `${name.substring(0, 15)}...` : name}
-                          </div>
-                          {drinkItem?.scrapped ? (
-                            <BookmarkIcon
-                              onClick={() => {
-                                apiPutBookmark("l2", Number(id)).then(() => {
-                                  apiGetNotLoginRecommendedByType("l2", whiskyCurPageNumber).then((r) => {
-                                    console.log("북마크누르고다시", r);
-                                    setWhiskyListToShow(r?.data.body.content);
+                        {isLogin ? (
+                          <div className={styles["drink-label-wrap"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                            </div>
+                            {drinkItem?.scrapped ? (
+                              <BookmarkIcon
+                                onClick={() => {
+                                  apiPutBookmark("l2", Number(id)).then(() => {
+                                    apiGetNotLoginRecommendedByType("l2", whiskyCurPageNumber).then((r) => {
+                                      console.log("북마크누르고다시", r);
+                                      setWhiskyListToShow(r?.data.body.content);
+                                    });
                                   });
-                                });
-                              }}
-                            />
-                          ) : (
-                            <BookmarkBorderIcon
-                              onClick={() => {
-                                apiPutBookmark("l2", Number(id));
-                              }}
-                            />
-                          )}
-                        </div>
+                                }}
+                              />
+                            ) : (
+                              <BookmarkBorderIcon
+                                onClick={() => {
+                                  apiPutBookmark("l2", Number(id));
+                                }}
+                              />
+                            )}
+                          </div>
+                        ) : (
+                          <div className={styles["drink-label-wrap-center"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -640,29 +659,37 @@ export default function MainTab() {
                         <Link to={`/details/l1/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
-                        <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>
-                            {name.length > 15 ? `${name.substring(0, 15)}...` : name}
-                          </div>
-                          {drinkItem?.scrapped ? (
-                            <BookmarkIcon
-                              onClick={() => {
-                                apiPutBookmark("l1", Number(id)).then(() => {
-                                  apiGetNotLoginRecommendedByType("l1", wineCurPageNumber).then((r) => {
-                                    console.log("북마크누르고다시", r);
-                                    setWineListToShow(r?.data.body.content);
+                        {isLogin ? (
+                          <div className={styles["drink-label-wrap"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                            </div>
+                            {drinkItem?.scrapped ? (
+                              <BookmarkIcon
+                                onClick={() => {
+                                  apiPutBookmark("l1", Number(id)).then(() => {
+                                    apiGetNotLoginRecommendedByType("l1", wineCurPageNumber).then((r) => {
+                                      console.log("북마크누르고다시", r);
+                                      setWineListToShow(r?.data.body.content);
+                                    });
                                   });
-                                });
-                              }}
-                            />
-                          ) : (
-                            <BookmarkBorderIcon
-                              onClick={() => {
-                                apiPutBookmark("l1", Number(id));
-                              }}
-                            />
-                          )}
-                        </div>
+                                }}
+                              />
+                            ) : (
+                              <BookmarkBorderIcon
+                                onClick={() => {
+                                  apiPutBookmark("l1", Number(id));
+                                }}
+                              />
+                            )}
+                          </div>
+                        ) : (
+                          <div className={styles["drink-label-wrap-center"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -704,29 +731,37 @@ export default function MainTab() {
                         <Link to={`/details/l4/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
-                        <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>
-                            {name.length > 15 ? `${name.substring(0, 15)}...` : name}
-                          </div>
-                          {drinkItem?.scrapped ? (
-                            <BookmarkIcon
-                              onClick={() => {
-                                apiPutBookmark("l4", Number(id)).then(() => {
-                                  apiGetNotLoginRecommendedByType("l4", koreanCurPageNumber).then((r) => {
-                                    console.log("북마크누르고다시", r);
-                                    setKoreanListToShow(r?.data.body.content);
+                        {isLogin ? (
+                          <div className={styles["drink-label-wrap"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                            </div>
+                            {drinkItem?.scrapped ? (
+                              <BookmarkIcon
+                                onClick={() => {
+                                  apiPutBookmark("l4", Number(id)).then(() => {
+                                    apiGetNotLoginRecommendedByType("l4", koreanCurPageNumber).then((r) => {
+                                      console.log("북마크누르고다시", r);
+                                      setKoreanListToShow(r?.data.body.content);
+                                    });
                                   });
-                                });
-                              }}
-                            />
-                          ) : (
-                            <BookmarkBorderIcon
-                              onClick={() => {
-                                apiPutBookmark("l4", Number(id));
-                              }}
-                            />
-                          )}
-                        </div>
+                                }}
+                              />
+                            ) : (
+                              <BookmarkBorderIcon
+                                onClick={() => {
+                                  apiPutBookmark("l4", Number(id));
+                                }}
+                              />
+                            )}
+                          </div>
+                        ) : (
+                          <div className={styles["drink-label-wrap-center"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -768,29 +803,37 @@ export default function MainTab() {
                         <Link to={`/details/l3/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
-                        <div className={styles["drink-label-wrap"]}>
-                          <div className={styles["drink-name"]}>
-                            {name.length > 15 ? `${name.substring(0, 15)}...` : name}
-                          </div>
-                          {drinkItem?.scrapped ? (
-                            <BookmarkIcon
-                              onClick={() => {
-                                apiPutBookmark("l3", Number(id)).then(() => {
-                                  apiGetNotLoginRecommendedByType("l3", beerCurPageNumber).then((r) => {
-                                    console.log("북마크누르고다시", r);
-                                    setBeerListToShow(r?.data.body.content);
+                        {isLogin ? (
+                          <div className={styles["drink-label-wrap"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                            </div>
+                            {drinkItem?.scrapped ? (
+                              <BookmarkIcon
+                                onClick={() => {
+                                  apiPutBookmark("l3", Number(id)).then(() => {
+                                    apiGetNotLoginRecommendedByType("l3", beerCurPageNumber).then((r) => {
+                                      console.log("북마크누르고다시", r);
+                                      setBeerListToShow(r?.data.body.content);
+                                    });
                                   });
-                                });
-                              }}
-                            />
-                          ) : (
-                            <BookmarkBorderIcon
-                              onClick={() => {
-                                apiPutBookmark("l3", Number(id));
-                              }}
-                            />
-                          )}
-                        </div>
+                                }}
+                              />
+                            ) : (
+                              <BookmarkBorderIcon
+                                onClick={() => {
+                                  apiPutBookmark("l3", Number(id));
+                                }}
+                              />
+                            )}
+                          </div>
+                        ) : (
+                          <div className={styles["drink-label-wrap-center"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}

@@ -33,7 +33,14 @@
   margin: 0% 2%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+}
+.feed-content-text {
+  padding: 0% 2%;
+  margin: 0% 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .feed-detail-content-btn {

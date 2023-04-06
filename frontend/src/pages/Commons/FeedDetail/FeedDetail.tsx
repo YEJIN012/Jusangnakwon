@@ -141,7 +141,7 @@ const FeedDetail = () => {
               <img src={feed.writer.profileImg} className={`${styles[`user-img`]}`}></img>
               <p>{feed.writer.username}</p>
             </div>
-            <div>
+            {/* <div>
               <Button
                 id="basic-button"
                 aria-controls={open ? "basic-menu" : undefined}
@@ -173,23 +173,22 @@ const FeedDetail = () => {
                   },
                 }}
               >
-                {/* <Link to="../write/review">
+                {<Link to="../write/review">
                     <MenuItem onClick={handleClose} sx={{ color: "black" }}>
                       수정하기
                     </MenuItem>
-                  </Link> */}
+                  </Link>
                 <MenuItem onClick={handleClose}>삭제하기</MenuItem>
               </Menu>
-            </div>
+            </div> */}
           </div>
           <img src={feed.img} className={`${styles[`feed-img`]}`}></img>
           <h2 style={{ marginLeft: "3%" }}>{feed.title}</h2>
           <div className={`${styles[`feed-content-container`]}`}>
             <ReadMore content={feed.content}></ReadMore>
-            <div className={`${styles[`feed-stars-like`]}`}>
               {/* {feed.liked ? ( */}
               {/* <button onClick={createLike} style={{ background: "none", border: "none" }}> */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width:"10px" }}>
                 <LikeButton isLiked={feed.liked} createLike={createLike}></LikeButton>
                 <p style={{ color: "white", marginTop: "-10px" }}>{feed.likeCnt}</p>
               </div>
@@ -200,7 +199,6 @@ const FeedDetail = () => {
                   <p style={{ color: "white", marginTop: "-10px" }}>{feed.likeCnt}</p>
                 </button>
               )} */}
-            </div>
           </div>
           {feed.type === "리뷰글" ? (
             <div className={`${styles[`feed-alcohol-info-container`]}`}>

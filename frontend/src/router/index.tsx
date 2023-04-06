@@ -152,15 +152,15 @@ const router = createBrowserRouter([
       },
       {
         path: "details/:drinktype/:id",
-        element: <DrinkDetail></DrinkDetail>,
+        element: <ProtectedRoute {...defaultProtectedRouteProps} outlet={<DrinkDetail />} />,
       },
       {
         path: "details/feed/:id",
-        element: <FeedDetail></FeedDetail>,
+        element: <ProtectedRoute {...defaultProtectedRouteProps} outlet={<FeedDetail />} />,
       },
       {
         path: "write",
-        element: <Write></Write>,
+        element: <ProtectedRoute {...defaultProtectedRouteProps} outlet={<Write />} />,
         children: [
           {
             path: "question",
