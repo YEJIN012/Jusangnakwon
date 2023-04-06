@@ -65,7 +65,7 @@ const RecommendCarousel = (props: RecommendList) => {
             <div className={`${styles[`box`]}`}>
               <img className={`${styles[`img-box`]}`} src={item.img} />
               <div className={`${styles[`info`]}`}>
-                <div className={`${styles[`drink-name`]}`}>{item.name}</div>
+                <div className={`${styles[`drink-name`]}`}>🌈{item.name}</div>
                 {/* {item.ingredients ? item.ingredients.join(", ") : ""} */}
                 <div className={`${styles[`drink-ingre`]}`}>
                   {item.ingredients != null && item.ingredients.length > 1
@@ -79,7 +79,7 @@ const RecommendCarousel = (props: RecommendList) => {
                     : item.ingredients}
                 </div>
                 {/* <Ingredients ingredients={item.ingredients}></Ingredients> */}
-                <div className={`${styles[`drink-explin`]}`}>
+                <div className={`${styles[`drink-explain`]}`}>
                   {item.explain ? item.explain.substring(0, 15) + (item.explain.length > 15 ? "..." : "") : ""}
                 </div>
               </div>

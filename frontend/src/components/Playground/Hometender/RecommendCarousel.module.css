@@ -3,20 +3,22 @@
   height: 100%;
 }
 .box {
-  /* width: 100%; */
+  width: 90%;
   height: 120px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   /* height: 10vh; */
-  background-color: #d9d9d980;
+  background-color: #472e4e80;
   border-radius: 10px;
-  padding: 4%;
+  padding: 4% 0 4% 8%;
   align-items: center;
+  border:2px solid #dadada;
 }
 
 .img-box {
-  width: 10vh;
-  height: 10vh;
+  width: 12vh;
+  height: 12vh;
   border-radius: 10px;
 }
 
@@ -30,6 +32,7 @@
 .drink-name {
   font-size: 1.2rem;
   margin-bottom: 3%;
+  font-weight: 700;
 }
 
 .drink-ingre {
@@ -39,13 +42,19 @@
   /* border: 1px solid #ffffff; */
   /* justify-content: space-between; */
   font-size: 0.8rem;
+  margin-left: 3%;
 }
 
 .hometender-banner-material {
   /* border: 1px solid #ffffff; */
   border-radius: 10px;
   padding: 1% 5%;
-  background-color: #e7e7e7;
+  background-color: #ffb0b0;
   color: black;
   margin-right: 2%;
+  margin-bottom: 2%;
+}
+
+.drink-explain{
+  margin-left: 3%;
 }

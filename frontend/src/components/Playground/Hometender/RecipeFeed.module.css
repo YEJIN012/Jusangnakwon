@@ -25,7 +25,7 @@
 .item-container img {
   width: 100%;
   max-width: "100%";
-  height: "auto";
+  height: 180px;
 }
 
 .item-title {

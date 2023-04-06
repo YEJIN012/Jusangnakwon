@@ -8,6 +8,8 @@ import React, { useEffect, useState } from "react";
 import { apiGetRankedHometender } from "@/api/hometender";
 import { apiGetLoginRecommendedByType } from "@/api/home";
 import { apiGetDrinkList } from "@/api/drinks";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
 
 interface ApiItem {
   id: number;
@@ -137,6 +139,7 @@ const recipeDummy = [
 ];
 
 const HometenderMain = () => {
+  const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
   const [rankRecommendList, setrankRecommendList] = useState([]);
   const [loginRecommendList, setLoginRecommendList] = useState([]);
   useEffect(() => {
@@ -180,9 +183,9 @@ const HometenderMain = () => {
       <div className={`${styles[`container`]}`}>
         <div className={`${styles[`carousel-wrap`]}`}>
           <div className={`${styles[`carousel-item`]}`}>
-            {loginRecommendList ? (
+            {isLogin && loginRecommendList ? (
               <div className={`${styles[`carousel-item`]}`}>
-                <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
+                <div className={`${styles[`recommend-title`]}`}>🍹당신을 위한 홈텐딩 레시피🍹</div>
                 <RecommendCarousel recommendList={loginRecommendList}></RecommendCarousel>
               </div>
             ) : (
@@ -193,7 +196,7 @@ const HometenderMain = () => {
           <div className={`${styles[`carousel-item`]}`}>
             {rankRecommendList ? (
               <>
-                <div className={`${styles[`recommend-title`]}`}>주상낙원 Best 레시피</div>
+                <div className={`${styles[`recommend-title`]}`}>🍹주상낙원 Best 레시피🍹</div>
                 <RecommendCarousel recommendList={rankRecommendList}></RecommendCarousel>
               </>
             ) : (

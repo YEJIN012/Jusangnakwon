@@ -26,6 +26,7 @@
   margin-bottom: 2vh;
   display: flex;
   justify-content: flex-start;
+  font-weight: 700;
 }
 
 .recommend-carousel {
