@@ -522,7 +522,7 @@ export default function MainTab() {
                   sx={{
                     // 칵테일 버튼 선택됐을 때 스타일
                     bgcolor: value === index ? "#06031A" : "#06031A",
-                    border: value === index ? "solid 2px rgb(176, 112, 144)" : "solid 2px transparent",
+                    border: value === index ? "solid 3px rgb(176, 112, 144)" : "solid 2px transparent",
                     // boxShadow: value === 0 ? '0 0 10px 5px #8DFFFF':"#06031A",
                     // box-shadow: 0 0 10px 5px #8DFFFF
                     fontSize: { xs: 12, md: 16 },
