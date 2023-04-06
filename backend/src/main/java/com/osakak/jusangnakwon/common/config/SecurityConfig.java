@@ -9,25 +9,16 @@ import com.osakak.jusangnakwon.common.oauth.handler.OAuth2AuthenticationSuccessH
 import com.osakak.jusangnakwon.common.oauth.handler.TokenAccessDeniedHandler;
 import com.osakak.jusangnakwon.common.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.osakak.jusangnakwon.common.oauth.service.CustomOAuth2UserService;
-import com.osakak.jusangnakwon.common.oauth.service.CustomUserDetailsService;
 import com.osakak.jusangnakwon.common.properties.AppProperties;
-import com.osakak.jusangnakwon.common.properties.CorsProperties;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.BeanIds;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -37,33 +28,27 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.management.MXBean;
 import java.util.Arrays;
 
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    private final CorsProperties corsProperties;
     private final AppProperties appProperties;
     private final AuthTokenProvider tokenProvider;
     private final RedisTemplate<String, String> redisTemplate;
-    private final CustomUserDetailsService userDetailsService;
     private final CustomOAuth2UserService oAuth2UserService;
     private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
     private final UserRepository userRepository;
 
-    /*
-     * UserDetailsService 설정
-     * */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-    }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        http
+                .headers()
+                .xssProtection()
+                .and()
+                .contentSecurityPolicy("script-src 'self'");
         http
                 .cors()
                 .and()
@@ -79,17 +64,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/t1/api/rank/**").permitAll()
-                .antMatchers("/api/rank/**").permitAll()
-                .antMatchers("/api/v1/auth/refresh").permitAll()
-                .antMatchers("/api/v1/**").hasAnyAuthority(RoleType.USER.getCode())
-//                .anyRequest().authenticated()
+                .antMatchers("/api/rs/**").authenticated()
+                .antMatchers("/api/feed/**").authenticated()
+                .antMatchers("/api/comment/**").authenticated()
+                .antMatchers("/api/mypage/**").authenticated()
+                .antMatchers("/api/v1/users/**").authenticated()
+                .antMatchers("/api/calendar/**").authenticated()
+                .antMatchers("/api/scrap/**").authenticated()
+                .antMatchers("/api/hometender/**").authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
+                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.ACCEPTED))
                 .invalidateHttpSession(true)
                 .deleteCookies("refresh_token")
+                .deleteCookies("access_token")
                 .and()
                 .oauth2Login()
                 .authorizationEndpoint()
@@ -106,15 +95,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(oAuth2AuthenticationFailureHandler());
 
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        return http.build();
     }
 
-    /*
-     * auth 매니저 설정
-     * */
-    @Override
-    @Bean(BeanIds.AUTHENTICATION_MANAGER)
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     /*
@@ -172,7 +160,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource corsConfigSource = new UrlBasedCorsConfigurationSource();
 
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOriginPatterns(Arrays.asList("*","https://j8a504.p.ssafy.io/","http://localhost:5173/"));
+        corsConfig.setAllowedOriginPatterns(Arrays.asList("*", "https://j8a504.p.ssafy.io/", "http://localhost:5173/"));
         corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE"));
         corsConfig.setAllowedHeaders(Arrays.asList("*"));
         corsConfig.setAllowCredentials(true);

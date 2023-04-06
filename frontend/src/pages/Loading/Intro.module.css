@@ -7,11 +7,12 @@
 }
 
 .container {
-  font-family: 'Exo 2', sans-serif;
+  /* font-family: "Exo 2", sans-serif; */
+  font-family: "SDSamliphopangche_Outline";
   display: flex;
   justify-content: center;
-  align-items: center;  
-  height: 55vh;
+  align-items: center;
+  height: 100%;
   width: 157.2px;
 }
 
@@ -67,21 +68,21 @@ h6:focus {
             0 0 4rem var(--neon-text-color),
             0 0 6rem var(--neon-text-color),
             0 0 8rem var(--neon-text-color),
-            0 0 10rem var(--neon-text-color);
-        
+      0 0 10rem var(--neon-text-color);
+
         box-shadow:
             0 0 .5rem #fff,
             inset 0 0 .5rem #fff,
             0 0 2rem var(--neon-border-color),
             inset 0 0 2rem var(--neon-border-color),
             0 0 4rem var(--neon-border-color),
-            inset 0 0 4rem var(--neon-border-color);        
-    }
-    
+      inset 0 0 4rem var(--neon-border-color);
+  }
+
     20%, 24%, 55% {        
-        text-shadow: none;
-        box-shadow: none;
-    }    
+    text-shadow: none;
+    box-shadow: none;
+  }
 }
 
 .img-ani {
@@ -105,9 +106,9 @@ h6:focus {
     transform: translate(15px, 15px) rotate(20deg);
   }  100% {
     transform: translate(15px, 15px) rotate(-20deg);
-  }   
-  
-    /* } {
+  }
+
+  /* } {
     
       text-shadow:
           -0.2rem -0.2rem 1rem #fff,
@@ -126,7 +127,7 @@ h6:focus {
           0 0 4rem var(--neon-border-color),
           inset 0 0 4rem var(--neon-border-color);        
   } */
-  
+
   /* 20%, 24%, 55% {        
       text-shadow: none;
       box-shadow: none;
@@ -166,7 +167,7 @@ h6:focus {
 .content {
   position: absolute;
   bottom: 30px;
-  left: 40%;
+  right: -70px;
   transform: translate(-50%, -50%);
   /* height: 160px; */
   overflow: hidden;

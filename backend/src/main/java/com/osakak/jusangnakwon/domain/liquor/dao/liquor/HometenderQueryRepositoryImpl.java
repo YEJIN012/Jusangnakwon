@@ -27,6 +27,7 @@ public class HometenderQueryRepositoryImpl implements HometenderQueryRepository 
     public Page<Hometender> findByTaste(Survey survey, Pageable pageable) {
         List<Hometender> content = queryFactory
                 .select(new QHometender(hometender))
+                .distinct()
                 .from(hometender)
                 .where(surveySweet(survey.getSweetness()))
                 .offset(pageable.getOffset()).limit(pageable.getPageSize())

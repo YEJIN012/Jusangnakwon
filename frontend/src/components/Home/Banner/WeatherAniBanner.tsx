@@ -1,14 +1,15 @@
 import styles from "./WeatherAniBanner.module.css";
+import { WeatherApiData } from "@/pages/Home/HomeMain";
 
 const Hot = () => {
   return (
-      <div className={`${styles[`hot`]}`}>
-        <div>오늘의 온도는 25℃</div>
-        <div>안녕하세요</div>
-        <span className={`${styles[`sun`]}`}></span>
-        <span className={`${styles[`sunx`]}`}></span>
-        <span className={`${styles[`sunx2`]}`}></span>
-      </div>
+    <div className={`${styles[`hot`]}`}>
+      <div>오늘의 온도는 25℃</div>
+      <div>안녕하세요</div>
+      <span className={`${styles[`sun`]}`}></span>
+      <span className={`${styles[`sunx`]}`}></span>
+      <span className={`${styles[`sunx2`]}`}></span>
+    </div>
   );
 };
 
@@ -68,28 +69,52 @@ const Rain = () => {
   );
 };
 
-const Moon = () => {
+// const Moon = () => {
+//   return (
+//     <div className={`${styles[`night`]}`}>
+//       <span className={`${styles[`moon`]}`}></span>
+//       <span className={`${styles[`spot1`]}`}></span>
+//       <span className={`${styles[`spot2`]}`}></span>
+//       <ul>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//       </ul>
+//     </div>
+//   );
+// };
+
+
+
+const WeatherAniBanner = (props: WeatherApiData) => {
+  const message = props?.message != undefined ? props?.message.split("/n") : [];
+
+  const weatherAni: {
+    [key: string]: JSX.Element;
+  } = {
+    a: <Rain></Rain>,
+    b: <Hot></Hot>,
+    c: <Cloud></Cloud>,
+    d: <Hot></Hot>,
+    e: <Cloud></Cloud>,
+    f: <Snow></Snow>,
+    g: <Cloud></Cloud>,
+  };
+
   return (
-    <div className={`${styles[`night`]}`}>
-      <span className={`${styles[`moon`]}`}></span>
-      <span className={`${styles[`spot1`]}`}></span>
-      <span className={`${styles[`spot2`]}`}></span>
-      <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
+    <div className={`${styles[`wrapper`]}`}>
+      {props.type !== undefined && weatherAni[props.type]}
+      <div className={`${styles[`message-container`]}`}>
+        {message.map((m, index) => {
+          return <p key={index}>{m}</p>;
+        })}
+      </div >
+      <div className={`${styles[`temperature-container`]}`}>
+        <p>{props?.temperature}℃</p>
+      </div>
     </div>
   );
 };
-
-export default function WeatherAniBanner() {
-  return (
-      <>
-        {/* Hot Cloud Snow Rain */}
-        <Hot></Hot>
-      </>
-  );
-}
+export default WeatherAniBanner;

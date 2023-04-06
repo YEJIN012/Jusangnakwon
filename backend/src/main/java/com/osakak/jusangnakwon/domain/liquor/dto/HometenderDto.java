@@ -1,11 +1,11 @@
 package com.osakak.jusangnakwon.domain.liquor.dto;
 
 import com.osakak.jusangnakwon.domain.feed.dto.WriterDto;
-import com.querydsl.core.annotations.QueryProjection;
-import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,7 +14,7 @@ public class HometenderDto {
     private final Long id;
     private final String name;
     private final WriterDto writer;
-    private final String image;
+    private String image;
     private Double ratingAvg;
     private Long scrapCnt;
     private Boolean scrapped;
@@ -27,9 +27,9 @@ public class HometenderDto {
 
     @Builder
     public HometenderDto(Long id, String name, WriterDto writer, String image, Double ratingAvg,
-            Long scrapCnt, Boolean scrapped, String materials, HometenderTasteDto taste,
-            LiquorType liquorType, String description, List<ReviewListDto> reviews,
-            List<LiquorListItemDto> similarItems) {
+                         Long scrapCnt, Boolean scrapped, String materials, HometenderTasteDto taste,
+                         LiquorType liquorType, String description, List<ReviewListDto> reviews,
+                         List<LiquorListItemDto> similarItems) {
         this.id = id;
         this.name = name;
         this.writer = writer;
