@@ -17,6 +17,7 @@ export const apiGetUserInfo = async () => {
 export const apiSubmitSurvey = async (data: object) => {
   try {
     const response = await api.post("/v1/users/survey", data);
+    console.log(response)
     return response;
   } catch (e) {
     console.log(e);

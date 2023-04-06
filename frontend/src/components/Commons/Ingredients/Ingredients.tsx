@@ -37,16 +37,12 @@ const Ingredients = (props: Ingredients) => {
       {props.ingredients.map((ingredient, index) => (
         <div key={index} className={`${styles[`relative`]}`}>
           {props.taste ? (
-            <div style={{ backgroundColor: TasteColor[index] }} className={`${styles[`ingredient`]}`}>
+            <div style={{ backgroundColor: TasteColor[ingredient.split(' ')[0]] }} className={`${styles[`ingredient`]}`}>
               {ingredient}
             </div>
-          ) : (
-            <div
-              style={{ backgroundColor: RandomColor[Math.floor(Math.random() * 11)] }}
-              className={`${styles[`ingredient`]}`}
-            >
-              {ingredient}
-            </div>
+          ) 
+           : (
+            <div className={`${styles[`ingredient`]}`}>{ingredient}</div>
           )}
           {props.delete ? (
             <CancelIcon

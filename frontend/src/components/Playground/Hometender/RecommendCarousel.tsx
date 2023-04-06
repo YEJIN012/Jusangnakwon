@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import styles from "./RecommendCarousel.module.css";
 import Ingredients from "@/components/Commons/Ingredients/Ingredients";
 import { EnglishToCode } from "@/pages/Commons/Write/WriteReview";
+import { useState } from "react";
 
 interface RecommendList {
   recommendList: {
@@ -17,7 +18,21 @@ interface RecommendList {
   }[];
 }
 
+const RandomColor: string[] = [
+  "var(--tag-color-a)",
+  "var(--tag-color-b)",
+  "var(--tag-color-c)",
+  "var(--tag-color-d)",
+  "var(--tag-color-e)",
+];
+
 const RecommendCarousel = (props: RecommendList) => {
+  const [randomColorNum, setRandomColorNum] = useState(Math.floor(Math.random() * 5)) 
+  // const randomColorNumList : number[] = [];
+  // for (let i = 0; i < 5; i++) {
+  //   const num = Math.floor(Math.random() * 6);
+  //   randomColorNumList.push(num);
+  // }
   const settings = {
     dots: false,
     arrows: false,
@@ -71,7 +86,7 @@ const RecommendCarousel = (props: RecommendList) => {
                   {item.ingredients != null && item.ingredients.length > 1
                     ? item.ingredients.slice(0, 4).map((material, index) => {
                         return (
-                          <p key={index} className={`${styles[`hometender-banner-material`]}`}>
+                          <p key={index} className={`${styles[`hometender-banner-material`]}`} style={{backgroundColor : RandomColor[randomColorNum]}}>
                             {extractStringBeforeNumber(material)}
                           </p>
                         );
