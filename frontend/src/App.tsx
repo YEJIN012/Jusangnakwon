@@ -12,7 +12,6 @@ import TopButton from "./components/Commons/ScrollToTop/TopButton";
 export const persistor = persistStore(store);
 
 const App = () => {
-  
   return (
     <>
       <ScrollToTop></ScrollToTop>
@@ -20,6 +19,9 @@ const App = () => {
         <CookiesProvider>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
+              <div className={`${styles[`no-mobile`]}`}>
+                <h1>Your Screen is Too big 😥</h1>
+              </div>
               {/* <Header /> */}
               <div className={`${styles[`content-wrapper`]}`}>
                 <Outlet></Outlet>

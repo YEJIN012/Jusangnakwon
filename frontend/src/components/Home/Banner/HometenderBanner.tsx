@@ -12,9 +12,11 @@ import { updateTabActions } from "@/slices/tabSlice";
 
 export default function HometenderBanner(props: HometenderApiData | null) {
   const container = useRef<HTMLDivElement>(null);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const changeTab = () => {dispatch(updateTabActions.updateTab("/playground/hometender"))}
+  const changeTab = () => {
+    dispatch(updateTabActions.updateTab("/playground/hometender"));
+  };
 
   useEffect(() => {
     let animation: any;
@@ -44,7 +46,7 @@ export default function HometenderBanner(props: HometenderApiData | null) {
   }
 
   return (
-    <Link to={`/playground/hometender`} onClick={()=>{}}>
+    <Link to={`/playground/hometender`} onClick={() => {}}>
       <div className={`${styles[`container`]}`}>
         {/* <p className={`${styles[`hometender-banner-title`]}`}>인기 홈텐딩 칵테일</p> */}
         {/* <HometenderBannerAni></HometenderBannerAni> */}
@@ -61,16 +63,21 @@ export default function HometenderBanner(props: HometenderApiData | null) {
                 <div className={`${styles[`hometender-banner-contents`]}`}>
                   <p className={`${styles[`hometender-banner-mini-title`]}`}>{recommendedHometender.name}</p>
                   <div className={`${styles[`hometender-banner-materials`]}`}>
-                    {recommendedHometender.ingredients != null && recommendedHometender.ingredients.length > 1
-                      ? recommendedHometender.ingredients
-                          .slice(0, 2)
-                          .map((material, index) => (
-                            <p className={`${styles[`hometender-banner-material`]}`} key={index}>
-                              {extractStringBeforeNumber(material)}
-                            </p>
-                          ))
-                          .concat(recommendedHometender.ingredients.length > 2 ? <p>...▶홈텐딩 하러 가기</p> : [])
-                      : recommendedHometender.ingredients}
+                    {recommendedHometender.ingredients != null && recommendedHometender.ingredients.length > 1 ? (
+                      recommendedHometender.ingredients
+                        .slice(0, 2)
+                        .map((material, index) => (
+                          <p className={`${styles[`hometender-banner-material`]}`} key={`${index}-${material}`}>
+                            {extractStringBeforeNumber(material)}
+                          </p>
+                        ))
+                        .concat(recommendedHometender.ingredients.length > 2 ? <p>...▶홈텐딩 하러 가기</p> : [])
+                    ) : (
+                      <>
+                        {recommendedHometender.ingredients}
+                        <p>...▶홈텐딩 하러 가기</p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
