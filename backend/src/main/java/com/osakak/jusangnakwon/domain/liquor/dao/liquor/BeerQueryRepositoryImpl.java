@@ -27,6 +27,7 @@ public class BeerQueryRepositoryImpl implements BeerQueryRepository {
     public Page<LiquorListItemDto> findByTaste(Survey survey, Pageable pageable, Long userId) {
         List<LiquorListItemDto> content = queryFactory
                 .select(new QLiquorListItemDto(beer.id, beer.name, beer.img, beer.liquorType, scrap.scrapped))
+                .distinct()
                 .from(beer)
                 .leftJoin(scrap)
                 .on(scrap.liquorId.eq(beer.id),

@@ -27,6 +27,7 @@ public class TraditionQueryRepositoryImpl implements TraditionQueryRepository {
     public Page<LiquorListItemDto> findByTaste(Survey survey, Pageable pageable, Long userId) {
         List<LiquorListItemDto> content = queryFactory
                 .select(new QLiquorListItemDto(tradition.id, tradition.name, tradition.img, tradition.liquorType, scrap.scrapped))
+                .distinct()
                 .from(tradition)
                 .leftJoin(scrap)
                 .on(scrap.liquorId.eq(tradition.id),
