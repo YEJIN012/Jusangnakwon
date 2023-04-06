@@ -35,11 +35,12 @@ const MyFeedItem = ({ myfeed, myMonthlyReviewItem }: MyFeed) => {
             navigate(myfeed.feedType === "레시피" ? `/details/l6/${myfeed?.id}` : `/details/feed/${myfeed?.id}`)
           }
         >
-          {/* {myfeed.img != null ? <img className={`${styles[`img-box`]}`} src={myfeed.img}></img> : null} */}
           <div className={`${styles[`myfeed-item-left-container`]}`}>
+            <div>{myfeed.img != null ? <img className={`${styles[`img-box`]}`} src={myfeed.img}></img> : null}</div>
+            {/* <Rating name="read-only" value={myfeed.ratings} readOnly /> */}
             <div>
-              {myfeed.content}
-              <div className={`${styles[`date`]}`}>{moment(myfeed.dateCreated).format("YYYY-MM-DD")}</div>
+              {myfeed?.feedType === "레시피" && myfeed?.title !== null ? myfeed.title : (myfeed.content.length <= 10 ? myfeed.content :`${myfeed.content.slice(0, 10)}...`)}
+              <div className={`${styles[`date`]}`}>{myfeed.dateCreated.toString().slice(0, 10)}</div>
             </div>
           </div>
           <div className={`${styles[`myfeed-item-right-container`]}`}>

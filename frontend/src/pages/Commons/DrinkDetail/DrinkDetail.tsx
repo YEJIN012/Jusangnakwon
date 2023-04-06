@@ -113,7 +113,7 @@ const DrinkDetail = () => {
           )}
         </div>
         {drinkDetailItem?.ingredients && <Ingredients ingredients={drinkDetailItem?.ingredients}></Ingredients>}
-        {drinkDetailItem?.tastes && <Ingredients ingredients={drinkDetailItem?.tastes}></Ingredients>}
+        {drinkDetailItem?.tastes && <Ingredients ingredients={drinkDetailItem?.tastes} taste={true}></Ingredients>}
         {drinkDetailItem?.description && <ReadMore content={drinkDetailItem?.description}></ReadMore>}
         {drinkDetailItem?.reviews && (
           <ReviewList
