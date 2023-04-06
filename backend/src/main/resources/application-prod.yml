@@ -56,6 +56,15 @@ spring:
           userInfoUri: https://kapi.kakao.com/v2/user/me
           userNameAttribute: id
 
+  # GCP 설정
+  cloud:
+    gcp:
+      credentials:
+        location: classpath:gcp-account-file.json
+      storage:
+        project-id: direct-landing-382700
+        bucket: jusangnakwon-bucket
+
 # cors 설정
 cors:
   allowed-origins: ${client.origin}, localhost:5173

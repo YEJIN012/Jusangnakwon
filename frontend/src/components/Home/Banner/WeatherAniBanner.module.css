@@ -8,13 +8,32 @@
   border: solid 2px #fff;
   background: linear-gradient(180deg, #d780ff 0%, #fff6e3 100%); 
 } */
+.wrapper {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.temperature-container {
+  position: absolute;
+  left: 15%;
+  font-size: 180%;
+}
+
+.message-container {
+  position: absolute;
+  right: 20%;
+  font-size: 100%;
+}
 
 /* Hot */
 .hot {
   margin: 0 auto;
   position: relative;
-  width: 90vw;
-  height: 20vh;
+  width: 90%;
+  height: 13vh;
   border-radius: 20px;
   /* z-index:120; */
   border: solid 2px white;
@@ -22,6 +41,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
   /* background: linear-gradient(to top right, rgba(255, 87, 34, 1) 0%, rgba(251, 140, 0, 1) 100%);
   box-shadow: 1px 1px 30px rgba(255, 111, 0, 1); */
 }
@@ -59,9 +79,10 @@
 
 /* Cloud */
 .cloudy {
+  margin: 0 auto;
   position: relative;
-  width: 90vw;
-  height: 20vh;
+  width: 90%;
+  height: 13vh;
   border-radius: 20px;
   /* z-index:120; */
   border: solid 2px white;
@@ -69,6 +90,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
   /* background: linear-gradient(to top right, rgba(63, 81, 181, 1) 0%, rgba(3, 155, 229, 1) 40%);
   box-shadow: 1px 1px 30px rgba(2, 119, 189, 1); */
 }
@@ -97,9 +119,10 @@
 
 /* Snow */
 .stormy {
+  margin: 0 auto;
   position: relative;
-  width: 90vw;
-  height: 20vh;
+  width: 90%;
+  height: 13vh;
   border-radius: 20px;
   /* z-index:120; */
   border: solid 2px white;
@@ -107,6 +130,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
   /* background: linear-gradient(to top right, rgba(117, 117, 117, 1) 0%, rgba(33, 33, 33, 1) 90%);
   box-shadow: 1px 1px 30px rgba(33, 33, 33, 1); */
 }
@@ -247,18 +271,18 @@
 
 /* Rain */
 .breezy {
+  margin: 0 auto;
   position: relative;
   width: 90%;
-  height: 20vh;
-  /* width: 90%;
-  height: 20vh; */
+  height: 13vh;
   border-radius: 20px;
   /* z-index:120; */
-  border: solid 2px white;
+  /* border: solid 2px rgba(219, 219, 219, 0.2); */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
   /* background: linear-gradient(to top right, rgba(156, 204, 101, 1) 0%, rgba(38, 198, 218, 1) 50%);
   box-shadow: 1px 1px 30px rgba(38, 198, 218, 1); */
 }
@@ -342,8 +366,8 @@
 /* Moon */
 /* .night {
   position: relative;
-  width:90vw;
-	height:20vh;
+  width:90%;
+	height:13vh;
 	border-radius: 20px;
 	z-index:120;
   border: solid 2px white;

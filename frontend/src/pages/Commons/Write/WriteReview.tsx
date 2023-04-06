@@ -4,19 +4,15 @@ import { pink } from "@mui/material/colors";
 import { alpha, styled } from "@mui/material/styles";
 import { Rating } from "@mui/material";
 import Modal from "@mui/joy/Modal";
-import ModalDialog from "@mui/joy/ModalDialog";
 import Switch from "@mui/material/Switch";
 import CloseIcon from "@mui/icons-material/Close";
 import Search from "@mui/icons-material/Search";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import StarIcon from "@mui/icons-material/Star";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { ko } from "date-fns/esm/locale";
+import Calendar from "react-calendar";
 import styles from "./Write.module.css";
 import ImageUpload from "@/components/Commons/ImageUpload/ImageUpload";
-import moment from "moment";
 import { apiCreateFeed } from "@/api/feed";
 import SearchPage from "@/pages/Commons/SearchPage/SearchPage";
 import { useSelector } from "react-redux";
@@ -24,11 +20,13 @@ import { RootState } from "@/store/reducers";
 import { alcoholTypeStyle } from "@/pages/MyPage/BookmarkList";
 import { useDispatch } from "react-redux";
 import { selectDrinkActions } from "@/slices/selectedDrinkSlice";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import moment from "moment";
 
 export interface ReviewFormData {
   [key: string]: any; // formdata로 바꾸려면 필요.
   type: string;
-  img: File | null | undefined;
+  // img: File | null | undefined;
   liquorId: number | undefined;
   liquorType: string | undefined;
   liquorName: string | undefined;
@@ -104,25 +102,25 @@ const WriteReview = () => {
   // 술상세페이지(type, name, id)나 마이페이지(date) 에서 넘어오는 경우에는
   // state와 함께 넘어와서 폼에 미리 작성되어 있는다.
   console.log(location?.state);
-  console.log(location?.state);
   const state = location.state ? (location.state as StateType) : null;
+  console.log(state);
 
   const [data, setData] = useState<ReviewFormData>({
     type: "리뷰글",
-    img: null,
-    liquorId: state && state.liquorId ? state.liquorId : 0,
+    // img: null,
+    liquorId: state && state.liquorId ? state.liquorId : undefined,
     liquorType: state && state.liquorType ? state.liquorType : "",
     liquorName: state && state.liquorName ? state.liquorName : "",
-    dateCreated: state && state.dateCreated ? state.dateCreated : new Date(),
     content: "",
     ratingScore: 0,
     isPublic: true,
+    dateCreated: state && state.dateCreated ? state.dateCreated : new Date(),
   });
-
-  console.log(data.img);
+  console.log(data);
+  const [imgFile, setImgFile] = useState<File | null>(null);
 
   const handleImg = (img: File | null | undefined) => {
-    // setData({ ...data, img: img });
+    setImgFile(img || null);
   };
 
   // 모달 오픈 변수
@@ -133,7 +131,7 @@ const WriteReview = () => {
   };
 
   const selectedDrink = useSelector((state: RootState) => state.selectedDrink);
-
+  console.log(selectedDrink)
   useEffect(() => {
     if (selectedDrink.id) {
       setData({
@@ -142,7 +140,6 @@ const WriteReview = () => {
         liquorId: selectedDrink?.id,
         liquorType: selectedDrink?.liquorType,
       });
-      handleOpen(false);
       handleOpen(false);
     }
   }, [selectedDrink]);
@@ -153,26 +150,46 @@ const WriteReview = () => {
     }
   };
 
-  const handleSubmit = (data: ReviewFormData) => {
-    // formData 생성
-    const formData = new FormData();
-    Object.keys(data).forEach((key) => formData.append(key, data[key]));
-
-    // 제출 api호출
-    // apiCreateFeed(formData)
-    apiCreateFeed(data)
-      .then((res: any) => {
-        console.log(res);
-        const newFeed = res.data.body;
-        navigate(`/details/feed/${newFeed.id}`);
-        // 리뷰상세페이지로 이동
-      })
-      .catch((error) => {
-        console.error(error);
-        navigate("/");
-      });
+  // 날짜 바꾸는 달력
+  const [openCalendar, setOpenCalendar] = useState(false);
+  const handleDate = (date: Date) => {
+    setData({ ...data, dateCreated: date });
+    setOpenCalendar(false)
   };
 
+  const handleSubmit = (data: ReviewFormData) => {
+    if (data.liquorId != undefined && data.ratingScore != 0 && data.content != "") {
+      // formData 생성
+      console.log(data)
+      console.log(imgFile)
+      const formData = new FormData();
+      const blob = new Blob([JSON.stringify(data)], {
+        type: "application/json",
+      });
+      formData.append("request", blob);
+      if (imgFile) {
+        formData.append("imgFile", imgFile);
+      }
+
+
+      console.log(formData);
+
+      // 제출 api호출
+      apiCreateFeed(formData)
+        .then((res: any) => {
+          console.log(res);
+          const newFeed = res.data.body;
+          // 상세페이지로 이동할 때 작성후 넘어간 건지 확인을 위해 state 같이 넘겨줌.
+          navigate(`/details/feed/${newFeed.id}`, {state:{writeSuccess : true}});
+        })
+        .catch((error) => {
+          console.error(error);
+          navigate("/");
+        });
+    } else {
+      alert("💡리뷰 양식을 모두 채워주세요💡");
+    }
+  };
   const WriteHeader = () => {
     return (
       <div className={`${styles[`header-container`]}`}>
@@ -191,7 +208,7 @@ const WriteReview = () => {
           <div style={{ width: "inherit" }}>
             <div className={`${styles[`subtitle-row`]}`}>
               사진
-              <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)" }}> (선택)</div>
+              <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)", marginLeft:"5px"}}>(선택)</div>
             </div>
             {/* 이미지 선택, 미리보기, 업로드 로직 컴포넌트 */}
             <ImageUpload handleImg={handleImg}></ImageUpload>
@@ -236,13 +253,41 @@ const WriteReview = () => {
         {/* 달력에서 리뷰작성으로 넘어오면 */}
         {/* navigate state로 선택된 날짜 같이 넘겨줘서 미리 담아놈  */}
         <div className={`${styles[`row-container`]}`}>
-          <DatePicker
-            selected={data.dateCreated}
-            dateFormat="yyyy년 MM월 dd일"
-            locale={ko}
-            className={`${styles[`input-basic`]}`}
-            onChange={(d) => setData({ ...data, dateCreated: d })}
-          />
+          <div style={{marginLeft:"3px"}} className={`${styles[`subtitle-row`]}`}>
+            <CalendarTodayIcon onClick={() => setOpenCalendar(!openCalendar)}/>
+          </div>
+          <div style={{marginLeft:"30px"}} className={`${styles[`input-basic`]}`} onClick={() => setOpenCalendar(!openCalendar)}>
+            {data.dateCreated ? String(data.dateCreated).slice(0,10) : "N/A"}
+          </div>
+          {openCalendar ? (
+            <div
+              style={{ 
+                scale: "0.6",
+                zIndex: 10,
+                position: "absolute",
+                width: "400px",
+                bottom: "-10px",
+                left: "9px"
+              }}
+            >
+              <Calendar
+                className="react-calendar"
+                onChange={handleDate}
+                // 일요일 먼저
+                calendarType="Hebrew"
+                // 연도 못보게
+                minDetail="month"
+                // 이전, 다음달 못보게
+                maxDetail="month"
+                showNeighboringMonth={false}
+                locale="ko-KO"
+                // 달력에 '일' 빼는 코드
+                formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
 
         <div className={`${styles[`row-container`]}`}>
@@ -259,27 +304,16 @@ const WriteReview = () => {
             {data.isPublic ? <LockOpenIcon sx={{ fontSize: 35 }} /> : <LockIcon sx={{ fontSize: 35 }} />}
           </div>
           <StyleSwitch onClick={() => setData({ ...data, isPublic: !data.isPublic })} />
-          {/* <button onClick={() => setPrivate(false)}>공개</button>
-          <button onClick={() => setPrivate(true)}>비공개</button> */}
+
         </div>
       </form>
 
       <Modal open={open} onClose={() => setOpen(false)}>
-        <div style={{ paddingTop: "54px" }}>
+        <div style={{ paddingTop: "56px" }}>
           <SearchPage handleOpen={handleOpen}></SearchPage>
         </div>
       </Modal>
-
-      <div>
-        데이터 확인 :{data.liquorType}
-        {data.liquorName}
-        {data.content}
-        {data.ratingScore}
-        {/* {moment(formData.date)} */}
-        {data.isPublic}
-      </div>
     </div>
   );
 };
-
 export default WriteReview;

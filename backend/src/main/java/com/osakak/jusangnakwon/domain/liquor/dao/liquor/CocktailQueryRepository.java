@@ -1,5 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Cocktail;
 import com.osakak.jusangnakwon.domain.user.entity.Survey;
@@ -12,5 +13,5 @@ public interface CocktailQueryRepository {
      * @param survey
      * @return List<Cocktail>
      */
-    Page<Cocktail> findByTaste(Survey survey, Pageable pagable);
+    Page<LiquorListItemDto> findByTaste(Survey survey, Pageable pagable, Long userId);
 }

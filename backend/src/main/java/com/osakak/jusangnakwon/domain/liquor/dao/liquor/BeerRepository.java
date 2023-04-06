@@ -1,5 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +21,10 @@ public interface BeerRepository extends JpaRepository<Beer, Long>, BeerQueryRepo
      * @param pageable 페이징 정보
      * @return 페이징 포함 맥주 리스트
      */
-    @Query("select b from Beer b order by b.ratingAvg desc, b.name")
-    Page<Beer> findByRatingAvg(Pageable pageable);
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType) " +
+            "from Beer l " +
+            "order by l.ratingAvg desc , l.name")
+    Page<LiquorListItemDto> findListByRatingIsNotLoggedIn(Pageable pageable);
 
     /**
      * 키워드를 포함하는 술 이름 조회 (다른 주종 동일)
@@ -35,6 +38,13 @@ public interface BeerRepository extends JpaRepository<Beer, Long>, BeerQueryRepo
     @Query("select l from  Beer l where l.id in (:id)")
     List<Beer> findByIdList(@Param("id") List<Long> id);
 
-    @Query("select w from Beer w WHERE w.id IN :similarBeerUniqueList ")
-    Page<Beer> findById(Set<Long> similarBeerUniqueList, Pageable pageable);
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(w.id,w.name,w.img,w.liquorType,s.scrapped) from Beer w left join Scrap s on s.liquorId = w.id and w.liquorType = s.liquorType and s.user.id = :userId WHERE w.id IN :similarBeerUniqueList ")
+    Page<LiquorListItemDto> findById(Set<Long> similarBeerUniqueList, Pageable pageable, @Param("userId") Long userId);
+
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType, s.scrapped) " +
+            "from Beer l " +
+            "left join fetch Scrap s " +
+            "on l.liquorType=s.liquorType and l.id=s.liquorId and s.user.id=:userId " +
+            "order by l.ratingAvg desc, l.name")
+    Page<LiquorListItemDto> findListByRatingIsLogin(Pageable pageable, Long userId);
 }

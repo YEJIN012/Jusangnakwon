@@ -1,28 +1,34 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
 import com.osakak.jusangnakwon.common.errors.NoLiquorNameExistException;
 import com.osakak.jusangnakwon.common.errors.UserNotFoundException;
-import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
+import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
+import com.osakak.jusangnakwon.domain.feed.entity.Scrap;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorCustomMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import com.osakak.jusangnakwon.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -38,6 +44,10 @@ public class LiquorService {
     private final WineRepository wineRepository;
     private final LiquorMapper liquorMapper;
     private final LiquorCustomMapper liquorCustomMapper;
+    @Value("${spring.cloud.gcp.storage.bucket}")
+    private String bucketName;
+    private final Storage storage;
+    private final ScrapRepository scrapRepository;
 
     /**
      * 사용자 검색
@@ -155,8 +165,21 @@ public class LiquorService {
      * @return 생성한 홈텐더 레시피
      */
     @Transactional
-    public com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto createHometender(Long id, com.osakak.jusangnakwon.domain.liquor.dto.HometenderDto hometenderDto) {
+    public HometenderDto createHometender(Long id, HometenderDto hometenderDto, MultipartFile image) throws IOException {
         User user = findUser(id);
+        String uuid = null;
+        if (image != null && !image.isEmpty()) {
+            uuid = UUID.randomUUID().toString();
+            String ext = image.getContentType();
+            BlobInfo blobInfo = storage.create(
+                    BlobInfo.newBuilder(bucketName, uuid)
+                            .setContentType(ext)
+                            .build(),
+                    image.getInputStream()
+            );
+            uuid = "https://storage.googleapis.com/" + bucketName + "/" + uuid;
+        }
+        hometenderDto.setImage(uuid);
         Hometender hometender = liquorMapper.hometenderDtoToHometender(
                 hometenderDto,
                 user
@@ -174,5 +197,71 @@ public class LiquorService {
         return userRepository
                 .findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @Transactional
+    public void scrapLiquor(String type, Long id, User user) {
+        switch (type) {
+            case "l3":
+                Optional<Beer> beerByid = beerRepository.findById(id);
+                if (beerByid.isPresent()) {
+                    Beer beer = beerByid.get();
+                    updateScrapState(LiquorType.BEER, id, user, beer.getName());
+                }
+                return;
+            case "l6":
+                Optional<Hometender> byIdHometender = hometenderRepository.findById(id);
+                if (byIdHometender.isPresent()) {
+                    Hometender liquor = byIdHometender.get();
+                    updateScrapState(LiquorType.HOMETENDER, id, user, liquor.getName());
+                }
+                return;
+            case "l4":
+                Optional<Tradition> byIdTradition = traditionRepository.findById(id);
+                if (byIdTradition.isPresent()) {
+                    Tradition liquor = byIdTradition.get();
+                    updateScrapState(LiquorType.TRADITION, id, user, liquor.getName());
+                }
+                return;
+            case "l5":
+                Optional<Cocktail> byIdCocktail = cocktailRepository.findById(id);
+                if (byIdCocktail.isPresent()) {
+                    Cocktail liquor = byIdCocktail.get();
+                    updateScrapState(LiquorType.COCKTAIL, id, user, liquor.getName());
+                }
+                return;
+            case "l2":
+                Optional<Whisky> byIdWhisky = whiskyRepository.findById(id);
+                if (byIdWhisky.isPresent()) {
+                    Whisky liquor = byIdWhisky.get();
+                    updateScrapState(LiquorType.WHISKY, id, user, liquor.getName());
+                }
+                return;
+            case "l1":
+                Optional<Wine> byIdWine = wineRepository.findById(id);
+                if (byIdWine.isPresent()) {
+                    Wine liquor = byIdWine.get();
+                    updateScrapState(LiquorType.WINE, id, user, liquor.getName());
+                }
+        }
+    }
+
+    private void updateScrapState(LiquorType type, Long id, User user, String name) {
+        scrapRepository.isUserScrapped(id, user.getId(), type)
+                .ifPresentOrElse(scrap -> {
+                    scrap.updateScrapState(!scrap.getScrapped());
+                }, () -> {
+                    extracted(id, name, type, user);
+                });
+    }
+
+    private void extracted(Long id, String liquor, LiquorType type, User user) {
+        scrapRepository.save(Scrap.builder()
+                .liquorId(id)
+                .liquorName(liquor)
+                .liquorType(type)
+                .user(user)
+                .scrapped(true)
+                .build());
     }
 }

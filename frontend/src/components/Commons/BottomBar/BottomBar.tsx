@@ -19,8 +19,7 @@ const BottomBar = () => {
   const [value, setValue] = useState(focusedTab);
   const { pathname } = useLocation();
   const rootPathList = ["/", "/feed", "/playground", "/mypage"];
-  const rootPathName =`/${pathname.split("/")[1]}`
-
+  const rootPathName = `/${pathname.split("/")[1]}`;
   useEffect(() => {
     dispatch(updateTabActions.updateTab(value));
   }, [value]);
@@ -28,11 +27,9 @@ const BottomBar = () => {
   // url 직접 입력을 고려해, rootpath가 탭과 연결된 main rootpathlist 들 중 하나로 변경되면 활성화tab값 변경
   useEffect(() => {
     if (rootPathList.includes(rootPathName)) {
-    setValue(rootPathName)
+      setValue(rootPathName);
     }
   }, [rootPathName]);
-
-
 
   return (
     <>
@@ -47,7 +44,8 @@ const BottomBar = () => {
               setValue(newValue);
             }}
             sx={{
-              backgroundColor: "black",
+              backgroundColor: "#06031a",
+              // backgroundColor: "black",
               "& .Mui-selected > svg": {
                 backgroundColor: "#363636",
                 borderRadius: "10px",
@@ -74,7 +72,7 @@ const BottomBar = () => {
             />
             <BottomNavigationAction
               component={Link}
-              to={"/playground"}
+              to={"/playground/hometender"}
               value={"/playground"}
               icon={<LocalBarIcon />}
               style={{ color: "white" }}

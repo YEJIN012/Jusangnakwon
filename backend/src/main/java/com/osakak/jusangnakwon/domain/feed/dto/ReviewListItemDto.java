@@ -1,9 +1,10 @@
 package com.osakak.jusangnakwon.domain.feed.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
-import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDateTime;
 
 @Getter
 public class ReviewListItemDto {
@@ -17,7 +18,7 @@ public class ReviewListItemDto {
     @Builder
     @QueryProjection
     public ReviewListItemDto(Long id, Double ratingScore, LocalDateTime dateCreated, String content,
-            String img) {
+                             String img) {
         this.id = id;
         this.ratingScore = ratingScore;
         this.dateCreated = dateCreated;

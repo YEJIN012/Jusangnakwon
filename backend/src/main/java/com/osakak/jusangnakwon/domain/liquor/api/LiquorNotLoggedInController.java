@@ -5,6 +5,7 @@ import com.osakak.jusangnakwon.domain.liquor.api.response.HometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.application.LiquorNotLoggedInService;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
+import com.osakak.jusangnakwon.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -33,9 +34,9 @@ public class LiquorNotLoggedInController {
      * @param liquorType 주종 타입
      * @return 페이지 정보 포함 술 id, name 정보
      */
-    private LiquorListMainResponse getLiquorListWithPaging(int page, LiquorType liquorType) {
+    private LiquorListMainResponse getLiquorListWithPaging(User user, int page, LiquorType liquorType) {
         Pageable pageable = PageRequest.of(page, 6);
-        return liquorNotLoggedInService.getLiquorList(liquorType, pageable);
+        return liquorNotLoggedInService.getLiquorList(user, liquorType, pageable);
     }
 
     /**
@@ -51,7 +52,7 @@ public class LiquorNotLoggedInController {
     )
     @GetMapping("rank/l1")
     public ResponseEntity<ResponseDto> rankWine(@RequestParam int page) {
-        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.WINE);
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(null,page, LiquorType.WINE);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
                 .body(liquorList)
@@ -68,7 +69,7 @@ public class LiquorNotLoggedInController {
     @Tag(name = "liquorByRank")
     @GetMapping("rank/l2")
     public ResponseEntity<ResponseDto> rankWhisky(@RequestParam int page) {
-        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.WHISKY);
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(null,page, LiquorType.WHISKY);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
                 .body(liquorList)
@@ -85,7 +86,7 @@ public class LiquorNotLoggedInController {
     @Tag(name = "liquorByRank")
     @GetMapping("rank/l3")
     public ResponseEntity<ResponseDto> rankBeer(@RequestParam int page) {
-        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.BEER);
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(null,page, LiquorType.BEER);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
                 .body(liquorList)
@@ -102,7 +103,7 @@ public class LiquorNotLoggedInController {
     @Tag(name = "liquorByRank")
     @GetMapping("rank/l4")
     public ResponseEntity<ResponseDto> rankTradition(@RequestParam int page) {
-        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.TRADITION);
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(null,page, LiquorType.TRADITION);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
                 .body(liquorList)
@@ -119,7 +120,7 @@ public class LiquorNotLoggedInController {
     @Tag(name = "liquorByRank")
     @GetMapping("rank/l5")
     public ResponseEntity<ResponseDto> rankCocktail(@RequestParam int page) {
-        LiquorListMainResponse liquorList = getLiquorListWithPaging(page, LiquorType.COCKTAIL);
+        LiquorListMainResponse liquorList = getLiquorListWithPaging(null,page, LiquorType.COCKTAIL);
         ResponseDto responseDto = ResponseDto.builder()
                 .success(true)
                 .body(liquorList)
