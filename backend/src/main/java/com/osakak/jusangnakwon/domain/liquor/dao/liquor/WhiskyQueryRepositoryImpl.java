@@ -31,6 +31,7 @@ public class WhiskyQueryRepositoryImpl implements WhiskyQueryRepository {
     public Page<LiquorListItemDto> findByTaste(Survey survey, Pageable pageable, Long userId) {
         List<LiquorListItemDto> content = queryFactory
                 .select(new QLiquorListItemDto(whisky.id, whisky.name, whisky.img, whisky.liquorType, scrap.scrapped))
+                .distinct()
                 .from(whisky)
                 .leftJoin(scrap)
                 .on(scrap.liquorId.eq(whisky.id),
