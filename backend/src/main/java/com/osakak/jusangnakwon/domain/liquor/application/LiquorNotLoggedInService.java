@@ -1,14 +1,16 @@
 package com.osakak.jusangnakwon.domain.liquor.application;
 
+import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
 import com.osakak.jusangnakwon.domain.liquor.api.response.HometenderResponse;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorListMainResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
 import com.osakak.jusangnakwon.domain.liquor.dto.HometenderPageDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorType;
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.*;
+import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Hometender;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorCustomMapper;
 import com.osakak.jusangnakwon.domain.liquor.mapper.LiquorMapper;
+import com.osakak.jusangnakwon.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +33,7 @@ public class LiquorNotLoggedInService {
     private final TraditionRepository traditionRepository;
     private final LiquorCustomMapper liquorCustomMapper;
     private final LiquorMapper liquorMapper;
+    private final ScrapRepository scrapRepository;
     static int pageNumber = 0;
 
     /**
@@ -40,8 +43,8 @@ public class LiquorNotLoggedInService {
      * @param pageable   페이징
      * @return 페이징 포함 주종 id, name 정보
      */
-    public LiquorListMainResponse getLiquorList(LiquorType liquorType, Pageable pageable) {
-        return getLiquorListByRank(liquorType, pageable);
+    public LiquorListMainResponse getLiquorList(User user, LiquorType liquorType, Pageable pageable) {
+        return getLiquorListByRank(user, liquorType, pageable);
     }
 
     /**
@@ -51,35 +54,59 @@ public class LiquorNotLoggedInService {
      * @param pageable   페이징
      * @return 페이징 포함 주종 id, name 정보
      */
-    private LiquorListMainResponse getLiquorListByRank(LiquorType liquorType, Pageable pageable) {
+    private LiquorListMainResponse getLiquorListByRank(User user, LiquorType liquorType, Pageable pageable) {
         List<LiquorListItemDto> list = new ArrayList<>();
+        Page<LiquorListItemDto> listByRating = null;
         switch (liquorType) {
             case WHISKY:
-                Page<Whisky> whiskies = whiskyRepository.findByRatingAvg(pageable);
-                list = liquorMapper.toLiquorListDtoWhisky(whiskies.getContent());
-                return getLiquorListMainResponse(whiskies.getTotalPages(), whiskies.getPageable(), list);
+                if (user == null) {
+                    listByRating = whiskyRepository.findListByRatingIsNotLoggedIn(pageable);
+                } else {
+                    listByRating = whiskyRepository.findListByRatingIsLogin(pageable, user.getId());
+                }
+                return getLiquorListMainResponse(list, listByRating);
             case WINE:
-                Page<Wine> wines = wineRepository.findByRatingAvg(pageable);
-                list = liquorMapper.toLiquorListDtoWine(wines.getContent());
-                return getLiquorListMainResponse(wines.getTotalPages(), wines.getPageable(), list);
+                if (user == null) {
+                    listByRating = wineRepository.findListByRatingIsNotLoggedIn(pageable);
+                } else {
+                    listByRating = wineRepository.findListByRatingIsLogin(pageable, user.getId());
+                }
+                return getLiquorListMainResponse(list, listByRating);
             case BEER:
-                Page<Beer> beers = beerRepository.findByRatingAvg(pageable);
-                list = liquorMapper.toLiquorListDtoBeer(beers.getContent());
-                return getLiquorListMainResponse(beers.getTotalPages(), beers.getPageable(), list);
+                if (user == null) {
+                    listByRating = beerRepository.findListByRatingIsNotLoggedIn(pageable);
+                } else {
+                    listByRating = beerRepository.findListByRatingIsLogin(pageable, user.getId());
+                }
+                return getLiquorListMainResponse(list, listByRating);
             case COCKTAIL:
-                Page<Cocktail> cocktails = cocktailRepository.findByRatingAvg(pageable);
-                list = liquorMapper.toLiquorListDtoCocktail(cocktails.getContent());
-                return getLiquorListMainResponse(cocktails.getTotalPages(), cocktails.getPageable(), list);
+                if (user == null) {
+                    listByRating = cocktailRepository.findListByRatingIsNotLoggedIn(pageable);
+                } else {
+                    listByRating = cocktailRepository.findListByRatingIsLogin(pageable, user.getId());
+                }
+                return getLiquorListMainResponse(list, listByRating);
             case TRADITION:
-                Page<Tradition> traditions = traditionRepository.findByRatingAvg(pageable);
-                list = liquorMapper.toLiquorListDtoTradition(traditions.getContent());
-                return getLiquorListMainResponse(traditions.getTotalPages(), traditions.getPageable(), list);
+                if (user == null) {
+                    listByRating = traditionRepository.findListByRatingIsNotLoggedIn(pageable);
+                } else {
+                    listByRating = traditionRepository.findListByRatingIsLogin(pageable, user.getId());
+                }
+                return getLiquorListMainResponse(list, listByRating);
             case HOMETENDER:
-                Page<Hometender> hometenders = hometenderRepository.findByRatingAvg(pageable);
-                list = liquorMapper.toLiquorListDtoHometender(hometenders.getContent());
-                return getLiquorListMainResponse(hometenders.getTotalPages(), hometenders.getPageable(), list);
+                if (user == null) {
+                    listByRating = hometenderRepository.findListByRatingIsNotLoggedIn(pageable);
+                } else {
+                    listByRating = hometenderRepository.findListByRatingIsLogin(pageable, user.getId());
+                }
+                return getLiquorListMainResponse(list, listByRating);
         }
         return null;
+    }
+
+    private LiquorListMainResponse getLiquorListMainResponse(List<LiquorListItemDto> list, Page<LiquorListItemDto> listByRating) {
+        list = listByRating.getContent();
+        return getLiquorListMainResponse(listByRating.getTotalPages(), listByRating.getPageable(), list);
     }
 
     /**

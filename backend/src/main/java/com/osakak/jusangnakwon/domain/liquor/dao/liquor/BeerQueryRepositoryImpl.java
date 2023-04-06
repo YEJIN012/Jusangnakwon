@@ -1,7 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.QBeer;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.QLiquorListItemDto;
 import com.osakak.jusangnakwon.domain.user.entity.Survey;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static com.osakak.jusangnakwon.domain.feed.entity.QScrap.scrap;
 import static com.osakak.jusangnakwon.domain.liquor.entity.liquor.QBeer.beer;
 
 public class BeerQueryRepositoryImpl implements BeerQueryRepository {
@@ -23,10 +24,14 @@ public class BeerQueryRepositoryImpl implements BeerQueryRepository {
     }
 
     @Override
-    public Page<Beer> findByTaste(Survey survey, Pageable pageable) {
-        List<Beer> content = queryFactory
-                .select(new QBeer(beer))
+    public Page<LiquorListItemDto> findByTaste(Survey survey, Pageable pageable, Long userId) {
+        List<LiquorListItemDto> content = queryFactory
+                .select(new QLiquorListItemDto(beer.id, beer.name, beer.img, beer.liquorType, scrap.scrapped))
                 .from(beer)
+                .leftJoin(scrap)
+                .on(scrap.liquorId.eq(beer.id),
+                        beer.liquorType.eq(beer.liquorType),
+                        scrap.user.id.eq(userId))
                 .where(surveyBody(survey.getBody()))
                 .offset(pageable.getOffset()).limit(pageable.getPageSize())
                 .fetch();
@@ -44,6 +49,4 @@ public class BeerQueryRepositoryImpl implements BeerQueryRepository {
             return beer.mouthfeel.gt(12);
         }
     }
-
-
 }

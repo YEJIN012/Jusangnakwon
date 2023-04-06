@@ -1,7 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Hometender;
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Tradition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,8 +19,10 @@ public interface HometenderRepository extends JpaRepository<Hometender, Long>,Ho
      * @param pageable 페이징 정보
      * @return 페이징 포함 커스텀 칵테일 리스트
      */
-    @Query("select c from Hometender c order by c.ratingAvg desc")
-    Page<Hometender> findByRatingAvg(Pageable pageable);
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType) " +
+            "from Hometender l " +
+            "order by l.ratingAvg desc, l.name ")
+    Page<LiquorListItemDto> findListByRatingIsNotLoggedIn(Pageable pageable);
 
     @Query("select l from Hometender l where l.name like :keyword%")
     Optional<List<Hometender>> findByKeyword(@Param("keyword") String keyword);
@@ -37,5 +39,15 @@ public interface HometenderRepository extends JpaRepository<Hometender, Long>,Ho
     Page<Hometender> findById(Set<Long> similarHometenderUniqueList, Pageable pageable);
 
     @Query("select l from  Hometender l where l.id in (:id)")
-    List<Hometender> findByIdList(@Param("id")List<Long> id);
+    List<Hometender> findByIdList(@Param("id") List<Long> id);
+
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(l.id, l.name, l.img, l.liquorType, s.scrapped) " +
+            "from Hometender l " +
+            "left join fetch Scrap s " +
+            "on l.liquorType=s.liquorType and l.id=s.liquorId and s.user.id=:userId " +
+            "order by l.ratingAvg desc, l.name ")
+    Page<LiquorListItemDto> findListByRatingIsLogin(Pageable pageable, Long userId);
+
+    @Query("select l from Hometender l order by l.ratingAvg desc, l.name ")
+    Page<Hometender> findByRatingAvg(Pageable pageable);
 }

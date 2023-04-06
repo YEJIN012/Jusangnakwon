@@ -14,7 +14,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Service
@@ -76,14 +77,16 @@ public class WeatherService {
         String s = null;
 
         try {
-            LocalDateTime t = LocalDateTime.now().minusMinutes(30);
+
+            ZoneId zoneId = ZoneId.of("Asia/Seoul");
+            ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId).minusMinutes(30);
 
             URL url = new URL(
                     "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst"
                             + "?ServiceKey=tmM1FZJWOpdVcZJ3%2B1SYXLeOQv5s2PsQpJ%2FeD9R12YdG%2BJH0ypXmBGin94ik0MCsAaM%2FJ1pCY1pRen97u06n2g%3D%3D"
                             + "&numOfRows=60"
-                            + "&base_date=" + t.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
-                            + "&base_time=" + t.format(DateTimeFormatter.ofPattern("HHmm"))
+                            + "&base_date=" + zonedDateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
+                            + "&base_time=" + zonedDateTime.format(DateTimeFormatter.ofPattern("HHmm"))
                             + "&nx=" + x
                             + "&ny=" + y
             );

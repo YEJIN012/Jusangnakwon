@@ -1,5 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Tradition;
 import com.osakak.jusangnakwon.domain.user.entity.Survey;
 import org.springframework.data.domain.Page;
@@ -11,5 +12,5 @@ public interface TraditionQueryRepository {
      * @param survey
      * @return List<Beer>
      */
-    Page<Tradition> findByTaste(Survey survey, Pageable pagable);
+    Page<LiquorListItemDto> findByTaste(Survey survey, Pageable pagable, Long userId);
 }
