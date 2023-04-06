@@ -1,5 +1,6 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Beer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,6 +36,6 @@ public interface BeerRepository extends JpaRepository<Beer, Long>, BeerQueryRepo
     @Query("select l from  Beer l where l.id in (:id)")
     List<Beer> findByIdList(@Param("id") List<Long> id);
 
-    @Query("select w from Beer w WHERE w.id IN :similarBeerUniqueList ")
-    Page<Beer> findById(Set<Long> similarBeerUniqueList, Pageable pageable);
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(w.id,w.name,w.img,w.liquorType,s.scrapped) from Beer w left join Scrap s on s.liquorId = w.id and w.liquorType = s.liquorType and s.user.id = :userId WHERE w.id IN :similarBeerUniqueList ")
+    Page<LiquorListItemDto> findById(Set<Long> similarBeerUniqueList, Pageable pageable, @Param("userId") Long userId);
 }

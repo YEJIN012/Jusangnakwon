@@ -77,8 +77,8 @@ public class LiquorLoggedInService {
                         similarWineUniqueList.add(type.getSimilarLiquor().getItem4());
                         similarWineUniqueList.add(type.getSimilarLiquor().getItem5());
                     }
-                    Page<Wine> wines = wineRepository.findById(similarWineUniqueList, pageable);
-                    list = liquorMapper.toLiquorListDtoWine(wines.getContent());
+                    Page<LiquorListItemDto> wines = wineRepository.findById(similarWineUniqueList, pageable,user.getId());
+                    list = wines.getContent();
                     return getLiquorListMainResponse(wines.getTotalPages(), wines.getPageable(), list);
                 case WHISKY:
                     List<SimilarWhiskyItem> similarWhiskyIdList = similarWhiskyItemRepository.findAllByWhiskyId(ratings);
@@ -90,8 +90,8 @@ public class LiquorLoggedInService {
                         similarWhiskyUniqueList.add(type.getSimilarLiquor().getItem4());
                         similarWhiskyUniqueList.add(type.getSimilarLiquor().getItem5());
                     }
-                    Page<Whisky> whiskies = whiskyRepository.findById(similarWhiskyUniqueList, pageable);
-                    list = liquorMapper.toLiquorListDtoWhisky(whiskies.getContent());
+                    Page<LiquorListItemDto> whiskies = whiskyRepository.findById(similarWhiskyUniqueList, pageable,user.getId());
+                    list = whiskies.getContent();
                     return getLiquorListMainResponse(whiskies.getTotalPages(), whiskies.getPageable(), list);
                 case BEER:
                     List<SimilarBeerItem> similarBeerIdList = similarBeerItemRepository.findAllByBeerId(ratings);
@@ -103,8 +103,8 @@ public class LiquorLoggedInService {
                         similarBeerUniqueList.add(type.getSimilarLiquor().getItem4());
                         similarBeerUniqueList.add(type.getSimilarLiquor().getItem5());
                     }
-                    Page<Beer> beers = beerRepository.findById(similarBeerUniqueList, pageable);
-                    list = liquorMapper.toLiquorListDtoBeer(beers.getContent());
+                    Page<LiquorListItemDto> beers = beerRepository.findById(similarBeerUniqueList, pageable,user.getId());
+                    list = beers.getContent();
                     return getLiquorListMainResponse(beers.getTotalPages(), beers.getPageable(), list);
                 case COCKTAIL:
                     List<SimilarCocktailItem> similarCocktailIdList = similarCocktailItemRepository.findAllByCocktailId(ratings);
@@ -116,8 +116,8 @@ public class LiquorLoggedInService {
                         similarCocktailUniqueList.add(type.getSimilarLiquor().getItem4());
                         similarCocktailUniqueList.add(type.getSimilarLiquor().getItem5());
                     }
-                    Page<Cocktail> cocktails = cocktailRepository.findById(similarCocktailUniqueList, pageable);
-                    list = liquorMapper.toLiquorListDtoCocktail(cocktails.getContent());
+                    Page<LiquorListItemDto> cocktails = cocktailRepository.findById(similarCocktailUniqueList, pageable,user.getId());
+                    list = cocktails.getContent();
                     return getLiquorListMainResponse(cocktails.getTotalPages(), cocktails.getPageable(), list);
                 case TRADITION:
                     List<SimilarTraditionItem> similarTraditionIdList = similarTraditionItemRepository.findAllByTraditionId(ratings);
@@ -129,8 +129,8 @@ public class LiquorLoggedInService {
                         similarTraditionUniqueList.add(type.getSimilarLiquor().getItem4());
                         similarTraditionUniqueList.add(type.getSimilarLiquor().getItem5());
                     }
-                    Page<Tradition> traditions = traditionRepository.findById(similarTraditionUniqueList, pageable);
-                    list = liquorMapper.toLiquorListDtoTradition(traditions.getContent());
+                    Page<LiquorListItemDto> traditions = traditionRepository.findById(similarTraditionUniqueList, pageable,user.getId());
+                    list = traditions.getContent();
                     return getLiquorListMainResponse(traditions.getTotalPages(), traditions.getPageable(), list);
             }
 
@@ -141,25 +141,24 @@ public class LiquorLoggedInService {
             }
             switch (liquorType) {
                 case WINE:
-                    Page<LiquorListItemScrapDto> wines = wineRepository.findByTaste(survey, pageable,user);
-//                    list = liquorMapper.toLiquorListDtoWine(wines.getContent(),user);
-                    System.out.println(wines.getContent().size());
+                    Page<LiquorListItemDto> wines = wineRepository.findByTaste(survey, pageable,user.getId());
+                    list = wines.getContent();
                     return getLiquorListMainResponse(wines.getTotalPages(), wines.getPageable(), list);
                 case WHISKY:
-                    Page<Whisky> whiskies = whiskyRepository.findByTaste(survey, pageable);
-                    list = liquorMapper.toLiquorListDtoWhisky(whiskies.getContent());
+                    Page<LiquorListItemDto> whiskies = whiskyRepository.findByTaste(survey, pageable,user.getId());
+                    list = whiskies.getContent();
                     return getLiquorListMainResponse(whiskies.getTotalPages(), whiskies.getPageable(), list);
                 case BEER:
-                    Page<Beer> beers = beerRepository.findByTaste(survey, pageable);
-                    list = liquorMapper.toLiquorListDtoBeer(beers.getContent());
+                    Page<LiquorListItemDto> beers = beerRepository.findByTaste(survey, pageable,user.getId());
+                    list = beers.getContent();
                     return getLiquorListMainResponse(beers.getTotalPages(), beers.getPageable(), list);
                 case COCKTAIL:
-                    Page<Cocktail> cocktails = cocktailRepository.findByTaste(survey, pageable);
-                    list = liquorMapper.toLiquorListDtoCocktail(cocktails.getContent());
+                    Page<LiquorListItemDto> cocktails = cocktailRepository.findByTaste(survey, pageable,user.getId());
+                    list = cocktails.getContent();
                     return getLiquorListMainResponse(cocktails.getTotalPages(), cocktails.getPageable(), list);
                 case TRADITION:
-                    Page<Tradition> traditions = traditionRepository.findByTaste(survey, pageable);
-                    list = liquorMapper.toLiquorListDtoTradition(traditions.getContent());
+                    Page<LiquorListItemDto> traditions = traditionRepository.findByTaste(survey, pageable,user.getId());
+                    list = traditions.getContent();
                     return getLiquorListMainResponse(traditions.getTotalPages(), traditions.getPageable(), list);
             }
         }

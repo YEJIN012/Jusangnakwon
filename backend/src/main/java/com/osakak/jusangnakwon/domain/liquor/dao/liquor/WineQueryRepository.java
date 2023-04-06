@@ -16,5 +16,5 @@ public interface WineQueryRepository {
      * @param survey
      * @return List<Wine>
      */
-    Page<LiquorListItemScrapDto> findByTaste(Survey survey, Pageable pagable, Long userId);
+    Page<LiquorListItemDto> findByTaste(Survey survey, Pageable pagable, Long userId);
 }
