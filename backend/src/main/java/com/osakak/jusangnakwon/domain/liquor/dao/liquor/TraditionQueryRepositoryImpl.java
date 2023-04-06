@@ -1,7 +1,7 @@
 package com.osakak.jusangnakwon.domain.liquor.dao.liquor;
 
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.QTradition;
-import com.osakak.jusangnakwon.domain.liquor.entity.liquor.Tradition;
+import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
+import com.osakak.jusangnakwon.domain.liquor.dto.QLiquorListItemDto;
 import com.osakak.jusangnakwon.domain.user.entity.Survey;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static com.osakak.jusangnakwon.domain.feed.entity.QScrap.scrap;
 import static com.osakak.jusangnakwon.domain.liquor.entity.liquor.QTradition.tradition;
 
 public class TraditionQueryRepositoryImpl implements TraditionQueryRepository {
@@ -23,12 +24,14 @@ public class TraditionQueryRepositoryImpl implements TraditionQueryRepository {
     }
 
     @Override
-    public Page<Tradition> findByTaste(Survey survey, Pageable pageable) {
-        System.out.println(survey);
-        System.out.println(pageable);
-        List<Tradition> content = queryFactory
-                .select(new QTradition(tradition))
+    public Page<LiquorListItemDto> findByTaste(Survey survey, Pageable pageable, Long userId) {
+        List<LiquorListItemDto> content = queryFactory
+                .select(new QLiquorListItemDto(tradition.id, tradition.name, tradition.img, tradition.liquorType, scrap.scrapped))
                 .from(tradition)
+                .leftJoin(scrap)
+                .on(scrap.liquorId.eq(tradition.id),
+                        tradition.liquorType.eq(tradition.liquorType),
+                        scrap.user.id.eq(userId))
                 .where(surveySour(survey.getSour()))
                 .offset(pageable.getOffset()).limit(pageable.getPageSize())
                 .fetch();
