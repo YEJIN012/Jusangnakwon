@@ -139,7 +139,7 @@ const WriteRecipe = () => {
         .then((res: any) => {
           console.log(res);
           const newFeed = res.data.body;
-          navigate(`/details/l6/${newFeed.id}`);
+          navigate(`/details/l6/${newFeed.id}`, {state:{writeSuccess : true}});
           // 상세페이지로 이동
         })
         .catch((error) => {

@@ -3,6 +3,7 @@ import styles from "./MyFeedList.module.css";
 import Rating from "@mui/material/Rating";
 import { MyMonthlyReviewItem } from "@/pages/MyPage/MyPageMain";
 import StarIcon from "@mui/icons-material/Star";
+import moment from "moment";
 
 interface MyFeed {
   myfeed?: {
@@ -33,8 +34,12 @@ const MyFeedItem = ({ myfeed, myMonthlyReviewItem }: MyFeed) => {
               <div>{myfeed.img != null ? <img className={`${styles[`img-box`]}`} src={myfeed.img}></img> : null}</div>
               {/* <Rating name="read-only" value={myfeed.ratings} readOnly /> */}
               <div>
-                {myfeed.content}
-                <div className={`${styles[`date`]}`}>{myfeed.dateCreated}</div>
+                {/* {myfeed.feedType==="레시피" ?
+                {myfeed?.title} :
+
+                  {myfeed?.content}
+                } */}      
+                <div className={`${styles[`date`]}`}>{moment(myfeed.dateCreated).format("YYYY년 MM월 DD일")}</div>
               </div>
             </div>
             <div className={`${styles[`myfeed-item-right-container`]}`}>

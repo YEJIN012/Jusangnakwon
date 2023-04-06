@@ -64,23 +64,11 @@ const HometenderMain = () => {
       <FloatingButton></FloatingButton>
       <div className={`${styles[`container`]}`}>
         <div className={`${styles[`carousel-wrap`]}`}>
-<<<<<<< Updated upstream
-          <div className={`${styles[`carousel-item`]}`}>
-            {isLogin && loginRecommendList ? (
-              <div className={`${styles[`carousel-item`]}`}>
-                <div className={`${styles[`recommend-title`]}`}>🍹당신을 위한 홈텐딩 레시피🍹</div>
-                <RecommendCarousel recommendList={loginRecommendList}></RecommendCarousel>
-              </div>
-            ) : (
-              <></>
-            )}
-          </div>
-=======
           {isLogin ? (
             <div className={`${styles[`carousel-item`]}`}>
               {loginRecommendList ? (
                 <div className={`${styles[`carousel-item`]}`}>
-                  <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
+                  <div className={`${styles[`recommend-title`]}`}>🍹당신을 위한 홈텐딩 레시피🍹</div>
                   <RecommendCarousel recommendList={loginRecommendList}></RecommendCarousel>
                 </div>
               ) : (
@@ -90,7 +78,6 @@ const HometenderMain = () => {
           ) : (
             <></>
           )}
->>>>>>> Stashed changes
 
           <div className={`${styles[`carousel-item`]}`}>
             {rankRecommendList ? (

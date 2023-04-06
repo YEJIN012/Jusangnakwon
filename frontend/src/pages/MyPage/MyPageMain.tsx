@@ -96,7 +96,7 @@ const MyPageMain = () => {
       return feed.date === formattedDate;
     });
     if (feed?.liquorType != null) {
-      const iconUrl = `/assets/${feed.liquorType}.svg`;
+      const iconUrl = `/assets/${feed.liquorType}.png`;
       return (
         <div>
           <img style={{ height: "25px", width: "25px" }} src={iconUrl} alt="술사진" />

@@ -24,7 +24,7 @@ interface DrinkDetailItem {
   scrapped: boolean;
   similarItems: SimilarItem[];
   tastes: string[];
-  writer: string | null;
+  writer: {username:string, profileImg:string}
 }
 
 export interface SimilarItem {
@@ -86,8 +86,8 @@ const DrinkDetail = () => {
         {drinkDetailItem?.writer ? (
           <div className={`${styles[`user-profile-container-abs`]}`}>
             <div className={`${styles[`user-profile`]}`}>
-              {/* <img src={drinkDetailItem.writer} className={`${styles[`user-img`]}`}></img> */}
-              <p>{drinkDetailItem.writer}</p>
+              <img src={drinkDetailItem.writer.profileImg} className={`${styles[`user-img`]}`}></img>
+              <p>{drinkDetailItem.writer.username}</p>
             </div>
           </div>
         ) : null}

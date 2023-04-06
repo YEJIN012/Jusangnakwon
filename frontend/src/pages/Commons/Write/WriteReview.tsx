@@ -158,7 +158,7 @@ const WriteReview = () => {
   };
 
   const handleSubmit = (data: ReviewFormData) => {
-    if (data.liquorId != undefined && data.ratingScore != 0 && data.content != "" && imgFile != null) {
+    if (data.liquorId != undefined && data.ratingScore != 0 && data.content != "") {
       // formData 생성
       console.log(data)
       console.log(imgFile)
@@ -167,7 +167,10 @@ const WriteReview = () => {
         type: "application/json",
       });
       formData.append("request", blob);
-      formData.append("imgFile", imgFile);
+      if (imgFile) {
+        formData.append("imgFile", imgFile);
+      }
+
 
       console.log(formData);
 
@@ -205,7 +208,7 @@ const WriteReview = () => {
           <div style={{ width: "inherit" }}>
             <div className={`${styles[`subtitle-row`]}`}>
               사진
-              <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)", marginLeft:"5px"}}>(필수)</div>
+              <div style={{ fontSize: "0.8rem", color: "rgb(149, 149, 149)", marginLeft:"5px"}}>(선택)</div>
             </div>
             {/* 이미지 선택, 미리보기, 업로드 로직 컴포넌트 */}
             <ImageUpload handleImg={handleImg}></ImageUpload>
