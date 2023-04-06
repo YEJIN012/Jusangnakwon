@@ -1,8 +1,10 @@
+import { Outlet } from "react-router-dom";
+
 const ABTI = () => {
   return (
     <div>
-      <h1>술BTI 테스트</h1>
+      <Outlet></Outlet>
     </div>
-  )
-}
-export default ABTI
+  );
+};
+export default ABTI;

@@ -18,7 +18,7 @@ import { apiCreateFeed } from "@/api/feed";
 
 export interface QuestionFormData {
   type: string;
-  img: string | null;
+  // img: string | null;
   title: string;
   content: string | number | readonly string[] | undefined;
   isPublic: boolean;
@@ -38,9 +38,9 @@ const StyleSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const WriteQuestion = () => {
-  const [formData, setFormData] = useState({
+  const [data, setData] = useState({
     type: "질문글",
-    img: null,
+    // img: null,
     title: "",
     content: "",
     isPublic: true,
@@ -48,23 +48,43 @@ const WriteQuestion = () => {
   });
 
   const navigate = useNavigate();
+  console.log(data);
+  const [imgFile, setImgFile] = useState<File | null>(null);
 
   const handleImg = (img: File | null | undefined) => {
-    // setData({ ...data, img: img });
+    setImgFile(img || null);
   };
 
-  const handleSubmit = (formData: QuestionFormData) => {
-    // 제출 api호출
-    apiCreateFeed(formData)
-      .then((res: any) => {
-        console.log(res);
-        const newFeed = res.data.body;
-        navigate(`details/feed/${newFeed.id}`); // 질문글상세페이지로 이동
-      })
-      .catch((error) => {
-        console.error(error);
-        navigate("/");
+  const handleSubmit = (data: QuestionFormData) => {
+    if (data.title != undefined && data.content != "") {
+      // formData 생성
+      const formData = new FormData();
+      const blob = new Blob([JSON.stringify(data)], {
+        type: "application/json",
       });
+      formData.append("request", blob);
+      if (imgFile) {
+        formData.append("imgFile", imgFile);
+      }
+
+      console.log(formData);
+
+      // 제출 api호출
+      // apiCreateFeed(formData)
+      apiCreateFeed(formData)
+        .then((res: any) => {
+          console.log(res);
+          const newFeed = res.data.body;
+          navigate(`/details/feed/${newFeed.id}`, {state:{writeSuccess : true}});
+          // 상세페이지로 이동
+        })
+        .catch((error) => {
+          console.error(error);
+          navigate("/");
+        });
+    } else {
+      alert("💡제목과 내용은 필수입니다💡");
+    }
   };
 
   const WriteHeader = () => {
@@ -72,7 +92,7 @@ const WriteQuestion = () => {
       <div className={`${styles[`header-container`]}`}>
         <CloseIcon onClick={() => navigate(-1)} />
         <div>질문글 작성</div>
-        <div onClick={() => handleSubmit(formData)}>완료</div>
+        <div onClick={() => handleSubmit(data)}>완료</div>
       </div>
     );
   };
@@ -98,23 +118,19 @@ const WriteQuestion = () => {
             className={`${styles[`input-basic`]}`}
             type="text"
             placeholder="입력"
-            value={formData.title}
-            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            value={data.title}
+            onChange={(e) => setData({ ...data, title: e.target.value })}
           />
         </div>
 
         <div className={`${styles[`row-container`]}`}>
           <textarea
             placeholder="내용 입력..."
-            value={formData.content}
-            onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+            value={data.content}
+            onChange={(e) => setData({ ...data, content: e.target.value })}
           />
         </div>
       </form>
-      <div>
-        데이터 확인 :{formData.title}
-        {formData.content}
-      </div>
     </div>
   );
 };

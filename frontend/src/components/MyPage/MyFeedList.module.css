@@ -1,14 +1,16 @@
 .myfeed-title {
   display: flex;
   justify-content: space-between;
-  margin: 0% 5%;
+  margin: 5%;
 }
 
 .myfeed-item-container {
   box-sizing: border-box;
   padding: 3%;
+  margin: 0% 3%;
   border-bottom: solid 0.5px rgb(149, 149, 149);
-
+  /* border-radius: 5px; */
+  color: "black";
   /* Inside auto layout */
   display: flex;
   flex: none;

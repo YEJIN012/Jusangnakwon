@@ -8,7 +8,7 @@ interface HandleImg {
 }
 
 const ImageUpload = (props: HandleImg) => {
-  const { handleImg } = props
+  const { handleImg } = props;
   const [imgBase64, setImgBase64] = useState<string | null>(); // 미리보기 파일
   const [imgFile, setImgFile] = useState<File | null>(); // 선택한 이미지 파일
 
@@ -35,7 +35,9 @@ const ImageUpload = (props: HandleImg) => {
     }
   };
 
-  useEffect(()=>{handleImg(imgFile)},[imgFile])
+  useEffect(() => {
+    handleImg(imgFile);
+  }, [imgFile]);
 
   return (
     <div className={`${styles[`row-container`]}`}>
@@ -65,7 +67,7 @@ const ImageUpload = (props: HandleImg) => {
       <div
         className={`${styles[`camera-box`]}`}
         onClick={() => {
-            inputRef.current?.click();
+          inputRef.current?.click();
         }}
       >
         <PhotoCameraIcon sx={{ fontSize: { xs: 25, sm: 35, md: 40, lg: 50 } }} />

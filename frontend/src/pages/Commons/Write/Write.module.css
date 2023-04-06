@@ -1,7 +1,8 @@
 /* 헤더컴포에서 z-index만 다름 */
 .header-container {
   width: 100%;
-  padding: 15px;
+  height: 56px;
+  padding: 8px 18px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -27,6 +28,8 @@
 
 .subtitle-row {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -57,11 +60,10 @@
 .row-container {
   width: 100%;
   display: flex;
-  align-items: start;
+  align-items: center;
   border-bottom: solid 0.5px rgb(149, 149, 149);
   box-sizing: border-box;
   padding: 6%;
-  gap: 2%;
 }
 
 select option[value=""][disabled] {
@@ -133,4 +135,23 @@ textarea:focus {
   padding: 3px 8px;
   border-radius: 20px;
   font-size: 0.9rem;
+}
+
+
+/* taste 선택 radio */
+.taste-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.taste-type {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.taste-name {
+  display: flex;
+  align-items: center;
 }

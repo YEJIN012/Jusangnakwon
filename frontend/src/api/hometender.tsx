@@ -4,30 +4,12 @@ const api = getApiInstance();
 
 // 홈텐더 전체 리스트 조회, 추천 리스트 조회는 drinks.tsx에 있음
 
-// 술(홈텐더) 추천 - 로그인
-// export const apiGetLoginRecommendedHometender = async (type: string) => {
-//   try {
-//     const response = await api.get(`/rs/${type}`);
-//     return response;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
-
-// 주종별(홈텐더) 모아보기
-// export const apiGetNotLoginRecommendedByType = async (type: string) => {
-//   try {
-//     const response = await api.get(`/list/${type}`);
-//     return response;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
-
 // 홈텐더 레시피 등록
-export const apiCreateRecipe = async (data: any[]) => {
+export const apiCreateRecipe = async (data: FormData) => {
   try {
-    const response = await api.post(`/hometender`, data);
+    const response = await api.post(`/hometender`, data, 
+    { headers: { "Content-Type": "multipart/form-data" } }
+    );
     return response;
   } catch (e) {
     console.log(e);
@@ -35,9 +17,9 @@ export const apiCreateRecipe = async (data: any[]) => {
 };
 
 // 랭킹 추천 홈텐더(레시피)
-export const apiGetRankedHometender = async () => {
+export const apiGetRankedHometender = async (type: string, page: number) => {
   try {
-    const response = await api.get(`/rank/hometender`);
+    const response = await api.get(`/rank/${type}?page=${page}`);
     return response;
   } catch (e) {
     console.log(e);

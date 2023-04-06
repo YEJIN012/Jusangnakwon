@@ -9,8 +9,11 @@ import { ChangeEvent } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { RadioGroup, FormControlLabel, Radio, Typography } from "@material-ui/core";
 import ConfettiButton from "../ConfettiButton/ConfettiButton";
-import { apiSubmitSurvey } from "@/api/users";
+import { apiGetUserInfo, apiSubmitSurvey } from "@/api/users";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { userInfoActions } from "@/slices/userInfoSlice";
 
 const useStyles = makeStyles((theme) => ({
   radioGroup: {
@@ -44,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TasteForm = () => {
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState({
     sweetness: null,
     bitter: null,
@@ -52,6 +56,15 @@ const TasteForm = () => {
     aroma: null,
     sour: null,
   });
+  // useEffect(() => {
+  //   if (self.name != 'reload') {
+  //     self.name = 'reload';
+  //     self.location.reload();
+  // }
+  // else self.name = ''; 
+  // }, [])
+  
+
 
   const classes = useStyles();
 
@@ -62,23 +75,38 @@ const TasteForm = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(selectedValue);
-  }, [selectedValue]);
+  // useEffect(() => {
+  //   console.log(selectedValue);
+  // }, [selectedValue]);
 
   const handleSubmitSurvey = () => {
+    
     // e.preventDefault();
     if (Object.values(selectedValue).includes(null)) {
-      alert("취향을 모두 입력해주세요");
+      alert("✨취향을 모두 입력해주세요✨");
     } else {
       apiSubmitSurvey(selectedValue)
-        .then((r) => {
-          console.log(r);
-          navigate('/')
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      .then((response) => {
+        console.log(response)
+        if (response?.data.success) {
+          apiGetUserInfo()
+          .then((response)=> {
+            console.log(response)
+            // 응답이 성공적으로 왔는지 확인하고 유저정보에 isLogin 추가해서 dispatch 요청
+            if (response?.data.body) {
+              console.log(`로그인유저정보 :${response}`);
+              const userInfo = { ...response.data.body, isLogin: true };
+              dispatch(userInfoActions.saveUserInfo(userInfo));
+            } else {
+              console.log("유저정보없음");
+            }
+            navigate("/");
+          })
+        }
+      })
+          .catch((e)=> {
+            console.log(e)
+          })
     }
   };
 

@@ -1,11 +1,16 @@
 import "./LikeButton.css";
 import { useState } from "react";
 
-const LikeButton = (props: { [key: string]: boolean }) => {
+interface Props {
+  isLiked: boolean;
+  createLike: any;
+}
+const LikeButton = ({ isLiked, createLike }: Props) => {
   // console.log(props); {isLiked : true} 형태로 넘어옴
-  const [liked, setLiked] = useState(props.isLiked);
+  const [liked, setLiked] = useState(isLiked);
   const handleClick = () => {
-    setLiked(!liked);
+    setLiked((prev) => !prev);
+    createLike();
   };
 
   return (
