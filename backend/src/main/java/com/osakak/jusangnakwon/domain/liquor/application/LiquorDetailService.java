@@ -3,6 +3,7 @@ package com.osakak.jusangnakwon.domain.liquor.application;
 import com.osakak.jusangnakwon.common.errors.LiquorNotFoundException;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
 import com.osakak.jusangnakwon.domain.feed.dao.ScrapRepository;
+import com.osakak.jusangnakwon.domain.feed.dto.WriterDto;
 import com.osakak.jusangnakwon.domain.feed.entity.Scrap;
 import com.osakak.jusangnakwon.domain.liquor.api.response.LiquorDetailResponse;
 import com.osakak.jusangnakwon.domain.liquor.dao.liquor.*;
@@ -67,6 +68,7 @@ public class LiquorDetailService {
         String description = null;
         List<ReviewListDto> reviews = null;
         List<LiquorListItemDto> similarItem = null;
+        WriterDto writerDto = null;
 
         Optional<Scrap> userScrapped = scrapRepository.isUserScrapped(id, user.getId(), type);
         if (userScrapped.isPresent())
@@ -206,6 +208,10 @@ public class LiquorDetailService {
                 if (byIdHometender.isEmpty())
                     throw new LiquorNotFoundException();
                 Hometender hometender = byIdHometender.get();
+                writerDto = WriterDto.builder()
+                        .profileImg(hometender.getUser().getProfileImageUrl())
+                        .username(hometender.getUser().getUsername())
+                        .build();
 
                 tastes = Arrays.asList(HometenderTasteType.getTag("SWEET", hometender.getSweet()),
                         HometenderTasteType.getTag("SOUR", hometender.getSour()),
@@ -238,9 +244,12 @@ public class LiquorDetailService {
                 .scrapped(scrapped)
                 .ingredients(ingredients)
                 .description(description)
+                .scrapped(scrapped)
+                .writer(writerDto)
                 .tastes(tastes)
                 .description(description)
                 .reviews(reviews)
+                .liquorType(type)
                 .similarItems(similarItem)
                 .build();
     }
