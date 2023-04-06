@@ -21,7 +21,6 @@ const userInfoSlice = createSlice({
     },
     deleteUserInfo: (state, action) => {
       state = initialState;
-      console.log(state)
       return state;
     },
   },

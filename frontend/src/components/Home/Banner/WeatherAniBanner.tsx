@@ -4,8 +4,6 @@ import { WeatherApiData } from "@/pages/Home/HomeMain";
 const Hot = () => {
   return (
     <div className={`${styles[`hot`]}`}>
-      <div>오늘의 온도는 25℃</div>
-      <div>안녕하세요</div>
       <span className={`${styles[`sun`]}`}></span>
       <span className={`${styles[`sunx`]}`}></span>
       <span className={`${styles[`sunx2`]}`}></span>
