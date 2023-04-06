@@ -1,7 +1,7 @@
 import styles from "@/components/Home/Banner/HometenderBanner.module.css";
 import cocktailimg from "/assets/stcocktail.png";
 import { Link } from "react-router-dom";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import HometenderBannerAni from "./HometenderAni";
 import lottie from "lottie-web";
 import animationData from "./cocktail.json";
@@ -10,10 +10,18 @@ import { HometenderApiData } from "@/pages/Home/HomeMain";
 import { useDispatch } from "react-redux";
 import { updateTabActions } from "@/slices/tabSlice";
 
+const RandomColor: string[] = [
+  "var(--tag-color-a)",
+  "var(--tag-color-b)",
+  "var(--tag-color-c)",
+  "var(--tag-color-d)",
+  "var(--tag-color-e)",
+];
+
 export default function HometenderBanner(props: HometenderApiData | null) {
   const container = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch()
-
+  const [randomColorNum, setRandomColorNum] = useState(Math.floor(Math.random() * 5)) 
   const changeTab = () => {dispatch(updateTabActions.updateTab("/playground/hometender"))}
 
   useEffect(() => {
@@ -30,6 +38,8 @@ export default function HometenderBanner(props: HometenderApiData | null) {
         animation.destroy();
       }
     };
+
+
   }, []);
   const recommendedHometender = props?.body;
 
@@ -44,7 +54,7 @@ export default function HometenderBanner(props: HometenderApiData | null) {
   }
 
   return (
-    <Link to={`/playground/hometender`} onClick={()=>{}}>
+    <Link to={`/playground/hometender`} onClick={() => {}}>
       <div className={`${styles[`container`]}`}>
         {/* <p className={`${styles[`hometender-banner-title`]}`}>인기 홈텐딩 칵테일</p> */}
         {/* <HometenderBannerAni></HometenderBannerAni> */}
@@ -61,16 +71,21 @@ export default function HometenderBanner(props: HometenderApiData | null) {
                 <div className={`${styles[`hometender-banner-contents`]}`}>
                   <p className={`${styles[`hometender-banner-mini-title`]}`}>{recommendedHometender.name}</p>
                   <div className={`${styles[`hometender-banner-materials`]}`}>
-                    {recommendedHometender.ingredients != null && recommendedHometender.ingredients.length > 1
-                      ? recommendedHometender.ingredients
-                          .slice(0, 2)
-                          .map((material, index) => (
-                            <p className={`${styles[`hometender-banner-material`]}`} key={index}>
-                              {extractStringBeforeNumber(material)}
-                            </p>
-                          ))
-                          .concat(recommendedHometender.ingredients.length > 2 ? <p>...▶홈텐딩 하러 가기</p> : [])
-                      : recommendedHometender.ingredients}
+                    {recommendedHometender.ingredients != null && recommendedHometender.ingredients.length > 1 ? (
+                      recommendedHometender.ingredients
+                        .slice(0, 2)
+                        .map((material, index) => (
+                          <p className={`${styles[`hometender-banner-material`]}`} style={{backgroundColor : RandomColor[randomColorNum]}} key={`${index}-${material}`}>
+                            {extractStringBeforeNumber(material)}
+                          </p>
+                        ))
+                        .concat(recommendedHometender.ingredients.length > 2 ? <p>...▶홈텐딩 하러 가기</p> : [])
+                    ) : (
+                      <>
+                        {recommendedHometender.ingredients}
+                        <p>...▶홈텐딩 하러 가기</p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

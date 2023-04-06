@@ -7,11 +7,13 @@
   --tag-color-hotpink: rgb(255, 105, 180, 0.8);
   --tag-color-purple: rgb(128, 0, 128, 0.8);
 
-  --tag-color-a: rgba(0, 255, 34, 0.8);
-  --tag-color-b: rgba(255, 0, 255, 0.8);
-  --tag-color-c: rgba(255, 42, 113, 0.8);
-  --tag-color-d: rgba(112, 248, 255, 0.8);
-  --tag-color-e: rgba(99, 96, 255, 0.8);
+
+  --tag-color-a: rgba(89, 124, 94);
+  --tag-color-b: rgb(176, 112, 144);
+  --tag-color-c: rgba(101, 103, 176);
+  --tag-color-d: rgba(118, 177, 180);
+  --tag-color-e: rgb(181, 163, 114);
+
 }
 
 .drink-list-wrap {

@@ -97,14 +97,14 @@ const DrinkDetail = () => {
         <div className={`${styles[`drink-title-box`]}`}>
           <div className={`${styles[`drink-title`]}`}>
             <div>{drinkDetailItem?.name}</div>
-            {drinkDetailItem?.ratingAvg && (
+            {drinkDetailItem?.ratingAvg && 
               <Rating
                 name="read-only"
                 value={drinkDetailItem.ratingAvg}
                 emptyIcon={<StarIcon sx={{ color: "gray" }} fontSize="inherit" />}
                 readOnly
               />
-            )}
+            }
           </div>
           {drinkDetailItem?.scrapped ? (
             <BookmarkIcon onClick={handleScrap}></BookmarkIcon>

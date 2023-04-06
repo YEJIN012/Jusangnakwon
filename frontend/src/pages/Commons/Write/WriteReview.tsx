@@ -257,7 +257,7 @@ const WriteReview = () => {
             <CalendarTodayIcon onClick={() => setOpenCalendar(!openCalendar)}/>
           </div>
           <div style={{marginLeft:"30px"}} className={`${styles[`input-basic`]}`} onClick={() => setOpenCalendar(!openCalendar)}>
-            {data.dateCreated ? String(data.dateCreated).slice(0,10) : "N/A"}
+            {data.dateCreated ? (moment(data?.dateCreated).format("YYYY-MM-DD")) : "N/A"}
           </div>
           {openCalendar ? (
             <div

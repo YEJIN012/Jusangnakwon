@@ -18,3 +18,38 @@
   /* font-family: "gmarketMedium"; */
   /* font-weight: 700 */
 }
+.no-mobile {
+  position: absolute;
+  z-index: 99;
+  height: 100vh;
+  width: 100vw;
+  background-color: plum;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  top: 0;
+  font-size: 32px;
+  color: white;
+}
+
+.no-mobile h1 {
+  color: white;
+  margin-right: 10px;
+}
+
+.no-mobile i {
+  color: darkslateblue;
+}
+
+@media screen and (max-width: 645px) {
+  .no-mobile {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 645px) {
+  .content-wrapper {
+    display: none;
+  }
+}
