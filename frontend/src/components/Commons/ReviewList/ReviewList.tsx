@@ -4,30 +4,6 @@ import CreateIcon from "@mui/icons-material/Create";
 import ReviewListItem from "./ReviewListItem";
 import { DrinkDetailReviewItem } from "@/pages/Commons/DrinkDetail/DrinkDetail";
 
-const reviewList = [
-  {
-    id: 1,
-    ratings: 4,
-    date: "2023.12.23",
-    img: "https://picsum.photos/300/300/?random",
-    explan: "드디어 먹어봄 진짜 레전드 존맛탱 담주에 또 해먹어야지~",
-  },
-  {
-    id: 2,
-    ratings: 1,
-    date: "2023.12.23",
-    img: "https://picsum.photos/300/300/?random",
-    explan: "윽 별로",
-  },
-  {
-    id: 3,
-    ratings: 3,
-    date: "2023.12.23",
-    img: "https://picsum.photos/300/300/?random",
-    explan: "드디어 먹어봄 진짜 레전드 존맛탱 담주에 또 해먹어야지~",
-  },
-];
-
 // 해당 술 정보
 interface Props {
   id: number;

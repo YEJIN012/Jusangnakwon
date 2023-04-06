@@ -56,13 +56,13 @@ const TasteForm = () => {
     aroma: null,
     sour: null,
   });
-  useEffect(() => {
-    if (self.name != 'reload') {
-      self.name = 'reload';
-      self.location.reload();
-  }
-  else self.name = ''; 
-  }, [])
+  // useEffect(() => {
+  //   if (self.name != 'reload') {
+  //     self.name = 'reload';
+  //     self.location.reload();
+  // }
+  // else self.name = ''; 
+  // }, [])
   
 
 

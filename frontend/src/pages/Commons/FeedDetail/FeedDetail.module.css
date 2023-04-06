@@ -24,13 +24,20 @@
   width: 20px;
 }
 
-.feed-img {
+.feed-img-wrapper {
+  height: 50%;
+  margin-bottom: 10px;
   width: 100vw;
+}
+
+.feed-img {
+  width: 100%;
+  height: 100%;
 }
 
 .feed-content-container {
   padding: 0% 2%;
-  margin: 0% 2%;
+  margin: 1% 2%;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -70,9 +77,9 @@
 }
 
 .feed-alcohol-type-tag {
-  /* width: 15%; */
+  width: 50px;
   text-align: center;
-  padding: 1% 3%;
+  padding: 1px 5px;
   border-radius: 30px;
   align-items: center;
   font-size: 0.9rem;
@@ -83,6 +90,7 @@
 .feed-alcohol-name {
   /* border-bottom: 3px solid rgba(94, 191, 212, 0.785); */
   padding: 1%;
+  width: fit-content;
   /* background-color: rgba(94, 191, 212, 0.785); */
 }
 .feed-alcohol-info-box {
@@ -130,4 +138,22 @@
   background-color: inherit;
   border: none;
   color: white;
+}
+
+.like-btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10%;
+  margin-top: -10px;
+}
+
+.like-cnt {
+  color: white;
+  margin-top: -16px;
+  font-size: 0.7rem;
+}
+
+.feed-detail-content {
+  width: 90%;
 }

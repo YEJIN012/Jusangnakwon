@@ -10,6 +10,7 @@ import ReadMore from "@/components/Commons/ReadMore/ReadMore";
 import HeaderBack from "@/components/Commons/Header/HeaderBack";
 import { apiGetDrinkDetail, apiPutBookmark } from "@/api/drinks";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import StarIcon from "@mui/icons-material/Star";
 
 interface DrinkDetailItem {
   id: number;
@@ -24,7 +25,7 @@ interface DrinkDetailItem {
   scrapped: boolean;
   similarItems: SimilarItem[];
   tastes: string[];
-  writer: string | null;
+  writer: { username: string; profileImg: string };
 }
 
 export interface SimilarItem {
@@ -86,8 +87,8 @@ const DrinkDetail = () => {
         {drinkDetailItem?.writer ? (
           <div className={`${styles[`user-profile-container-abs`]}`}>
             <div className={`${styles[`user-profile`]}`}>
-              {/* <img src={drinkDetailItem.writer} className={`${styles[`user-img`]}`}></img> */}
-              <p>{drinkDetailItem.writer}</p>
+              <img src={drinkDetailItem.writer.profileImg} className={`${styles[`user-img`]}`}></img>
+              <p>{drinkDetailItem.writer.username}</p>
             </div>
           </div>
         ) : null}
@@ -96,7 +97,14 @@ const DrinkDetail = () => {
         <div className={`${styles[`drink-title-box`]}`}>
           <div className={`${styles[`drink-title`]}`}>
             <div>{drinkDetailItem?.name}</div>
-            {drinkDetailItem?.ratingAvg && <Rating name="read-only" value={drinkDetailItem.ratingAvg} readOnly />}
+            {drinkDetailItem?.ratingAvg && (
+              <Rating
+                name="read-only"
+                value={drinkDetailItem.ratingAvg}
+                emptyIcon={<StarIcon sx={{ color: "gray" }} fontSize="inherit" />}
+                readOnly
+              />
+            )}
           </div>
           {drinkDetailItem?.scrapped ? (
             <BookmarkIcon onClick={handleScrap}></BookmarkIcon>
@@ -105,7 +113,7 @@ const DrinkDetail = () => {
           )}
         </div>
         {drinkDetailItem?.ingredients && <Ingredients ingredients={drinkDetailItem?.ingredients}></Ingredients>}
-        {drinkDetailItem?.tastes && <Ingredients ingredients={drinkDetailItem?.tastes}></Ingredients>}
+        {drinkDetailItem?.tastes && <Ingredients ingredients={drinkDetailItem?.tastes} taste={true}></Ingredients>}
         {drinkDetailItem?.description && <ReadMore content={drinkDetailItem?.description}></ReadMore>}
         {drinkDetailItem?.reviews && (
           <ReviewList

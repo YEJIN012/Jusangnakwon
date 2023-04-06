@@ -75,7 +75,7 @@ const WriteQuestion = () => {
         .then((res: any) => {
           console.log(res);
           const newFeed = res.data.body;
-          navigate(`/details/feed/${newFeed.id}`);
+          navigate(`/details/feed/${newFeed.id}`, {state:{writeSuccess : true}});
           // 상세페이지로 이동
         })
         .catch((error) => {

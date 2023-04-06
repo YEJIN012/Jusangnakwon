@@ -13,7 +13,13 @@ const FloatingButton = () => {
       <Backdrop open={open} />
       <SpeedDial
         ariaLabel="SpeedDial tooltip example"
-        sx={{ position: "fixed", bottom: 70, right: 16, display: "flex", alignItems: "end" }}
+        sx={{
+          position: "fixed",
+          bottom: 70,
+          right: 16,
+          display: "flex",
+          alignItems: "end",
+        }}
         icon={<SpeedDialIcon openIcon={<EditIcon />} />}
         onClose={() => setOpen(!open)}
         onOpen={() => setOpen(!open)}

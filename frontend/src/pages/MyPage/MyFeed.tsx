@@ -24,6 +24,7 @@ const MyFeed = () => {
   useEffect(() => {
     apiGetMyFeed(0)
       .then((r) => {
+        console.log(r)
         // if (r?.data.success === true) {
         setCurrentPage(r?.data.currentPageNumber);
         setMyFeedList(r?.data.body.content);
