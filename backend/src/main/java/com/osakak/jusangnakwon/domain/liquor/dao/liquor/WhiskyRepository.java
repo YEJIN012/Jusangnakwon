@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public interface WhiskyRepository extends JpaRepository<Whisky, Long>,WhiskyQueryRepository {
+public interface WhiskyRepository extends JpaRepository<Whisky, Long>, WhiskyQueryRepository {
     /**
      * 전체 위스키 칵테일 랭킹순 조회
      *
@@ -27,8 +27,8 @@ public interface WhiskyRepository extends JpaRepository<Whisky, Long>,WhiskyQuer
     @Query("select l from Whisky l where l.name like :keyword%")
     Optional<List<Whisky>> findByKeyword(@Param("keyword") String keyword);
 
-    @Query("select w from Whisky w WHERE w.id IN :similarWhiskyUniqueList ")
-    Page<Whisky> findById(Set<Long> similarWhiskyUniqueList, Pageable pageable);
+    @Query("select new com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto(w.id,w.name,w.img,w.liquorType,s.scrapped) from Whisky w left join Scrap s on s.liquorId = w.id and w.liquorType = s.liquorType and s.user.id = :userId WHERE w.id IN :similarWhiskyUniqueList ")
+    Page<LiquorListItemDto> findById(Set<Long> similarWhiskyUniqueList, Pageable pageable, @Param("userId") Long userId);
 
     @Query("select l from  Whisky l where l.id in (:list)")
     List<Whisky> findByIdList(@Param("list") List<Long> list);
