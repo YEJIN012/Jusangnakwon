@@ -53,7 +53,7 @@ public class FeedService {
     public FeedDto createFeed(Long id, FeedDto feedDto, RatingDto ratingDto, MultipartFile image) throws IOException {
         User user = findUser(id);
         String uuid = null;
-        if (image != null) {
+        if (image!=null && !image.isEmpty()) {
             uuid = UUID.randomUUID().toString();
             String ext = image.getContentType();
             BlobInfo blobInfo = storage.create(
