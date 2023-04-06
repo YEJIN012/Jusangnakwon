@@ -1,6 +1,9 @@
 import styles from "./BookmarkList.module.css";
 import FloatingButton from "@/components/Commons/FloatingButton/FloatingButton";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { apiGetBookmarkList } from "@/api/mypage";
+import { EnglishToCode } from "../Commons/Write/WriteReview";
 
 const dummyBookmarkList = [
   {
@@ -53,6 +56,13 @@ const dummyBookmarkList = [
   },
 ];
 
+interface BookmarkItem {
+  id: number;
+  name: string;
+  img: string | null;
+  liquorType: string;
+}
+
 export const alcoholTypeStyle: { [key: string]: string } = {
   l1: "var(--tag-color-purple)",
   l2: "var(--tag-color-red)",
@@ -63,24 +73,41 @@ export const alcoholTypeStyle: { [key: string]: string } = {
 };
 
 const BookmarkList = () => {
+  const [bookmarkList, setBookmarkList] = useState<BookmarkItem[] | []>();
+  const [curPageNumber, setCurPageNumber] = useState(0);
+
+  useEffect(() => {
+    apiGetBookmarkList(0)
+      .then((r) => {
+        // console.log(r);
+        setBookmarkList(r?.data.body.content);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
+
   return (
     <>
       <h2 style={{ marginLeft: "5%" }}>나의 스크랩북</h2>
       <div className={`${styles[`drink-list-wrap`]}`}>
         <FloatingButton></FloatingButton>
         <ul className={`${styles[`tab-drink-list`]}`}>
-          {dummyBookmarkList.map((bookmark) => (
+          {bookmarkList?.map((bookmark) => (
             <li key={bookmark.id}>
               <div className={styles["item-container"]}>
-                <Link to={`/details/${bookmark.type}/${bookmark.id}`}>
-                  <img src={bookmark.img}></img>
+                <Link to={`/details/${EnglishToCode[bookmark.liquorType]}/${bookmark.id}`}>
+                  {bookmark?.img && <img src={bookmark.img}></img>}
                 </Link>
                 <div className={styles["item-title"]}>
-                  <div className={styles["alcohol-type"]} style={{ backgroundColor: alcoholTypeStyle[bookmark.type] }}>
-                    {bookmark.alcoholType}
+                  <div
+                    className={styles["alcohol-type"]}
+                    style={{ backgroundColor: alcoholTypeStyle[EnglishToCode[bookmark.liquorType]] }}
+                  >
+                    {bookmark.liquorType}
                   </div>
                   <div className={styles["like-box"]}>
-                    <div className={styles["alcohol-name"]}>{bookmark.alcoholName}</div>
+                    <div className={styles["alcohol-name"]}>{bookmark.name}</div>
                   </div>
                 </div>
               </div>

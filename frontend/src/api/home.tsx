@@ -23,9 +23,9 @@ export const apiGetRandomlyRecommendedHometender = async () => {
 };
 
 // 술 추천 - 로그인 - 주종별 추천
-export const apiGetLoginRecommendedByType = async (type: string) => {
+export const apiGetLoginRecommendedByType = async (type: string, page: number) => {
   try {
-    const response = await api.get(`/rs/${type}`);
+    const response = await api.get(`/rs/${type}?page=${page}`);
     return response;
   } catch (e) {
     console.log(e);
@@ -47,6 +47,16 @@ export const apiGetNotLoginRecommendedByType = async (type: string, page: number
 export const apiSearchDrink = async (keyword: string, page: number) => {
   try {
     const response = await api.get(`/search/${keyword}?page=${page}`);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+// 날씨
+export const apiGetWeather = async () => {
+  try {
+    const response = await api.get(`/weather`);
     return response;
   } catch (e) {
     console.log(e);

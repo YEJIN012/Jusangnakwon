@@ -17,7 +17,7 @@ import { apiGetFeedDetail, apiCreateLike, apiCreateComment } from "@/api/feed";
 import CommentItem from "@/components/Feed/CommentItem";
 import { EnglishToKorean, EnglishToCode } from "@/pages/Commons/Write/WriteReview";
 import { alcoholTypeStyle } from "@/pages/MyPage/BookmarkList";
-import { stringify } from "querystring";
+import StarIcon from "@mui/icons-material/Star";
 
 export interface Comment {
   id: number;
@@ -46,7 +46,7 @@ interface CommentFormData {
 const FeedDetail = () => {
   const { id } = useParams();
   const [feed, setFeed] = useState<FeedDetailContent | null>(null);
-  // const [liked, setLiked] = useState(feed?.liked);
+  const [shoot, setShoot] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -62,9 +62,15 @@ const FeedDetail = () => {
   });
 
   useEffect(() => {
+    if (feed) {
+      setShoot(feed?.liked);
+    }
+  }, [feed]);
+
+  useEffect(() => {
     apiGetFeedDetail(Number(id))
       .then((r) => {
-        // console.log(r);
+        console.log(r);
         setFeed(r?.data.body);
       })
       .catch((e) => console.log(e));
@@ -78,18 +84,6 @@ const FeedDetail = () => {
       })
       .catch((e) => console.log(e));
   };
-  // const handleSubmit = () => {
-  //   if (formData.content != "") {
-  //     apiCreateComment(formData)
-  //       .then((r) => {
-  //         console.log(r);
-  //         getFeedDetail();
-  //         setFormData({ ...formData, content: "" });
-  //         inputRef.current.value = "";
-  //       })
-  //       .catch((e) => console.log(e));
-  //   }
-  // };
 
   const { content } = formData;
 
@@ -115,79 +109,41 @@ const FeedDetail = () => {
   };
 
   const createLike = () => {
-    apiCreateLike(Number(id), { isLiked: String(!feed?.liked) });
+    // console.log(Number(id), shoot);
+    apiCreateLike(Number(id), { isLiked: !shoot }).then(() => {
+      apiGetFeedDetail(Number(id))
+        .then((r) => {
+          // console.log(r);
+          setFeed(r?.data.body);
+        })
+        .catch((e) => console.log(e));
+    });
   };
 
   return (
     <div>
       <HeaderBack></HeaderBack>
       {feed && (
-        <div key={feed.id}>
+        <div key={feed.id} className={`${styles[`container`]}`}>
           <div className={`${styles[`user-profile-container`]}`}>
             <div className={`${styles[`user-profile`]}`}>
               <img src={feed.writer.profileImg} className={`${styles[`user-img`]}`}></img>
               <p>{feed.writer.username}</p>
             </div>
-            <div>
-              <Button
-                id="basic-button"
-                aria-controls={open ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-                style={{ minWidth: "0", color: "white" }}
-              >
-                <MoreVertIcon />
-              </Button>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-                sx={{
-                  position: "absolute",
-                  "& .css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper": {
-                    right: 0,
-                  },
-                  "& .css-6hp17o-MuiList-root-MuiMenu-list": {
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  },
-                }}
-              >
-                {/* <Link to="../write/review">
-                    <MenuItem onClick={handleClose} sx={{ color: "black" }}>
-                      수정하기
-                    </MenuItem>
-                  </Link> */}
-                <MenuItem onClick={handleClose}>삭제하기</MenuItem>
-              </Menu>
-            </div>
           </div>
-          <img src={feed.img} className={`${styles[`feed-img`]}`}></img>
+          <div className={`${styles[`feed-img-wrapper`]}`}>
+            {feed.img && <img src={feed.img} className={`${styles[`feed-img`]}`}></img>}
+          </div>
           <h2 style={{ marginLeft: "3%" }}>{feed.title}</h2>
           <div className={`${styles[`feed-content-container`]}`}>
             <ReadMore content={feed.content}></ReadMore>
-            <div className={`${styles[`feed-stars-like`]}`}>
-              {feed.liked ? (
-                <button onClick={createLike} style={{ background: "none", border: "none" }}>
-                  <LikeButton isLiked={feed.liked}></LikeButton>
-                </button>
-              ) : (
-                <button onClick={createLike} style={{ background: "none", border: "none" }}>
-                  <LikeButton isLiked={feed.liked}></LikeButton>
-                </button>
-              )}
+            <div className={`${styles[`like-btn-container`]}`}>
+              <LikeButton isLiked={feed.liked} createLike={createLike}></LikeButton>
+              <p className={`${styles[`like-cnt`]}`}>{feed.likeCnt}</p>
             </div>
           </div>
           {feed.type === "리뷰글" ? (
             <div className={`${styles[`feed-alcohol-info-container`]}`}>
-              {/* <p>주종</p> */}
               <p
                 className={`${styles[`feed-alcohol-type-tag`]}`}
                 style={{
@@ -196,11 +152,21 @@ const FeedDetail = () => {
               >
                 {EnglishToKorean[feed?.liquorType]}
               </p>
-              {/* <p>술 이름</p> */}
-              <p className={`${styles[`feed-alcohol-name`]}`}>{feed.liquorName}</p>
+              <Link to={`../details/${EnglishToCode[feed?.liquorType]}/${feed.liquorId}`}>
+                <p className={`${styles[`feed-alcohol-name`]}`}>{feed.liquorName}</p>
+              </Link>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "50%" }}>
-                {feed.type === "리뷰글" ? <Rating name="read-only" value={feed.ratingScore} readOnly /> : null}
-                <p style={{ fontSize: "0.7rem", color: "gray" }}>{feed.writer.username}님의 평점</p>
+                {feed.type === "리뷰글" ? (
+                  <Rating
+                    name="read-only"
+                    value={feed.ratingScore}
+                    readOnly
+                    emptyIcon={<StarIcon sx={{ color: "gray" }} fontSize="inherit" />}
+                  />
+                ) : null}
+                <div className={`${styles[`rating-container`]}`}>
+                  <p style={{ fontSize: "0.7rem", color: "gray" }}>{feed.writer.username}님의 평점</p>
+                </div>
               </div>
             </div>
           ) : null}
@@ -219,7 +185,6 @@ const FeedDetail = () => {
           {feed.comments.map((comment: Comment) => (
             <CommentItem key={comment.id} comment={comment}></CommentItem>
           ))}
-          {/* <CommentList></CommentList> */}
         </div>
       )}
     </div>

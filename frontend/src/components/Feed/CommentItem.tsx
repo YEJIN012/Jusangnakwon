@@ -3,6 +3,7 @@ import Rating from "@mui/material/Rating";
 import CreateIcon from "@mui/icons-material/Create";
 import UserImgName from "./UserImgName";
 import { Comment } from "@/pages/Commons/FeedDetail/FeedDetail";
+import moment from "moment";
 
 interface Props {
   comment: Comment;
@@ -21,7 +22,8 @@ const CommentItem = ({ comment }: Props) => {
             </div>
           </div>
         </div>
-        <div className={`${styles[`date`]}`}>{comment.dateCreated.toString().slice(0, 10)}</div>
+        <div className={`${styles[`date`]}`}>{moment(comment?.dateCreated).format("YYYY-MM-DD")}</div>
+
       </div>
     </div>
   );

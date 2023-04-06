@@ -1,37 +1,38 @@
 import styles from "./Logout.module.css";
+import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { removeCookieToken } from "@/utils/cookies";
-import { loginUserActions } from "@/slices/loginUserSlice";
+import { userInfoActions } from "@/slices/userInfoSlice";
+import { apiLogout } from "@/api/users";
+import { useEffect, useState } from "react";
 
 const Logout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [cookie, setCookie, removeCookie] = useCookies();
 
   const handleLogout = () => {
     console.log("로그아웃");
-    // user Info 삭제
-    // deleteInfo(userEmail).payload
-    //     .then((res) => {
-    //         const status = res.status
-    //         if ( status === 200 ){
-    //             // refresh 토큰 삭제
 
-    // refresh token 삭제
-    // removeCookieToken();
     // 유저정보 삭제
-    dispatch(loginUserActions.deleteLoginUserInfo(null))
+    dispatch(userInfoActions.deleteUserInfo(null));
+    // accessToken 삭제
+    sessionStorage.removeItem("accessToken");
+    // 쿠키 토큰 삭제
+    // const cookies = useCookies(["access_token"]);
+    // removeCookie('accessToken', { path: '/', domain: 'localhost' });
 
-    alert("로그아웃 성공");
-    // logout 시 login 창으로
-    navigate("/");
-    //         }
-    //     })
-    //     .catch((err) => {
-    //         console.log(err)
-    //         .catch((err) => alert(t('A network error has occurred. The request has failed.')));
-    //     })
-    // }
+    apiLogout().then((response) => {
+      if (self.name != "reload") {
+        self.name = "reload";
+        self.location.reload();
+      } else self.name = "";
+      // logout 시 login 창으로
+      navigate("/");
+    })
+    .catch((e) => {
+      console.log(e);
+    });
   };
 
   return (

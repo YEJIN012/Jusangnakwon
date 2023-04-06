@@ -18,7 +18,7 @@ public class CommentDto {
     @Builder
     @QueryProjection
     public CommentDto(Long id, WriterDto writer, Long feedId, String content,
-            LocalDateTime dateCreated) {
+                      LocalDateTime dateCreated) {
         this.id = id;
         this.writer = writer;
         this.feedId = feedId;

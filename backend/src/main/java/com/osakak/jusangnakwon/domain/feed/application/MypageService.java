@@ -5,22 +5,23 @@ import com.osakak.jusangnakwon.domain.feed.api.response.RecordListResponse;
 import com.osakak.jusangnakwon.domain.feed.api.response.ScrapListResponse;
 import com.osakak.jusangnakwon.domain.feed.dao.FeedRepository;
 import com.osakak.jusangnakwon.domain.feed.dto.CalendarDto;
-import com.osakak.jusangnakwon.domain.feed.dto.ReviewListItemDto;
 import com.osakak.jusangnakwon.domain.feed.dto.CalendarWithReviewsDto;
 import com.osakak.jusangnakwon.domain.feed.dto.RecordListDto;
+import com.osakak.jusangnakwon.domain.feed.dto.ReviewListItemDto;
 import com.osakak.jusangnakwon.domain.feed.mapper.MypageDtoMapper;
 import com.osakak.jusangnakwon.domain.liquor.dto.LiquorListItemDto;
 import com.osakak.jusangnakwon.domain.user.dao.UserRepository;
 import com.osakak.jusangnakwon.domain.user.entity.User;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -65,13 +66,13 @@ public class MypageService {
     }
 
     private RecordListResponse getRecordListResponse(int totalPage, Pageable pageable,
-            List<RecordListDto> list) {
+                                                     List<RecordListDto> list) {
         pageNumber = pageable.getPageNumber();
         return mypageDtoMapper.toRecordListResponse(list, totalPage, pageNumber);
     }
 
     private ScrapListResponse getScrapListResponse(int totalPage, Pageable pageable,
-            List<LiquorListItemDto> list) {
+                                                   List<LiquorListItemDto> list) {
         pageNumber = pageable.getPageNumber();
         return mypageDtoMapper.toScrapListResponse(list, totalPage, pageNumber);
     }
