@@ -33,7 +33,7 @@ const BottomBar = () => {
 
   return (
     <>
-      {pathname.includes("write") || pathname.includes("loading") ? (
+      {pathname.includes("write") || pathname.includes("loading") || pathname.includes("tasteform") ? (
         <></>
       ) : (
         <Box className={`${styles[`bottom-bar-container`]}`}>
