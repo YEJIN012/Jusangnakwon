@@ -1,11 +1,11 @@
 spring:
+  config:
+    activate:
+      on-profile: prod
   servlet:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
-  config:
-    activate:
-      on-profile: prod
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
