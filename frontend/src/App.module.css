@@ -1,20 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,500;1,300;1,500&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Hahmlet:wght@300;400;500;600&family=Nanum+Pen+Script&family=Poor+Story&display=swap");
 
-@font-face {
+/* @font-face {
   font-family: "gmarketMedium";
   src: url("assets/fonts/GmarketSansTTFMedium.ttf");
-}
+} */
 
-/* @font-face {
+@font-face {
   font-family: "LINESeedKR-Bd";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
-} */
+}
 
 @font-face {
-  font-family: 'Hahmlet-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-Regular.woff2') format('woff2');
+  font-family: "Hahmlet-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
