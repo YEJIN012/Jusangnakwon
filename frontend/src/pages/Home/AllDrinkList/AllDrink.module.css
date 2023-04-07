@@ -54,7 +54,7 @@
   padding: 1%;
   margin: 0 auto;
   border-radius: 20px;
-  box-shadow: 2px 2px 3px rgb(97, 95, 95);
+  /* box-shadow: 2px 2px 3px rgb(97, 95, 95); */
 }
 
 .pagination-wrap {
