@@ -183,7 +183,7 @@ const WriteReview = () => {
           navigate(`/details/feed/${newFeed.id}`, {state:{writeSuccess : true}});
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
           navigate("/");
         });
     } else {

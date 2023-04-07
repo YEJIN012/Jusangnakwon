@@ -277,7 +277,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [wineCurPageNumber]);
 
@@ -297,7 +297,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [cocktailCurPageNumber, cocktailItemsToShow]);
 
@@ -317,7 +317,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [whiskyCurPageNumber]);
 
@@ -337,7 +337,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [koreanCurPageNumber]);
 
@@ -354,7 +354,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [beerCurPageNumber]);
 
@@ -373,7 +373,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [wineCurPageNumber]);
 
@@ -393,7 +393,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [cocktailCurPageNumber, cocktailItemsToShow]);
 
@@ -413,7 +413,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [whiskyCurPageNumber]);
 
@@ -433,7 +433,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [koreanCurPageNumber]);
 
@@ -450,7 +450,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [beerCurPageNumber]);
   }

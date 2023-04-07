@@ -79,7 +79,7 @@ const WriteQuestion = () => {
           // 상세페이지로 이동
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
           navigate("/");
         });
     } else {
