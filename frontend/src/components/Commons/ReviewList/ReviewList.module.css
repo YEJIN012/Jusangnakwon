@@ -54,6 +54,7 @@
 }
 
 .write-review-button {
+  font-family: "Hahmlet", serif;
   background-color: rgb(149, 149, 149);
   border-radius: 20px;
   display: flex;

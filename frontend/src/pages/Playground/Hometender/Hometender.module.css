@@ -31,10 +31,11 @@
 
 .recipe-title {
   margin-top: 15%;
-  width: auto;
+  width: 90%;
   margin-bottom: 7%;
   text-align: center;
-  padding: 4% 8%;
+  text-shadow: -2px 0  rgb(176, 112, 144), 0 2px  rgb(176, 112, 144), 2px 0  rgb(176, 112, 144), 0 -2px  rgb(176, 112, 144);
+  padding: 4%;
   /* background-color: antiquewhite; */
   background: linear-gradient(268.16deg, #c9b9f7 0%, #f5ca8a 100%);
   border-radius: 50px;

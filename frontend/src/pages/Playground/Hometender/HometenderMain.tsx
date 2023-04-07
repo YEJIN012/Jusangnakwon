@@ -92,7 +92,7 @@ const HometenderMain = () => {
         </div>
         {/* <div className={`${styles[`recipe-title-feed`]}`}> */}
         <div className={`${styles[`recipe-title`]}`}>
-          <div>주상낙원의 홈텐더들을 위한 레시피</div>
+          <h3>주상낙원의 홈텐더들을 위한 레시피</h3>
         </div>
         <RecipeFeed />
       </div>
