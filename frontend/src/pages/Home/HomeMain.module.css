@@ -45,14 +45,14 @@
   margin-right: 4px;
   font-size: 22px;
   /* width: 8ch; */
-  overflow: hidden;
+  /* overflow: hidden;
   white-space: nowrap;
   border-right: 0.05em solid rgb(255, 255, 255);
   animation: typing 0.8s steps(5), cursor 1s steps(1) forwards;
-  padding-right: 3px;
+  padding-right: 3px; */
 }
 
-@keyframes typing {
+/* @keyframes typing {
   from {
     width: 0;
   }
@@ -68,7 +68,7 @@
   100% {
     border-right: none;
   }
-}
+} */
 .slider {
   width: 100%;
 

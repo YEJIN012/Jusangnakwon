@@ -281,7 +281,6 @@ const WriteReview = () => {
                 maxDetail="month"
                 showNeighboringMonth={false}
                 locale="ko-KO"
-                maxDate={new Date()}
                 // 달력에 '일' 빼는 코드
                 formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })}
               />
@@ -309,8 +308,8 @@ const WriteReview = () => {
         </div>
       </form>
 
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <div style={{ paddingTop: "56px" }}>
+      <Modal open={open} onClose={() => setOpen(false)} style={{ overflow: "auto" }}>
+        <div style={{ paddingTop: "56px", height:"852px" }}>
           <SearchPage handleOpen={handleOpen}></SearchPage>
         </div>
       </Modal>

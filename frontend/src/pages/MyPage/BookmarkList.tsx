@@ -108,7 +108,7 @@ const BookmarkList = () => {
                     {EnglishToKorean[bookmark.liquorType]}
                   </div>
                   <div className={styles["like-box"]}>
-                    <div className={styles["alcohol-name"]}>{bookmark.name}</div>
+                    <div className={styles["alcohol-name"]}>{`${bookmark.name.substring(0,10)} ···`}</div>
                   </div>
                 </div>
               </div>
