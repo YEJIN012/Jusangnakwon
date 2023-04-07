@@ -137,8 +137,9 @@ textarea:focus {
   padding: 3px 8px;
   border-radius: 20px;
   font-size: 0.9rem;
-}
+  white-space: nowrap;
 
+}
 
 /* taste 선택 radio */
 .taste-wrap {

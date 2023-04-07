@@ -74,6 +74,7 @@
   font-size: 0.9rem;
   /* margin-right: 20px; */
   /* margin-left: 20px; */
+  white-space: nowrap;
 }
 
 .feed-alcohol-type-tag {
@@ -91,6 +92,7 @@
   /* border-bottom: 3px solid rgba(94, 191, 212, 0.785); */
   padding: 1%;
   width: fit-content;
+  white-space: nowrap;
   /* background-color: rgba(94, 191, 212, 0.785); */
 }
 .feed-alcohol-info-box {

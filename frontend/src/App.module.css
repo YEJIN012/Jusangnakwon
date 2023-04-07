@@ -37,7 +37,8 @@
   z-index: 99;
   height: 100vh;
   width: 100vw;
-  background-color: plum;
+  /* background-color: plum; */
+  background: linear-gradient(268.16deg, #c9b9f7 0%, #f5ca8a 100%);
   display: flex;
   justify-content: center;
   align-items: center;
