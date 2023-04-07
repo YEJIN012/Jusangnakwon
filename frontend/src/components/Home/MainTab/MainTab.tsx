@@ -572,7 +572,7 @@ export default function MainTab() {
                         {isLogin ? (
                           <div className={styles["drink-label-wrap"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0,10)} ···` : name}
                             </div>
                             {scrapped ? (
                                 <BookmarkIcon
@@ -591,7 +591,7 @@ export default function MainTab() {
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                           </div>
                         )}
@@ -640,7 +640,7 @@ export default function MainTab() {
                         {isLogin ? (
                           <div className={styles["drink-label-wrap"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                             {scrapped ? (
                                 <BookmarkIcon
@@ -659,7 +659,7 @@ export default function MainTab() {
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                           </div>
                         )}
@@ -707,7 +707,7 @@ export default function MainTab() {
                         {isLogin ? (
                           <div className={styles["drink-label-wrap"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                             {scrapped ? (
                                 <BookmarkIcon
@@ -726,7 +726,7 @@ export default function MainTab() {
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                           </div>
                         )}
@@ -774,7 +774,7 @@ export default function MainTab() {
                         {isLogin ? (
                           <div className={styles["drink-label-wrap"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                             {scrapped ? (
                                 <BookmarkIcon
@@ -793,7 +793,7 @@ export default function MainTab() {
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                           </div>
                         )}
@@ -841,7 +841,7 @@ export default function MainTab() {
                         {isLogin ? (
                           <div className={styles["drink-label-wrap"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                             <>
                               {scrapped ? (
@@ -862,7 +862,7 @@ export default function MainTab() {
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                           </div>
                         )}

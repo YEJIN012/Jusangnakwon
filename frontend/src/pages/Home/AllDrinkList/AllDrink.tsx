@@ -81,7 +81,7 @@ const AllDrink = () => {
                 {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
-                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)} ···` : drink.name}
                   </p>
                   {drink.scrapped ? (
                     <BookmarkIcon
@@ -109,7 +109,7 @@ const AllDrink = () => {
                 ) : (
                   <div className={styles["drink-label-wrap-center"]}>
                     <div className={styles["drink-name"]}>
-                      {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                      {drink.name.length > 15 ? `${drink.name.substring(0, 12)} ···` : drink.name}
                     </div>
                   </div>
                 )}
@@ -149,7 +149,7 @@ const AllDrink = () => {
                 {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
-                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)} ···` : drink.name}
                   </p>
                   {drink.scrapped ? (
                     <BookmarkIcon
@@ -177,7 +177,7 @@ const AllDrink = () => {
                 ) : (
                   <div className={styles["drink-label-wrap-center"]}>
                     <div className={styles["drink-name"]}>
-                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)} ···` : drink.name}
                     </div>
                   </div>
                 )}
@@ -217,7 +217,7 @@ const AllDrink = () => {
                 {isLogin? (
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
-                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)} ···` : drink.name}
                   </p>
                   {drink.scrapped ? (
                     <BookmarkIcon
@@ -245,7 +245,7 @@ const AllDrink = () => {
                 ) : (
                   <div className={styles["drink-label-wrap-center"]}>
                     <div className={styles["drink-name"]}>
-                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)} ···` : drink.name}
                     </div>
                   </div>
                 )}
@@ -285,7 +285,7 @@ const AllDrink = () => {
                 {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
-                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)} ···` : drink.name}
                   </p>
                   {drink.scrapped ? (
                     <BookmarkIcon
@@ -313,7 +313,7 @@ const AllDrink = () => {
                 ) : (
                   <div className={styles["drink-label-wrap-center"]}>
                     <div className={styles["drink-name"]}>
-                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)} ···` : drink.name}
                     </div>
                   </div>
                 )}
@@ -353,7 +353,7 @@ const AllDrink = () => {
                 {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
-                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)} ···` : drink.name}
                   </p>
                   {drink.scrapped ? (
                     <BookmarkIcon
@@ -381,7 +381,7 @@ const AllDrink = () => {
                 ) : (
                   <div className={styles["drink-label-wrap-center"]}>
                     <div className={styles["drink-name"]}>
-                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)} ···` : drink.name}
                     </div>
                   </div>
                 )}
