@@ -296,7 +296,7 @@ const TasteForm = () => {
             </RadioGroup>
           </FormControl>
         </div>
-        <div onClick={handleSubmitSurvey}>
+        <div onClick={handleSubmitSurvey} style={{marginTop:"5%"}}>
           <ConfettiButton filledForm={!Object.values(selectedValue).includes(null)}></ConfettiButton>
         </div>
       </div>
