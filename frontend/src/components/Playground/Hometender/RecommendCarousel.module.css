@@ -13,13 +13,13 @@
   border-radius: 20px;
   padding: 4% 0 4% 8%;
   align-items: center;
-  border: 2px solid rgba(68, 53, 71, 0.377);
+  /* border: 2px solid rgba(179, 156, 184, 0.377); */
   /* box-shadow: 2px 2px 3px gainsboro; */
 }
 
 .img-box {
-  width: 12vh;
-  height: 12vh;
+  width: 15vh;
+  height: 15vh;
   border-radius: 10px;
 }
 
