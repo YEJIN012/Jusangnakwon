@@ -47,8 +47,8 @@ const ProtectedRoute = ({ isLoggedin, outlet }: ProtectedRouteProps) => {
 };
 
 const defaultProtectedRouteProps: Omit<ProtectedRouteProps, "outlet"> = {
-  isLoggedin: sessionStorage.getItem("accessToken") ? true : false,
-  // isLoggedin: true,
+  // isLoggedin: sessionStorage.getItem("accessToken") ? true : false,
+  isLoggedin: true,
 };
 
 const router = createBrowserRouter([

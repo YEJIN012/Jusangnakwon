@@ -19,8 +19,8 @@ const getApiInstance = () => {
     baseURL: import.meta.env.VITE_API_BASE_URL,
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      // Authorization:
-      //   "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoiMTAxMTgzNDQ5MDgzNDUwNDQwOTA2Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTY4MDgzMDI2Mn0.TvyHCGKPZrGLE7NdVey-OSoQeks_9uKvjkQDhzmJdYk",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoiMTAxMTgzNDQ5MDgzNDUwNDQwOTA2Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTY4MDgzMDI2Mn0.TvyHCGKPZrGLE7NdVey-OSoQeks_9uKvjkQDhzmJdYk",
     },
   });
 
@@ -32,7 +32,7 @@ const getApiInstance = () => {
       // statusCode 403 : 토큰정보가 유효하지않습니다.
       if (response.data.error.status === 403) {
         sessionStorage.removeItem("accessToken");
-        
+
         // console.log(response.data.error);
         // const originalRequest = response.config;
 
@@ -60,7 +60,6 @@ const getApiInstance = () => {
         // console.log("refreshToken 재발급 : ", error);
       }
       console.log(response);
-      
     }
     return Promise.reject(Error);
   });

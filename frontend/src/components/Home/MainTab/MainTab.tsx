@@ -525,7 +525,7 @@ export default function MainTab() {
                     border: value === index ? "solid 3px rgb(176, 112, 144)" : "solid 2px transparent",
                     // boxShadow: value === 0 ? '0 0 10px 5px #8DFFFF':"#06031A",
                     // box-shadow: 0 0 10px 5px #8DFFFF
-                    fontSize: { xs: 12, md: 16 },
+                    fontSize: { xs: 16, md: 16 },
                     whiteSpace: "nowrap",
                     // "&:hover": { bgcolor: "#7B334E" },
                   }}
