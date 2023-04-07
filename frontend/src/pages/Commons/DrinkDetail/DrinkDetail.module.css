@@ -30,6 +30,13 @@
   position: relative;
   width: 100%;
   height: 50vh;
+  /* border: 5px solid #fffbfb; */
+  
+}
+
+.drink-img-wrapper{
+  width: 100%;
+  height: 100%;
 }
 
 .drink-img {
@@ -47,16 +54,6 @@
 
 .drink-title {
   display: flex;
-}
-
-.drink-img {
-  width: 100%;
-  height: 100%;
-}
-.drink-img-wrapper {
-  height: 50%;
-  margin-bottom: 10px;
-  width: 100vw;
 }
 
 .drink-content-container {
