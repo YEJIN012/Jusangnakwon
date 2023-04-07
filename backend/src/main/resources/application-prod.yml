@@ -46,7 +46,7 @@ spring:
           clientSecret: ${kclient.secret}
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
-          redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+          redirectUri: "https://j8a504.p.ssafy.io/s1/login/oauth2/code/kakao"
           scope:
             - profile_nickname
             - profile_image
