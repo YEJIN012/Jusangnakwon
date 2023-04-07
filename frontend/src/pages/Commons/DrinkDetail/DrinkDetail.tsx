@@ -83,7 +83,7 @@ const DrinkDetail = () => {
       <HeaderBack></HeaderBack>
       <div className={`${styles[`drink-img-box`]}`}>
         <div className={drinkDetailItem?.image ? `${styles[`drink-img-wrapper`]}` : ""}>
-          <img src={drinkDetailItem?.image} className={`${styles[`drink-img`]}`}></img>
+          <img src={drinkDetailItem?.image} className={drinkDetailItem?.image ? `${styles[`drink-img`]}` : ""}></img>
         </div>
         {/* 일반 술이랑 공통 컴포로 쓰려면 업로드유저(user_id) 있는지 판별  */}
         {drinkDetailItem?.writer ? (
