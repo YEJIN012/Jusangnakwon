@@ -33,6 +33,11 @@ const ReviewList = (props: Props) => {
       {reviews.map((review, index) => {
         return <ReviewListItem key={index} review={review}></ReviewListItem>;
       })}
+      {reviews.length === 0 && (
+        <div className={`${styles[`no-review`]}`}>
+          아직 등록된 리뷰가 없습니다.<br></br>첫번째 리뷰를 남겨주세요!
+        </div>
+      )}
     </div>
   );
 };

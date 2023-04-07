@@ -93,9 +93,9 @@ export default function HometenderBanner(props: HometenderApiData | null) {
                         </p>
                       ))}
 
-                    <p>
-                      <div ref={container2} style={{ height: "50px", width: "80px" }}></div>
-                      <p style={{ fontSize: "0.8rem" }}>홈텐딩 하러 가기</p>
+                    <p style={{ display: "flex", alignContent: "center", alignItems: "center" }}>
+                      <div ref={container2} style={{ height: "50px", width: "80px", marginLeft: "-30px" }}></div>
+                      <p style={{ fontSize: "0.9rem", color: "lightgray" }}>홈텐딩 하러 가기</p>
                     </p>
                   </div>
                 </div>

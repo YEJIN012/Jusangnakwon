@@ -94,10 +94,12 @@ const SearchPage = (props: Props) => {
       apiSearchDrink(e.target.value, page)
         .then(
           (r) => {
-            console.log(r?.data.success);
-            // if (r?.data.success === "true") {
-            setSearchedData(r?.data.body);
-            // }
+            // console.log(r?.data.success);
+            if (r?.data.success === true) {
+              setSearchedData(r?.data.body);
+            } else {
+              setSearchedData(null);
+            }
           },
           // console.log(r?.data.body);
         )

@@ -14,7 +14,6 @@
   align-items: start;
 }
 
-
 .row-container {
   display: flex;
   align-items: center;
@@ -62,4 +61,13 @@
   padding: 5px;
   align-items: center;
   margin-top: 2px;
+  color: black;
+  font-family: "Hahmlet";
+  font-weight: 500;
+}
+
+.no-review {
+  text-align: center;
+  color: gray;
+  font-size: 1rem;
 }

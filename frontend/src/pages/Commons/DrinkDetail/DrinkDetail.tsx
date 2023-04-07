@@ -123,6 +123,7 @@ const DrinkDetail = () => {
             reviews={drinkDetailItem.reviews}
           ></ReviewList>
         )}
+
         {/* <ReadMore content={drinkDetailItem?.description}></ReadMore> */}
         <RecommendInDetail similarItems={drinkDetailItem?.similarItems}></RecommendInDetail>
       </div>

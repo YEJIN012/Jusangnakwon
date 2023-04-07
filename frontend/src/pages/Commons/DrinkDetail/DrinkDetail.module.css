@@ -4,6 +4,7 @@
   justify-content: space-between;
   margin: 3%;
 }
+
 .user-profile-container-abs {
   position: absolute;
   z-index: 100;
