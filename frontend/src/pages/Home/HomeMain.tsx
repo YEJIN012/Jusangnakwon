@@ -45,7 +45,7 @@ const HomeMain = () => {
   const userInfo = useSelector((state: RootState) => state.userInfo);
   const [recommendedHometender, setRecommendedHometender] = useState<HometenderApiData | null>(null);
   const [weather, setWeather] = useState<WeatherApiData | null>(null);
-  const banner = [<HometenderBanner {...recommendedHometender} />, <DrinkBtiBanner />];
+  const banner = [<HometenderBanner {...recommendedHometender} />];
   console.log(axios.defaults.headers.common["Authorization"]);
   useEffect(() => {
     if (recommendedHometender === null) {
@@ -59,7 +59,7 @@ const HomeMain = () => {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.log(e); 
         });
     }
     if (recommendedHometender === null) {
@@ -111,7 +111,10 @@ const HomeMain = () => {
       {userInfo.isLogin ? (
         <div className={`${styles[`main-content-container`]}`}>
           <div className={`${styles[`text-wrap`]}`}>
-            <h3>{userInfo.username}님의 취향</h3>
+            <div className={`${styles[`username-text-wrap`]}`}>
+              <h3 className={`${styles[`main-page-username`]}`}>{userInfo.username}</h3>
+              <h3>님의 취향</h3>
+            </div>
             <p>{userInfo.username}님의 취향에 맞는 술을 주종별로 추천해드려요!</p>
           </div>
         </div>

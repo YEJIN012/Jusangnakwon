@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "90%",
+    width: "80%",
     margin: "0 auto",
     // border: "solid ",
-    marginBottom: "40px",
+    marginBottom: "20px",
   },
   formControlLabel: {
     // margin: theme.spacing(1),
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   label: {
-    fontSize: "0.9rem", // 폰트 크기를 변경합니다.
+    fontSize: "1rem", // 폰트 크기를 변경합니다.
   },
 }));
 
@@ -112,7 +112,7 @@ const TasteForm = () => {
 
   return (
     <div className={`${styles[`container`]}`}>
-      <h3 className={`${styles[`head-text`]}`}>선호하는 맛의 취향을 선택해보세요</h3>
+      <h3 className={`${styles[`head-text`]}`}>🍸선호하는 맛의 취향을 선택해보세요🍹</h3>
       <div className={`${styles[`info-text`]}`}>선택한 맛울 기반으로 주종별 추천을 해드립니다.</div>
 
       <div className={`${styles[`taste-wrap`]}`}>

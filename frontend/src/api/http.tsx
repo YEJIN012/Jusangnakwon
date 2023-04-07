@@ -31,34 +31,35 @@ const getApiInstance = () => {
     } else {
       // statusCode 403 : 토큰정보가 유효하지않습니다.
       if (response.data.error.status === 403) {
-        console.log(response.data.error);
-        const originalRequest = response.config;
+        sessionStorage.removeItem("accessToken");
 
-        // 토큰 재발급을 위한 요청
-        refreshAccessToken()
-          .then((r) => {
-            console.log(r);
+        // console.log(response.data.error);
+        // const originalRequest = response.config;
 
-            const accessToken = r?.data.body;
+        // // 토큰 재발급을 위한 요청
+        // refreshAccessToken()
+        //   .then((r) => {
+        //     console.log(r);
 
-            // 재발급된 토큰을 기존요청에 다시 담아서 ->
-            originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-            // axios 디폴트값에도 갱신해준다.
-            axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-            // sessionStorage에 accessToken 저장
-            sessionStorage.setItem("accessToken", accessToken);
-            // -> 재요청
-            return axios(originalRequest);
-          })
-          .catch((error) => {
-            console.log("refreshToken 재발급 필요 : ", error.status);
+        //     const accessToken = r?.data.body;
 
-            redirect("/login");
-          });
+        //     // 재발급된 토큰을 기존요청에 다시 담아서 ->
+        //     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        //     // axios 디폴트값에도 갱신해준다.
+        //     axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        //     // sessionStorage에 accessToken 저장
+        //     sessionStorage.setItem("accessToken", accessToken);
+        //     // -> 재요청
+        //     return axios(originalRequest);
+        //   })
+        //   .catch((error) => {
+        //     console.log("refreshToken 재발급 필요 : ", error.status);
+
+        //     redirect("/login");
+        //   });
         // console.log("refreshToken 재발급 : ", error);
       }
       console.log(response);
-      redirect("/login");
     }
     return Promise.reject(Error);
   });

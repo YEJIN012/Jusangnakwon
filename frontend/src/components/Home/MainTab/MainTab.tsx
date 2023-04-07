@@ -92,7 +92,7 @@ export default function MainTab() {
   const [cocktailList, setCocktailList] = useState<DrinkItem[]>([]);
   const [cocktailListToShow, setCocktailListToShow] = useState<DrinkItem[]>([]);
   const [isLoadingMoreCocktails, setIsLoadingMoreCocktails] = useState(false);
-  const [cocktailCurPageNumber, setCocktailCurPageNumber] = useState<number>(1);
+  const [cocktailCurPageNumber, setCocktailCurPageNumber] = useState<number>(0);
   const [cocktailTotalPage, setCocktailTotalPage] = useState<number>(0);
   const cocktailScrapToggle = (id: string) => {
     apiPutBookmark("l5", Number(id)).then(() => {
@@ -112,7 +112,7 @@ export default function MainTab() {
   const [whiskyList, setWhiskyList] = useState<DrinkItem[]>([]);
   const [whiskyListToShow, setWhiskyListToShow] = useState<DrinkItem[]>([]);
   const [isLoadingMoreWhiskys, setIsLoadingMoreWhiskys] = useState(false);
-  const [whiskyCurPageNumber, setWhiskyCurPageNumber] = useState<number>(1);
+  const [whiskyCurPageNumber, setWhiskyCurPageNumber] = useState<number>(0);
   const [whiskyTotalPage, setWhiskyTotalPage] = useState<number>(0);
   const whiskyScrapToggle = (id: string) => {
     apiPutBookmark("l2", Number(id)).then(() => {
@@ -132,7 +132,7 @@ export default function MainTab() {
   const [wineList, setWineList] = useState<DrinkItem[]>([]);
   const [wineListToShow, setWineListToShow] = useState<DrinkItem[]>([]);
   const [isLoadingMoreWines, setIsLoadingMoreWines] = useState(false);
-  const [wineCurPageNumber, setWineCurPageNumber] = useState<number>(1);
+  const [wineCurPageNumber, setWineCurPageNumber] = useState<number>(0);
   const [wineTotalPage, setWineTotalPage] = useState<number>(0);
   const wineScrapToggle = (id: string) => {
     apiPutBookmark("l1", Number(id)).then(() => {
@@ -152,7 +152,7 @@ export default function MainTab() {
   const [koreanList, setKoreanList] = useState<DrinkItem[]>([]);
   const [koreanListToShow, setKoreanListToShow] = useState<DrinkItem[]>([]);
   const [isLoadingMoreKoreans, setIsLoadingMoreKoreans] = useState(false);
-  const [koreanCurPageNumber, setKoreanCurPageNumber] = useState<number>(1);
+  const [koreanCurPageNumber, setKoreanCurPageNumber] = useState<number>(0);
   const [koreanTotalPage, setKoreanTotalPage] = useState<number>(0);
   const koreanScrapToggle = (id: string) => {
     apiPutBookmark("l4", Number(id)).then(() => {
@@ -172,7 +172,7 @@ export default function MainTab() {
   const [beerList, setBeerList] = useState<DrinkItem[]>([]);
   const [beerListToShow, setBeerListToShow] = useState<DrinkItem[]>([]);
   const [isLoadingMoreBeers, setIsLoadingMoreBeers] = useState(false);
-  const [beerCurPageNumber, setBeerCurPageNumber] = useState<number>(1);
+  const [beerCurPageNumber, setBeerCurPageNumber] = useState<number>(0);
   const [beerTotalPage, setBeerTotalPage] = useState<number>(0);
   const beerScrapToggle = (id: string) => {
     apiPutBookmark("l3", Number(id)).then(() => {
@@ -190,7 +190,7 @@ export default function MainTab() {
   const navigate = useNavigate();
   // const classes = useStyles();
 
-  const drinktype = ["칵테일", "위스키", "와인", "전통주", "맥주"];
+  const drinktype = ["와인", "위스키", "전통주","맥주","칵테일",  ];
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -525,7 +525,7 @@ export default function MainTab() {
                     border: value === index ? "solid 3px rgb(176, 112, 144)" : "solid 2px transparent",
                     // boxShadow: value === 0 ? '0 0 10px 5px #8DFFFF':"#06031A",
                     // box-shadow: 0 0 10px 5px #8DFFFF
-                    fontSize: { xs: 12, md: 16 },
+                    fontSize: { xs: 16, md: 16 },
                     whiteSpace: "nowrap",
                     // "&:hover": { bgcolor: "#7B334E" },
                   }}
@@ -545,17 +545,17 @@ export default function MainTab() {
             <div
               style={{
                 background: "#06031A",
-                // value === 0 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
-                // "#06031A"
+                // value === 2 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
                 // border:"solid 2px",
-                // "linear-gradient(212.38deg, #A0425F 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                // "linear-gradient(180deg,  #421F3C 0%, rgba(153, 125, 123, 0) 100%)" : "black",
                 paddingTop: "5%",
                 paddingRight: "3%",
                 paddingLeft: "3%",
+                // paddingBottom: "30px",
               }}
             >
               <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/list/l5`}>
+                <Link to={`/list/l1`}>
                   <span className={`${styles[`all-drink-list`]}`}>
                     전체 {drinktype[0]} 보기 <KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
                   </span>
@@ -563,46 +563,44 @@ export default function MainTab() {
               </div>
               <div className={`${styles[`drink-list-wrap`]}`}>
                 <div className={`${styles[`tab-drink-list`]}`}>
-                  {cocktailListToShow.map(({ id, img, name, scrapped }, index) => (
+                  {wineListToShow.map(({ id, img, name,scrapped }, index) => (
                     <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
                       <div className={styles["img-container"]}>
-                        <Link to={`/details/l5/${id}`}>
+                        <Link to={`/details/l1/${id}`}>
                           <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                         </Link>
                         {isLogin ? (
                           <div className={styles["drink-label-wrap"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0,10)} ···` : name}
                             </div>
-                            <>
-                              {scrapped ? (
+                            {scrapped ? (
                                 <BookmarkIcon
                                   onClick={() => {
-                                    cocktailScrapToggle(id);
+                                    wineScrapToggle(id);
                                   }}
                                 />
                               ) : (
                                 <BookmarkBorderIcon
                                   onClick={() => {
-                                    cocktailScrapToggle(id);
+                                    wineScrapToggle(id);
                                   }}
                                 />
                               )}
-                            </>
                           </div>
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                           </div>
                         )}
                       </div>
                     </div>
                   ))}
-                  {isLoadingMoreCocktails && <div>Loading...</div>}
-                  {!isLoadingMoreCocktails && cocktailCurPageNumber < cocktailTotalPage - 1 && (
-                    <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreCocktailItems}>
+                  {isLoadingMoreWines && <div>Loading...</div>}
+                  {!isLoadingMoreWines && wineCurPageNumber < wineTotalPage - 1 && (
+                    <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreWineItems}>
                       더보기
                     </a>
                   )}
@@ -610,6 +608,7 @@ export default function MainTab() {
               </div>
             </div>
           </TabPanel>
+          
           <TabPanel value={value} index={1} dir={theme.direction}>
             <div
               style={{
@@ -641,7 +640,7 @@ export default function MainTab() {
                         {isLogin ? (
                           <div className={styles["drink-label-wrap"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                             {scrapped ? (
                                 <BookmarkIcon
@@ -660,7 +659,7 @@ export default function MainTab() {
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                           </div>
                         )}
@@ -681,73 +680,6 @@ export default function MainTab() {
             <div
               style={{
                 background: "#06031A",
-                // value === 2 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
-                // border:"solid 2px",
-                // "linear-gradient(180deg,  #421F3C 0%, rgba(153, 125, 123, 0) 100%)" : "black",
-                paddingTop: "5%",
-                paddingRight: "3%",
-                paddingLeft: "3%",
-                // paddingBottom: "30px",
-              }}
-            >
-              <div className={`${styles[`all-drink-list-btn`]}`}>
-                <Link to={`/list/l1`}>
-                  <span className={`${styles[`all-drink-list`]}`}>
-                    전체 {drinktype[2]} 보기 <KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
-                  </span>
-                </Link>
-              </div>
-              <div className={`${styles[`drink-list-wrap`]}`}>
-                <div className={`${styles[`tab-drink-list`]}`}>
-                  {wineListToShow.map(({ id, img, name,scrapped }, index) => (
-                    <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
-                      <div className={styles["img-container"]}>
-                        <Link to={`/details/l1/${id}`}>
-                          <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
-                        </Link>
-                        {isLogin ? (
-                          <div className={styles["drink-label-wrap"]}>
-                            <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
-                            </div>
-                            {scrapped ? (
-                                <BookmarkIcon
-                                  onClick={() => {
-                                    wineScrapToggle(id);
-                                  }}
-                                />
-                              ) : (
-                                <BookmarkBorderIcon
-                                  onClick={() => {
-                                    wineScrapToggle(id);
-                                  }}
-                                />
-                              )}
-                          </div>
-                        ) : (
-                          <div className={styles["drink-label-wrap-center"]}>
-                            <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                  {isLoadingMoreWines && <div>Loading...</div>}
-                  {!isLoadingMoreWines && wineCurPageNumber < wineTotalPage - 1 && (
-                    <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreWineItems}>
-                      더보기
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </TabPanel>
-          <TabPanel value={value} index={3} dir={theme.direction}>
-            <div
-              style={{
-                background: "#06031A",
                 // value === 3 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
                 // border:"solid 2px",
                 // "linear-gradient(180deg, #4E3415 0%, rgba(78, 52, 21, 0) 100%)" : "black",
@@ -760,7 +692,7 @@ export default function MainTab() {
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/list/l4`}>
                   <span className={`${styles[`all-drink-list`]}`}>
-                    전체 {drinktype[3]} 보기 <KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
+                    전체 {drinktype[2]} 보기 <KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
                   </span>
                 </Link>
               </div>
@@ -775,7 +707,7 @@ export default function MainTab() {
                         {isLogin ? (
                           <div className={styles["drink-label-wrap"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                             {scrapped ? (
                                 <BookmarkIcon
@@ -794,7 +726,7 @@ export default function MainTab() {
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                           </div>
                         )}
@@ -811,7 +743,7 @@ export default function MainTab() {
               </div>
             </div>
           </TabPanel>
-          <TabPanel value={value} index={4} dir={theme.direction}>
+          <TabPanel value={value} index={3} dir={theme.direction}>
             <div
               style={{
                 background: "#06031A",
@@ -827,7 +759,7 @@ export default function MainTab() {
               <div className={`${styles[`all-drink-list-btn`]}`}>
                 <Link to={`/list/l3`}>
                   <span className={`${styles[`all-drink-list`]}`}>
-                    전체 {drinktype[4]} 보기 <KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
+                    전체 {drinktype[3]} 보기 <KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
                   </span>
                 </Link>
               </div>
@@ -842,7 +774,7 @@ export default function MainTab() {
                         {isLogin ? (
                           <div className={styles["drink-label-wrap"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                             {scrapped ? (
                                 <BookmarkIcon
@@ -861,7 +793,7 @@ export default function MainTab() {
                         ) : (
                           <div className={styles["drink-label-wrap-center"]}>
                             <div className={styles["drink-name"]}>
-                              {name.length > 15 ? `${name.substring(0, 15)}...` : name}
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
                             </div>
                           </div>
                         )}
@@ -871,6 +803,75 @@ export default function MainTab() {
                   {isLoadingMoreBeers && <div>Loading...</div>}
                   {!isLoadingMoreBeers && beerCurPageNumber < beerTotalPage - 1 && (
                     <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreBeerItems}>
+                      더보기
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </TabPanel>
+          <TabPanel value={value} index={4} dir={theme.direction}>
+            <div
+              style={{
+                background: "#06031A",
+                // value === 0 ? "linear-gradient(212.38deg, #665582 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                // "#06031A"
+                // border:"solid 2px",
+                // "linear-gradient(212.38deg, #A0425F 6.22%, rgba(125, 62, 109, 0) 96.93%)" : "black",
+                paddingTop: "5%",
+                paddingRight: "3%",
+                paddingLeft: "3%",
+              }}
+            >
+              <div className={`${styles[`all-drink-list-btn`]}`}>
+                <Link to={`/list/l5`}>
+                  <span className={`${styles[`all-drink-list`]}`}>
+                    전체 {drinktype[4]} 보기 <KeyboardArrowRightIcon sx={{ color: "white" }}></KeyboardArrowRightIcon>
+                  </span>
+                </Link>
+              </div>
+              <div className={`${styles[`drink-list-wrap`]}`}>
+                <div className={`${styles[`tab-drink-list`]}`}>
+                  {cocktailListToShow.map(({ id, img, name, scrapped }, index) => (
+                    <div key={index} className={`${styles[`tab-drink-list-item`]}`}>
+                      <div className={styles["img-container"]}>
+                        <Link to={`/details/l5/${id}`}>
+                          <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
+                        </Link>
+                        {isLogin ? (
+                          <div className={styles["drink-label-wrap"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
+                            </div>
+                            <>
+                              {scrapped ? (
+                                <BookmarkIcon
+                                  onClick={() => {
+                                    cocktailScrapToggle(id);
+                                  }}
+                                />
+                              ) : (
+                                <BookmarkBorderIcon
+                                  onClick={() => {
+                                    cocktailScrapToggle(id);
+                                  }}
+                                />
+                              )}
+                            </>
+                          </div>
+                        ) : (
+                          <div className={styles["drink-label-wrap-center"]}>
+                            <div className={styles["drink-name"]}>
+                              {name.length > 10 ? `${name.substring(0, 10)} ···` : name}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                  {isLoadingMoreCocktails && <div>Loading...</div>}
+                  {!isLoadingMoreCocktails && cocktailCurPageNumber < cocktailTotalPage - 1 && (
+                    <a className={`${styles["more-drink-btn"]}`} onClick={handleShowMoreCocktailItems}>
                       더보기
                     </a>
                   )}

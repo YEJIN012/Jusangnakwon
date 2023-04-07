@@ -95,7 +95,7 @@ const RecommendCarousel = (props: RecommendList) => {
                 </div>
                 {/* <Ingredients ingredients={item.ingredients}></Ingredients> */}
                 <div className={`${styles[`drink-explain`]}`}>
-                  {item.explain ? item.explain.substring(0, 15) + (item.explain.length > 15 ? "..." : "") : ""}
+                  {item.explain ? item.explain.substring(0, 15) + (item.explain.length > 15 ? " ···" : "") : ""}
                 </div>
               </div>
             </div>
