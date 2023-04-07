@@ -46,24 +46,24 @@ const HomeMain = () => {
   const [recommendedHometender, setRecommendedHometender] = useState<HometenderApiData | null>(null);
   const [weather, setWeather] = useState<WeatherApiData | null>(null);
   const banner = [<HometenderBanner {...recommendedHometender} />];
-  console.log(axios.defaults.headers.common["Authorization"]);
+  //console.log(axios.defaults.headers.common["Authorization"]);
   useEffect(() => {
     if (recommendedHometender === null) {
       apiGetRandomlyRecommendedHometender()
         .then((r) => {
           if (r?.data.success) {
             setRecommendedHometender(r?.data);
-            console.log(`hometender: ${r?.data}`);
+            //console.log(`hometender: ${r?.data}`);
           } else {
             throw new Error(r?.data.error ?? "Failed to fetch data");
           }
         })
         .catch((e) => {
-          console.log(e); 
+          //console.log(e); 
         });
     }
     if (recommendedHometender === null) {
-      console.log("날씨호출");
+      //console.log("날씨호출");
       apiGetWeather()
         .then((r) => {
           if (r?.data.success) {
@@ -73,7 +73,7 @@ const HomeMain = () => {
           }
         })
         .catch((e) => {
-          console.log(e);
+          //console.log(e);
         });
     }
   }, []);

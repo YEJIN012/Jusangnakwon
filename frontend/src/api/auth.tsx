@@ -8,6 +8,6 @@ export const refreshAccessToken = async () => {
     const response = await axios.get(`${baseURL}/v1/auth/refresh`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };

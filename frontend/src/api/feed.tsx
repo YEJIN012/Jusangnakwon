@@ -9,7 +9,7 @@ export const apiGetFeedList = async (page: number) => {
     const response = await api.get(`/feed/list?page=${page}`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -25,7 +25,7 @@ export const apiGetFilteredFeedList = async (props: Props) => {
     const response = await api.get(`/feed/list${filter}?page=${props.page}`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -35,7 +35,7 @@ export const apiCreateFeed = async (data: FormData) => {
     const response = await api.post(`/feed`, data, { headers: { "Content-Type": "multipart/form-data" } });
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -44,10 +44,10 @@ export const apiCreateFeed = async (data: FormData) => {
 export const apiGetFeedDetail = async (feedId: number) => {
   try {
     const response = await api.get(`/feed/${feedId}`);
-    console.log(response)
+    // console.log(response)
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -57,7 +57,7 @@ export const apiCreateComment = async (data: { feedId: number; content: string }
     const response = await api.post(`/comment`, data);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -67,7 +67,7 @@ export const apiCreateLike = async (feedId: number, data: { [key: string]: boole
     const response = await api.put(`/feed/like/${feedId}`, data);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 

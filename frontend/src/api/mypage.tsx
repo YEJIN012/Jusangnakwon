@@ -8,7 +8,7 @@ export const apiGetReviewListMonthly = async (year: number, month: number) => {
     const response = await api.get(`/calendar/${year}/${month}`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -18,7 +18,7 @@ export const apiGetMyFeed = async (page: number) => {
     const response = await api.get(`/mypage/record?page=${page}`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -28,6 +28,6 @@ export const apiGetBookmarkList = async (page: number) => {
     const response = await api.get(`/mypage/scrap?page=${page}`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };

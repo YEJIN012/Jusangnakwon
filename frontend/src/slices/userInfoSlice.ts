@@ -16,7 +16,7 @@ const userInfoSlice = createSlice({
   reducers: {
     saveUserInfo: (state, action) => {
       state = action.payload;
-      console.log(state)
+      // console.log(state)
       return state;
     },
     deleteUserInfo: (state, action) => {

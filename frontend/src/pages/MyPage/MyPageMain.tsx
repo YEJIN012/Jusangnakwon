@@ -60,7 +60,7 @@ const MyPageMain = () => {
         }
       })
       .catch((e) => {
-        console.log(e);
+        // console.log(e);
       });
   }, [year, month]);
 
@@ -85,7 +85,7 @@ const MyPageMain = () => {
       })
       .flatMap((feed) => feed.reviews);
     setSelectedFeedList(selectedList);
-    console.log("선택", selectedFeedList);
+    // console.log("선택", selectedFeedList);
   };
 
   // myMonthlyFeedList에서 날짜 별로 리뷰글 조회해서 liquorType에 맞는 이모지 붙여줌

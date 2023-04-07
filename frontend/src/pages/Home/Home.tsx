@@ -17,7 +17,7 @@ const Home = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    console.log(isFirst);
+    // console.log(isFirst);
     // 비로그인이면 intro 보고오기.
     // 한번 보고 왔으면(isFirst===false) 끝
     if (!isLogin && isFirst) {

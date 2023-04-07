@@ -6,10 +6,10 @@ const api = getApiInstance();
 export const apiGetUserInfo = async () => {
   try {
     const response = await api.get("/v1/users/info");
-    console.log(response);
+    // console.log(response);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -17,10 +17,10 @@ export const apiGetUserInfo = async () => {
 export const apiSubmitSurvey = async (data: object) => {
   try {
     const response = await api.post("/v1/users/survey", data);
-    console.log(response)
+    // console.log(response)
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -30,6 +30,6 @@ export const apiLogout = async () => {
     const response = await api.post("/logout");
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };

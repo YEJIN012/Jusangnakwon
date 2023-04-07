@@ -84,7 +84,7 @@ const BookmarkList = () => {
         setBookmarkList(r?.data.body.content);
       })
       .catch((e) => {
-        console.log(e);
+        // console.log(e);
       });
   }, []);
 
