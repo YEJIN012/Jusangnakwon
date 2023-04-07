@@ -6,6 +6,7 @@
 
 .calender-container {
   display: flex;
+  height: auto;
   width: 100%;
   justify-content: center;
 }
@@ -14,12 +15,13 @@
 .react-calendar {
   width: 90%;
   padding: 15px;
-  background-color: #1f1f21;
-  border-radius: 30px;
-  /* border: 5px solid #868db3; */
+  background-color: rgba(219, 219, 219, 0.2);
+  border-radius: 20px;
+  /* border: 2px solid #636780; */
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
+  /* box-shadow: 3px 3px 5px #636780; */
 }
 
 .react-calendar--doubleView {
@@ -49,18 +51,19 @@
   outline: none;
   font-size: 1rem;
   line-height: 1.1rem;
-  background-color: #1f1f21;
+  background-color: rgba(219, 219, 219, 0);
   color: white;
   /* border: 1px solid #000; */
+  font-family: "LINESeedKR-Bd";
 }
 
 /* 오늘날짜 */
 .react-calendar__tile--now {
   /* background: #ff947a;
   border: 1px; */
-  background-color: #eaa7f1;
+  background-color: rgb(176, 112, 144);
   font-weight: bolder;
-  color: #4094bf;
+  /* color: #4094bf; */
   border-radius: 9999px;
   border: 1px solid #000;
 }
@@ -73,14 +76,14 @@
 .react-calendar__navigation {
   display: flex;
   height: 44px;
-  margin-bottom: 1em;
+  margin-bottom: 1.1em;
 }
 
 .react-calendar__navigation button {
   color: white;
   min-width: 44px;
   background: none;
-  font-size: 17px;
+  font-size: 18px;
   margin-top: 8px;
   font-weight: bold;
 }
@@ -97,8 +100,10 @@
   text-align: center;
   /* text-transform: uppercase; */
   /* font-weight: bold; */
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   margin-bottom: 2%;
+  font-family: "LINESeedKR-Bd";
+  font-weight: lighter;
 }
 
 /* 요일 밑의 밑줄 지우기 */
@@ -191,14 +196,15 @@ abbr[title] {
 }
 
 .react-calendar__tile:disabled {
-  background-color: #cf3333;
+  background-color: rgba(219, 219, 219, 0);
+  color : gray
 }
 
 /* 날짜 클릭했을 때 배경색 */
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #e0c9f9;
-  color: black;
+  background: rgb(176, 112, 144);
+  color: white;
 }
 
 /* .react-calendar__tile:enabled:hover,
@@ -222,12 +228,12 @@ abbr[title] {
     } */
 
 .react-calendar__tile--active {
-  background: #b1d9ff;
-  color: rgb(0, 0, 0);
+  background: rgb(176, 112, 144);
+  color: white;
   border: 1px;
   font-weight: 800;
   border-radius: 9999px;
-  background-color: #6f48eb33;
+  background-color: rgb(176, 112, 144);
 }
 
 .right-box {
@@ -257,6 +263,7 @@ abbr[title] {
   font-weight: 600;
   font-size: 1.5rem;
   white-space: nowrap;
+  background-color: rgb(176, 112, 144);
   color: white;
 }
 
@@ -280,23 +287,6 @@ abbr[title] {
 
 .select-todolist::-webkit-scrollbar {
   display: none;
-}
-
-.todo-box {
-  display: flex;
-  justify-content: space-between;
-  /* border: 1px solid #000; */
-  width: 70%;
-  padding: 5%;
-  /* padding-bottom: 5%; */
-  border-radius: 10px;
-  background-color: #fff;
-  margin-bottom: 20px;
-  /* box-sizing: border-box; */
-  /* box-shadow: 3px 3px 3px 3px rgb(180, 180, 180); */
-}
-
-.todo-content {
 }
 
 .nowork-text {

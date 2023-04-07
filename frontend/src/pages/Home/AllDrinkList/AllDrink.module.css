@@ -46,6 +46,17 @@
   /* object-fit: cover; */
 }
 
+.drink-type{
+  /* border: 1px solid #ffffff; */
+  background-color: rgb(176, 112, 144);
+  color: white;
+  width: 100px;
+  padding: 1%;
+  margin: 0 auto;
+  border-radius: 20px;
+  /* box-shadow: 2px 2px 3px rgb(97, 95, 95); */
+}
+
 .pagination-wrap {
   /* border: 1px solid #ffffff; */
 }

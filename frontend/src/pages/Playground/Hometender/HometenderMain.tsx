@@ -68,7 +68,7 @@ const HometenderMain = () => {
             <div className={`${styles[`carousel-item`]}`}>
               {loginRecommendList ? (
                 <div className={`${styles[`carousel-item`]}`}>
-                  <div className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</div>
+                  <h2 className={`${styles[`recommend-title`]}`}>당신을 위한 홈텐딩 레시피</h2>
                   <RecommendCarousel recommendList={loginRecommendList}></RecommendCarousel>
                 </div>
               ) : (
@@ -82,7 +82,7 @@ const HometenderMain = () => {
           <div className={`${styles[`carousel-item`]}`}>
             {rankRecommendList ? (
               <>
-                <div className={`${styles[`recommend-title`]}`}>주상낙원 Best 레시피</div>
+                <h2 className={`${styles[`recommend-title`]}`}>주상낙원 Best 레시피</h2>
                 <RecommendCarousel recommendList={rankRecommendList}></RecommendCarousel>
               </>
             ) : (
@@ -90,11 +90,13 @@ const HometenderMain = () => {
             )}
           </div>
         </div>
+        {/* <div className={`${styles[`recipe-title-feed`]}`}> */}
         <div className={`${styles[`recipe-title`]}`}>
-          <div>주상낙원의 홈텐더들을 위한 레시피</div>
+          <h3>주상낙원의 홈텐더들을 위한 레시피</h3>
         </div>
         <RecipeFeed />
       </div>
+      {/* </div> */}
     </>
   );
 };
