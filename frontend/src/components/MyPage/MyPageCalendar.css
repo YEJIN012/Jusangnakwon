@@ -193,7 +193,8 @@ abbr[title] {
 }
 
 .react-calendar__tile:disabled {
-  background-color: #cf3333;
+  background-color: rgba(219, 219, 219, 0);
+  color : gray
 }
 
 /* 날짜 클릭했을 때 배경색 */

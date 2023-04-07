@@ -5,10 +5,17 @@
   src: url("assets/fonts/GmarketSansTTFMedium.ttf");
 } */
 
-@font-face {
+/* @font-face {
   font-family: "LINESeedKR-Bd";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2") format("woff2");
   font-weight: 400;
+  font-style: normal;
+} */
+
+@font-face {
+  font-family: 'Hahmlet-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-Regular.woff2') format('woff2');
+  font-weight: normal;
   font-style: normal;
 }
 .content-wrapper {
@@ -18,8 +25,8 @@
   padding-bottom: 100px;
   /* font-family: 'Gowun Batang', serif; */
   /* font-family: 'Gowun Dodum', sans-serif; */
-  /* font-family: "Hahmlet", serif; */
-  font-family: "LINESeedKR-Bd", serif;
+  font-family: "Hahmlet", serif;
+  /* font-family: "LINESeedKR-Bd", serif; */
   /* font-family: 'Nanum Pen Script', cursive; */
   /* font-family: 'Poor Story', cursive; */
   /* font-family: "gmarketMedium"; */

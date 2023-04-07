@@ -77,6 +77,8 @@ select :hover {
 }
 
 .input-basic {
+  margin-top: 5px;
+  margin-left: 10px;
   background-color: transparent;
   border: solid rgba(149, 149, 149, 0);
   color: #ffff;

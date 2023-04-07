@@ -3,17 +3,17 @@
   height: 100%;
 }
 .box {
-  width: 90%;
+  /* width: 90%; */
   height: 120px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   /* height: 10vh; */
   background-color: rgba(219, 219, 219, 0.2);
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 4% 0 4% 8%;
   align-items: center;
-  /* border:0.5px solid #dadada; */
+  border: 2px solid rgba(68, 53, 71, 0.377);
   /* box-shadow: 2px 2px 3px gainsboro; */
 }
 

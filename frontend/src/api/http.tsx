@@ -19,8 +19,8 @@ const getApiInstance = () => {
     baseURL: import.meta.env.VITE_API_BASE_URL,
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoiMTAxMTgzNDQ5MDgzNDUwNDQwOTA2Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTY4MDgzMDI2Mn0.TvyHCGKPZrGLE7NdVey-OSoQeks_9uKvjkQDhzmJdYk",
+      // Authorization:
+      //   "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoiMTAxMTgzNDQ5MDgzNDUwNDQwOTA2Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTY4MDgzMDI2Mn0.TvyHCGKPZrGLE7NdVey-OSoQeks_9uKvjkQDhzmJdYk",
     },
   });
 
@@ -31,34 +31,36 @@ const getApiInstance = () => {
     } else {
       // statusCode 403 : 토큰정보가 유효하지않습니다.
       if (response.data.error.status === 403) {
-        console.log(response.data.error);
-        const originalRequest = response.config;
+        sessionStorage.removeItem("accessToken");
+        
+        // console.log(response.data.error);
+        // const originalRequest = response.config;
 
-        // 토큰 재발급을 위한 요청
-        refreshAccessToken()
-          .then((r) => {
-            console.log(r);
+        // // 토큰 재발급을 위한 요청
+        // refreshAccessToken()
+        //   .then((r) => {
+        //     console.log(r);
 
-            const accessToken = r?.data.body;
+        //     const accessToken = r?.data.body;
 
-            // 재발급된 토큰을 기존요청에 다시 담아서 ->
-            originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-            // axios 디폴트값에도 갱신해준다.
-            axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-            // sessionStorage에 accessToken 저장
-            sessionStorage.setItem("accessToken", accessToken);
-            // -> 재요청
-            return axios(originalRequest);
-          })
-          .catch((error) => {
-            console.log("refreshToken 재발급 필요 : ", error.status);
+        //     // 재발급된 토큰을 기존요청에 다시 담아서 ->
+        //     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        //     // axios 디폴트값에도 갱신해준다.
+        //     axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        //     // sessionStorage에 accessToken 저장
+        //     sessionStorage.setItem("accessToken", accessToken);
+        //     // -> 재요청
+        //     return axios(originalRequest);
+        //   })
+        //   .catch((error) => {
+        //     console.log("refreshToken 재발급 필요 : ", error.status);
 
-            redirect("/login");
-          });
+        //     redirect("/login");
+        //   });
         // console.log("refreshToken 재발급 : ", error);
       }
       console.log(response);
-      redirect("/login");
+      
     }
     return Promise.reject(Error);
   });

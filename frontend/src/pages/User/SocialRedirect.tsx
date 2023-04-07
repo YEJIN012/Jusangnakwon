@@ -50,7 +50,7 @@ const SocialRedirect = () => {
       .then(() => {
         if (survey === "0") {
           console.log
-          alert("🍸맞춤추천을 위한 취향설문을 작성해주세요🍹");
+          // alert("🍸맞춤추천을 위한 취향설문을 작성해주세요🍹");
           navigate("/tasteform");
         } else {
           // alert("로그인성공");
