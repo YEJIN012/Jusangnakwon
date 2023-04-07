@@ -1,6 +1,7 @@
 .container {
   width: 100%;
   height: 100vh;
+  font-family: "LINESeedKR-Bd";
 }
 
 .user-profile-container {
@@ -9,12 +10,14 @@
   justify-content: space-between;
   margin: 3%;
   margin-top: 0%;
+  
 }
 
 .user-profile {
   display: flex;
   width: 70%;
   align-items: center;
+  font-family: "LINESeedKR-Bd";
 }
 
 .user-img {
@@ -72,8 +75,10 @@
   background-color: rgb(140, 95, 182);
   border-radius: 30px;
   font-size: 0.9rem;
+  white-space: nowrap;
   /* margin-right: 20px; */
   /* margin-left: 20px; */
+  white-space: nowrap;
 }
 
 .feed-alcohol-type-tag {
@@ -91,6 +96,7 @@
   /* border-bottom: 3px solid rgba(94, 191, 212, 0.785); */
   padding: 1%;
   width: fit-content;
+  white-space: nowrap;
   /* background-color: rgba(94, 191, 212, 0.785); */
 }
 .feed-alcohol-info-box {

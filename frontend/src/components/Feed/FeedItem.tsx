@@ -21,13 +21,13 @@ const FeedItem = ({ feed, setFeedList, focusedPostList, curPageNumber }: Feed) =
     // const likeData = feed.liked;
     apiCreateLike(Number(feed.id), { isLiked: !liked })
       .then((r) => {
-        console.log(feed);
+        // console.log(feed);
 
-        console.log(r);
+        // console.log(r);
         setLiked(!liked);
       })
       .catch((e) => {
-        console.log(e);
+        // console.log(e);
       });
   };
   // console.log(feed);

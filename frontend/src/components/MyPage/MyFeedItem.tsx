@@ -62,7 +62,7 @@ const MyFeedItem = ({ myfeed, myMonthlyReviewItem }: MyFeed) => {
               {/* <Rating name="read-only" value={myfeed.ratings} readOnly /> */}
               <div>
                 {`${myMonthlyReviewItem?.content?.slice(0, 8)}...`}
-                <div className={`${styles[`date`]}`}>{moment(myMonthlyReviewItem?.dateCreated).format("YYYY-MM-DD")}</div>
+                {/* <div className={`${styles[`date`]}`}>{moment(myMonthlyReviewItem?.dateCreated).format("YYYY-MM-DD")}</div> */}
               </div>
             </div>
             <div className={`${styles[`myfeed-item-right-container`]}`}>

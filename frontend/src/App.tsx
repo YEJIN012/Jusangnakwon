@@ -20,7 +20,7 @@ const App = () => {
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
               <div className={`${styles[`no-mobile`]}`}>
-                <h1>Your Screen is Too big 😥</h1>
+                <h1>화면 너비를 줄여주세요 😥</h1>
               </div>
               {/* <Header /> */}
               <div className={`${styles[`content-wrapper`]}`}>

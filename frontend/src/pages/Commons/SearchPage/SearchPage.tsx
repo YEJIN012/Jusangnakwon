@@ -104,7 +104,7 @@ const SearchPage = (props: Props) => {
           // console.log(r?.data.body);
         )
         .catch((e) => {
-          console.log(e);
+          // console.log(e);
         });
     }
     if (e.target.value === "") {

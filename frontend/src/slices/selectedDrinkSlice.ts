@@ -12,12 +12,12 @@ const selectedDrinkSlice = createSlice({
   reducers: {
     selectDrink: (state, action) => {
       state = action.payload;
-      console.log(state);
+      // console.log(state);
       return state;
     },
     resetDrink: (state, action) => {
       state = initialState;
-      console.log(state)
+      // console.log(state)
       return state;
     },
   },

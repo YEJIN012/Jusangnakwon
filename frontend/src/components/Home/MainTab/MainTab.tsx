@@ -63,7 +63,7 @@ function a11yProps(index: number) {
 
 export default function MainTab() {
   const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
-  console.log(isLogin)
+  // //console.log(isLogin)
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [drinkItem, setDrinkItem] = useState<DrinkItem>();
@@ -86,7 +86,7 @@ export default function MainTab() {
 
 
 
-  console.log(value);
+  // //console.log(value);
   // 칵테일
   const [cocktailItemsToShow, setcocktailItemsToShow] = useState(6);
   const [cocktailList, setCocktailList] = useState<DrinkItem[]>([]);
@@ -207,8 +207,8 @@ export default function MainTab() {
       setWineCurPageNumber(wineCurPageNumber + 1);
       setwineItemsToShow(wineItemsToShow + 6);
       setIsLoadingMoreWines(false);
-      console.log(wineTotalPage);
-      console.log(wineCurPageNumber);
+      //console.log(wineTotalPage);
+      ////console.log(wineCurPageNumber);
     }
   };
 
@@ -220,8 +220,8 @@ export default function MainTab() {
       // setcocktailItemsToShow(cocktailItemsToShow + 6);
       setcocktailItemsToShow((prev) => prev + 6);
       setIsLoadingMoreCocktails(false);
-      console.log(cocktailTotalPage);
-      console.log(cocktailCurPageNumber);
+      //console.log(cocktailTotalPage);
+      //console.log(cocktailCurPageNumber);
     }
   };
 
@@ -232,8 +232,8 @@ export default function MainTab() {
       setWhiskyCurPageNumber(whiskyCurPageNumber + 1);
       setwhiskyItemsToShow(whiskyItemsToShow + 6);
       setIsLoadingMoreWhiskys(false);
-      console.log(whiskyTotalPage);
-      console.log(whiskyCurPageNumber);
+      //console.log(whiskyTotalPage);
+      //console.log(whiskyCurPageNumber);
     }
   };
 
@@ -244,8 +244,8 @@ export default function MainTab() {
       setKoreanCurPageNumber(koreanCurPageNumber + 1);
       setkoreanItemsToShow(koreanItemsToShow + 6);
       setIsLoadingMoreKoreans(false);
-      console.log(koreanTotalPage);
-      console.log(koreanCurPageNumber);
+      //console.log(koreanTotalPage);
+      //console.log(koreanCurPageNumber);
     }
   };
 
@@ -256,19 +256,19 @@ export default function MainTab() {
       setBeerCurPageNumber(beerCurPageNumber + 1);
       setbeerItemsToShow(beerItemsToShow + 6);
       setIsLoadingMoreBeers(false);
-      console.log(beerTotalPage);
-      console.log(beerCurPageNumber);
+      //console.log(beerTotalPage);
+      //console.log(beerCurPageNumber);
     }
   };
 
   // 비로그인시 호출하는 api
   if (!isLogin) {
-    console.log(isLogin);
+    //console.log(isLogin);
     // 와인
     useEffect(() => {
       apiGetNotLoginRecommendedByType("l1", wineCurPageNumber)
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           if (res.data.success) {
             const wineList = res.data.body.content.filter((item: any) => item.liquorType === "WINE");
             setWineList((prevWineList) => [...prevWineList, ...wineList]);
@@ -277,7 +277,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [wineCurPageNumber]);
 
@@ -285,7 +285,7 @@ export default function MainTab() {
     useEffect(() => {
       apiGetNotLoginRecommendedByType("l5", cocktailCurPageNumber)
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           if (res.data.success) {
             const cocktailList = res.data.body.content.filter((item: any) => item.liquorType === "COCKTAIL");
             setCocktailList((prevCocktailList) => [...prevCocktailList, ...cocktailList]);
@@ -297,7 +297,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [cocktailCurPageNumber, cocktailItemsToShow]);
 
@@ -305,7 +305,7 @@ export default function MainTab() {
     useEffect(() => {
       apiGetNotLoginRecommendedByType("l2", whiskyCurPageNumber)
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           if (res.data.success) {
             const whiskyList = res.data.body.content.filter((item: any) => item.liquorType === "WHISKY");
             setWhiskyList((prevWhiskyList) => [...prevWhiskyList, ...whiskyList]);
@@ -317,7 +317,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [whiskyCurPageNumber]);
 
@@ -325,7 +325,7 @@ export default function MainTab() {
     useEffect(() => {
       apiGetNotLoginRecommendedByType("l4", koreanCurPageNumber)
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           if (res.data.success) {
             const koreanList = res.data.body.content.filter((item: any) => item.liquorType === "TRADITION");
             setKoreanList((prevKoreanList) => [...prevKoreanList, ...koreanList]);
@@ -337,7 +337,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [koreanCurPageNumber]);
 
@@ -345,7 +345,7 @@ export default function MainTab() {
     useEffect(() => {
       apiGetNotLoginRecommendedByType("l3", beerCurPageNumber)
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           if (res.data.success) {
             const beerList = res.data.body.content.filter((item: any) => item.liquorType === "BEER");
             setBeerList((prevBeerList) => [...prevBeerList, ...beerList]);
@@ -354,17 +354,17 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [beerCurPageNumber]);
 
     // 로그인시 호출 api
   } else {
-    console.log(isLogin);
+    //console.log(isLogin);
     useEffect(() => {
       apiGetLoginRecommendedByType("l1", wineCurPageNumber)
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           if (res.data.success) {
             const wineList = res.data.body.content.filter((item: any) => item.liquorType === "WINE");
             setWineList((prevWineList) => [...prevWineList, ...wineList]);
@@ -373,7 +373,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [wineCurPageNumber]);
 
@@ -381,7 +381,7 @@ export default function MainTab() {
     useEffect(() => {
       apiGetLoginRecommendedByType("l5", cocktailCurPageNumber)
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           if (res.data.success) {
             const cocktailList = res.data.body.content.filter((item: any) => item.liquorType === "COCKTAIL");
             setCocktailList((prevCocktailList) => [...prevCocktailList, ...cocktailList]);
@@ -393,7 +393,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [cocktailCurPageNumber, cocktailItemsToShow]);
 
@@ -401,7 +401,7 @@ export default function MainTab() {
     useEffect(() => {
       apiGetLoginRecommendedByType("l2", whiskyCurPageNumber)
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           if (res.data.success) {
             const whiskyList = res.data.body.content.filter((item: any) => item.liquorType === "WHISKY");
             setWhiskyList((prevWhiskyList) => [...prevWhiskyList, ...whiskyList]);
@@ -413,7 +413,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [whiskyCurPageNumber]);
 
@@ -421,7 +421,7 @@ export default function MainTab() {
     useEffect(() => {
       apiGetLoginRecommendedByType("l4", koreanCurPageNumber)
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           if (res.data.success) {
             const koreanList = res.data.body.content.filter((item: any) => item.liquorType === "TRADITION");
             setKoreanList((prevKoreanList) => [...prevKoreanList, ...koreanList]);
@@ -433,7 +433,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [koreanCurPageNumber]);
 
@@ -441,7 +441,7 @@ export default function MainTab() {
     useEffect(() => {
       apiGetLoginRecommendedByType("l3", beerCurPageNumber)
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           if (res.data.success) {
             const beerList = res.data.body.content.filter((item: any) => item.liquorType === "BEER");
             setBeerList((prevBeerList) => [...prevBeerList, ...beerList]);
@@ -450,7 +450,7 @@ export default function MainTab() {
           }
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }, [beerCurPageNumber]);
   }

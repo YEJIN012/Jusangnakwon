@@ -101,9 +101,9 @@ const WriteReview = () => {
 
   // 술상세페이지(type, name, id)나 마이페이지(date) 에서 넘어오는 경우에는
   // state와 함께 넘어와서 폼에 미리 작성되어 있는다.
-  console.log(location?.state);
+  //console.log(location?.state);
   const state = location.state ? (location.state as StateType) : null;
-  console.log(state);
+  //console.log(state);
 
   const [data, setData] = useState<ReviewFormData>({
     type: "리뷰글",
@@ -116,7 +116,7 @@ const WriteReview = () => {
     isPublic: true,
     dateCreated: state && state.dateCreated ? state.dateCreated : new Date(),
   });
-  console.log(data);
+  //console.log(data);
   const [imgFile, setImgFile] = useState<File | null>(null);
 
   const handleImg = (img: File | null | undefined) => {
@@ -131,7 +131,7 @@ const WriteReview = () => {
   };
 
   const selectedDrink = useSelector((state: RootState) => state.selectedDrink);
-  console.log(selectedDrink)
+  //console.log(selectedDrink)
   useEffect(() => {
     if (selectedDrink.id) {
       setData({
@@ -160,8 +160,8 @@ const WriteReview = () => {
   const handleSubmit = (data: ReviewFormData) => {
     if (data.liquorId != undefined && data.ratingScore != 0 && data.content != "") {
       // formData 생성
-      console.log(data)
-      console.log(imgFile)
+      //console.log(data)
+      //console.log(imgFile)
       const formData = new FormData();
       const blob = new Blob([JSON.stringify(data)], {
         type: "application/json",
@@ -172,18 +172,18 @@ const WriteReview = () => {
       }
 
 
-      console.log(formData);
+      //console.log(formData);
 
       // 제출 api호출
       apiCreateFeed(formData)
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           const newFeed = res.data.body;
           // 상세페이지로 이동할 때 작성후 넘어간 건지 확인을 위해 state 같이 넘겨줌.
           navigate(`/details/feed/${newFeed.id}`, {state:{writeSuccess : true}});
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
           navigate("/");
         });
     } else {
@@ -281,7 +281,6 @@ const WriteReview = () => {
                 maxDetail="month"
                 showNeighboringMonth={false}
                 locale="ko-KO"
-                maxDate={new Date()}
                 // 달력에 '일' 빼는 코드
                 formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })}
               />
@@ -309,8 +308,8 @@ const WriteReview = () => {
         </div>
       </form>
 
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <div style={{ paddingTop: "56px" }}>
+      <Modal open={open} onClose={() => setOpen(false)} style={{ overflow: "auto" }}>
+        <div style={{ paddingTop: "56px", height:"852px" }}>
           <SearchPage handleOpen={handleOpen}></SearchPage>
         </div>
       </Modal>

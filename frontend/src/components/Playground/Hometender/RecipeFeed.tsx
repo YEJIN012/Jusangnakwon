@@ -58,17 +58,17 @@ const RecipeFeed = () => {
           apiGetDrinkList("l6", curPageNumber)
             .then((response) => {
               if (response && response.data.success) {
-                console.log(response);
+                // console.log(response);
                 setDrinkList(response.data.body.content);
                 setTotalPage(response.data.body.totalPage);
               }
             })
             .catch((error) => {
-              console.log(error);
+              // console.log(error);
             });
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         });
     }
   };
@@ -78,7 +78,7 @@ const RecipeFeed = () => {
     const getDrinkList = async () => {
       const response = await apiGetDrinkList("l6", curPageNumber);
       if (response && response.data.success) {
-        console.log(response);
+        // console.log(response);
         setDrinkList(response.data.body.content);
         setTotalPage(response.data.body.totalPage);
       }

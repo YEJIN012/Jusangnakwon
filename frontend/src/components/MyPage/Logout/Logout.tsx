@@ -12,7 +12,7 @@ const Logout = () => {
   const [cookie, setCookie, removeCookie] = useCookies();
 
   const handleLogout = () => {
-    console.log("로그아웃");
+    // console.log("로그아웃");
 
     // 유저정보 삭제
     dispatch(userInfoActions.deleteUserInfo(null));
@@ -23,7 +23,7 @@ const Logout = () => {
     // removeCookie('accessToken', { path: '/', domain: 'localhost' });
 
     apiLogout().then((response) => {
-      console.log(response)
+      // console.log(response)
       if (self.name != "reload") {
         self.name = "reload";
         self.location.reload();
@@ -32,7 +32,7 @@ const Logout = () => {
       navigate("/");
     })
     .catch((e) => {
-      console.log(e);
+      // console.log(e);
     });
   };
 
