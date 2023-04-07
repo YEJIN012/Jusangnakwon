@@ -10,12 +10,14 @@
   justify-content: space-between;
   margin: 3%;
   margin-top: 0%;
+  
 }
 
 .user-profile {
   display: flex;
   width: 70%;
   align-items: center;
+  font-family: "LINESeedKR-Bd";
 }
 
 .user-img {

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiGetBookmarkList } from "@/api/mypage";
 import { EnglishToCode } from "../Commons/Write/WriteReview";
+import { EnglishToKorean } from "../Commons/Write/WriteReview";
 
 const dummyBookmarkList = [
   {
@@ -104,7 +105,7 @@ const BookmarkList = () => {
                     className={styles["alcohol-type"]}
                     style={{ backgroundColor: alcoholTypeStyle[EnglishToCode[bookmark.liquorType]] }}
                   >
-                    {bookmark.liquorType}
+                    {EnglishToKorean[bookmark.liquorType]}
                   </div>
                   <div className={styles["like-box"]}>
                     <div className={styles["alcohol-name"]}>{bookmark.name}</div>

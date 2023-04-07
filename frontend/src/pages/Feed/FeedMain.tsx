@@ -139,8 +139,7 @@ const FeedMain = () => {
       <div className={`${styles[`feed-main-container`]}`}>
         <div className={`${styles[`feed-classify-btn-container`]}`}>
           <button
-            // style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
-            style={{ fontFamily: 'Hahmlet-Regular', fontSize: "1rem" }}
+            style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
             className={focusedPostList === "" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={""}
             onClick={(e) => {
@@ -151,8 +150,7 @@ const FeedMain = () => {
             전체글
           </button>
           <button
-            // style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
-            style={{ fontFamily: 'Hahmlet-Regular', fontSize: "1rem" }}
+            style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
             className={focusedPostList === "리뷰글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={"리뷰글"}
             onClick={(e) => {
@@ -163,8 +161,7 @@ const FeedMain = () => {
             리뷰글
           </button>
           <button
-            // style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
-            style={{ fontFamily: 'Hahmlet-Regular', fontSize: "1rem" }}
+            style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
             className={focusedPostList === "질문글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={"질문글"}
             onClick={(e) => {
