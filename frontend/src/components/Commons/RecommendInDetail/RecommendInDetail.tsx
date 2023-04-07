@@ -28,7 +28,7 @@ const RecommendInDetail = ({ similarItems }: SimilarItems) => {
             <li key={id}>
               <div className={styles["img-container"]}>
                 <Link to={`/details/${EnglishToCode[liquorType]}/${id}`}>
-                  <img src={img} style={{ maxWidth: "100%", height: "auto" }} alt={name} />
+                  <img src={img} style={{ maxWidth: "100%", height: "100%" }} alt={name} />
                   <p className={styles["drink-name"]}>{name}</p>
                 </Link>
               </div>
