@@ -87,25 +87,25 @@ const TasteForm = () => {
     } else {
       apiSubmitSurvey(selectedValue)
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         if (response?.data.success) {
           apiGetUserInfo()
           .then((response)=> {
-            console.log(response)
+            // console.log(response)
             // 응답이 성공적으로 왔는지 확인하고 유저정보에 isLogin 추가해서 dispatch 요청
             if (response?.data.body) {
-              console.log(`로그인유저정보 :${response}`);
+              // console.log(`로그인유저정보 :${response}`);
               const userInfo = { ...response.data.body, isLogin: true };
               dispatch(userInfoActions.saveUserInfo(userInfo));
             } else {
-              console.log("유저정보없음");
+              // console.log("유저정보없음");
             }
             navigate("/");
           })
         }
       })
           .catch((e)=> {
-            console.log(e)
+            // console.log(e)
           })
     }
   };

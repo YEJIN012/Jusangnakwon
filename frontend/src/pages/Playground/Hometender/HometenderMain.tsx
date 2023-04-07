@@ -28,7 +28,7 @@ const HometenderMain = () => {
     // 주상낙원 BEST 레시피
     apiGetRankedHometender("l6", 1)
       .then((r) => {
-        console.log(r?.data.body.content);
+        //console.log(r?.data.body.content);
         setrankRecommendList(
           r?.data.body.content.map((item: ApiItem) => ({
             ...item,
@@ -39,7 +39,7 @@ const HometenderMain = () => {
         );
       })
       .catch((e) => {
-        console.log(e);
+        //console.log(e);
       });
 
     // 당신을 위한 홈텐딩 레시피
@@ -55,7 +55,7 @@ const HometenderMain = () => {
         );
       })
       .catch((e) => {
-        console.log(e);
+        //console.log(e);
       });
   }, []);
 

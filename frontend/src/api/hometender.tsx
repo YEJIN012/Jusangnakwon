@@ -12,7 +12,7 @@ export const apiCreateRecipe = async (data: FormData) => {
     );
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -22,6 +22,6 @@ export const apiGetRankedHometender = async (type: string, page: number) => {
     const response = await api.get(`/rank/${type}?page=${page}`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };

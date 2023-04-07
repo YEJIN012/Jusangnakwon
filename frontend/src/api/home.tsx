@@ -8,7 +8,7 @@ export const apiGetRecommendedWeatherDrink = async () => {
     const response = await api.get(`/`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -18,7 +18,7 @@ export const apiGetRandomlyRecommendedHometender = async () => {
     const response = await api.get(`/rd/hometender`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -28,7 +28,7 @@ export const apiGetLoginRecommendedByType = async (type: string, page: number) =
     const response = await api.get(`/rs/${type}?page=${page}`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -36,10 +36,10 @@ export const apiGetLoginRecommendedByType = async (type: string, page: number) =
 export const apiGetNotLoginRecommendedByType = async (type: string, page: number) => {
   try {
     const response = await api.get(`/rank/${type}?page=${page}`);
-    console.log(response);
+    // console.log(response);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -49,7 +49,7 @@ export const apiSearchDrink = async (keyword: string, page: number) => {
     const response = await api.get(`/search/${keyword}?page=${page}`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -59,6 +59,6 @@ export const apiGetWeather = async () => {
     const response = await api.get(`/weather`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };

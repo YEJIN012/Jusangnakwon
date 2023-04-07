@@ -70,10 +70,10 @@ const FeedDetail = () => {
   useEffect(() => {
     apiGetFeedDetail(Number(id))
       .then((r) => {
-        console.log(r);
+        // console.log(r);
         setFeed(r?.data.body);
       })
-      .catch((e) => console.log(e));
+      //.catch((e) => console.log(e));
   }, []);
 
   const getFeedDetail = () => {
@@ -82,7 +82,7 @@ const FeedDetail = () => {
         // console.log(r);
         setFeed(r?.data.body);
       })
-      .catch((e) => console.log(e));
+      // .catch((e) => console.log(e));
   };
 
   const { content } = formData;
@@ -104,7 +104,7 @@ const FeedDetail = () => {
           getFeedDetail();
           setFormData({ feedId: Number(id), content: "" });
         })
-        .catch((e) => console.log(e));
+        // .catch((e) => console.log(e));
     }
   };
 
@@ -116,7 +116,7 @@ const FeedDetail = () => {
           // console.log(r);
           setFeed(r?.data.body);
         })
-        .catch((e) => console.log(e));
+        // .catch((e) => console.log(e));
     });
   };
 

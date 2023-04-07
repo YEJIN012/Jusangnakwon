@@ -9,7 +9,7 @@ export const apiGetDrinkList = async (type: string, page: number) => {
     const response = await api.get(`/list/${type}/${page}`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -20,7 +20,7 @@ export const apiGetDrinkDetail = async (type: string, drinkId: number) => {
     const response = await api.get(`detail/${type}/${drinkId}`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -30,6 +30,6 @@ export const apiPutBookmark = async (type: string, drinkId: number) => {
     const response = await api.put(`/scrap/${type}/${drinkId}`);
     return response;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };

@@ -104,13 +104,13 @@ const WriteRecipe = () => {
     salty: null,
     sour: null,
   });
-  console.log(taste)
+  // console.log(taste)
   useEffect(()=> {
     setData({ ...data, taste: taste });
   },[taste])
 
   const handleSubmit = (data: RecipeFormData) => {
-    console.log(!Object.values(taste).includes(null))
+    // console.log(!Object.values(taste).includes(null))
     if (
       !Object.values(data.taste).includes(null) &&
       data.name != "" &&
@@ -121,29 +121,29 @@ const WriteRecipe = () => {
       // taste 값 저장
       // setData({ ...data, taste: taste });
       // formData 생성
-      console.log(data)
+      // console.log(data)
       const formData = new FormData();
       const blob = new Blob([JSON.stringify(data)], {
         type: "application/json",
       });
-      console.log(blob)
+      // console.log(blob)
       formData.append("request", blob);
       if (imgFile) {
         formData.append("imgFile", imgFile);
       }
 
-      console.log(formData);
+      // console.log(formData);
 
       // 제출 api호출
       apiCreateRecipe(formData)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
           const newFeed = res.data.body;
           navigate(`/details/l6/${newFeed.id}`, {state:{writeSuccess : true}});
           // 상세페이지로 이동
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
           navigate("/");
         });
     } else {
@@ -151,7 +151,7 @@ const WriteRecipe = () => {
     }
   };
   const WriteHeader = () => {
-    console.log(data)
+    // console.log(data)
     return (
       <div className={`${styles[`header-container`]}`}>
         <CloseIcon onClick={() => navigate(-1)} />
@@ -178,12 +178,12 @@ const WriteRecipe = () => {
   const DeleteIngredient = (index: number) => {
     if (index !== null) {
       const updatedIngredients = data.ingredients;
-      console.log(index);
+      // console.log(index);
       updatedIngredients.splice(index, 1);
       setData({ ...data, ingredients: updatedIngredients });
     }
   };
-  console.log(data.ingredients);
+  // console.log(data.ingredients);
 
   return (
     <div className={`${styles[`container`]}`}>

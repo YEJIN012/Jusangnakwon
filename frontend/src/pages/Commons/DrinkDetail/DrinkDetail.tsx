@@ -46,15 +46,15 @@ export interface DrinkDetailReviewItem {
 const DrinkDetail = () => {
   const { drinktype, id } = useParams();
   const [drinkDetailItem, setDrinkDetailItem] = useState<DrinkDetailItem>();
-  console.log(drinktype, id);
+  // console.log(drinktype, id);
 
   useEffect(() => {
     if (drinktype != undefined && id != undefined) {
       apiGetDrinkDetail(drinktype, Number(id)).then((r) => {
-        console.log(r);
+        // console.log(r);
         if (r?.data.success === true) {
           setDrinkDetailItem(r?.data.body);
-          console.log(r?.data.body);
+          // console.log(r?.data.body);
         } else {
           throw new Error("Feed detail axios 에러");
         }

@@ -27,8 +27,8 @@ const FeedMain = () => {
   const [totalPage, setTotalPage] = useState<number>(0);
   const [prevPost, setPrevPost] = useState("");
   const loader = useRef(null);
-  // console.log(feedList);
-  // console.log("합쳐짐", curPageNumber, totalPage);
+  // //console.log(feedList);
+  // //console.log("합쳐짐", curPageNumber, totalPage);
   const [focusedPostList, setFocusedPostList] = useState("");
 
   const scrollRef = useRef(0); // 스크롤 위치를 기억하는 변수
@@ -38,7 +38,7 @@ const FeedMain = () => {
       scrollRef.current = window.scrollY;
     };
     window.addEventListener("scroll", handleScroll);
-    console.log(scrollRef);
+    //console.log(scrollRef);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -50,7 +50,7 @@ const FeedMain = () => {
 
   // 무한스크롤, feedList 누적
   useEffect(() => {
-    console.log(scrollRef);
+    //console.log(scrollRef);
     if (curPageNumber > totalPage) {
       // setCurPageNumber(0);
       return;
@@ -58,32 +58,32 @@ const FeedMain = () => {
     if (curPageNumber !== 0) {
       apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
         .then((res: any) => {
-          console.log(res);
+          //console.log(res);
           setFeedList([...feedList, ...res?.data.body?.content]);
           setTotalPage(res?.data.body.totalPage - 1);
 
-          console.log("무한스크롤 실행됨?");
+          //console.log("무한스크롤 실행됨?");
         })
         .catch((error) => {
-          console.log(error);
+          //console.log(error);
         });
     }
   }, [curPageNumber]);
 
   // 탭 선택했을 때 api호출, feedList / curPageNumber갱신
   useEffect(() => {
-    // console.log(focusedPostList);
+    // //console.log(focusedPostList);
     // setCurPageNumber(0);
     apiGetFilteredFeedList({ type: focusedPostList, page: curPageNumber })
       .then((res: any) => {
-        // console.log(res);
-        // console.log(res?.data.body?.content);
+        // //console.log(res);
+        // //console.log(res?.data.body?.content);
         setFeedList(res?.data.body?.content);
-        console.log("실행됨?");
+        //console.log("실행됨?");
         setTotalPage(res?.data.body.totalPage - 1);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   }, [focusedPostList]);
 
@@ -139,8 +139,7 @@ const FeedMain = () => {
       <div className={`${styles[`feed-main-container`]}`}>
         <div className={`${styles[`feed-classify-btn-container`]}`}>
           <button
-            // style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
-            style={{ fontFamily: 'Hahmlet-Regular', fontSize: "1rem" }}
+            style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
             className={focusedPostList === "" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={""}
             onClick={(e) => {
@@ -151,8 +150,7 @@ const FeedMain = () => {
             전체글
           </button>
           <button
-            // style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
-            style={{ fontFamily: 'Hahmlet-Regular', fontSize: "1rem" }}
+            style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
             className={focusedPostList === "리뷰글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={"리뷰글"}
             onClick={(e) => {
@@ -163,8 +161,7 @@ const FeedMain = () => {
             리뷰글
           </button>
           <button
-            // style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
-            style={{ fontFamily: 'Hahmlet-Regular', fontSize: "1rem" }}
+            style={{ fontFamily: "LINESeedKR-Bd", fontSize: "1rem" }}
             className={focusedPostList === "질문글" ? styles["focused-feed-classify-btn"] : styles["feed-classify-btn"]}
             value={"질문글"}
             onClick={(e) => {

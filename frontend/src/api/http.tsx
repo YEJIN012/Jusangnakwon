@@ -26,7 +26,7 @@ const getApiInstance = () => {
 
   instance.interceptors.response.use((response: AxiosResponse) => {
     if (response.data.success) {
-      console.log("interceptor response 200");
+      // console.log("interceptor response 200");
       return response;
     } else {
       // statusCode 403 : 토큰정보가 유효하지않습니다.
@@ -59,7 +59,7 @@ const getApiInstance = () => {
         //   });
         // console.log("refreshToken 재발급 : ", error);
       }
-      console.log(response);
+      // console.log(response);
     }
     return Promise.reject(Error);
   });

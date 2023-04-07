@@ -48,7 +48,7 @@ const WriteQuestion = () => {
   });
 
   const navigate = useNavigate();
-  console.log(data);
+  // console.log(data);
   const [imgFile, setImgFile] = useState<File | null>(null);
 
   const handleImg = (img: File | null | undefined) => {
@@ -67,19 +67,19 @@ const WriteQuestion = () => {
         formData.append("imgFile", imgFile);
       }
 
-      console.log(formData);
+      // console.log(formData);
 
       // 제출 api호출
       // apiCreateFeed(formData)
       apiCreateFeed(formData)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
           const newFeed = res.data.body;
           navigate(`/details/feed/${newFeed.id}`, {state:{writeSuccess : true}});
           // 상세페이지로 이동
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
           navigate("/");
         });
     } else {

@@ -13,12 +13,12 @@ const SocialRedirect = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const survey = searchParams.get("survey");
-  console.log(survey);
+  //console.log(survey);
   const cookies = useCookies(["access_token"]);
   
   const [tokenInSessionStorage, setTokenInSessionStorage] = useState(sessionStorage.getItem("accessToken"))
-  console.log(`1.${sessionStorage.getItem("accessToken")}`)
-  console.log(`2.${tokenInSessionStorage}`)
+  //console.log(`1.${sessionStorage.getItem("accessToken")}`)
+  //console.log(`2.${tokenInSessionStorage}`)
 
   useEffect(() => {
     // 쿠키에서 access token을 가져오기
@@ -27,8 +27,8 @@ const SocialRedirect = () => {
     // sessionStorage에 accessToken 저장
     sessionStorage.setItem("accessToken", token);
     setTokenInSessionStorage(sessionStorage.getItem("accessToken"))
-    console.log(`4.${sessionStorage.getItem("accessToken")}`)
-    console.log(`3.${tokenInSessionStorage}`)
+    //console.log(`4.${sessionStorage.getItem("accessToken")}`)
+    //console.log(`3.${tokenInSessionStorage}`)
 
     // userInfo조회 요청해서 redux에 저장
     axios
@@ -39,17 +39,17 @@ const SocialRedirect = () => {
       .then((response) => {
         // 응답이 성공적으로 왔는지 확인하고 유저정보에 isLogin 추가해서 dispatch 요청
         if (response?.data.body) {
-          console.log(`로그인유저정보 :${response}`);
+          //console.log(`로그인유저정보 :${response}`);
           const userInfo = { ...response.data.body, isLogin: true };
           dispatch(userInfoActions.saveUserInfo(userInfo));
         } else {
-          console.log("유저정보없음");
+          //console.log("유저정보없음");
         }
       })
 
       .then(() => {
         if (survey === "0") {
-          console.log
+          //console.log
           // alert("🍸맞춤추천을 위한 취향설문을 작성해주세요🍹");
           navigate("/tasteform");
         } else {
@@ -59,13 +59,13 @@ const SocialRedirect = () => {
       })
 
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   }, []);
 
    useEffect(() => {
     if (self.name != "reload") {
-      console.log("reload")
+      //console.log("reload")
       self.name = "reload";
       self.location.reload();
     } else self.name = "";

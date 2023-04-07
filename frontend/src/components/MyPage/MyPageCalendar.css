@@ -15,7 +15,7 @@
 .react-calendar {
   width: 90%;
   padding: 15px;
-  background-color: rgba(219, 219, 219, 0.2);
+  background-color:#312E41;
   border-radius: 20px;
   /* border: 2px solid #636780; */
   color: white;
@@ -51,7 +51,7 @@
   outline: none;
   font-size: 1rem;
   line-height: 1.1rem;
-  background-color: rgba(219, 219, 219, 0);
+  background-color: #312E41;
   color: white;
   /* border: 1px solid #000; */
   font-family: "LINESeedKR-Bd";
@@ -196,7 +196,7 @@ abbr[title] {
 }
 
 .react-calendar__tile:disabled {
-  background-color: rgba(219, 219, 219, 0);
+  background-color: #312E41;
   color : gray
 }
 
