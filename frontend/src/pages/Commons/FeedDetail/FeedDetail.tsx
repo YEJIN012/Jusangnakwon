@@ -131,10 +131,10 @@ const FeedDetail = () => {
               <p>{feed.writer.username}</p>
             </div>
           </div>
-          <div className={`${styles[`feed-img-wrapper`]}`}>
-            {feed.img && <img src={feed.img} className={`${styles[`feed-img`]}`}></img>}
+          <div className={feed.img ? `${styles[`feed-img-wrapper`]}` : ""}>
+            {feed.img && <img src={feed.img} className={feed.img ? `${styles[`feed-img`]}` : ""}></img>}
           </div>
-          <h2 style={{ marginLeft: "3%" }}>{feed.title}</h2>
+          {feed.title && <h2 style={{ marginLeft: "3%" }}>{feed.title}</h2>}
           <div className={`${styles[`feed-content-container`]}`}>
             <ReadMore content={feed.content}></ReadMore>
             <div className={`${styles[`like-btn-container`]}`}>

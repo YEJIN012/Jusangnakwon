@@ -136,6 +136,7 @@ const MyPageMain = () => {
             maxDetail="month"
             showNeighboringMonth={false}
             locale="ko-KO"
+            maxDate={new Date()}
             // 달력에 '일' 빼는 코드
             formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })}
             tileContent={tileContent}

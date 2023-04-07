@@ -63,7 +63,7 @@ const AllDrink = () => {
     <div className={`${styles["container"]}`}>
       {tabNumber === 5 && (
         <div>
-          <h3>칵테일</h3>
+          <h3 className={`${styles["drink-type"]}`}>칵테일</h3>
           <Link to={`/playground/guide?selectedButton=cocktail`}>
             <span>칵테일 입문가이드 바로가기 ▶ </span>
           </Link>
@@ -81,7 +81,7 @@ const AllDrink = () => {
                 {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
-                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)} ···` : drink.name}
                   </p>
                   {drink.scrapped ? (
                     <BookmarkIcon
@@ -109,7 +109,7 @@ const AllDrink = () => {
                 ) : (
                   <div className={styles["drink-label-wrap-center"]}>
                     <div className={styles["drink-name"]}>
-                      {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                      {drink.name.length > 15 ? `${drink.name.substring(0, 12)} ···` : drink.name}
                     </div>
                   </div>
                 )}
@@ -131,7 +131,7 @@ const AllDrink = () => {
       )}
       {tabNumber === 2 && (
         <div>
-          <h3>위스키</h3>
+          <h3 className={`${styles["drink-type"]}`}>위스키</h3>
           <Link to={`/playground/guide?selectedButton=whiskey`}>
             <span>위스키 입문가이드 바로가기 ▶ </span>
           </Link>
@@ -149,7 +149,7 @@ const AllDrink = () => {
                 {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
-                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)} ···` : drink.name}
                   </p>
                   {drink.scrapped ? (
                     <BookmarkIcon
@@ -177,7 +177,7 @@ const AllDrink = () => {
                 ) : (
                   <div className={styles["drink-label-wrap-center"]}>
                     <div className={styles["drink-name"]}>
-                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)} ···` : drink.name}
                     </div>
                   </div>
                 )}
@@ -199,7 +199,7 @@ const AllDrink = () => {
       )}
       {tabNumber === 1 && (
         <div>
-          <h3>와인</h3>
+          <h3 className={`${styles["drink-type"]}`}>와인</h3>
           <Link to={`/playground/guide?selectedButton=wine`}>
             <span>와인 입문가이드 바로가기 ▶ </span>
           </Link>
@@ -217,7 +217,7 @@ const AllDrink = () => {
                 {isLogin? (
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
-                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)} ···` : drink.name}
                   </p>
                   {drink.scrapped ? (
                     <BookmarkIcon
@@ -245,7 +245,7 @@ const AllDrink = () => {
                 ) : (
                   <div className={styles["drink-label-wrap-center"]}>
                     <div className={styles["drink-name"]}>
-                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)} ···` : drink.name}
                     </div>
                   </div>
                 )}
@@ -267,7 +267,7 @@ const AllDrink = () => {
       )}
       {tabNumber === 4 && (
         <div>
-          <h3>전통주</h3>
+          <h3 className={`${styles["drink-type"]}`}>전통주</h3>
           <Link to={`/playground/guide?selectedButton=korean`}>
             <span>전통주 입문가이드 바로가기 ▶ </span>
           </Link>
@@ -285,7 +285,7 @@ const AllDrink = () => {
                 {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
-                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)} ···` : drink.name}
                   </p>
                   {drink.scrapped ? (
                     <BookmarkIcon
@@ -313,7 +313,7 @@ const AllDrink = () => {
                 ) : (
                   <div className={styles["drink-label-wrap-center"]}>
                     <div className={styles["drink-name"]}>
-                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)} ···` : drink.name}
                     </div>
                   </div>
                 )}
@@ -335,7 +335,7 @@ const AllDrink = () => {
       )}
       {tabNumber === 3 && (
         <div>
-          <h3>맥주</h3>
+          <h3 className={`${styles["drink-type"]}`}>맥주</h3>
           <Link to={`/playground/guide?selectedButton=beer`}>
             <span>맥주 입문가이드 바로가기 ▶ </span>
           </Link>
@@ -353,7 +353,7 @@ const AllDrink = () => {
                 {isLogin?(
                 <div className={styles["drink-label-wrap"]}>
                   <p className={`${styles["drink-name"]}`}>
-                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)}...` : drink.name}
+                    {drink.name.length > 8 ? `${drink.name.substring(0, 8)} ···` : drink.name}
                   </p>
                   {drink.scrapped ? (
                     <BookmarkIcon
@@ -381,7 +381,7 @@ const AllDrink = () => {
                 ) : (
                   <div className={styles["drink-label-wrap-center"]}>
                     <div className={styles["drink-name"]}>
-                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)}...` : drink.name}
+                    {drink.name.length > 15 ? `${drink.name.substring(0, 15)} ···` : drink.name}
                     </div>
                   </div>
                 )}

@@ -35,11 +35,18 @@ const FeedItem = ({ feed, setFeedList, focusedPostList, curPageNumber }: Feed) =
     <>
       {feed.type === "리뷰글" ? (
         // 리뷰글
-        <Card style={{ backgroundColor: "inherit", boxShadow: "0px 0px 2px gray",}}>
+        <Card
+          style={{
+            backgroundColor: "inherit",
+            boxShadow: "0px 0px 2px gray",
+            fontFamily: "LINESeedKR-Bd",
+            fontSize: "1rem",
+          }}
+        >
           <Link to={`../details/feed/${feed.id}`}>
             {feed.img ? <CardMedia component="img" height="auto" image={feed.img} alt={feed.writer.username} /> : <></>}
           </Link>
-          <CardContent style={{ backgroundColor: `inherit`, padding: "2%" }}>
+          <CardContent style={{ backgroundColor: `inherit`, padding: "2%", fontFamily: "LINESeedKR-Bd" }}>
             <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.9rem", color: "white" }}>
               <div className={`${styles[`user-profile`]}`}>
                 <img src={feed.writer.profileImg} className={`${styles[`user-img`]}`}></img>
@@ -47,7 +54,7 @@ const FeedItem = ({ feed, setFeedList, focusedPostList, curPageNumber }: Feed) =
               </div>
               <button onClick={updateLike} style={{ background: "none", border: "none" }}>
                 {liked ? (
-                  <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
+                  <FavoriteIcon sx={{ color: "#C63B51" }}></FavoriteIcon>
                 ) : (
                   <FavoriteBorderIcon sx={{ color: "white" }} />
                 )}
@@ -62,26 +69,29 @@ const FeedItem = ({ feed, setFeedList, focusedPostList, curPageNumber }: Feed) =
         </Card>
       ) : (
         // 질문글
-        <Card style={{ backgroundColor: "inherit" }}>
+        <Card style={{ backgroundColor: "inherit", fontFamily: "LINESeedKR-Bd" }}>
           <Link to={`../details/feed/${feed.id}`}>
             {feed.img ? <CardMedia component="img" height="auto" image={feed.img} alt={feed.writer.username} /> : <></>}
           </Link>
           <CardContent style={{ backgroundColor: "rgba(50, 50, 55, 0.9)", padding: "2px" }}>
-            <div className={`${styles[`user-profile-container`]}`} style={{ fontSize: "0.8rem", color: "white" }}>
+            <div
+              className={`${styles[`user-profile-container`]}`}
+              style={{ fontSize: "0.9rem", color: "white", fontFamily: "LINESeedKR-Bd" }}
+            >
               <div className={`${styles[`user-profile`]}`}>
                 <img src={feed.writer.profileImg} className={`${styles[`user-img`]}`}></img>
                 <p>{feed.writer.username}</p>
               </div>
               <button onClick={updateLike} style={{ background: "none", border: "none" }}>
                 {liked ? (
-                  <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
+                  <FavoriteIcon sx={{ color: "#C63B51" }}></FavoriteIcon>
                 ) : (
                   <FavoriteBorderIcon sx={{ color: "white" }} />
                 )}
               </button>
             </div>
             <Link to={`../details/feed/${feed.id}`}>
-              <Typography variant="body2" color="white" style={{ padding: "3% 5%" }}>
+              <Typography variant="body2" color="white" style={{ padding: "3% 5%", fontFamily: "" }}>
                 {feed.title}
               </Typography>
             </Link>
